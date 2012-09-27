@@ -1,14 +1,27 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Staff</title>
+  <title>Tandem Ministry Services Portal</title>
   <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= stylesheet_link_tag params[:controller], :media => "all" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
 </head>
-<body>
+<body class="staff_portal">
 
+<header>
+  <div class="margin pagewidth headercontent">
+    <img alt="Logo" id="logo" src="<%= asset_path 'logo.png' %>">
+    <h1>Ministry Services Portal</h1>
+  </div>
+</header>
+<div id="mainwrap" class="pagewidth margin">
+  <div role="main" id="main" class="pagewidth">
 <%= yield %>
-
+  </div>
+</div>
+<footer class="margin pagewidth">
+  Tandem Ministry Services Portal | <a href="mailto:support@tandem.org.nz">Support</a> | Tandem Ministries © Copyright 2012
+</footer>
 </body>
 </html>

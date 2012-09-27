@@ -1,0 +1,81 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the top of the
+ * compiled file, but it's generally better to create a new file per style scope.
+ *
+*/
+
+@font-face {
+    font-family: 'NillandBlackRegular';
+    src: url(<%= asset_path 'nilland-black-webfont.eot'%>);
+    src: url(<%= asset_path 'nilland-black-webfont.eot'%>?#iefix) format("embedded-opentype"),url(<%= asset_path 'nilland-black-webfont.woff'%>) format("woff"),url(<%= asset_path 'nilland-black-webfont.ttf'%>) format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'NillandRegular';
+    src: url(<%= asset_path 'nilland-webfont.eot'%>);
+    src: url(<%= asset_path 'nilland-webfont.eot'%>?#iefix) format("embedded-opentype"),url(<%= asset_path 'nilland-webfont.woff'%>) format("woff"),url(<%= asset_path 'nilland-webfont.ttf'%>) format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
+* {
+  margin:0;
+  padding:0;
+}
+body.staff_portal {
+  header {
+    background: url(<%= asset_path 'bg_shadow.png' %>) 0 100% repeat-x, url(<%= asset_path 'bg_gray.jpg' %>);
+    border-bottom: 1px solid #C2C2C2;
+  }
+  .margin {
+    margin: 0 auto;
+  }
+  #main {
+    font-family: 'NillandRegular', Arial;
+    border: 1px solid #CFCFCF;
+    box-shadow: 0 5px 12px rgba(0, 0, 0, 0.63),inset 0 0 21px rgba(0, 0, 0, 0.14);
+    text-align: center;
+    background: #FAFAFA;
+    min-height: 90px;
+    position: relative;
+    margin-top: -65px;
+    margin-bottom: 15px;
+    font-size: 18px;
+    line-height: 1.35em;
+    padding-bottom: 35px;
+  }
+  #main h1 {
+    font-weight: normal;
+    font-family: 'NillandBlackRegular', Arial;
+    color: #0073AB;
+    font-size: 28.83px;
+    margin-top: 55px;
+  }
+  #main p {
+    margin: 1em 0;
+  }
+  footer {
+    text-align: center;
+    font-size: 11px;
+    margin-bottom: 30px;
+    min-height: 60px;
+  }
+  footer,
+  footer a { color: #76a2b7 }
+}
+
+body {
+  background: url(<%= asset_path 'bg_blue.jpg' %>);
+}
+
+html {
+  font-family: Arial;
+  font-size: 12px;
+  line-height: 1.25em;
+}
