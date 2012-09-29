@@ -1,11 +1,14 @@
 Staff::Application.routes.draw do
-  # The priority is based upon order of creation:
-  # first created -> highest priority.
+
+  resources :week6
 
   match 'auth/relay' => 'auth#relay'
   match 'auth/key' => 'auth#key'
   match 'staff' => 'staff#index'
+  match 'staff/bootcamp' => 'bootcamp#index'
   root :to => 'auth#home'
+
+  mount Ckeditor::Engine => '/ckeditor'
 
   # Sample of regular route:
   #   match 'products/:id' => 'catalog#view'

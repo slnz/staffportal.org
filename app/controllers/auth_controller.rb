@@ -7,6 +7,8 @@ class AuthController < ApplicationController
 
   end
   def key
+    @user = User.where(:username => session[:cas_user]).first_or_create
+    session[:user_id] = @user.id
     redirect_to '/staff'
   end
 end

@@ -12,3 +12,9 @@ end
 
 gem 'jquery-rails'
 gem 'unicorn'
+
+gem 'ckeditor', '3.7.1'
+gem 'paperclip'
+gem 'formtastic'
+
+gem 'inherited_resources'

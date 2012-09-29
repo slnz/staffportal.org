@@ -1,0 +1,39 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  user_id: 1
+  prayer_sheet: false
+  salvation_testimony: MyText
+  share_salvation_testimony: false
+  call_testimony: MyText
+  share_call_testimony: false
+  review_purpose_of_dmpd_training: false
+  review_how_to_get_contacts_faster_than_you_can_use_them: false
+  listen_to_attitude_message: false
+  picture_of_you_1: 
+  picture_of_you_2: 
+  discipleship_story_1: MyText
+  discipleship_story_2: MyText
+  discipleship_story_3: MyText
+  victory_story_1: MyText
+  victory_story_2: MyText
+  memorize_prayer_sheet_passage: false
+
+two:
+  user_id: 1
+  prayer_sheet: false
+  salvation_testimony: MyText
+  share_salvation_testimony: false
+  call_testimony: MyText
+  share_call_testimony: false
+  review_purpose_of_dmpd_training: false
+  review_how_to_get_contacts_faster_than_you_can_use_them: false
+  listen_to_attitude_message: false
+  picture_of_you_1: 
+  picture_of_you_2: 
+  discipleship_story_1: MyText
+  discipleship_story_2: MyText
+  discipleship_story_3: MyText
+  victory_story_1: MyText
+  victory_story_2: MyText
+  memorize_prayer_sheet_passage: false
