@@ -5,9 +5,9 @@
 <%= flash[:warning] || flash[:notice] %>
 </div>
 <% end %>
-<div class="weekbox">
+<div class="weekbox<% if @week6.completed %> completed<% end %><% if @week6.error %> error<% end %>">
   <div class="header">
-    <h2>6 Weeks until Bootcamp</h2>
+    <h2>6 Weeks until Bootcamp<% if @week6.confirmed_hr %><div>Confirmed by HR</div><% end %><% if @week6.confirmed_coach %><div>Confirmed by Coach</div><% end %></h2>
   </div>
   <div class="form">
     <%= semantic_form_for @week6 do |f| %>
