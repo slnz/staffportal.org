@@ -8,7 +8,16 @@
   <%= csrf_meta_tags %>
 </head>
 <body class="staff_portal">
-
+<% if !session[:cas_user].nil? %>
+<div id="user">
+  <div class="margin pagewidth">
+    <%= session[:cas_user] %>
+    <div class="right">
+      <a href="/auth/logout">logout</a>
+    </div>
+  </div>
+</div>
+<% end %>
 <header>
   <div class="margin pagewidth headercontent">
     <img alt="Logo" id="logo" src="<%= asset_path 'logo.png' %>">

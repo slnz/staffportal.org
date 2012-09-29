@@ -4,6 +4,7 @@ Staff::Application.routes.draw do
 
   match 'auth/relay' => 'auth#relay'
   match 'auth/key' => 'auth#key'
+  match 'auth/logout' => 'auth#logout'
   match 'staff' => 'staff#index'
   match 'staff/bootcamp' => 'bootcamp#index'
   root :to => 'auth#home'
