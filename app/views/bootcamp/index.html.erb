@@ -10,9 +10,11 @@
     <h2>Contacts for Auckland</h2>
   </div>
   <div class="form">
-    <%= table_for @contacts do |t|
-      t.data :first_name, :last_name, :phone, :actions => :destroy
-    end %>
+    <% if !@contacts.nil?  %>
+      <%= table_for @contacts do |t|
+        t.data :first_name, :last_name, :phone, :actions => :destroy
+      end %>
+    <% end %>
     <%= semantic_form_for Contact.new do |f| %>
     <%= f.input :first_name %>
     <%= f.input :last_name %>
