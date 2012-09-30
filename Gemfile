@@ -18,3 +18,4 @@ gem 'paperclip'
 gem 'formtastic'
 
 gem 'inherited_resources'
+gem 'tabletastic'

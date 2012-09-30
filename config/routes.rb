@@ -1,5 +1,7 @@
 Staff::Application.routes.draw do
 
+  resources :contacts
+
   resources :week6
 
   match 'auth/relay' => 'auth#relay'

@@ -2,6 +2,39 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com
 body.staff_portal {
+  #new_contact {
+    input[type=text], input[type=tel] {
+      width:30%;
+    }
+  }
+  #contacts {
+    font-family:Arial;
+    width:50%;
+    border-collapse: collapse;
+    margin-bottom:20px;
+    th {
+      font-size: 14px;
+      font-weight: bold;
+      color: #039;
+      border-bottom: 2px solid #6678B1;
+      padding: 10px 8px;
+    }
+    td {
+      border-bottom: 1px solid #CCC;
+      color: #888;
+      padding: 6px 8px;
+      a:link {
+        color:#0cf;
+        text-decoration: none;
+      }
+      a:visited {
+        color:#0cf;
+      }
+    }
+    tr:hover {
+      color:#444;
+    }
+  }
   header h1 {
     font-family: 'NillandBlackRegular', Arial;
     color:#0073AB;

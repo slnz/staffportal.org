@@ -10,6 +10,18 @@
     <h2>Contacts for Auckland</h2>
   </div>
   <div class="form">
+    <%= table_for @contacts do |t|
+      t.data :actions => :destroy
+    end %>
+    <%= semantic_form_for Contact.new do |f| %>
+    <%= f.input :first_name %>
+    <%= f.input :last_name %>
+    <%= f.input :phone %>
+    <%= f.input :user_id, :as => :hidden, :input_html => { :value => session[:user_id] } %>
+      <%= f.actions do %>
+        <%= f.action :submit, :as => :button, :label => "Add Contact" %>
+      <% end %>
+    <% end %>
   </div>
 </div>
 <div class="weekbox<% if @week6.completed %> completed<% end %><% if @week6.error %> error<% end %>">
