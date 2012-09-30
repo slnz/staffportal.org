@@ -10,7 +10,7 @@
     <h2>Contacts for Auckland</h2>
   </div>
   <div class="form">
-    <% if !@contacts.nil?  %>
+    <% if !@contacts.empty?  %>
       <%= table_for @contacts do |t|
         t.data :first_name, :last_name, :phone, :actions => :destroy
       end %>
