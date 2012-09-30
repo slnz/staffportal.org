@@ -11,7 +11,7 @@
   </div>
   <div class="form">
     <%= table_for @contacts do |t|
-      t.data :actions => :destroy
+      t.data :first_name, :last_name, :phone, :actions => :destroy
     end %>
     <%= semantic_form_for Contact.new do |f| %>
     <%= f.input :first_name %>
