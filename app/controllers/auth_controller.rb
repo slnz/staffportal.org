@@ -1,7 +1,9 @@
 class AuthController < ApplicationController
   before_filter CASClient::Frameworks::Rails::Filter, :except => [ :home, :relay ]
   def home
-
+    if !session[:cas_user].nil?
+      redirect_to '/staff'
+    end
   end
   def relay
 
@@ -12,6 +14,7 @@ class AuthController < ApplicationController
     redirect_to '/staff'
   end
   def logout
+    session[:user_id] = nil
     CASClient::Frameworks::Rails::Filter.logout(self)
   end
 end

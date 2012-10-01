@@ -19,3 +19,4 @@ gem 'formtastic'
 
 gem 'inherited_resources'
 gem 'tabletastic'
+gem 'activeadmin', :git => 'git://github.com/gregbell/active_admin.git'

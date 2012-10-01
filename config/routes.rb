@@ -1,5 +1,7 @@
 Staff::Application.routes.draw do
 
+  ActiveAdmin.routes(self)
+
   resources :contacts
 
   resources :week6
@@ -9,6 +11,9 @@ Staff::Application.routes.draw do
   match 'auth/logout' => 'auth#logout'
   match 'staff' => 'staff#index'
   match 'staff/bootcamp' => 'bootcamp#index'
+  match 'staff/bootcamp/contacts' => 'bootcamp#contacts'
+  match 'staff/bootcamp/6' => 'bootcamp#week6'
+  match '/' => 'auth#home'
   root :to => 'auth#home'
 
   mount Ckeditor::Engine => '/ckeditor'

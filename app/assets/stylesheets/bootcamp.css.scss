@@ -2,6 +2,19 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com
 body.staff_portal {
+  nav {
+    margin-top:10px;
+    font-family:Arial;
+    font-size:12px;
+    color:#666;
+    a:link, a:visited {
+      color:#0073AB;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+  }
   #new_contact {
     input[type=text], input[type=tel] {
       width:30%;
@@ -80,12 +93,23 @@ body.staff_portal {
       background:#def4fc;
     }
     .weekbox {
+      font-family:Arial;
       margin-top:10px;
       border:1px #ccc solid;
       h2 {
+        font-weight:normal;
         padding:10px;
         background:#eee;
         font-size:18px;
+        a:link, a:visited {
+          color:#099fe5;
+          text-decoration: none;
+          border-bottom:1px #099fe5 dotted;
+        }
+        a:hover {
+          color:#30b9f9;
+          border-bottom:1px #30b9f9 solid;
+        }
         div {
           float:right;
           font-size:10px;
@@ -126,7 +150,8 @@ body.staff_portal {
         label {
           float: none;
           strong {
-            font-family: 'NillandBlackRegular', Arial;
+            font-family: Arial;
+            font-weight: bold;
           }
         }
         .boolean label {
