@@ -1,5 +1,4 @@
 ActiveAdmin.register User do
-  actions :index, :show, :edit, :destroy
 
   index do
     selectable_column
