@@ -1,5 +1,5 @@
 class StaffController < ApplicationController
-  before_filter CASClient::Frameworks::Rails::Filter
+  before_filter :authenticate_user!
   def index
 
   end

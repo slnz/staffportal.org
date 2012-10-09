@@ -2,7 +2,8 @@ source 'https://rubygems.org'
 
 gem 'rails', '3.2.3'
 gem 'pg'
-gem 'rubycas-client'
+gem 'devise'
+gem 'devise_cas_authenticatable'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
@@ -20,3 +21,4 @@ gem 'formtastic'
 gem 'inherited_resources'
 gem 'tabletastic'
 gem 'activeadmin', :git => 'git://github.com/gregbell/active_admin.git'
+gem 'activeadmin-cancan'

@@ -13,48 +13,8 @@
     <h2><a href="/staff/bootcamp/contacts">Contacts for Auckland</a></h2>
   </div>
 </div>
-<div class="weekbox<% if @week6.completed %> completed<% end %><% if @week6.error %> error<% end %>">
+<div class="weekbox<% if @week6.completed? %> completed<% end %><% if @week6.error %> error<% end %>">
   <div class="header">
-    <h2><a href="/staff/bootcamp/6">6 Weeks until Bootcamp</a><% if @week6.assignments_remaining! %><div><%= @week6.assignments_remaining %> Assignment(s) Remaining</div><% end %><% if @week6.tasks_remaining! %><div><%= @week6.tasks_remaining %> Task(s) Remaining</div><% end %></h2>
+    <h2><a href="/staff/bootcamp/6">6 Weeks until Bootcamp</a><% if @week6.assignments_remaining! %><div><%= pluralize(@week6.assignments_remaining, 'assignment') %> remaining</div><% end %><% if @week6.tasks_remaining! %><div><%= pluralize(@week6.tasks_remaining, 'task') %> remaining</div><% end %></h2>
   </div>
 </div>
-<!--div class="weekbox">
-  <div class="header">
-    <h2>5 Weeks until Bootcamp</h2>
-  </div>
-  <div class="form">
-    FORM
-  </div>
-</div>
-<div class="weekbox">
-  <div class="header">
-    <h2>4 Weeks until Bootcamp</h2>
-  </div>
-  <div class="form">
-    FORM
-  </div>
-</div>
-<div class="weekbox">
-  <div class="header">
-    <h2>3 Weeks until Bootcamp</h2>
-  </div>
-  <div class="form">
-    FORM
-  </div>
-</div>
-<div class="weekbox">
-  <div class="header">
-    <h2>2 Weeks until Bootcamp</h2>
-  </div>
-  <div class="form">
-    FORM
-  </div>
-</div>
-<div class="weekbox">
-  <div class="header">
-    <h2>1 Weeks until Bootcamp</h2>
-  </div>
-  <div class="form">
-    FORM
-  </div>
-</div-->

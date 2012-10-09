@@ -31,6 +31,10 @@ GEM
       rack-cache (~> 1.2)
       rack-test (~> 0.6.1)
       sprockets (~> 2.1.2)
+    activeadmin-cancan (0.1.4)
+      activeadmin (>= 0.4.0)
+      cancan (>= 1.6.2)
+      rails (>= 3.0)
     activemodel (3.2.3)
       activesupport (= 3.2.3)
       builder (~> 3.0.0)
@@ -52,6 +56,7 @@ GEM
     bourbon (2.1.1)
       sass (>= 3.1)
     builder (3.0.3)
+    cancan (1.6.8)
     ckeditor (3.7.1)
       mime-types
       orm_adapter
@@ -68,6 +73,9 @@ GEM
       orm_adapter (~> 0.1)
       railties (~> 3.1)
       warden (~> 1.2.1)
+    devise_cas_authenticatable (1.1.2)
+      devise (>= 1.0.6)
+      rubycas-client (>= 2.2.1)
     erubis (2.7.0)
     execjs (1.4.0)
       multi_json (~> 1.0)
@@ -173,15 +181,17 @@ PLATFORMS
 
 DEPENDENCIES
   activeadmin!
+  activeadmin-cancan
   ckeditor (= 3.7.1)
   coffee-rails (~> 3.2.1)
+  devise
+  devise_cas_authenticatable
   formtastic
   inherited_resources
   jquery-rails
   paperclip
   pg
   rails (= 3.2.3)
-  rubycas-client
   sass-rails (~> 3.2.3)
   tabletastic
   uglifier (>= 1.0.3)

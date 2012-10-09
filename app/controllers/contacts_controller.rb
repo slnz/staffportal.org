@@ -1,5 +1,5 @@
 class ContactsController < InheritedResources::Base
-  before_filter CASClient::Frameworks::Rails::Filter
+  before_filter :authenticate_user!
   def index
     redirect_to '/staff/bootcamp', :notice => "Contact Removed"
   end
