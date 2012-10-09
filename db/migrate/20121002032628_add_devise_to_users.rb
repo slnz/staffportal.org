@@ -4,7 +4,6 @@ class AddDeviseToUsers < ActiveRecord::Migration
       ## Database authenticatable
       t.string :email,              :null => false, :default => ""
     end
-    remove_index :users, [:email]
     add_index :users, :email, :unique => true
   end
 
