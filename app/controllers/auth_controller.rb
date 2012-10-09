@@ -11,8 +11,4 @@ class AuthController < ApplicationController
   def key
     redirect_to '/staff'
   end
-  def logout
-    session[:user_id] = nil
-    CASClient::Frameworks::Rails::Filter.logout(self)
-  end
 end

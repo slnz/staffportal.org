@@ -1,5 +1,5 @@
 ActiveAdmin.register User do
-  actions :index, :show, :edit
+  actions :index, :show, :edit, :destroy
 
   index do
     selectable_column
@@ -40,8 +40,9 @@ ActiveAdmin.register User do
   end
 
   form do |f|
+    @Coaches = User.where(:admin => 'coach').all
     f.inputs :title => "Bootcamp" do
-      f.input :bootcamp_coach
+      f.input :bootcamp_coach, :collection => @Coaches
     end
     f.buttons
   end

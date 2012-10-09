@@ -10,7 +10,9 @@ Staff::Application.routes.draw do
 
   match 'auth/relay' => 'auth#relay'
   match 'auth/key' => 'auth#key'
-  match 'auth/logout' => 'auth#logout'
+  devise_scope :user do
+    get "auth/logout" => "devise/sessions#destroy"
+  end
   match 'staff' => 'staff#index'
   match 'staff/bootcamp' => 'bootcamp#index'
   match 'staff/bootcamp/contacts' => 'bootcamp#contacts'
