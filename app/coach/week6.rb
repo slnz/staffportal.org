@@ -36,9 +36,9 @@
     column ("Tasks") {|tasklist| tasklist.tasks_remaining }
     column ("Coach") { |tasklist|
         if tasklist.confirmed_coach
-          status_tag("COMPLETED")
+          status_tag("CONFIRMED", "green")
         else
-          status_tag("IN PROGRESS")
+          status_tag("UNCONFIRMED", "orange")
         end }
     default_actions
   end
@@ -106,9 +106,9 @@
       row ("victory_story_2") { week6.victory_story_2.html_safe }
       row ("confirmed_coach") {
         if week6.confirmed_coach
-          status_tag("COMPLETED")
+          status_tag("CONFIRMED", "green")
         else
-          status_tag("IN PROGRESS")
+          status_tag("UNCONFIRMED", "orange")
         end }
     end
     active_admin_comments

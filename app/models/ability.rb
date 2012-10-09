@@ -10,7 +10,7 @@ class Ability
     end
 
     if user.admin == "hr"
-      can :manage, Week6, :user => {:bootcamp_coach_id => "!''"}
+      can :manage, Week6
     end
   end
 end

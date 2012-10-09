@@ -36,15 +36,15 @@
     column ("Tasks") {|tasklist| tasklist.tasks_remaining }
     column ("Coach") { |tasklist|
         if tasklist.confirmed_coach
-          status_tag("COMPLETED")
+          status_tag("CONFIRMED", "green")
         else
-          status_tag("IN PROGRESS")
+          status_tag("UNCONFIRMED", "orange")
         end }
     column ("HR") { |tasklist|
         if tasklist.confirmed_hr
-          status_tag("COMPLETED")
+          status_tag("CONFIRMED", "green")
         else
-          status_tag("IN PROGRESS")
+          status_tag("UNCONFIRMED", "orange")
         end }
     default_actions
   end

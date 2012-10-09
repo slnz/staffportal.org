@@ -9,20 +9,20 @@
 
   actions :index, :show
 
-  batch_action :confirm do |selection|
+  batch_action :Toggle_coach_confirm do |selection|
     Week6.find(selection).each do |week6|
-      week6.confirmed_coach = true
+      week6.confirmed_coach = !week6.confirmed_coach
       week6.save
     end
-    redirect_to collection_path, :notice => "Confirmed selected!"
+    redirect_to collection_path, :notice => "Toggled selected confirmation as Coach!"
   end
 
-  batch_action :unconfirm do |selection|
+  batch_action :Toggle_hr_confirm do |selection|
     Week6.find(selection).each do |week6|
-      week6.confirmed_coach = false
+      week6.confirmed_hr = !week6.confirmed_hr
       week6.save
     end
-    redirect_to collection_path, :notice => "Unconfirmed selected!"
+    redirect_to collection_path, :notice => "Toggled selected confirmation as HR!"
   end
 
   menu :parent => "Bootcamp", :label => "6 Weeks Until Bootcamp"
@@ -36,9 +36,15 @@
     column ("Tasks") {|tasklist| tasklist.tasks_remaining }
     column ("Coach") { |tasklist|
         if tasklist.confirmed_coach
-          status_tag("COMPLETED")
+          status_tag("CONFIRMED", "green")
         else
-          status_tag("IN PROGRESS")
+          status_tag("UNCONFIRMED", "orange")
+        end }
+    column ("HR") { |tasklist|
+        if tasklist.confirmed_hr
+          status_tag("CONFIRMED", "green")
+        else
+          status_tag("UNCONFIRMED", "orange")
         end }
     default_actions
   end
@@ -106,9 +112,15 @@
       row ("victory_story_2") { week6.victory_story_2.html_safe }
       row ("confirmed_coach") {
         if week6.confirmed_coach
-          status_tag("COMPLETED")
+          status_tag("CONFIRMED", "green")
         else
-          status_tag("IN PROGRESS")
+          status_tag("UNCONFIRMED", "orange")
+        end }
+      row ("confirmed_hr") {
+        if week6.confirmed_coach
+          status_tag("CONFIRMED", "green")
+        else
+          status_tag("UNCONFIRMED", "orange")
         end }
     end
     active_admin_comments
