@@ -8,10 +8,10 @@
   <%= csrf_meta_tags %>
 </head>
 <body class="staff_portal">
-<% if !session[:cas_user].nil? %>
+<% if !current_user.nil? %>
 <div id="user">
   <div class="margin">
-    <%= session[:cas_user] %>
+    <%= current_user.name %>
     <div class="right">
       <a href="/auth/logout">logout</a>
     </div>
