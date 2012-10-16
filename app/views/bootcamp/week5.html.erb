@@ -1,0 +1,45 @@
+<div class="right"><img alt="Bootcamp" src="<%= asset_path 'bootcamp_logo.png' %>"></div>
+<h1>Pre-Bootcamp Activities</h1>
+<nav>
+  <a href="/staff/">MSP</a> &gt; <a href="/staff/bootcamp/">Bootcamp 2012</a> &gt; 5 Weeks to Bootcamp
+</nav>
+<% if flash[:warning] or flash[:notice] %>
+<div id="notice" <% if flash[:warning] %>class="warning"<% end %>>
+<%= flash[:warning] || flash[:notice] %>
+</div>
+<% end %>
+<div class="weekbox<% if @week5.completed? %> completed<% end %><% if @week5.error %> error<% end %>">
+  <div class="header">
+    <h2>5 Weeks to Bootcamp<% if @week5.confirmed_hr %><div>Confirmed by HR</div><% end %><% if @week5.confirmed_coach %><div>Confirmed by Coach</div><% end %></h2>
+  </div>
+  <div class="form">
+    <%= semantic_form_for @week5 do |f| %>
+    <%= f.inputs do %>
+      <h3>Tasks</h3>
+      <%= f.input :prayer_sheet, :label => "As a group pray through <strong>dMPD's Prayer Sheet</strong>".html_safe %>
+      <%= f.input :listen_to_attitude_message, :label => "As a group listen to one of the <strong>Attitude Messages</strong> & continue to be more detailed with your notes".html_safe %>
+      <%= f.input :memorize_prayer_sheet_passage, :label => "Memorize one of the passages from <strong>dMPD's Prayer Sheet</strong>".html_safe %>
+      <%= f.input :recite_passage_from_dmpd_prayer_sheet, :label => "Recite the passage you memorized from the <strong>DMPD Prayer Sheet</strong>".html_safe %>
+      <%= f.input :review_non_negotiables_of_effective_mpd, :label => "Review <strong>Non Negotiables of Effective MPD</strong>".html_safe %>
+      <%= f.input :share_call_testimony, :label => "Share with your group your <strong>2 Minute Call Testimony</strong>".html_safe %>
+      <%= f.input :share_salvation_testimony, :label => "Share with your group your <strong>2 Minute Salvation Testimony</strong>".html_safe  %>
+    <% end %>
+
+    <%= f.actions do %>
+      <%= f.action :submit, :as => :button, :label => "Save" %>
+    <% end %>
+
+    <%= f.inputs do %>
+      <h3>Assignments</h3>
+      <div class="container">
+      <%= f.input :missionary_profile, :as => :ckeditor, :label => "Write your <strong>Missionary Profile</strong>".html_safe  %>
+      </div>
+    <% end %>
+
+    <%= f.actions do %>
+      <%= f.action :submit, :as => :button, :label => "Save" %>
+    <% end %>
+
+  <% end %>
+  </div>
+</div>

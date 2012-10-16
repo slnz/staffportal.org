@@ -7,6 +7,7 @@ Staff::Application.routes.draw do
   resources :contacts
 
   resources :week6
+  resources :week5
 
   match 'auth/relay' => 'auth#relay'
   match 'auth/key' => 'auth#key'
@@ -17,6 +18,7 @@ Staff::Application.routes.draw do
   match 'staff/bootcamp' => 'bootcamp#index'
   match 'staff/bootcamp/contacts' => 'bootcamp#contacts'
   match 'staff/bootcamp/6' => 'bootcamp#week6'
+  match 'staff/bootcamp/5' => 'bootcamp#week5'
   match '/' => 'auth#home'
   root :to => 'auth#home'
 

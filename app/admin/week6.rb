@@ -116,6 +116,12 @@
         else
           status_tag("IN PROGRESS")
         end }
+      row ("confirmed_hr") {
+        if week6.confirmed_hr
+          status_tag("COMPLETED")
+        else
+          status_tag("IN PROGRESS")
+        end }
     end
     active_admin_comments
   end
