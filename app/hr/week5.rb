@@ -1,4 +1,4 @@
- ActiveAdmin.register Week65, :namespace => :hr do
+ ActiveAdmin.register Week5, :namespace => :hr do
   controller do
     authorize_resource
 
