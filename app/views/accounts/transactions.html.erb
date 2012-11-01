@@ -53,6 +53,17 @@
             </div>
           </tr>
           <% end %>
+          <% if @last.nil? or @transactions.nil? %>
+          <tr class="bottom">
+            <td><%= Time.now.strftime('%d %b %Y') %></td>
+            <td>Opening balance for these transactions</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>$0.00</td>
+            <td class="details"></td>
+          </tr>
+          <% else %>
           <tr class="balance">
             <td><%= @last.date.strftime('%d %b %Y') %></td>
             <td>Balance at close of day</td>
@@ -75,6 +86,7 @@
             <% end %>
             <td class="details"></td>
           </tr>
+          <% end %>
           <tr class="totals" >
             <td colspan="7">
               <table id="moneyinmoneyout">

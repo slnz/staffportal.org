@@ -19,7 +19,13 @@
                               number_to_currency acct.balance
                             end
                           }
-        t.cell(:last_updated) { |p| p.records.order('date DESC, id ASC').first.date.strftime('%d %b %Y') unless p.records.nil? }
+        t.cell(:last_updated) { |p| acct = p.records.order('date DESC, id ASC').first unless p.records.nil?
+                                if acct.nil?
+                                  Time.now.strftime('%d %b %Y')
+                                else
+                                  acct.date.strftime('%d %b %Y')
+                                end
+        }
         t.cell(:summary, :heading => "", :cell_html => {:style => 'text-align:right'} ) {|p| link_to("Summary", "/staff/accounts/#{p.id}") + " &nbsp; ".html_safe + link_to("Transactions", "/staff/accounts/#{p.id}/transactions") + " &nbsp; ".html_safe + link_to("Graphs", "/staff/accounts/#{p.id}/graphs") }
       end
 end %>

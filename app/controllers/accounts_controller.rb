@@ -4,7 +4,7 @@ class AccountsController < ApplicationController
 
   end
   def transactions
-    @account = current_user.accounts(params[:id]).first
+    @account = current_user.accounts.find(params[:id])
     @transactions = @account.records.order('date DESC, id ASC').page params[:page]
 
     @money_in = 0;
