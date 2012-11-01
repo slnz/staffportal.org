@@ -214,6 +214,7 @@ DEPENDENCIES
   pg
   rails (= 3.2.3)
   rake
+  redis
   resque
   sass-rails (~> 3.2.3)
   tabletastic
