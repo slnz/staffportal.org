@@ -105,11 +105,11 @@
         else
           status_tag("IN PROGRESS")
         end }
-      row ("discipleship_story_1") { week6.discipleship_story_1.html_safe }
-      row ("discipleship_story_2") { week6.discipleship_story_2.html_safe }
-      row ("discipleship_story_3") { week6.discipleship_story_3.html_safe }
-      row ("victory_story_1") { week6.victory_story_1.html_safe }
-      row ("victory_story_2") { week6.victory_story_2.html_safe }
+      row ("discipleship_story_1") { week6.discipleship_story_1.html_safe unless week6.discipleship_story_1.blank? }
+      row ("discipleship_story_2") { week6.discipleship_story_2.html_safe unless week6.discipleship_story_2.blank? }
+      row ("discipleship_story_3") { week6.discipleship_story_3.html_safe unless week6.discipleship_story_3.blank? }
+      row ("victory_story_1") { week6.victory_story_1.html_safe unless week6.victory_story_1.blank? }
+      row ("victory_story_2") { week6.victory_story_2.html_safe unless week6.victory_story_2.blank? }
       row ("confirmed_coach") {
         if week6.confirmed_coach
           status_tag("CONFIRMED", "green")

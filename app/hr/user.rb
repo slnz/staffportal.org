@@ -1,6 +1,8 @@
 ActiveAdmin.register User, :namespace => :hr do
   actions :index, :show
 
+  config.batch_actions = false
+
   index do
     column ("Name") { |user| user.name }
     column :email

@@ -14,6 +14,7 @@ class Ability
     if user.admin == "hr"
       can :manage, Week6
       can :manage, Week5
+      can :manage, User
     end
   end
 end
