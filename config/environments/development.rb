@@ -34,4 +34,7 @@ Staff::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
+
+  ENV["REDISTOGO_URL"] = 'redis://localhost:6379/'
+
 end

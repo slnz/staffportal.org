@@ -6,6 +6,7 @@ gem 'devise'
 gem 'devise_cas_authenticatable'
 
 gem 'rake'
+gem 'redis'
 gem 'resque'
 
 group :assets do
