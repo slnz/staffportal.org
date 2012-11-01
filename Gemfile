@@ -23,6 +23,7 @@ gem 'paperclip'
 gem 'formtastic'
 gem 'haml'
 gem 'kaminari'
+gem "airbrake"
 
 gem 'inherited_resources'
 gem 'tabletastic'
