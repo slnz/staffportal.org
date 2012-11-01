@@ -12,7 +12,13 @@
       t.data do
         t.cell :code
         t.cell :name
-        t.cell(:balance) { |p| number_to_currency p.records.order('date DESC, id ASC').first.balance unless p.records.nil? }
+        t.cell(:balance) { |p| acct = p.records.order('date DESC, id ASC').first unless p.records.nil?
+                            if acct.nil?
+                              number_to_currency 0
+                            else
+                              number_to_currency acct.balance
+                            end
+                          }
         t.cell(:last_updated) { |p| p.records.order('date DESC, id ASC').first.date.strftime('%d %b %Y') unless p.records.nil? }
         t.cell(:summary, :heading => "", :cell_html => {:style => 'text-align:right'} ) {|p| link_to("Summary", "/staff/accounts/#{p.id}") + " &nbsp; ".html_safe + link_to("Transactions", "/staff/accounts/#{p.id}/transactions") + " &nbsp; ".html_safe + link_to("Graphs", "/staff/accounts/#{p.id}/graphs") }
       end
