@@ -5,6 +5,8 @@ class User < ActiveRecord::Base
   has_many :trainees, :class_name => "User", :foreign_key => "bootcamp_coach_id"
   has_one :week6
   has_many :contacts
+  has_many :user_accounts
+  has_many :accounts, :through => :user_accounts
 
   def cas_extra_attributes=(extra_attributes)
     extra_attributes.each do |name, value|

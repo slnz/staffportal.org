@@ -4,6 +4,9 @@
   <title>Tandem Ministry Services Portal</title>
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= stylesheet_link_tag params[:controller], :media => "all" %>
+  <script text="text/javascript">
+    var controller = '<%= params[:controller] %>';
+  </script>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
 </head>
@@ -13,6 +16,16 @@
   <div class="margin">
     <%= current_user.name %>
     <div class="right">
+      <% if current_user.admin == "admin" %>
+      <a href="/resque">resque</a> |
+      <a href="/admin">administrator</a> |
+      <% end %>
+      <% if current_user.admin == "coach" %>
+      <a href="/coach">administrator</a> |
+      <% end %>
+      <% if current_user.admin == "hr" %>
+      <a href="/hr">administrator</a> |
+      <% end %>
       <a href="/auth/logout">logout</a>
     </div>
   </div>

@@ -1,0 +1,19 @@
+<div class="right"><img alt="Accounts" src="<%= asset_path 'accounts_logo.png' %>"></div>
+<h1>&nbsp;</h1>
+<nav>
+  <a href="/staff/">MSP</a> &gt; Accounts
+</nav>
+<% if flash[:warning] or flash[:notice] %>
+<div id="notice" <% if flash[:warning] %>class="warning"<% end %>>
+<%= flash[:warning] || flash[:notice] %>
+</div>
+<% end %>
+<%= table_for(current_user.accounts) do |t|
+      t.data do
+        t.cell :code
+        t.cell :name
+        t.cell(:balance) { |p| number_to_currency p.records.order('date DESC, id ASC').first.balance unless p.records.nil? }
+        t.cell(:last_updated) { |p| p.records.order('date DESC, id ASC').first.date.strftime('%d %b %Y') unless p.records.nil? }
+        t.cell(:summary, :heading => "", :cell_html => {:style => 'text-align:right'} ) {|p| link_to("Summary", "/staff/accounts/#{p.id}") + " &nbsp; ".html_safe + link_to("Transactions", "/staff/accounts/#{p.id}/transactions") + " &nbsp; ".html_safe + link_to("Graphs", "/staff/accounts/#{p.id}/graphs") }
+      end
+end %>

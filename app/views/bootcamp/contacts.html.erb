@@ -22,7 +22,7 @@
     <%= f.input :first_name %>
     <%= f.input :last_name %>
     <%= f.input :phone %>
-    <%= f.input :user_id, :as => :hidden, :input_html => { :value => session[:user_id] } %>
+    <%= f.input :user_id, :as => :hidden, :input_html => { :value => current_user.id } %>
       <%= f.actions do %>
         <%= f.action :submit, :as => :button, :label => "Add Contact" %>
       <% end %>

@@ -8,16 +8,8 @@
 
 <div id="login_links">
   <a href="/staff/bootcamp" class="loginlink"><img alt="Bootcamp" src="<%= asset_path 'bootcamp_logo.png' %>"></a>
-  <% if current_user.admin == "admin" %>
+  <% unless current_user.user_accounts.empty? %>
   &nbsp;&nbsp;
-  <a href="/admin" class="loginlink"><img alt="Bootcamp Admin" src="<%= asset_path 'bootcamp_admin_logo.png' %>"></a>
-  <% end %>
-  <% if current_user.admin == "coach" %>
-  &nbsp;&nbsp;
-  <a href="/coach" class="loginlink"><img alt="Bootcamp Coach" src="<%= asset_path 'bootcamp_admin_logo.png' %>"></a>
-  <% end %>
-  <% if current_user.admin == "hr" %>
-  &nbsp;&nbsp;
-  <a href="/hr" class="loginlink"><img alt="Bootcamp HR" src="<%= asset_path 'bootcamp_admin_logo.png' %>"></a>
+  <a href="/staff/accounts" class="loginlink"><img alt="Accounts" src="<%= asset_path 'accounts_logo.png' %>"></a>
   <% end %>
 </div>

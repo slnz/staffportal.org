@@ -5,6 +5,9 @@ gem 'pg'
 gem 'devise'
 gem 'devise_cas_authenticatable'
 
+gem 'rake'
+gem 'resque'
+
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
@@ -17,6 +20,8 @@ gem 'unicorn'
 gem 'ckeditor', '3.7.1'
 gem 'paperclip'
 gem 'formtastic'
+gem 'haml'
+gem 'kaminari'
 
 gem 'inherited_resources'
 gem 'tabletastic'
