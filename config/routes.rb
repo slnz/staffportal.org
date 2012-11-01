@@ -2,7 +2,11 @@ require 'resque/server'
 
 Staff::Application.routes.draw do
 
-  mount Resque::Server.new, :at => "/resque"
+  namespace :admin do
+    constraints CanAccessResque do
+      mount Resque::Server, at: 'resque'
+    end
+  end
 
   ActiveAdmin.routes(self)
 

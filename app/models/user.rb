@@ -32,4 +32,8 @@ class User < ActiveRecord::Base
   def admin?
     self.admin != ''
   end
+
+  def is_admin?
+    self.admin != 'admin'
+  end
 end
