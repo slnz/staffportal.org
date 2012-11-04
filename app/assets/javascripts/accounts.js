@@ -6,3 +6,43 @@ $(document).ready(function() {
     });
   }
 });
+
+function insert_graph(container, categories, data) {
+    $(document).ready(function() {
+        chart = new Highcharts.Chart({
+            chart: {
+                renderTo: container,
+                type: 'area',
+                height: 200
+            },
+            title: {
+                text: ''
+            },
+            yAxis: {
+                title: {
+                    text: ''
+                }
+            },
+            xAxis: {
+                categories: categories
+            },
+            tooltip: {
+                formatter: function() {
+                    return ''+
+                    this.x +': $'+ this.y;
+                }
+            },
+            credits: {
+                enabled: false
+            },
+            series: [{
+              name: name,
+              data: data
+            }],
+            legend: {
+              enabled: false
+            }
+
+        });
+    });
+}

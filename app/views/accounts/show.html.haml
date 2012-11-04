@@ -1,0 +1,155 @@
+.right
+  %img{:alt => "Accounts", :src => "#{asset_path 'accounts_logo.png'}" }
+%h1  
+%nav
+  %a{:href => "/staff/"} MSP
+  \>
+  %a{:href => "/staff/accounts/"} Accounts
+  \>
+  = @account.code
+  (
+  %a{:href => "/staff/accounts/#{params[:id]}/transactions"} Transactions
+  &nbsp;-&nbsp;
+  %a{:href => "/staff/accounts/#{params[:id]}/graphs"} Graphs
+  )
+  .right
+    %strong
+      #{@account.code}, #{@account.name}
+  %table#records
+    %thead
+      %tr
+        %th.type
+          Type
+        - @months.each do |key, value|
+          %th.date= key
+        %th Year to Date
+        %th
+    %tbody
+      %tr.record
+        %td{:colspan => @months.length + 3} Funds Received
+      - @data = []
+      - @income.each do |key, value|
+        %tr.record.expandable.closed
+          %td= key
+          - @total = 0
+          - value.each do |t|
+            %td= link_to number_with_precision(t[1], :precision => 0, :delimiter => ','), :controller => "accounts", :action => :transactions, :id => params[:id], :type => key, :month => t[0]
+            - @total += t[1]
+            - @data.push t[1].to_i
+            - @income_summary[ t[0] ] += t[1]
+          %td= number_to_currency @total, :precision => 0
+          %td.details
+        - @random = SecureRandom::uuid
+        %tr{:style => 'display:none'}
+          %td
+          %td{:colspan => @months.length}
+            .bd{:id => @random, :style => 'display:none'}
+              %script{:type => 'text/javascript'}
+                = "insert_graph(\"#{@random}\",#{@months.keys.inspect.html_safe}, #{@data});".html_safe
+          %td
+          %td
+        - @data = []
+      %tr.sum_totals.record.expandable.closed
+        %td TOTAL FUNDS RECEIVED
+        - @total = 0
+        - @income_summary.each do |t|
+          %td= number_with_precision t[1], :precision => 0
+          - @total += t[1]
+          - @data.push t[1].to_i
+        %td= number_to_currency @total, :precision => 0
+        %td.details
+      - @random = SecureRandom::uuid
+      %tr{:style => 'display:none'}
+        %td
+        %td{:colspan => @months.length}
+          .bd{:id => @random, :style => 'display:none'}
+            %script{:type => 'text/javascript'}
+              = "insert_graph(\"#{@random}\",#{@months.keys.inspect.html_safe}, #{@data});".html_safe
+        %td
+        %td
+      %tr.record
+        %td{:colspan => @months.length + 3} Outgoings
+      - @data = []
+      - @expense.each do |key, value|
+        %tr.record.expandable.closed
+          %td= key
+          - @total = 0
+          - value.each do |t|
+            %td= link_to number_with_precision(t[1], :precision => 0, :delimiter => ','), :controller => "accounts", :action => :transactions, :id => params[:id], :type => key, :month => t[0]
+            - @total += t[1]
+            - @data.push t[1].to_i
+            - @expense_summary[ t[0] ] += t[1]
+          %td= number_to_currency @total, :precision => 0
+          %td.details
+        - @random = SecureRandom::uuid
+        %tr{:style => 'display:none'}
+          %td
+          %td{:colspan => @months.length}
+            .bd{:id => @random, :style => 'display:none'}
+              %script{:type => 'text/javascript'}
+                = "insert_graph(\"#{@random}\",#{@months.keys.inspect.html_safe}, #{@data});".html_safe
+          %td
+          %td
+        - @data = []
+      %tr.sum_totals.record.expandable.closed
+        %td TOTAL OUTGOINGS
+        - @data = []
+        - @total = 0
+        - @expense_summary.each do |t|
+          %td= number_with_precision t[1], :precision => 0
+          - @total += t[1]
+          - @data.push t[1].to_i
+        %td= number_to_currency @total, :precision => 0
+        %td.details
+      - @random = SecureRandom::uuid
+      %tr{:style => 'display:none'}
+        %td
+        %td{:colspan => @months.length}
+          .bd{:id => @random, :style => 'display:none'}
+            %script{:type => 'text/javascript'}
+              = "insert_graph(\"#{@random}\",#{@months.keys.inspect.html_safe}, #{@data});".html_safe
+        %td
+        %td
+      %tr.record
+        %td{:colspan => @months.length + 3} Summary
+      - @balance = [0]
+      %tr.record.expandable.closed
+        %td Profit/Deficit
+        - @data = []
+        - @total = 0
+        - @income_summary.each do |key, value|
+          %td= number_with_precision (value - @expense_summary[key]), :precision => 0
+          - @total += ( value - @expense_summary[key] )
+          - @balance.push ( value - @expense_summary[key] )
+          - @data.push ( value - @expense_summary[key] ).to_i
+        %td= number_to_currency @total, :precision => 0
+        %td.details
+      - @random = SecureRandom::uuid
+      %tr{:style => 'display:none'}
+        %td
+        %td{:colspan => @months.length}
+          .bd{:id => @random, :style => 'display:none'}
+            %script{:type => 'text/javascript'}
+              = "insert_graph(\"#{@random}\",#{@months.keys.inspect.html_safe}, #{@data});".html_safe
+        %td
+        %td
+      %tr.sum_totals.record.expandable.closed
+        %td Balance
+        - @data = []
+        - @total = 0
+        - (1..12).each do |count|
+          - @total = @balance[count-1] + @balance[count]
+          - @balance[count] = @total
+          - @data.push @total.to_i
+          %td= link_to number_with_precision(@total, :precision => 0, :delimiter => ','), :controller => "accounts", :action => :transactions, :id => params[:id], :month => @months.keys[count-1]
+        %td= number_to_currency @total, :precision => 0
+        %td.details
+      - @random = SecureRandom::uuid
+      %tr{:style => 'display:none'}
+        %td
+        %td{:colspan => @months.length}
+          .bd{:id => @random, :style => 'display:none'}
+            %script{:type => 'text/javascript'}
+              = "insert_graph(\"#{@random}\",#{@months.keys.inspect.html_safe}, #{@data});".html_safe
+        %td
+        %td

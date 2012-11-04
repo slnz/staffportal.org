@@ -1,7 +1,7 @@
 <div class="right"><img alt="Accounts" src="<%= asset_path 'accounts_logo.png' %>"></div>
 <h1>&nbsp;</h1>
 <nav>
-  <a href="/staff/">MSP</a> &gt; <a href="/staff/accounts/">Accounts</a> &gt; <a href="/staff/accounts/<%= params[:id] %>"><%= @account.code %></a> &gt; Transactions <div class="right"><strong><%= @account.code %>, <%= @account.name %></strong></div>
+  <a href="/staff/">MSP</a> &gt; <a href="/staff/accounts/">Accounts</a> &gt; <a href="/staff/accounts/<%= params[:id] %>"><%= @account.code %></a> (Transactions - <a href="/staff/accounts/<%= params[:id] %>/graphs">Graphs</a>)<div class="right"><strong><%= @account.code %>, <%= @account.name %></strong></div>
 </nav>
 <% if flash[:warning] or flash[:notice] %>
 <div id="notice" <% if flash[:warning] %>class="warning"<% end %>>

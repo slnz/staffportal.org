@@ -1,12 +1,11 @@
 class Record < ActiveRecord::Base
   belongs_to :account
   belongs_to :type
-  attr_accessible :amount, :date, :reason, :subtext, :who, :account_id, :type_id, :balance
+  attr_accessible :amount, :date, :reason, :subtext, :who, :account_id, :type_id, :balance, :month
   validates_presence_of :amount, :date, :type, :account
   paginates_per 50
 
   before_save :update_balance
-
   after_save :update_external_balances
 
   def update_balance
@@ -36,5 +35,10 @@ class Record < ActiveRecord::Base
         record.update_balance
         record.save
       end
+  end
+
+  def date=(date)
+    super
+    self.month = self.date.beginning_of_month
   end
 end

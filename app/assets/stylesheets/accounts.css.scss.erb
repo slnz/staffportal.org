@@ -43,6 +43,12 @@ body.staff_portal {
       &.details {
         width: 18px;
       }
+      &.date {
+        width:50px;
+      }
+      &.type {
+        width:auto;
+      }
     }
     td {
       border-bottom: 1px solid #CCC;
@@ -59,19 +65,22 @@ body.staff_portal {
         color:#38678B;
       }
       a:hover {
-        text-decoration:none;
+        text-decoration:underline;
       }
       &.details.closed {
         width: 18px;
         background: url(<%= asset_path 'row-arrow-down.gif' %>) no-repeat center center;
       }
+      div.bd{
+        border-top:1px solid #FFF;
+        display:none;
+        width:100%;
+      }
       &.subdetails {
         background-color:#F9F9F9;
         padding:0;
-        div.bd{
-          border-top:1px solid #FFF;
+        div.bd {
           padding:8px 0 0px 100px;
-          display:none;
         }
         dl{
 
@@ -100,6 +109,15 @@ body.staff_portal {
       }
       &.details_row {
           display:none;
+      }
+      &.sum_totals {
+        td {
+          border-top: 3px double #ccc;
+          &:first-child {
+            text-transform:uppercase;
+            font-weight:bold;
+          }
+        }
       }
       &.totals {
         td {

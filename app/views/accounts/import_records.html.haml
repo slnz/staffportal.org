@@ -1,0 +1,55 @@
+= form_for :dump, :url=>{:action=>"import_csv"}, :html => { :multipart => true } do |f|
+  %fieldset{:class => "inputs"}
+    %legend
+      %span
+        CSV File Upload
+    %ol
+      %li
+        %label{:for => "dump_file"}
+          Select a CSV File
+        = f.file_field :file
+  = submit_tag 'Submit'
+  %br
+  %br
+  %fieldset{:class => "inputs"}
+    %legend
+      %span
+        Example CSV File
+    %table{:id => "csv"}
+      %thead
+        %tr
+          %th
+            account
+          %th
+            type_name
+          %th
+            type
+          %th
+            date
+          %th
+            who
+          %th
+            subtext
+          %th
+            reason
+          %th
+            amount
+      %tbody
+        %tr
+          %td
+            159
+          %td
+            Salary
+          %td
+            Expense
+          %td
+            20/09/12
+          %td
+            Inland Revenue Department
+          %td
+            PAYE September 2012
+          %td
+            (Nikora Tatai SL)
+          %td
+            74.96
+

@@ -8,6 +8,13 @@ class User < ActiveRecord::Base
   has_many :user_accounts
   has_many :accounts, :through => :user_accounts
 
+  def self.current
+    Thread.current[:user]
+  end
+  def self.current=(user)
+    Thread.current[:user] = user
+  end
+
   def cas_extra_attributes=(extra_attributes)
     extra_attributes.each do |name, value|
       case name.to_sym
