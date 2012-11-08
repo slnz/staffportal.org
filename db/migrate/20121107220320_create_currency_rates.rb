@@ -1,4 +1,4 @@
-class CreateCurrencies < ActiveRecord::Migration
+class CreateCurrencyRates < ActiveRecord::Migration
   def change
     create_table :currency_rates do |t|
       t.date :month
