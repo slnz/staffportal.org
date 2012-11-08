@@ -10,7 +10,7 @@ gem 'redis'
 gem 'resque'
 
 group :production do
-  gem 'hirefire'
+  gem 'hirefireapp'
 end
 
 gem 'open_exchange_rates'
