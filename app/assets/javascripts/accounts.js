@@ -4,10 +4,15 @@ $(document).ready(function() {
       $(this).toggleClass('closed');
       $(this).next().show().find('td div.bd').slideToggle(200, function () { if (!$(this).is(':visible')) $(this).closest('tr').hide(); });
     });
+    $('#summary_currency').change(function() {
+      $.get( '/staff/accounts/change_default_currency/' + $(this).children('option:selected').val() + '.json').complete(function(data) {
+        window.location.reload(true);
+      });
+    })
   }
 });
 
-function insert_graph(container, categories, data) {
+function insert_graph(container, categories, data, name) {
     $(document).ready(function() {
         chart = new Highcharts.Chart({
             chart: {
@@ -35,12 +40,32 @@ function insert_graph(container, categories, data) {
             credits: {
                 enabled: false
             },
-            series: [{
+            plotOptions: {
+                area: {
+                    marker: {
+                        enabled: false,
+                        symbol: 'circle',
+                        radius: 2,
+                        states: {
+                            hover: {
+                                enabled: true
+                            }
+                        }
+                    }
+                }
+            },
+            series:[ /* {
+              name: "Goal",
+              data: [3500,3500,3500,3500,3500,3500,3500,3500,3500,3500,3500,3500]
+            }, {
+              name: "Salary",
+              data: [2340,2340,2340,2340,2340,2340,2340,2340,2340,2340,2340,2340]
+            }, */{
               name: name,
               data: data
             }],
             legend: {
-              enabled: false
+              enabled: true
             }
 
         });

@@ -2,6 +2,9 @@ require 'resque/server'
 
 Staff::Application.routes.draw do
 
+
+      mount Resque::Server, at: 'resque'
+
   namespace :admin do
     constraints CanAccessResque do
       mount Resque::Server, at: 'resque'
@@ -30,6 +33,7 @@ Staff::Application.routes.draw do
   match 'staff/accounts' => 'accounts#index'
   match 'staff/accounts/:id' => 'accounts#show'
   match 'staff/accounts/:id/transactions' => 'accounts#transactions'
+  match 'staff/accounts/change_default_currency/:code' => 'accounts#change_default_currency'
   match '/' => 'auth#home'
   root :to => 'auth#home'
 

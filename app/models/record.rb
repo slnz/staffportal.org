@@ -14,17 +14,27 @@ class Record < ActiveRecord::Base
       else
         query = account.records.where("id < ? and date = ? or id <> ? and date < ?", self.id, self.date, self.id, self.date).order('date DESC, id DESC').first
       end
-      if type.is_income
+      if type.code == "1301" or type.code == "P1301"
+        #starting balance
+        self.balance = self.amount # First movement
+      elsif type.is_income
         unless query.nil?
            self.balance = query.balance + self.amount
         else
            self.balance = self.amount # First movement
         end
-      else
+      elsif type.is_expense
         unless query.nil?
            self.balance = query.balance - self.amount
         else
            self.balance = -self.amount # First movement
+        end
+      else
+        #unaccountable type (advances, stock etc)
+        unless query.nil?
+          self.balance = query.balance
+        else
+          self.balance = 0
         end
       end
   end

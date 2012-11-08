@@ -1,15 +1,15 @@
 <div class="right"><img alt="Accounts" src="<%= asset_path 'accounts_logo.png' %>"></div>
 <h1>&nbsp;</h1>
 <nav>
-  <a href="/staff/">MSP</a> &gt; <a href="/staff/accounts/">Accounts</a> &gt; <a href="/staff/accounts/<%= params[:id] %>"><%= @account.code %></a> (Transactions - <a href="/staff/accounts/<%= params[:id] %>/graphs">Graphs</a>)<div class="right"><strong><%= @account.code %>, <%= @account.name %></strong></div>
+  <a href="/staff/">MSP</a> &gt; <a href="/staff/accounts/">Accounts</a> &gt; <a href="/staff/accounts/<%= params[:id] %>"><%= @account.code %></a> ( Transactions )<div class="right"><%= collection_select("summary", "currency", Currency.all, :code, :name, {:selected => current_user.currency_code}) %> <strong><%= @account.code %>, <%= @account.name %></strong></div>
 </nav>
 <% if flash[:warning] or flash[:notice] %>
 <div id="notice" <% if flash[:warning] %>class="warning"<% end %>>
   <%= flash[:warning] || flash[:notice] %>
 </div>
 <% end %>
-<table id="records">
-  <thead><tr><th>Date</th><th>Description</th><th>Payee</th><th>Money in</th><th>Money out</th><th>Balance</th><th class-"details closed"></th></tr></thead>
+<table id="records" class="transactions">
+  <thead><tr><th>Date</th><th>Transaction Type</th><th>Payee</th><th>Money in</th><th>Money out</th><th>Balance</th><th class-"details closed"></th></tr></thead>
   <tbody>
     <%
     @last = nil
@@ -45,9 +45,9 @@
               <dl>
                 <dt>Transaction type:</dt>
                 <dd><%= p.type.name.upcase %>&nbsp;</dd>
-                <dt>Details:</dt>
-                <dd><%= p.reason %>&nbsp;</dd>
                 <dt>Description:</dt>
+                <dd><%= p.reason %>&nbsp;</dd>
+                <dt>Reference:</dt>
                 <dd><%= p.subtext%>&nbsp;</dd>
               </dl>
             </div>

@@ -9,6 +9,12 @@ gem 'rake'
 gem 'redis'
 gem 'resque'
 
+group :production do
+  gem 'hirefire'
+end
+
+gem 'open_exchange_rates'
+
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'

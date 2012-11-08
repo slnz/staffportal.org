@@ -43,6 +43,9 @@ ActiveAdmin.register User do
     f.inputs :title => "Bootcamp" do
       f.input :bootcamp_coach, :collection => @Coaches
     end
+    f.inputs :title => "Finances" do
+      f.input :currency
+    end
     f.buttons
   end
 
@@ -50,6 +53,7 @@ ActiveAdmin.register User do
     attributes_table do
       row :name
       row :email
+      row :currency
       row("admin") { |user| status_tag(user.admin, "orange") }
     end
 
