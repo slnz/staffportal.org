@@ -2,9 +2,8 @@ class CsvQueue
 
   @queue = :csv_import
 
-  def self.perform(model_name, csv_file)
-    CSV.parse(csv_file, :headers => true) do |row|
-      hash = row.to_hash
+  def self.perform(model_name, group)
+    group do |hash|
       target_model = model_name.classify.constantize
       new_object = target_model.new
       target_model.column_names.each do |key|
