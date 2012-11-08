@@ -3,7 +3,7 @@ class CsvQueue
   @queue = :csv_import
 
   def self.perform(model_name, group)
-    group do |hash|
+    group.each do |hash|
       target_model = model_name.classify.constantize
       new_object = target_model.new
       target_model.column_names.each do |key|
@@ -37,6 +37,5 @@ class CsvQueue
       end
       new_object.save!
     end
-
   end
 end
