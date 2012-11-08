@@ -13,4 +13,21 @@ ActiveAdmin.register Account do
     redirect_to :action => :index
   end
 
+  index do
+    selectable_column
+    column :code
+    column :name
+    column("Balance") { |p|
+                            acct = p.records.order('date DESC, id desc').first unless p.records.nil?
+                            if acct.nil?
+                              number_to_currency 0
+                            else
+                              @currency_rate = current_user.currency.currency_rates.where(:month => acct.month).first
+                              @vehicle_advance = p.records.joins(:type).where("types.code" => "1225").sum(:amount)
+                              @stock = p.records.joins(:type).where("types.code" => "1350").sum(:amount)
+                              number_to_currency (acct.balance - @stock - @vehicle_advance) * @currency_rate.rate
+                            end }
+    default_actions
+  end
+
 end
