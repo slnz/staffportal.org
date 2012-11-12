@@ -17,4 +17,13 @@ ActiveAdmin.register UserAccount do
     end
     f.buttons
   end
+
+  show do
+    attributes_table do
+      row :user
+      row :account
+      row :created_at
+      row :by
+    end
+  end
 end

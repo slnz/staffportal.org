@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
   devise :cas_authenticatable
   attr_accessible :currency_id, :username, :first_name, :last_name, :email, :admin, :id, :bootcamp_coach_id
-  validates_presence_of :username, :first_name, :last_name, :email
+  validates_presence_of :username, :email
   belongs_to :bootcamp_coach, :class_name => "User"
   has_many :trainees, :class_name => "User", :foreign_key => "bootcamp_coach_id"
   has_one :week6
@@ -31,9 +31,15 @@ class User < ActiveRecord::Base
   end
 
   def name
-    "#{self.first_name} #{self.last_name}"
+    name = "#{self.first_name} #{self.last_name}"
+    name = self.username if self.first_name.empty? and self.last_name.empty?
+    name
   end
 
+  def username=(name)
+    super
+    self.email = name
+  end
   def role?(role)
     self.admin == role
   end

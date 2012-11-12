@@ -3,7 +3,7 @@ ActiveAdmin.register User do
   index do
     selectable_column
     column ("Name") { |user| user.name }
-    column :email
+    column :username
     column :bootcamp_coach
     column ("Role") { |user|
       if user.admin.blank?
@@ -51,7 +51,7 @@ ActiveAdmin.register User do
     f.inputs :title => "Finances" do
       f.input :currency, :input_html => { :class => 'chosen'}
     end
-    f.buttons
+    f.actions
   end
 
   show :title => :name do |user|
