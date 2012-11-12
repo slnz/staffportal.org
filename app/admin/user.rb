@@ -57,7 +57,7 @@ ActiveAdmin.register User do
   show :title => :name do |user|
     attributes_table do
       row :name
-      row :email
+      row :username
       row :currency
       row("admin") { |user| status_tag(user.admin, "orange") }
     end
