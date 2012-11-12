@@ -40,6 +40,11 @@ ActiveAdmin.register User do
 
   form do |f|
     @Coaches = User.where("admin = 'hr' OR admin = 'coach'").all
+    f.inputs :title => "User" do
+      f.input :first_name
+      f.input :last_name
+      f.input :username
+    end
     f.inputs :title => "Bootcamp" do
       f.input :bootcamp_coach, :collection => @Coaches
     end

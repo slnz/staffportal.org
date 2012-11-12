@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
   devise :cas_authenticatable
   attr_accessible :currency_id, :username, :first_name, :last_name, :email, :admin, :id, :bootcamp_coach_id
+  validates_presence_of :username, :first_name, :last_name, :email
   belongs_to :bootcamp_coach, :class_name => "User"
   has_many :trainees, :class_name => "User", :foreign_key => "bootcamp_coach_id"
   has_one :week6
