@@ -32,7 +32,7 @@ class User < ActiveRecord::Base
 
   def name
     name = "#{self.first_name} #{self.last_name}"
-    name = self.username if self.first_name.empty? and self.last_name.empty?
+    name = self.username if self.first_name.blank? and self.last_name.blank?
     name
   end
 
