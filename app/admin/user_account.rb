@@ -11,8 +11,8 @@ ActiveAdmin.register UserAccount do
 
   form do |f|
     f.inputs "Permissions" do
-      f.input :user
-      f.input :account
+      f.input :user, :input_html => { :class => 'chosen'}
+      f.input :account, :input_html => { :class => 'chosen'}
       f.input :by_id, :as => :hidden, :input_html => { :value => current_user.id }
     end
     f.buttons

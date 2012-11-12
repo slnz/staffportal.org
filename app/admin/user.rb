@@ -46,10 +46,10 @@ ActiveAdmin.register User do
       f.input :username
     end
     f.inputs :title => "Bootcamp" do
-      f.input :bootcamp_coach, :collection => @Coaches
+      f.input :bootcamp_coach, :collection => @Coaches, :input_html => { :class => 'chosen'}
     end
     f.inputs :title => "Finances" do
-      f.input :currency
+      f.input :currency, :input_html => { :class => 'chosen'}
     end
     f.buttons
   end
