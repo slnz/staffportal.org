@@ -12,7 +12,42 @@ $(document).ready(function() {
   }
 });
 
-function insert_graph(container, categories, data, name) {
+function insert_graph(container, categories, data, name, goal_input, salary_input) {
+    var goal = [0];
+    if (goal_input != null)
+    {
+      goal = [];
+      for(var i=0; i<12; i++){
+          goal.push(goal_input/12); //Example, pushing 5 integers in an array
+      }
+    }
+    var salary = [0];
+    if (salary_input != null)
+    {
+      salary = [];
+      for(var i=0; i<12; i++){
+          salary.push(salary_input/12); //Example, pushing 5 integers in an array
+      }
+      var series = [ {
+              name: "Goal",
+              data: goal
+            }, {
+              name: "Salary",
+              data: salary
+            }, {
+              name: name,
+              data: data
+            }]
+    } else {
+      var series = [ {
+              name: "Goal",
+              data: goal
+            }, {
+              name: name,
+              data: data
+            }]
+    }
+
     $(document).ready(function() {
         chart = new Highcharts.Chart({
             chart: {
@@ -54,16 +89,7 @@ function insert_graph(container, categories, data, name) {
                     }
                 }
             },
-            series:[ /* {
-              name: "Goal",
-              data: [3500,3500,3500,3500,3500,3500,3500,3500,3500,3500,3500,3500]
-            }, {
-              name: "Salary",
-              data: [2340,2340,2340,2340,2340,2340,2340,2340,2340,2340,2340,2340]
-            }, */{
-              name: name,
-              data: data
-            }],
+            series: series,
             legend: {
               enabled: true
             }
