@@ -11,6 +11,6 @@ class BootcampController < ApplicationController
     @week5 = Week5.where(:user_id => User.find(current_user.id)).first_or_create
   end
   def contacts
-    @contacts = current_user.contacts
+    @contacts = current_user.contacts.order(:created_at).reverse_order
   end
 end
