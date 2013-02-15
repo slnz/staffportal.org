@@ -36,10 +36,9 @@ ActiveAdmin.register Account do
                             if acct.nil?
                               number_to_currency 0
                             else
-                              @currency_rate = current_user.currency.currency_rates.where(:month => acct.month).first
                               @vehicle_advance = p.records.joins(:type).where("types.code" => "1225").sum(:amount)
                               @stock = p.records.joins(:type).where("types.code" => "1350").sum(:amount)
-                              number_to_currency (acct.balance - @stock - @vehicle_advance) * (@currency_rate.try(:rate) ? 1 : @currency_rate.rate)
+                              number_to_currency (acct.balance - @stock - @vehicle_advance)
                             end }
     default_actions
   end
