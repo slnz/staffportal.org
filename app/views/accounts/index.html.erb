@@ -9,7 +9,7 @@
 <%= flash[:warning] || flash[:notice] %>
 </div>
 <% end %>
-<%= table_for(current_user.accounts) do |t|
+<%= table_for(current_user.accounts.order(:code)) do |t|
       t.data do
         t.cell :code
         t.cell :name
