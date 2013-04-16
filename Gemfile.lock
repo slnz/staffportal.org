@@ -55,6 +55,7 @@ GEM
     arbre (1.0.1)
       activesupport (>= 3.0.0)
     arel (3.0.2)
+    awesome_print (1.1.0)
     bcrypt-ruby (3.0.1)
     bourbon (2.1.1)
       sass (>= 3.1)
@@ -213,6 +214,7 @@ DEPENDENCIES
   activeadmin!
   activeadmin-cancan
   airbrake
+  awesome_print
   ckeditor (= 3.7.1)
   coffee-rails (~> 3.2.1)
   devise

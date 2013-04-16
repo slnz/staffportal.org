@@ -185,7 +185,7 @@
           - @total += ( value - @expense_summary[key] + @advance_summary[key] )
           - @balance.push ( value - @expense_summary[key]  + @advance_summary[key] )
           - @data.push ( value - @expense_summary[key] + @advance_summary[key] ).to_i
-        %td= number_to_currency @total, :precision => 0
+        %td
         %td
         %td.details
       - @random = SecureRandom::uuid
@@ -202,12 +202,14 @@
         %td Balance
         - @data = []
         - @total = 0
-        - (1..12).each do |count|
+        - (1..@months_to_show + 1).each do |count|
           - @total = @balance[count-1] + @balance[count]
           - @balance[count] = @total
-          - @data.push @total.to_i
-          %td= link_to number_with_precision(@total, :precision => 0, :delimiter => ','), :controller => "accounts", :action => :transactions, :id => params[:id], :month => @months.keys[count-1]
-        %td= number_to_currency @total, :precision => 0
+        - @balance = @balance.collect { |value| value + (@account.records.last.balance - @total) }
+        -# @balance.pop
+        - (1..@months_to_show + 1).each do |count|
+          %td= link_to number_with_precision(@balance[count], :precision => 0, :delimiter => ','), :controller => "accounts", :action => :transactions, :id => params[:id], :month => @months.keys[count]
+        %td= number_to_currency @balance.last, :precision => 0
         %td
         %td.details
       - @random = SecureRandom::uuid

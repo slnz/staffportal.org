@@ -21,6 +21,10 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
+group :development do
+  gem 'awesome_print'
+end
+
 gem 'jquery-rails'
 gem 'unicorn'
 

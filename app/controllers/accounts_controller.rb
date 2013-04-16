@@ -22,7 +22,7 @@ class AccountsController < ApplicationController
       params[:type_id] = @type_id.id unless @type_id.nil?
     end
     query = query.where(:type_id => params[:type_id]) unless params[:type_id].nil?
-    query = query.where(:month => Date.parse(params[:month], '%b %y').beginning_of_month ) unless params[:month].nil?
+    query = query.where(:month => Date.strptime(params[:month], '%b %y').beginning_of_month ) unless params[:month].nil?
     @transactions = query.order('date DESC, id DESC').page params[:page]
 
     @money_in = 0
@@ -38,9 +38,10 @@ class AccountsController < ApplicationController
     end
   end
   def show
+    @months_to_show = 11
     @account = current_user.accounts.find(params[:id])
-    @transactions = @account.records.where("month <= ? and month >= ?",Time.now.ago(1.month).end_of_month, Time.now.ago(11.month).beginning_of_month).limit(500).joins(:type).select("types.code, types.name, types.definition, records.month, sum(records.amount) as amount").group("types.code, types.id, types.name, records.month, types.definition").order("records.month desc, types.definition desc, types.name")
-
+    @latest = @account.records.last.date
+    @transactions = @account.records.where("month <= ? and month >= ?", @latest.end_of_month, @latest.ago(@months_to_show.month).beginning_of_month).limit(500).joins(:type).select("types.code, types.name, types.definition, records.month, sum(records.amount) as amount").group("types.code, types.id, types.name, records.month, types.definition").order("records.month desc, types.definition desc, types.name")
     @goals = {}
     @account.goals.all.each do |value|
       @goals[value.type.name] = value.amount
@@ -51,8 +52,8 @@ class AccountsController < ApplicationController
 
     fx = OpenExchangeRates::Rates.new
 
-    @day = Time.now.ago(12.month).beginning_of_month
-    (1..12).each do |t|
+    @day = @latest.ago((@months_to_show).month).beginning_of_month
+    (0..@months_to_show).each do |t|
       @months[@day.strftime('%b %y')] = 0
       @currency_summary[@day.strftime('%b %y')] = 1
       unless current_user.currency_code == "NZD"
@@ -63,7 +64,6 @@ class AccountsController < ApplicationController
 
       @day += 1.month
     end
-
     @day -= 1.month #last
 
     @income_summary = @months.deep_dup
@@ -80,6 +80,7 @@ class AccountsController < ApplicationController
     @transactions.each do |t|
       if t.definition == "IN" or t.code == "1301" or t.code == "P1301"
         @income[t.name] = @months.deep_dup if @income[t.name].blank?
+        raise t.month.strftime('%b %y').inspect if @currency_summary[t.month.strftime('%b %y')].nil?
         @income[t.name][t.month.strftime('%b %y')] = t.amount * @currency_summary[t.month.strftime('%b %y')]
       elsif t.definition == "EX"
         @expense[t.name] = @months.deep_dup if @expense[t.name].blank?
