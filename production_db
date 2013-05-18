@@ -1,0 +1,21 @@
+#!/bin/bash
+
+# This script does the following:
+# 1/ capture and download the latest backup
+# 2/ load it to your local database
+# 3/ run your app and open Safari
+
+# Just replace any uppercase string with your own data
+
+#
+# CAPTURE
+#
+cd ~/Backups/
+heroku pgbackups:capture --expire --app tandem-staff
+file_path="db_$(date +%Y_%m_%d-%H_%M_%S).dump"
+curl `heroku pgbackups:url --app tandem-staff` > $file_path
+
+#
+# LOAD
+#
+pg_restore --verbose --clean --no-acl --no-owner -h localhost -U macuser -d tandem_staff $file_path

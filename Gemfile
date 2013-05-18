@@ -9,9 +9,7 @@ gem 'rake'
 gem 'redis'
 gem 'resque'
 
-group :production do
-  gem "hirefire-resource"
-end
+gem "hirefire-resource"
 
 gem 'open_exchange_rates'
 

@@ -1,3 +1,4 @@
+
 HireFire::Resource.configure do |config|
 
   config.dyno(:csv_import) do

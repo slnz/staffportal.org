@@ -205,7 +205,7 @@
         - (1..@months_to_show + 1).each do |count|
           - @total = @balance[count-1] + @balance[count]
           - @balance[count] = @total
-        - @balance = @balance.collect { |value| value + (@account.records.last.balance - @total) }
+        - @balance = @balance.collect { |value| value + (@account.records.last.balance - @total + @advance_summary[ @account.records.last.date.strftime('%b %y')] ) }
         - (1..@months_to_show + 1).each do |count|
           - @data.push @balance[count].to_i
           %td= link_to number_with_precision(@balance[count], :precision => 0, :delimiter => ','), :controller => "accounts", :action => :transactions, :id => params[:id], :month => @months.keys[count]
