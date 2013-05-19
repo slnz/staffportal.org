@@ -354,13 +354,13 @@ body {
       bottom:0;
       width:40%;
       text-align: center;
-      background:#000;
-      background-color:rgba(0,0,0,0.7);
+      background:#fff;
+      background-color:rgba(200,200,200,0.7);
       border-bottom-right-radius: 5px;
       border-top-right-radius: 5px;
       letter-spacing: -0.6px;
       line-height:300px;
-      font-size:25px;
+      font-size:30px;
       font-weight: 700;
       text-transform: uppercase;
       @media (max-width: 767px) {
@@ -371,10 +371,10 @@ body {
       }
     }
     a:link, a:visited {
-      color:#006699;
+      color:#002f47;
     }
     a:hover {
-      color:#00aaff;
+      color:#006699;
       text-decoration: none;
     }
     &#accounts {
