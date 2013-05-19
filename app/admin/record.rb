@@ -1,5 +1,5 @@
-ActiveAdmin.register Record do
-  menu :parent => "Finance", :label => "Transactions"
+ActiveAdmin.register Record, :as => "Transaction", :sort_order => :date do
+  menu :parent => "Finance"
 
   action_item :only => :index do
     link_to 'Import from CSV', :action => 'upload_csv'
@@ -32,8 +32,16 @@ ActiveAdmin.register Record do
     column :type
     column :date
     column(:amount) {|t| number_to_currency t.amount }
-    column(:balance) {|t| number_to_currency t.balance }
     default_actions
+  end
+
+  csv do
+    column ("date") { |record| record.date.strftime('%d/%m/%y') }
+    column :reason
+    column("gl_code") { |record| "#{record.type.code}-#{record.account.code}" }
+    column :amount
+    column("reference") { |record| record.subtext }
+    column :who
   end
 
 end

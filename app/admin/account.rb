@@ -19,8 +19,7 @@ ActiveAdmin.register Account do
 
   collection_action :balances do
     Account.all.each do |account|
-      query = account.records.first
-      Resque.enqueue(TransactionQueue, query) unless query.nil?
+      Resque.enqueue(TransactionQueue, account.id)
     end
 
     flash[:notice] = "Balances updating in background!"

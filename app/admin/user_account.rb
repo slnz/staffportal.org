@@ -1,5 +1,5 @@
-ActiveAdmin.register UserAccount do
-  menu :parent => "Finance", :label => "Permissions"
+ActiveAdmin.register UserAccount, :as => "Permission" do
+  menu :parent => "Finance"
   index do
     selectable_column
     column :user
@@ -10,9 +10,9 @@ ActiveAdmin.register UserAccount do
   end
 
   form do |f|
-    f.inputs "Permissions" do
+    f.inputs "Details" do
       f.input :user, :input_html => { :class => 'chosen'}
-      f.input :account, :input_html => { :class => 'chosen'}
+      f.input :account, :input_html => { :class => 'chosen'}, :include_blank => true, :label_method => :to_label
       f.input :by_id, :as => :hidden, :input_html => { :value => current_user.id }
     end
     f.buttons

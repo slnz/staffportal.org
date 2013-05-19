@@ -15,7 +15,8 @@ body.staff_portal {
       text-decoration: underline;
     }
     &.pagination {
-      text-align:right;
+      text-align:center;
+      margin-top:20px;
     }
   }
   #accounts, #records {
@@ -24,6 +25,9 @@ body.staff_portal {
     font-family:Arial;
     border-collapse: collapse;
     margin-top:10px;
+    @media (max-width: 767px) {
+      margin-top:0;
+    }
     th {
       font-size: 14px;
       font-weight: bold;
@@ -33,6 +37,7 @@ body.staff_portal {
       border-bottom: 1px solid #D5D5D5;
       border-top: 1px solid #D5D5D5;
       background: #EFEFF0 url(<%= asset_path 'trans-list-th-bottom-line.gif' %>) repeat-x bottom;
+      text-align: left;
       &:last-child {
         border-right:0;
       }
@@ -55,6 +60,14 @@ body.staff_portal {
       border-right: 1px dotted #ccc;
       color: #000;
       padding: 12px 7px 8px 7px;
+      .type {
+        white-space: nowrap;
+        @media (max-width: 767px) {
+          width:80px;
+        }
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
       &:last-child {
         border-right:0;
       }
@@ -81,6 +94,9 @@ body.staff_portal {
         padding:0;
         div.bd {
           padding:8px 0 0px 100px;
+          @media (max-width: 767px) {
+            padding:10px;
+          }
         }
         dl{
 

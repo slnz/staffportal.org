@@ -5,48 +5,6 @@ class Record < ActiveRecord::Base
   validates_presence_of :amount, :date, :type, :account
   paginates_per 50
 
-  before_save :update_balance
-  after_save :update_external_balances
-
-  def update_balance
-      if id.nil?
-        query = account.records.where("date <= ?", self.date).order('date DESC, id DESC').first
-      else
-        query = account.records.where("id < ? and date = ? or id <> ? and date < ?", self.id, self.date, self.id, self.date).order('date DESC, id DESC').first
-      end
-      if type.code == "1301" or type.code == "P1301"
-        #starting balance
-        self.balance = self.amount # First movement
-      elsif type.is_income
-        unless query.nil?
-           self.balance = query.balance + self.amount
-        else
-           self.balance = self.amount # First movement
-        end
-      elsif type.is_expense
-        unless query.nil?
-           self.balance = query.balance - self.amount
-        else
-           self.balance = -self.amount # First movement
-        end
-      else
-        #unaccountable type (advances, stock etc)
-        unless query.nil?
-          self.balance = query.balance
-        else
-          self.balance = 0
-        end
-      end
-  end
-
-  def update_external_balances
-      record = account.records.where("id > ? and date = ? or id <> ? and date > ?", self.id, self.date, self.id, self.date).order('date DESC, id DESC').last
-      unless record.nil?
-        record.update_balance
-        record.save
-      end
-  end
-
   def date=(date)
     super
     self.month = self.date.beginning_of_month

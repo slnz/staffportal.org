@@ -23,8 +23,7 @@ class AccountsController < ApplicationController
     end
     query = query.where(:type_id => params[:type_id]) unless params[:type_id].nil?
     query = query.where(:month => Date.strptime(params[:month], '%b %y').beginning_of_month ) unless params[:month].nil?
-    @transactions = query.order('date DESC, id DESC').page params[:page]
-
+    @transactions = query.order('date DESC, id DESC').includes(:type).page params[:page]
     @money_in = 0
     @money_out = 0
     @transactions.each do |t|
@@ -32,14 +31,16 @@ class AccountsController < ApplicationController
         @money_in += t.amount
       elsif t.type.is_expense
         @money_out -= t.amount
-      else
-        @transactions.delete t
       end
     end
   end
   def show
     @months_to_show = 11
     @account = current_user.accounts.find(params[:id])
+
+    #@account.records.where("month >= ?", @account.records.last.date.ago(@months_to_show.month).beginning_of_month).group([:type_id, :month]).order([:type_id, :month]).sum(:amount).map{ |k,v| k << v }.each do |t|
+    #  raise t.inspect
+    #end
     @latest = @account.records.last.date
     @transactions = @account.records.where("month <= ? and month >= ?", @latest.end_of_month, @latest.ago(@months_to_show.month).beginning_of_month).limit(500).joins(:type).select("types.code, types.name, types.definition, records.month, sum(records.amount) as amount").group("types.code, types.id, types.name, records.month, types.definition").order("records.month desc, types.definition desc, types.name")
     @goals = {}

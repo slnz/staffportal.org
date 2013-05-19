@@ -1,0 +1,21 @@
+%section#intro-box.margin-80
+  .container
+    .row
+      .span12
+        %h3.pull-right.hidden-phone= current_user.name
+        %ul.breadcrumb
+          %li.active
+            Home
+        %span.arrow.hidden-phone
+.white
+  .container.text-center
+    - if flash[:warning] or flash[:notice]
+      <div id="notice"
+      - if flash[:warning]
+        class="warning"
+      >
+      \#{flash[:warning] || flash[:notice]}
+  .container.listing
+    #accounts.roadshow
+      %a{:href => "/staff/accounts"}
+        My Accounts

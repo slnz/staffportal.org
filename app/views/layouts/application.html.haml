@@ -1,0 +1,42 @@
+!!!
+%html
+  %head
+    %title Tandem Ministry Services Portal
+    %link{:href => "http://fonts.googleapis.com/css?family=Open+Sans:100,400,700", :rel => "stylesheet", :type => "text/css"}/
+    = stylesheet_link_tag "application", :media => "all"
+    = stylesheet_link_tag params[:controller], :media => "all"
+    %script{:text => "text/javascript"}
+      var controller = "#{params[:controller]}";
+    = javascript_include_tag "application"
+    = csrf_meta_tags
+  %body.staff_portal
+    - if !current_user.nil?
+      .navbar.navbar-fixed-top
+        .navbar-inner
+          .container
+            %a.brand
+              .hidden-phone
+                Ministry Services
+              .visible-phone
+                msp
+            %ul.nav.pull-right
+              - if current_user.admin == "admin"
+                %li.hidden-phone
+                  %a{:href => "/resque"} resque
+                %li.hidden-phone
+                  %a{:href => "/admin"} admin
+              - if current_user.admin == "coach"
+                %li.hidden-phone
+                  %a{:href => "/coach"} admin
+              - if current_user.admin == "hr"
+                %li.hidden-phone
+                  %a{:href => "/hr"} admin
+              %li
+                %a.last{:href => "/auth/logout"} sign out
+    = yield
+    %footer
+      .container
+        %span.arrow-down
+        %h6.muted
+          Tandem Ministries © Copyright
+          = Time.now.strftime('%Y')

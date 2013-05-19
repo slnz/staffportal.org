@@ -1,0 +1,41 @@
+%section#intro-box.margin-80
+  .container
+    .row
+      .span12
+
+        %h3.pull-right.hidden-phone= current_user.name
+        %ul.breadcrumb
+          %li
+            %a{:href => root_path} Home
+            %span.divider /
+          %li.active
+            My Accounts
+        %span.arrow.hidden-phone
+.white
+  .container
+    .pull-right.hidden-phone
+      %br/
+      = collection_select("summary", "currency", Currency.all, :code, :name, {:selected => current_user.currency_code})
+    = #render 'table'
+    %table#accounts
+      %thead
+        %tr
+          %th Code
+          %th.hidden-phone Name
+          %th Balance
+          %th
+            Updated
+            %span.hidden-phone On
+          %th
+      %tbody
+        - current_user.accounts.order(:code).all.each do |p|
+          %tr.account
+            %td= p.code
+            %td.hidden-phone= p.name
+            %td= number_to_currency p.get_balance current_user
+            %td= p.last_updated
+            %td{:style => "text-align:right"}
+              %a{:href => "/staff/accounts/#{p.id}"} Summary
+              \ 
+              %a{:href => "/staff/accounts/#{p.id}/transactions"} Transactions
+              \
