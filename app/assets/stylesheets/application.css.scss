@@ -71,7 +71,7 @@ footer {
 }
 
 body {
-  background: #323A45;
+  background: #002f47;
   font-weight: 300;
   font-size: 16px;
   font-family: 'Open Sans', sans-serif;
@@ -93,6 +93,9 @@ body {
   text-align: center;
 }
 
+/* ==================================================
+   Banner
+================================================== */
 .banner {
   width: 100%;
   position: relative;
@@ -140,10 +143,10 @@ body {
         }
 
         a:link, a:visited {
-          color:#F97E76;
+          color:#002f47;
         }
         a:hover {
-          color:#f9bcb5;
+          color:#006699;
           text-decoration: none;
         }
         &.inverted {
@@ -151,7 +154,7 @@ body {
           background-color:rgba(255,255,255,0.5);
         }
         &.sub {
-          color:#F97E76;
+          color:#83d6ff;
           padding:5px 10px;
           font-weight: 700;
         }
@@ -173,7 +176,7 @@ body {
 ================================================== */
 
 .navbar-inner {
-  background: #323A45 !important;
+  background: #002f47 !important;
   border: 0 !important;
   box-shadow: none !important;
   -webkit-box-shadow: none !important;
@@ -268,12 +271,12 @@ body {
 ================================================== */
 
 #intro-box {
-  background: #F97E76;
+  background: #006699;
   @media (max-width: 767px) {
     text-align: center;
   }
   .muted {
-    color:#f9bcb5;
+    color:#83d6ff;
   }
   .breadcrumb {
     background:transparent;
@@ -293,10 +296,10 @@ body {
         color:#fff;
       }
       a:link, a:visited {
-        color:#f9bcb5;
+        color:#83d6ff;
       }
       a:hover {
-        color:#fbe4e2;
+        color:#83d6ff;
       }
     }
   }
@@ -368,10 +371,10 @@ body {
       }
     }
     a:link, a:visited {
-      color:#F97E76;
+      color:#006699;
     }
     a:hover {
-      color:#f9bcb5;
+      color:#00aaff;
       text-decoration: none;
     }
     &#accounts {
