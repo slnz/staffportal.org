@@ -248,4 +248,6 @@ Devise.setup do |config|
   # require user records to already exist locally before they can authenticate via
   # CAS, uncomment the following line.
   # config.cas_create_user = false
+
+  config.case_insensitive_keys = [:email, :username]
 end
