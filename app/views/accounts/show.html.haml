@@ -1,8 +1,7 @@
 %section#intro-box.margin-80
   .container
     .row
-      .span12
-        %h3.pull-right.hidden-phone= "#{@account.code} #{@account.name}"
+      .span6
         %ul.breadcrumb
           %li
             %a{:href => root_path} Home
@@ -16,6 +15,8 @@
           %li
             %a{:href => "/staff/accounts/#{params[:id]}/transactions"} Transactions
         %span.arrow.hidden-phone
+      .span6.text-right.hidden-phone
+        %h3= "#{@account.code} #{@account.name}"
 .white
   .container
     .pull-right.hidden-phone
@@ -154,6 +155,31 @@
             .bd{:id => @random, :style => 'display:none'}
               %script{:type => 'text/javascript'}
                 = "insert_graph(\"#{@random}\",#{@months.keys.inspect.html_safe}, #{@data}, \"TOTAL OUTGOINGS\", #{@expense_goal});".html_safe
+        -# TOTALS
+        %tr.record
+          %td{:colspan => @months.length + 4} Summary
+        - @balance = [0]
+        %tr.record.expandable.closed
+          %td Surplus/Deficit
+          - @data = []
+          - @total = 0
+          - @income_summary.each_with_index do |array, index|
+            - key = array[0]
+            - value = array[1]
+            %td{class: (if index < 5 then "visible-desktop" elsif index < 10 then "hidden-phone" end)}= number_with_precision (value - @expense_summary[key]), :precision => 0, :delimiter => ','
+            - @total += ( value - @expense_summary[key])# + @advance_summary[key] )
+            - @balance.push ( value - @expense_summary[key]  + @advance_summary[key] )
+            - @data.push ( value - @expense_summary[key])# + @advance_summary[key] ).to_i
+          %td
+          %td
+          %td.visible-desktop.details
+        - @random = SecureRandom::uuid
+        %tr{:style => 'display:none'}
+          %td
+          %td{:colspan => 100}
+            .bd{:id => @random, :style => 'display:none'}
+              %script{:type => 'text/javascript'}
+                = "insert_graph(\"#{@random}\",#{@months.keys.inspect.html_safe}, #{@data}, \"Surplus | Deficit\");".html_safe
         -# ADVANCES
         - unless @advance == {}
           %tr.record
@@ -163,6 +189,10 @@
               %td= key
               - @total = 0
               - @stock = 0
+              - if key == "Vehicle Advance"
+                - @stock += @vehicle_advances
+              - elsif key == "Merchandise Inventory"
+                - @stock += @stock_advances
               - value.each_with_index do |t,index|
                 - if t[1] == 0
                   %td{class: (if index < 5 then "visible-desktop" elsif index < 10 then "hidden-phone" end)}= number_with_precision @stock, :precision => 0, :delimiter => ','
@@ -179,43 +209,20 @@
                 - @advance_final = @total
               %td
               %td.visible-desktop.details
-        -# TOTALS
-        %tr.record
-          %td{:colspan => @months.length + 4} Summary
-        - @balance = [0]
-        %tr.record.expandable.closed
-          %td Surplus/Deficit
-          - @data = []
-          - @total = 0
-          - @income_summary.each_with_index do |array, index|
-            - key = array[0]
-            - value = array[1]
-            %td{class: (if index < 5 then "visible-desktop" elsif index < 10 then "hidden-phone" end)}= number_with_precision (value - @expense_summary[key] + @advance_summary[key]), :precision => 0, :delimiter => ','
-            - @total += ( value - @expense_summary[key] + @advance_summary[key] )
-            - @balance.push ( value - @expense_summary[key]  + @advance_summary[key] )
-            - @data.push ( value - @expense_summary[key] + @advance_summary[key] ).to_i
-          %td
-          %td
-          %td.visible-desktop.details
-        - @random = SecureRandom::uuid
-        %tr{:style => 'display:none'}
-          %td
-          %td{:colspan => 100}
-            .bd{:id => @random, :style => 'display:none'}
-              %script{:type => 'text/javascript'}
-                = "insert_graph(\"#{@random}\",#{@months.keys.inspect.html_safe}, #{@data}, \"Surplus | Deficit\");".html_safe
         =# BALANCES
         %tr.sum_totals.record.expandable
           %td Balance
           - @data = []
           - @total = 0
+          - sum = 0
+          - @advance_summary = @advance_summary.to_a.map{|v| sum += v[1]}
           - (1..@months_to_show + 1).each do |count|
             - @total = @balance[count-1] + @balance[count]
             - @balance[count] = @total
-          - @balance = @balance.collect { |value| value + (@account.records.last.balance - @total - @advance_final.to_s.to_d  ) }
+          - @balance = @balance.collect { |value| value + (@account.records.last.balance - @total - @vehicle_advances - @stock_advances) }
           - (1..@months_to_show + 1).each do |count|
             - @data.push @balance[count].to_i
-            %td{class: (if count <= 5 then "visible-desktop" elsif count <= 10 then "hidden-phone" end)}= link_to number_with_precision(@balance[count], :precision => 0, :delimiter => ','), :controller => "accounts", :action => :transactions, :id => params[:id], :month => @months.keys[count]
+            %td{class: (if count <= 5 then "visible-desktop" elsif count <= 10 then "hidden-phone" end)}= link_to number_with_precision(@balance[count] + @advance_summary[count-1], :precision => 0, :delimiter => ','), :controller => "accounts", :action => :transactions, :id => params[:id], :month => @months.keys[count]
           %td= number_to_currency @balance.last, :precision => 0
           %td
           %td.visible-desktop.details

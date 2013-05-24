@@ -78,6 +78,8 @@ class AccountsController < ApplicationController
     @income_goal = 0
     @expense_goal = 0
 
+    @vehicle_advances = @account.records.where("month < ? and type_id = 161", @latest.ago(@months_to_show.month).beginning_of_month).sum(:amount)
+    @stock_advances = @account.records.where("month < ? and type_id = 163", @latest.ago(@months_to_show.month).beginning_of_month).sum(:amount)
     @transactions.each do |t|
       if t.definition == "IN" or t.code == "1301" or t.code == "P1301"
         @income[t.name] = @months.deep_dup if @income[t.name].blank?

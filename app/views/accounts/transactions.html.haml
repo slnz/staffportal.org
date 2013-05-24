@@ -1,8 +1,7 @@
 %section#intro-box.margin-80
   .container
     .row
-      .span12
-        %h3.pull-right.hidden-phone= "#{@account.code} #{@account.name}"
+      .span6
         %ul.breadcrumb
           %li
             %a{:href => root_path} Home
@@ -16,6 +15,8 @@
           %li.active
             Transactions
         %span.arrow.hidden-phone
+      .span6.text-right.hidden-phone
+        %h3= "#{@account.code} #{@account.name}"
 .white
   .container
     .pull-right.hidden-phone

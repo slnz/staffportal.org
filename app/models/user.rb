@@ -10,6 +10,10 @@ class User < ActiveRecord::Base
   has_many :user_accounts
   has_many :accounts, :through => :user_accounts
 
+  before_save do
+    self.username.downcase! if self.username
+  end
+
   def self.current
     Thread.current[:user]
   end
