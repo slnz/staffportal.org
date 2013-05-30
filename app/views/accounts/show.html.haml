@@ -217,7 +217,7 @@
           - sum = 0
           - @advance_summary = @advance_summary.to_a.map{|v| sum += v[1]}
           - sum = 0
-          - @balance = @balance.to_a.map{|v| sum += v.to_d}
+          - @balance = @balance.to_a.map{|v| sum += v.to_s.to_d}
           - @balance = @balance.collect { |value| value + (@account.records.last.balance - @total - @vehicle_advances - @stock_advances) }
           - (1..@months_to_show + 1).each do |count|
             - @data.push @balance[count].to_i
