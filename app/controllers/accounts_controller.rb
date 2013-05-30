@@ -41,7 +41,7 @@ class AccountsController < ApplicationController
     #@account.records.where("month >= ?", @account.records.last.date.ago(@months_to_show.month).beginning_of_month).group([:type_id, :month]).order([:type_id, :month]).sum(:amount).map{ |k,v| k << v }.each do |t|
     #  raise t.inspect
     #end
-    @latest = @account.records.last.date
+    @latest = @account.records.order(:month).last.date
     @transactions = @account.records.where("month <= ? and month >= ?", @latest.end_of_month, @latest.ago(@months_to_show.month).beginning_of_month).limit(500).joins(:type).select("types.code, types.name, types.definition, records.month, sum(records.amount) as amount").group("types.code, types.id, types.name, records.month, types.definition").order("records.month desc, types.definition desc, types.name")
     @goals = {}
     @account.goals.all.each do |value|

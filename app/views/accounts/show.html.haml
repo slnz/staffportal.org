@@ -222,7 +222,7 @@
           - (1..@months_to_show + 1).each do |count|
             - @data.push @balance[count].to_i
             %td{class: (if count <= 5 then "visible-desktop" elsif count <= 10 then "hidden-phone" end)}= link_to number_with_precision(@balance[count] + @advance_summary[count-1], :precision => 0, :delimiter => ','), :controller => "accounts", :action => :transactions, :id => params[:id], :month => @months.keys[count]
-          %td= number_to_currency @balance.last, :precision => 0
+          %td
           %td
           %td.visible-desktop.details
         - @random = SecureRandom::uuid
