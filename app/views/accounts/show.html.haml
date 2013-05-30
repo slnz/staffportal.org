@@ -165,11 +165,11 @@
           - @total = 0
           - @income_summary.each_with_index do |array, index|
             - key = array[0]
-            - value = array[1]
-            %td{class: (if index < 5 then "visible-desktop" elsif index < 10 then "hidden-phone" end)}= number_with_precision (value - @expense_summary[key]), :precision => 0, :delimiter => ','
-            - @total += ( value - @expense_summary[key])# + @advance_summary[key] )
-            - @balance.push ( value - @expense_summary[key]  + @advance_summary[key] )
-            - @data.push ( value - @expense_summary[key])# + @advance_summary[key] ).to_i
+            - value = array[1] - @expense_summary[key]
+            %td{class: (if index < 5 then "visible-desktop" elsif index < 10 then "hidden-phone" end)}= number_with_precision value, :precision => 0, :delimiter => ','
+            - @total += value # + @advance_summary[key] )
+            - @balance.push value
+            - @data.push value # + @advance_summary[key] ).to_i
           %td
           %td
           %td.visible-desktop.details
@@ -216,9 +216,8 @@
           - @total = 0
           - sum = 0
           - @advance_summary = @advance_summary.to_a.map{|v| sum += v[1]}
-          - (1..@months_to_show + 1).each do |count|
-            - @total = @balance[count-1] + @balance[count]
-            - @balance[count] = @total
+          - sum = 0
+          - @balance = @balance.to_a.map{|v| sum += v.to_d}
           - @balance = @balance.collect { |value| value + (@account.records.last.balance - @total - @vehicle_advances - @stock_advances) }
           - (1..@months_to_show + 1).each do |count|
             - @data.push @balance[count].to_i
