@@ -218,7 +218,7 @@
           - @advance_summary = @advance_summary.to_a.map{|v| sum += v[1]}
           - sum = 0
           - @balance = @balance.to_a.map{|v| sum += v.to_s.to_d}
-          - @balance = @balance.collect { |value| value + ( @account.records.last.balance - sum - @vehicle_advances - @stock_advances) }
+          - @balance = @balance.collect { |value| value + ( @latest.balance - sum - @vehicle_advances - @stock_advances) }
           - (1..@months_to_show + 1).each do |count|
             - @data.push @balance[count].to_i
             %td{class: (if count <= 5 then "visible-desktop" elsif count <= 10 then "hidden-phone" end)}= link_to number_with_precision(@balance[count] + @advance_summary[count-1], :precision => 0, :delimiter => ','), :controller => "accounts", :action => :transactions, :id => params[:id], :month => @months.keys[count]

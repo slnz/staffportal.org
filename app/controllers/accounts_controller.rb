@@ -41,8 +41,8 @@ class AccountsController < ApplicationController
     #@account.records.where("month >= ?", @account.records.last.date.ago(@months_to_show.month).beginning_of_month).group([:type_id, :month]).order([:type_id, :month]).sum(:amount).map{ |k,v| k << v }.each do |t|
     #  raise t.inspect
     #end
-    @latest = @account.records.order(:month).last.date
-    @transactions = @account.records.where("month <= ? and month >= ?", @latest.end_of_month, @latest.ago(@months_to_show.month).beginning_of_month).limit(500).joins(:type).select("types.code, types.name, types.definition, records.month, sum(records.amount) as amount").group("types.code, types.id, types.name, records.month, types.definition").order("records.month desc, types.definition desc, types.name")
+    @latest = @account.records.order(:date).last
+    @transactions = @account.records.where("month <= ? and month >= ?", @latest.date.end_of_month, @latest.date.ago(@months_to_show.month).beginning_of_month).limit(500).joins(:type).select("types.code, types.name, types.definition, records.month, sum(records.amount) as amount").group("types.code, types.id, types.name, records.month, types.definition").order("records.month desc, types.definition desc, types.name")
     @goals = {}
     @account.goals.all.each do |value|
       @goals[value.type.name] = value.amount
@@ -53,7 +53,7 @@ class AccountsController < ApplicationController
 
     fx = OpenExchangeRates::Rates.new
 
-    @day = @latest.ago((@months_to_show).month).beginning_of_month
+    @day = @latest.date.ago((@months_to_show).month).beginning_of_month
     (0..@months_to_show).each do |t|
       @months[@day.strftime('%b %y')] = 0
       @currency_summary[@day.strftime('%b %y')] = 1
@@ -78,8 +78,8 @@ class AccountsController < ApplicationController
     @income_goal = 0
     @expense_goal = 0
 
-    @vehicle_advances = @account.records.where("month < ? and type_id = 161", @latest.ago(@months_to_show.month).beginning_of_month).sum(:amount)
-    @stock_advances = @account.records.where("month < ? and type_id = 163", @latest.ago(@months_to_show.month).beginning_of_month).sum(:amount)
+    @vehicle_advances = @account.records.where("month < ? and type_id = 161", @latest.date.ago(@months_to_show.month).beginning_of_month).sum(:amount)
+    @stock_advances = @account.records.where("month < ? and type_id = 163", @latest.date.ago(@months_to_show.month).beginning_of_month).sum(:amount)
     @transactions.each do |t|
       if t.definition == "IN" or t.code == "1301" or t.code == "P1301"
         @income[t.name] = @months.deep_dup if @income[t.name].blank?
