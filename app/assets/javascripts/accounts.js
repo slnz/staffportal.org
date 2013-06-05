@@ -31,32 +31,31 @@ function insert_graph(container, categories, data, name, goal_input, salary_inpu
       var series = [ {
               type: 'area',
               name: "Goal",
-              data: goal
+              data: goal,
+              color: "#3163d2"
             }, {
               type: 'area',
               name: "Salary",
-              data: salary
+              data: salary,
+              color: "rgb(170,70,67)"
             }, {
               type: 'column',
               name: name,
-              data: data
+              data: data,
+              color: "#8cdc57"
             }]
-    } else if (goal_input != null) {
+    } else {
       var series = [ {
               type: 'area',
               name: "Goal",
-              data: goal
+              data: goal,
+              color: "#3163d2"
             }, {
               type: 'column',
               name: name,
-              data: data
+              data: data,
+              color: "#8cdc57"
             }]
-    } else {
-      var series = {
-              type: 'column',
-              name: name,
-              data: data
-            }
     }
 
     $(document).ready(function() {
