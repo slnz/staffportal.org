@@ -1,7 +1,22 @@
 class AccountsController < ApplicationController
   before_filter :authenticate_user!
   def index
-
+    # 160 is the ID of the advances type, 243 is the PI advances type
+    @advances = current_user.accounts.joins(:records).where('records.type_id = 160 or records.type_id = 243').group('accounts.id').sum('records.amount')
+    @graphs = {}
+    @months = {}
+    (1..12).each do |count|
+      @months[DateTime.now.beginning_of_month.ago((13 - count).month).strftime("%b %y")] = 0
+    end
+    @goals = current_user.accounts.joins(goals: :type).where("types.definition = 'IN'").group('accounts.id').sum(:amount)
+    @salary = current_user.accounts.joins(goals: :type).where("types.name = 'Salary'").group('accounts.id').sum(:amount)
+    current_user.accounts.joins(:records).group([:code,:month, :date] ).order(:date).select('code, month, last(balance)').each do |value|
+      @graphs[value.code] = @months.deep_dup unless @graphs.has_key?(value.code)
+      value.month =  DateTime.strptime(value.month, "%Y-%m-%d").strftime("%b %y")
+      @graphs[value.code][value.month] = value.last if @graphs[value.code].has_key?(value.month)
+    end
+    @currency_rate = current_user.currency.currency_rates.order(:month).last
+    @currency_rate = @currency_rate.blank? ? 1 : @currency_rate.rate
   end
   def change_default_currency
     if current_user.currency.nil?
@@ -14,8 +29,9 @@ class AccountsController < ApplicationController
     end
   end
   def transactions
+    @currency_rate = current_user.currency.currency_rates.order(:month).last
+    @currency_rate = @currency_rate.blank? ? 1 : @currency_rate.rate
     @account = current_user.accounts.find(params[:id])
-
     query = @account.records
     unless params[:type].nil?
       @type_id = Type.where(:name => params[:type]).first
@@ -42,7 +58,7 @@ class AccountsController < ApplicationController
     #  raise t.inspect
     #end
     @latest = @account.records.order(:date).last
-    @transactions = @account.records.where("month <= ? and month >= ?", @latest.date.end_of_month, @latest.date.ago(@months_to_show.month).beginning_of_month).limit(500).joins(:type).select("types.code, types.name, types.definition, records.month, sum(records.amount) as amount").group("types.code, types.id, types.name, records.month, types.definition").order("records.month desc, types.definition desc, types.name")
+    @transactions = @account.records.where("month <= ? and month >= ?", @latest.date.end_of_month, @latest.date.ago(@months_to_show.month).beginning_of_month).limit(500).joins(:type).select("types.code, types.name, types.definition, records.month, sum(records.amount) as amount").group("types.code, types.id, types.name, records.month, types.definition").order("types.code asc, records.month desc, types.definition desc")
     @goals = {}
     @account.goals.all.each do |value|
       @goals[value.type.name] = value.amount

@@ -22,8 +22,8 @@ class Account < ActiveRecord::Base
     records.each do |record|
       if record.type.is_income
          balance += record.amount
-      elsif record.type.is_expense
-         balance -= record.amount
+      elsif record.type.is_expense or record.type_id == 161 or record.type_id == 163
+        balance -= record.amount
       end
       if balance != record.balance
         record.balance = balance
@@ -33,19 +33,10 @@ class Account < ActiveRecord::Base
   end
 
   def get_balance(current_user)
-    acct = self.records.order('date DESC, id desc').first
-    if acct.nil?
-      0
-    else
-      @currency_rate = current_user.currency.currency_rates.where(:month => acct.month).first
-      @vehicle_advance = self.records.joins(:type).where("types.code" => "1225").sum(:amount)
-      @stock = self.records.joins(:type).where("types.code" => "1350").sum(:amount)
-      if @currency_rate.blank?
-        acct.balance - @stock - @vehicle_advance
-      else
-        (acct.balance - @stock - @vehicle_advance) * @currency_rate.rate
-      end
-    end
+    @currency_rate = current_user.currency.currency_rates.order(:month).last
+    @currency_rate = @currency_rate.blank? ? 1 : @currency_rate.rate
+    @record = self.records.order('date DESC, id desc').first
+    @record.blank? ? 0 : @record.balance * @currency_rate
   end
 
   def last_updated

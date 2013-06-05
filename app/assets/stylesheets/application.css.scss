@@ -199,6 +199,7 @@ body {
     text-transform: uppercase;
     line-height: 50px !important;
     letter-spacing: -0.6px;
+    text-shadow:none;
   }
   .nav {
     .active > a {
@@ -231,7 +232,7 @@ body {
     padding-right: 0;
   }
   body {
-    padding-top: 70px;
+    padding-top: 120px;
   }
 }
 
@@ -273,13 +274,25 @@ body {
    Intro Box
 ================================================== */
 
-#intro-box {
+.intro-box {
+  position: fixed;
+  top:70px;
+  width:100%;
   background: #006699;
+  z-index:1;
   @media (max-width: 767px) {
+    position: static;
     text-align: center;
   }
   .muted {
     color:#83d6ff;
+  }
+  &.alert-box {
+    position: static;
+    background-color:#ff5757;
+    .muted {
+      color:#ffd2d2;
+    }
   }
   .breadcrumb {
     background:transparent;
@@ -383,5 +396,51 @@ body {
     &#accounts {
       background: image-url('city.jpg');
     }
+  }
+}
+.visible-print {
+  display:none;
+}
+@media print{
+  @page {size: landscape}
+  body {
+    line-height:20px;
+  }
+  .navbar {
+    display:none;
+  }
+  .hidden-print {
+    display:none !important;
+  }
+  .visible-print {
+    display:block;
+  }
+  table { page-break-inside: auto }
+  tr { page-break-inside: avoid; page-break-after: auto }
+  tr.visible-desktop {
+    display:table-row !important;
+  }
+  td.visible-desktop, th.visible-desktop {
+    display:table-cell !important;
+  }
+  #records td, #records th {
+    border:0 !important;
+    padding:0 7px !important;
+    a:link, a:visited {
+      color:#000 !important;
+    }
+  }
+  #records th {
+    border-bottom: 1px solid #CCC !important;
+  }
+  #records .totals td {
+    padding-top:10px;
+  }
+  #records tr.sum_totals td, #records tr.balance td {
+    border-top: 3px double #ccc !important;
+    border-bottom: 1px solid #CCC !important;
+  }
+  .container {
+    width:100%;
   }
 }

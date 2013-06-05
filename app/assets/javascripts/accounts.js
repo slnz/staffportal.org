@@ -29,30 +29,40 @@ function insert_graph(container, categories, data, name, goal_input, salary_inpu
           salary.push(salary_input/12); //Example, pushing 5 integers in an array
       }
       var series = [ {
+              type: 'area',
               name: "Goal",
               data: goal
             }, {
+              type: 'area',
               name: "Salary",
               data: salary
             }, {
+              type: 'column',
+              name: name,
+              data: data
+            }]
+    } else if (goal_input != null) {
+      var series = [ {
+              type: 'area',
+              name: "Goal",
+              data: goal
+            }, {
+              type: 'column',
               name: name,
               data: data
             }]
     } else {
-      var series = [ {
-              name: "Goal",
-              data: goal
-            }, {
+      var series = {
+              type: 'column',
               name: name,
               data: data
-            }]
+            }
     }
 
     $(document).ready(function() {
         chart = new Highcharts.Chart({
             chart: {
                 renderTo: container,
-                type: 'area',
                 height: 200
             },
             title: {
