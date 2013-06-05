@@ -28,10 +28,12 @@ ActiveAdmin.register Record, :as => "Transaction", :sort_order => :date do
 
   index do
     selectable_column
+    column :id
     column :account
     column :type
     column :date
     column(:amount) {|t| number_to_currency t.amount }
+    column :balance
     default_actions
   end
 
