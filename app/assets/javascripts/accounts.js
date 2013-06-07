@@ -1,8 +1,21 @@
+var reload = false;
+var graphs = {};
 $(document).ready(function() {
   if ( controller == "accounts" ) {
+    $('tr.expandable > td > a').click(function() {
+      reload = true;
+    });
     $('tr.expandable').click(function() {
-      $(this).toggleClass('closed');
-      $(this).next().show().find('td div.bd').slideToggle(200, function () { if (!$(this).is(':visible')) $(this).closest('tr').hide(); });
+      if (!reload) {
+        $(this).toggleClass('closed');
+        var bd = $(this).next().show().find('td div.bd');
+        graphs[bd.attr('id')].setSize($('.container').width(), 200, false);
+        bd.slideToggle(200, function () {
+          if ( !$(this).is(':visible') ) {
+            $(this).closest('tr').hide();
+          }
+        });
+      }
     });
     $('#summary_currency').change(function() {
       $.get( '/staff/accounts/change_default_currency/' + $(this).children('option:selected').val() + '.json').complete(function(data) {
@@ -10,6 +23,17 @@ $(document).ready(function() {
       });
     })
   }
+});
+
+$(window).resize(function()
+{
+    $.each(graphs, function(index, value) {
+      value.setSize(
+        $('.container').width(),
+        200,
+        false
+      );
+    });
 });
 
 function insert_graph(container, categories, data, name, goal_input, salary_input) {
@@ -59,9 +83,10 @@ function insert_graph(container, categories, data, name, goal_input, salary_inpu
     }
 
     $(document).ready(function() {
-        chart = new Highcharts.Chart({
+        graphs[container] = new Highcharts.Chart({
             chart: {
                 renderTo: container,
+                reflow: false,
                 height: 200
             },
             title: {

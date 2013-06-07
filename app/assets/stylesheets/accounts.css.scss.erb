@@ -167,7 +167,9 @@ body.staff_portal {
       }
       &.record {
         background: #F2F2F3;
-        cursor:pointer;
+        &.expandable {
+          cursor:pointer;
+        }
         td.details {
             background:#F2F2F3 url(<%= asset_path 'row-arrow-up.gif' %>) no-repeat center center;
         }

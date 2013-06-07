@@ -10,13 +10,15 @@ class AccountsController < ApplicationController
     end
     @currency_rate = current_user.currency.currency_rates.order(:month).last
     @currency_rate = @currency_rate.blank? ? 1 : @currency_rate.rate
-    @goals = current_user.accounts.joins(goals: :type).where("types.definition = 'IN'").group('accounts.id').sum(:amount)
-    @salary = current_user.accounts.joins(goals: :type).where("types.name = 'Salary'").group('accounts.id').sum(:amount)
-    current_user.accounts.joins(:records).group([:code,:month, :date, 'records.id'] ).order(:date, 'records.id').select('records.id, code, month, last(balance)').each do |value|
-      @graphs[value.code] = @months.deep_dup unless @graphs.has_key?(value.code)
-      value.month =  DateTime.strptime(value.month, "%Y-%m-%d").strftime("%b %y")
-      @graphs[value.code][value.month] = value.last.to_i * @currency_rate if @graphs[value.code].has_key?(value.month)
-    end
+    if current_user.accounts.count <= 15
+      @goals = current_user.accounts.joins(goals: :type).where("types.definition = 'IN'").group('accounts.id').sum(:amount)
+      @salary = current_user.accounts.joins(goals: :type).where("types.name = 'Salary'").group('accounts.id').sum(:amount)
+      current_user.accounts.joins(:records).group([:code,:month, :date, 'records.id'] ).order(:date, 'records.id').select('records.id, code, month, last(balance)').each do |value|
+        @graphs[value.code] = @months.deep_dup unless @graphs.has_key?(value.code)
+        value.month =  DateTime.strptime(value.month, "%Y-%m-%d").strftime("%b %y")
+        @graphs[value.code][value.month] = value.last.to_i * @currency_rate if @graphs[value.code].has_key?(value.month)
+      end
+  end
   end
   def change_default_currency
     if current_user.currency.nil?

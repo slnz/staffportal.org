@@ -29,10 +29,11 @@
             Updated
             %span.hidden-phone On
           %th
-          %th.visible-desktop
+          - if current_user.accounts.count <= 15
+            %th.visible-desktop
       %tbody
         - current_user.accounts.order(:code).all.each do |p|
-          %tr.record.expandable.account{:class => ('closed' unless p.code[0] == '1' or p.code[0] == '9')}
+          %tr.record.account{:class => "#{ if current_user.accounts.count <= 15 then 'expandable' else 'closed' end} #{'closed' unless p.code[0] == '1' or p.code[0] == '9'}" }
             %td= p.code
             %td.hidden-phone= p.name
             %td.text-right= number_to_currency p.get_balance current_user
@@ -45,16 +46,17 @@
               \ 
               %a{:href => "/staff/accounts/#{p.id}/transactions"} Transactions
               \
-            %td.visible-desktop.details
-          - @random = SecureRandom::uuid
-          %tr{:style => ('display:none' unless p.code[0] == '1' or p.code[0] == '9')}
-            %td
-            %td{:colspan => 100}
-              .bd{:id => @random, :style => ( (p.code[0] == '1' or p.code[0] == '9') ? 'display:block' : 'display:none' )}
-                %script{:type => 'text/javascript'}
-                  - if @salary.has_key?(p.id)
-                    = "insert_graph(\"#{@random}\",#{@months.keys.inspect.html_safe}, #{@graphs[p.code].to_a.map{|v| v[1].to_i} },\"Balance\", #{(@goals[p.id].to_d * @currency_rate).to_i}, #{(@salary[p.id].to_d * @currency_rate).to_i});".html_safe
-                  - elsif @goals.has_key?(p.id)
-                    = "insert_graph(\"#{@random}\",#{@months.keys.inspect.html_safe}, #{@graphs[p.code].to_a.map{|v| v[1].to_i} },\"Balance\", #{(@goals[p.id].to_d * @currency_rate).to_i});".html_safe
-                  - else
-                    = "insert_graph(\"#{@random}\",#{@months.keys.inspect.html_safe}, #{@graphs[p.code].to_a.map{|v| v[1].to_i} },\"Balance\", 0);".html_safe
+            - if current_user.accounts.count <= 15
+              %td.visible-desktop.details
+          - if current_user.accounts.count <= 15
+            - @random = SecureRandom::uuid
+            %tr{:style => ('display:none' unless p.code[0] == '1' or p.code[0] == '9')}
+              %td{:colspan => 100}
+                .bd{:id => @random, :style => ( (p.code[0] == '1' or p.code[0] == '9') ? 'display:block' : 'display:none' )}
+                  %script{:type => 'text/javascript'}
+                    - if @salary.has_key?(p.id) and @goals.has_key?(p.id)
+                      = "insert_graph(\"#{@random}\",#{@months.keys.inspect.html_safe}, #{@graphs[p.code].to_a.map{|v| v[1].to_i} },\"Balance\", #{(@goals[p.id].to_d * @currency_rate).to_i}, #{(@salary[p.id].to_d * @currency_rate).to_i});".html_safe
+                    - elsif @goals.has_key?(p.id)
+                      = "insert_graph(\"#{@random}\",#{@months.keys.inspect.html_safe}, #{@graphs[p.code].to_a.map{|v| v[1].to_i} },\"Balance\", #{(@goals[p.id].to_d * @currency_rate).to_i});".html_safe
+                    - else
+                      = "insert_graph(\"#{@random}\",#{@months.keys.inspect.html_safe}, #{@graphs[p.code].to_a.map{|v| v[1].to_i} },\"Balance\", 0);".html_safe
