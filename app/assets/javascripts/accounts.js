@@ -9,7 +9,7 @@ $(document).ready(function() {
       if (!reload) {
         $(this).toggleClass('closed');
         var bd = $(this).next().show().find('td div.bd');
-        graphs[bd.attr('id')].setSize($('.container').width(), 200, false);
+        if (graphs[bd.attr('id')] != undefined) graphs[bd.attr('id')].setSize($('.container').width(), 200, false);
         bd.slideToggle(200, function () {
           if ( !$(this).is(':visible') ) {
             $(this).closest('tr').hide();
