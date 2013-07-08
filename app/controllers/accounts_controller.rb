@@ -8,6 +8,10 @@ class AccountsController < ApplicationController
     (1..12).each do |count|
       @months[DateTime.now.beginning_of_month.ago((13 - count).month).strftime("%b %y")] = 0
     end
+    if current_user.currency.nil?
+      current_user.currency = Currency.find_by_code("NZD")
+      current_user.save
+    end
     @currency_rate = current_user.currency.currency_rates.order(:month).last
     @currency_rate = @currency_rate.blank? ? 1 : @currency_rate.rate
     if current_user.accounts.count <= 15
