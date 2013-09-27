@@ -1,4 +1,4 @@
-class BootcampController < ApplicationController
+class Staff::Dmpd::IndexController < ApplicationController
   before_filter :authenticate_user!
   def index
     @week6 = Week6.where(:user_id => User.find(current_user.id)).first_or_create

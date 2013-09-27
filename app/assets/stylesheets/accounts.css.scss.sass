@@ -36,13 +36,13 @@ body.staff_portal {
       border-right: 1px dotted #ccc;
       border-bottom: 1px solid #D5D5D5;
       border-top: 1px solid #D5D5D5;
-      background: #EFEFF0 url(<%= asset_path 'trans-list-th-bottom-line.gif' %>) repeat-x bottom;
+      background: #EFEFF0 image-url('trans-list-th-bottom-line.gif') repeat-x bottom;
       text-align: left;
       &:last-child {
         border-right:0;
       }
       &:first-child {
-        background:#E5E5E5 url(<%= asset_path 'column-sort-desc.gif' %>) no-repeat right center;
+        background:#E5E5E5 image-url('column-sort-desc.gif') no-repeat right center;
         width: 74px;
       }
       &.details {
@@ -82,7 +82,7 @@ body.staff_portal {
       }
       &.details.closed {
         width: 18px;
-        background: url(<%= asset_path 'row-arrow-down.gif' %>) no-repeat center center;
+        background: image-url('row-arrow-down.gif') no-repeat center center;
       }
       div.bd{
         border-top:1px solid #FFF;
@@ -171,18 +171,18 @@ body.staff_portal {
           cursor:pointer;
         }
         td.details {
-            background:#F2F2F3 url(<%= asset_path 'row-arrow-up.gif' %>) no-repeat center center;
+            background:#F2F2F3 image-url('row-arrow-up.gif') no-repeat center center;
         }
         &.closed {
           background: #fff;
           td.details {
-            background:#fff url(<%= asset_path 'row-arrow-down.gif' %>) no-repeat center center;
+            background:#fff image-url('row-arrow-down.gif') no-repeat center center;
           }
           &:hover {
             &.expandable td{
               background-color:#f1f5fa;
               &.details {
-                background:#f1f5fa url(<%= asset_path 'row-arrow-active-down.gif' %>) no-repeat center center;
+                background:#f1f5fa image-url('row-arrow-active-down.gif') no-repeat center center;
               }
             }
           }

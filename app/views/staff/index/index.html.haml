@@ -17,6 +17,11 @@
       >
       \#{flash[:warning] || flash[:notice]}
   .container.listing
-    #accounts.roadshow
-      %a{:href => "/staff/accounts"}
-        My Accounts
+    .row
+      .roadshow.span6
+        %a{:href => "/staff/accounts"}
+          My Accounts
+      .roadshow.span6
+        %a{:href => "/staff/dmpd"}
+          DMPD
+

@@ -1,11 +1,18 @@
 /*
  *= require _font-awesome
+ *= require summernote
+ *= require formtastic-bootstrap
  *= require_self
 */
+
+$iconSpritePath: '';
+$iconWhiteSpritePath: '';
 
 @import 'bootstrap';
 @import 'bootstrap-responsive';
 @import 'compass/css3';
+@import 'accounts';
+@import 'staff';
 
 @media (min-width: 980px) {
   tr.visible-desktop {
@@ -353,10 +360,8 @@ body {
     padding:0;
   }
   .roadshow {
-    border-radius:5px;
     background-size:cover;
     background-position: center;
-    width:100%;
     height:300px;
     position: relative;
     @media (max-width: 767px) {
@@ -368,33 +373,30 @@ body {
       right:0;
       top:0;
       bottom:0;
-      width:40%;
+      left:0;
       text-align: center;
-      background:#fff;
-      background-color:rgba(200,200,200,0.7);
-      border-bottom-right-radius: 5px;
-      border-top-right-radius: 5px;
       letter-spacing: -0.6px;
       line-height:300px;
       font-size:30px;
       font-weight: 700;
       text-transform: uppercase;
       @media (max-width: 767px) {
-        width:100%;
-        border-radius: 0;
         line-height:200px;
         font-size:25px;
       }
     }
     a:link, a:visited {
-      color:#002f47;
+      color:#fff;
     }
     a:hover {
-      color:#006699;
+      color:#ccc;
       text-decoration: none;
     }
-    &#accounts {
-      background: image-url('city.jpg');
+    &:first-child {
+       background-color: #3093c7;
+    }
+    &:last-child {
+       background-color: #E16137;
     }
   }
 }

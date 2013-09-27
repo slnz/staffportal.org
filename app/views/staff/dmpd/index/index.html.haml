@@ -1,0 +1,47 @@
+- title "MSP | DMPD"
+%section.intro-box.margin-80.hidden-print
+  .container
+    .row
+      .span12
+        %h3.pull-right.hidden-phone= current_user.name
+        %ul.breadcrumb
+          %li
+            %a{:href => root_path} Home
+            %span.divider /
+          %li.active
+            DMPD
+        %span.arrow.hidden-phone
+.white
+  .container
+    %h1 Pre-Bootcamp Activities
+    - if flash[:warning] or flash[:notice]
+      #notice{class: ( "warning" unless flash[:warning].blank?)}
+        = "#{flash[:warning] || flash[:notice]}"
+    .weekbox
+      .header
+        %h2
+          %a{href: "/staff/dmpd/contacts"} Contacts for Auckland
+    .if.if{class: "weekbox<haml_silent> @week6.completed? </haml_silent><haml_block> completed</haml_block><haml_silent> @week6.error </haml_silent><haml_block> error</haml_block>"}
+      .header
+        %h2
+          %a{href: edit_staff_dmpd_week6_path(@week6)} 6 Weeks until Bootcamp
+          - if @week6.assignments_remaining!
+            %div
+              = pluralize(@week6.assignments_remaining, 'assignment')
+              remaining
+          - if @week6.tasks_remaining!
+            %div
+              = pluralize(@week6.tasks_remaining, 'task')
+              remaining
+    .if.if{class: "weekbox<haml_silent> @week5.completed? </haml_silent><haml_block> completed</haml_block><haml_silent> @week5.error </haml_silent><haml_block> error</haml_block>"}
+      .header
+        %h2
+          %a{href: edit_staff_dmpd_week5_path(@week5)} 5 Weeks until Bootcamp
+          - if @week5.assignments_remaining!
+            %div
+              = pluralize(@week5.assignments_remaining, 'assignment')
+              remaining
+          - if @week5.tasks_remaining!
+            %div
+              = pluralize(@week5.tasks_remaining, 'task')
+              remaining

@@ -1,11 +1,11 @@
-class ContactsController < InheritedResources::Base
+class Staff::Dmpd::ContactsController < InheritedResources::Base
   before_filter :authenticate_user!
   def index
-    redirect_to '/staff/bootcamp', :notice => "Contact Removed"
+    redirect_to staff_dmpd_root, :notice => "Contact Removed"
   end
   def create
     if params[:contact][:first_name].empty? or params[:contact][:last_name].empty? or params[:contact][:phone].empty?
-      redirect_to '/staff/bootcamp/contacts', :notice => "Missing Contact Field Data".html_safe
+      redirect_to staff_dmpd_contacts_path, :notice => "Missing Contact Field Data".html_safe
     else
       params[:contact][:first_name] = params[:contact][:first_name].capitalize
       params[:contact][:last_name] = params[:contact][:last_name].capitalize
@@ -17,14 +17,14 @@ class ContactsController < InheritedResources::Base
       if @exists.nil?
         super
       else
-        redirect_to '/staff/bootcamp/contacts', :notice => "Contact already claimed by <a href=\"mailto:#{@exists.user.username}\">#{@exists.user.username}</a>".html_safe
+        redirect_to staff_dmpd_contacts_path, :notice => "Contact already claimed by <a href=\"mailto:#{@exists.user.username}\">#{@exists.user.username}</a>".html_safe
       end
     end
   end
   def show
-    redirect_to '/staff/bootcamp/contacts', :notice => "Contact Created"
+    redirect_to staff_dmpd_contacts_path, :notice => "Contact Created"
   end
   def delete
-    redirect_to '/staff/bootcamp/contacts', :notice => "Contact Removed"
+    redirect_to staff_dmpd_contacts_path, :notice => "Contact Removed"
   end
 end

@@ -1,0 +1,7 @@
+development:
+  adapter: postgresql
+  database: tandem_staff
+  username: macuser
+  host: localhost
+  port: 5432
+  pool: 10
