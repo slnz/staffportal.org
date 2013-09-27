@@ -39,10 +39,10 @@ gem 'haml'
 gem 'kaminari-bootstrap'
 gem "airbrake"
 
+gem "cancan"
 gem 'inherited_resources'
 gem 'table_for_collection'
 gem 'activeadmin', :git => 'git://github.com/gregbell/active_admin.git'
-gem 'activeadmin-cancan'
 
 gem 'highcharts-rails'
 gem 'summernote-rails'
