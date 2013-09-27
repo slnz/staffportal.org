@@ -1,7 +1,7 @@
 var reload = false;
 var graphs = {};
 $(document).ready(function() {
-  if ( controller == "accounts" ) {
+  if ( controller == "staff/accounts" ) {
     $('tr.expandable > td > a').click(function() {
       reload = true;
     });

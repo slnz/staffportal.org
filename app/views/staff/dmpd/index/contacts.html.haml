@@ -1,0 +1,36 @@
+- title "MSP | Contacts for Auckland"
+%section.intro-box.margin-80.hidden-print
+  .container
+    .row
+      .span12
+        %h3.pull-right.hidden-phone= current_user.name
+        %ul.breadcrumb
+          %li
+            %a{:href => root_path} Home
+            %span.divider /
+          %li
+            %a{:href => staff_dmpd_root_path} DMPD
+            %span.divider /
+          %li.active
+            Contacts for Auckland
+        %span.arrow.hidden-phone
+.white
+  .container
+    - flash.each do |key, value|
+      %div{class: flash_class(key)}
+        = value
+    %h2.page-header Contacts for Auckland
+    = semantic_form_for Contact.new, url: staff_dmpd_contacts_path do |f|
+      = f.input :first_name
+      = f.input :last_name
+      = f.input :phone
+      = f.input :user_id, :as => :hidden, :input_html => { :value => current_user.id }
+      = f.actions do
+        = f.action :submit, :as => :button, :label => "Add Contact"
+    - unless @contacts.empty?
+      = table_for @contacts,:html => {:class => "table table-striped"} do
+        - column :first_name
+        - column :last_name
+        - column :phone
+        - column :title => "Actions" do |contact|
+          - link_to("Delete", staff_dmpd_contact_path(contact), :method => :delete)

@@ -13,35 +13,36 @@
         %span.arrow.hidden-phone
 .white
   .container
-    %h1 Pre-Bootcamp Activities
-    - if flash[:warning] or flash[:notice]
-      #notice{class: ( "warning" unless flash[:warning].blank?)}
-        = "#{flash[:warning] || flash[:notice]}"
-    .weekbox
-      .header
-        %h2
-          %a{href: "/staff/dmpd/contacts"} Contacts for Auckland
-    .if.if{class: "weekbox<haml_silent> @week6.completed? </haml_silent><haml_block> completed</haml_block><haml_silent> @week6.error </haml_silent><haml_block> error</haml_block>"}
-      .header
-        %h2
-          %a{href: edit_staff_dmpd_week6_path(@week6)} 6 Weeks until Bootcamp
-          - if @week6.assignments_remaining!
-            %div
-              = pluralize(@week6.assignments_remaining, 'assignment')
-              remaining
-          - if @week6.tasks_remaining!
-            %div
-              = pluralize(@week6.tasks_remaining, 'task')
-              remaining
-    .if.if{class: "weekbox<haml_silent> @week5.completed? </haml_silent><haml_block> completed</haml_block><haml_silent> @week5.error </haml_silent><haml_block> error</haml_block>"}
-      .header
-        %h2
-          %a{href: edit_staff_dmpd_week5_path(@week5)} 5 Weeks until Bootcamp
-          - if @week5.assignments_remaining!
-            %div
-              = pluralize(@week5.assignments_remaining, 'assignment')
-              remaining
-          - if @week5.tasks_remaining!
-            %div
-              = pluralize(@week5.tasks_remaining, 'task')
-              remaining
+    - flash.each do |key, value|
+      %div{class: flash_class(key)}
+        = value
+    %h1.page-header DMPD
+    .well
+      %h4
+        %a{href: "/staff/dmpd/contacts"} Contacts for Auckland
+    .well
+      %h4
+        %a{href: edit_staff_dmpd_week6_path(@week6)} Taskset 1
+      - if @week6.assignments_remaining!
+        %div
+          %i.icon-briefcase &nbsp;
+          = pluralize(@week6.assignments_remaining, 'assignment')
+          remaining
+      - if @week6.tasks_remaining!
+        %div
+          %i.icon-tasks &nbsp;
+          = pluralize(@week6.tasks_remaining, 'task')
+          remaining
+    .well
+      %h4
+        %a{href: edit_staff_dmpd_week5_path(@week5)} Taskset 2
+      - if @week5.assignments_remaining!
+        %div
+          %i.icon-briefcase &nbsp;
+          = pluralize(@week5.assignments_remaining, 'assignment')
+          remaining
+      - if @week5.tasks_remaining!
+        %div
+          %i.icon-tasks &nbsp;
+          = pluralize(@week5.tasks_remaining, 'task')
+          remaining

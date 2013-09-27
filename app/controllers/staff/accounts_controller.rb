@@ -1,4 +1,5 @@
-class Staff::Accounts::IndexController < ApplicationController
+class Staff::AccountsController < InheritedResources::Base
+  respond_to :html, :only => [:index, :show]
   before_filter :authenticate_user!
   def index
     # 160 is the ID of the advances type, 243 is the PI advances type

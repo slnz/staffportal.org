@@ -250,4 +250,6 @@ Devise.setup do |config|
   # config.cas_create_user = false
 
   config.case_insensitive_keys = [:email, :username]
+
+  config.secret_key = '103a02ca2e9adeccc35207c54f6a3d8d1d7c16daf62d7419dce2571cd6ade2b30a90d1fce6a1f76fddb8f1e40912af9ec8a7c11467a1d0b7a8f53169d27ea605'
 end

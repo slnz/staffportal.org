@@ -99,6 +99,13 @@ ActiveRecord::Schema.define(:version => 20130927015908) do
     t.date     "month"
   end
 
+  create_table "scopes", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "sessions", :force => true do |t|
     t.string   "session_id", :null => false
     t.text     "data"

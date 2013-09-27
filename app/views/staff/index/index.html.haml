@@ -9,13 +9,10 @@
             Home
         %span.arrow.hidden-phone
 .white
-  .container.text-center
-    - if flash[:warning] or flash[:notice]
-      <div id="notice"
-      - if flash[:warning]
-        class="warning"
-      >
-      \#{flash[:warning] || flash[:notice]}
+  .container
+    - flash.each do |key, value|
+      %div{class: flash_class(key)}
+        = value
   .container.listing
     .row
       .roadshow.span6

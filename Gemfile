@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.3'
+gem 'rails', '3.2.14'
 gem 'pg'
 gem 'devise'
 gem 'devise_cas_authenticatable'
@@ -40,10 +40,9 @@ gem 'kaminari-bootstrap'
 gem "airbrake"
 
 gem 'inherited_resources'
-gem 'tabletastic'
+gem 'table_for_collection'
 gem 'activeadmin', :git => 'git://github.com/gregbell/active_admin.git'
 gem 'activeadmin-cancan'
 
 gem 'highcharts-rails'
 gem 'summernote-rails'
-gem 'sprockets', '~> 2.0'

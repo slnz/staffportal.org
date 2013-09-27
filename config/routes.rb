@@ -16,16 +16,18 @@ Staff::Application.routes.draw do
 
       namespace :dmpd do
         root :to => 'index#index'
-        match 'contacts' => 'index#contacts'
+        get 'contacts' => 'index#contacts'
         resources :contacts
         resources :week6
         resources :week5
       end
-      namespace :accounts do
-        root :to => 'index#index'
-        get ':id' => 'index#show'
-        get ':id/transactions' => 'index#transactions'
-        match 'change_default_currency/:code' => 'index#change_default_currency'
+      resources :accounts do
+        member do
+          get 'transactions'
+        end
+        collection do
+          get 'change_default_currency/:code' => 'accounts#change_default_currency'
+        end
       end
     end
   end
