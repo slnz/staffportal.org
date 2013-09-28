@@ -24,7 +24,7 @@ class Week6 < ActiveRecord::Base
     tasks_remaining == 0 and assignments_remaining == 0
   end
   def error
-    if !completed? and Time.now > self.finish_date
+    if !completed? and Time.now > Week6.finish_date
       true
     else
       false

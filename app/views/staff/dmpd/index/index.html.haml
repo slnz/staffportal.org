@@ -26,7 +26,7 @@
             \/ 10
         %a{href: "/staff/dmpd/contacts"} Contacts for Auckland
       %p Continue to pray and look for more contacts in Auckland and in your primary DMPD location.
-    .well{class: ("success" if @week6.completed?)}
+    .well{class: [("success" if @week6.completed?), ("danger" if @week6.error)].compact.join(" ")}
       %h4
         .pull-right.muted
           %i.icon-time
@@ -43,7 +43,7 @@
           %i.icon-briefcase &nbsp;
           = pluralize(@week6.assignments_remaining, 'assignment')
           remaining
-    .well{class: ("success" if @week5.completed?)}
+    .well{class: [("success" if @week5.completed?), ("danger" if @week5.error)].compact.join(" ")}
       %h4
         .pull-right.muted
           %i.icon-time 
@@ -60,7 +60,7 @@
           %i.icon-briefcase &nbsp;
           = pluralize(@week5.assignments_remaining, 'assignment')
           remaining
-    .well{class: ("success" if @week4.completed?)}
+    .well{class: [("success" if @week4.completed?), ("danger" if @week4.error)].compact.join(" ")}
       %h4
         .pull-right.muted
           %i.icon-time 
@@ -77,7 +77,7 @@
           %i.icon-briefcase &nbsp;
           = pluralize(@week4.assignments_remaining, 'assignment')
           remaining
-    .well{class: ("success" if @week3.completed?)}
+    .well{class: [("success" if @week3.completed?), ("danger" if @week3.error)].compact.join(" ")}
       %h4
         .pull-right.muted
           %i.icon-time 
@@ -94,7 +94,7 @@
           %i.icon-briefcase &nbsp;
           = pluralize(@week3.assignments_remaining, 'assignment')
           remaining
-    .well{class: ("success" if @week2.completed?)}
+    .well{class: [("success" if @week2.completed?), ("danger" if @week2.error)].compact.join(" ")}
       %h4
         .pull-right.muted
           %i.icon-time 
@@ -111,7 +111,7 @@
           %i.icon-briefcase &nbsp;
           = pluralize(@week2.assignments_remaining, 'assignment')
           remaining
-    .well{class: ("success" if @week1.completed?)}
+    .well{class: [("success" if @week1.completed?), ("danger" if @week1.error)].compact.join(" ")}
       %h4
         .pull-right.muted
           %i.icon-time 
@@ -128,9 +128,3 @@
           %i.icon-briefcase &nbsp;
           = pluralize(@week1.assignments_remaining, 'assignment')
           remaining
-    .well
-      %h4 Regular Activities
-      %ul
-        %li Use DMPD Prayer Sheet during your daily meditations and prayer times.
-        %li Listen to the Attitude Message &amp; continue to be more detailed with your notes.
-        %li Memorize a passage from the DMPD Prayer Sheet.
