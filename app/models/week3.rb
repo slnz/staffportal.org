@@ -56,7 +56,7 @@ class Week3 < ActiveRecord::Base
   end
   def assignments_remaining
     count = 0
-    count+= 1 unless vision_folder.exists
+    count+= 1 unless vision_folder.exists?
     count
   end
 
