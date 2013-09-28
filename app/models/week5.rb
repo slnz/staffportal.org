@@ -49,7 +49,7 @@ class Week5 < ActiveRecord::Base
   end
   def assignments_remaining
     count = 0
-    count+= 1 unless !missionary_profile.empty?
+    count+= 1 unless !missionary_profile.blank?
     count
   end
 end

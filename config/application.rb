@@ -59,5 +59,7 @@ module Staff
     config.assets.paths << "#{Rails.root}/app/assets/fonts"
 
     config.logger = Logger.new(STDOUT)
+
+    config.assets.initialize_on_precompile = false
   end
 end

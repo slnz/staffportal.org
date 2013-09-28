@@ -46,3 +46,7 @@ gem 'activeadmin', :git => 'git://github.com/gregbell/active_admin.git'
 
 gem 'highcharts-rails'
 gem 'summernote-rails'
+
+# Gemfile
+gem 'paperclip'
+gem 'aws-sdk'

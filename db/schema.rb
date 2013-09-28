@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130928030549) do
+ActiveRecord::Schema.define(:version => 20130928050040) do
 
   create_table "accounts", :force => true do |t|
     t.string   "code"
@@ -195,6 +195,10 @@ ActiveRecord::Schema.define(:version => 20130928030549) do
     t.boolean  "confirmed_coach"
     t.boolean  "confirmed_hr"
     t.boolean  "practice_our_teams_current_financial_needs"
+    t.string   "vision_folder_file_name"
+    t.string   "vision_folder_content_type"
+    t.integer  "vision_folder_file_size"
+    t.datetime "vision_folder_updated_at"
   end
 
   create_table "week4s", :force => true do |t|

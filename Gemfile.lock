@@ -54,6 +54,10 @@ GEM
     arel (3.0.2)
     atomic (1.1.14)
     awesome_print (1.2.0)
+    aws-sdk (1.11.3)
+      json (~> 1.4)
+      nokogiri (< 1.6.0)
+      uuidtools (~> 2.1)
     bcrypt-ruby (3.1.2)
     bootstrap-sass (2.1.1.0)
     bourbon (3.1.8)
@@ -134,6 +138,7 @@ GEM
     mime-types (1.25)
     mono_logger (1.1.0)
     multi_json (1.8.0)
+    nokogiri (1.5.10)
     open_exchange_rates (0.4.0)
       yajl-ruby
     orm_adapter (0.4.0)
@@ -224,6 +229,7 @@ GEM
       kgio (~> 2.6)
       rack
       raindrops (~> 0.7)
+    uuidtools (2.1.4)
     vegas (0.1.11)
       rack (>= 1.0.0)
     warden (1.2.3)
@@ -237,6 +243,7 @@ DEPENDENCIES
   activeadmin!
   airbrake
   awesome_print
+  aws-sdk
   bootstrap-sass (~> 2.1.1.0)
   cancan
   ckeditor (= 3.7.1)
