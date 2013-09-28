@@ -17,13 +17,13 @@
       %div{class: flash_class(key)}
         = value
     %h1.page-header DMPD
-    .well{class: ("success" if current_user.contacts.count >= 10)}
+    .well{class: ("success" if current_user.contacts.count >= 30)}
       %h4
         .pull-right.muted
           %i.icon-user
             &nbsp;
             = current_user.contacts.count
-            \/ 10
+            \/ 30
         %a{href: "/staff/dmpd/contacts"} Contacts for Auckland
       %p Continue to pray and look for more contacts in Auckland and in your primary DMPD location.
     .well{class: [("success" if @week6.completed?), ("danger" if @week6.error)].compact.join(" ")}
