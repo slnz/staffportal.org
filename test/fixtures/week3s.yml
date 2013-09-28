@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  prayer_sheet: false
+  memorize_prayer_sheet_passage: false
+  share_call_testimony: false
+  share_salvation_testimony: false
+  recite_passage_from_dmpd_prayer_sheet: false
+  listen_to_attitude_message: false
+  review_how_to_develop_your_ministry_partners: false
+  practice_tandems_financial_policy: false
+  practice_our_teams_current_financial_needs: MyString
+
+two:
+  prayer_sheet: false
+  memorize_prayer_sheet_passage: false
+  share_call_testimony: false
+  share_salvation_testimony: false
+  recite_passage_from_dmpd_prayer_sheet: false
+  listen_to_attitude_message: false
+  review_how_to_develop_your_ministry_partners: false
+  practice_tandems_financial_policy: false
+  practice_our_teams_current_financial_needs: MyString

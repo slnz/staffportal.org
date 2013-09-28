@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130927015908) do
+ActiveRecord::Schema.define(:version => 20130928030549) do
 
   create_table "accounts", :force => true do |t|
     t.string   "code"
@@ -145,6 +145,72 @@ ActiveRecord::Schema.define(:version => 20130927015908) do
   end
 
   add_index "users", ["username"], :name => "index_users_on_username", :unique => true
+
+  create_table "week1s", :force => true do |t|
+    t.boolean  "prayer_sheet"
+    t.boolean  "memorize_prayer_sheet_passage"
+    t.boolean  "share_call_testimony"
+    t.boolean  "share_salvation_testimony"
+    t.boolean  "recite_passage_from_dmpd_prayer_sheet"
+    t.boolean  "listen_to_attitude_message"
+    t.boolean  "practice_calling_blurbs"
+    t.boolean  "review_how_to_prepare_appt_calling_boxes"
+    t.boolean  "review_healthy_staff_support_is_essentials"
+    t.boolean  "recite_the_flow"
+    t.datetime "created_at",                                 :null => false
+    t.datetime "updated_at",                                 :null => false
+    t.integer  "user_id"
+    t.boolean  "confirmed_coach"
+    t.boolean  "confirmed_hr"
+  end
+
+  create_table "week2s", :force => true do |t|
+    t.boolean  "prayer_sheet"
+    t.boolean  "memorize_prayer_sheet_passage"
+    t.boolean  "share_call_testimony"
+    t.boolean  "share_salvation_testimony"
+    t.boolean  "recite_passage_from_dmpd_prayer_sheet"
+    t.boolean  "listen_to_attitude_message"
+    t.boolean  "practice_calling_blurbs"
+    t.boolean  "review_how_to_prepare_appt_calling_boxes"
+    t.datetime "created_at",                               :null => false
+    t.datetime "updated_at",                               :null => false
+    t.integer  "user_id"
+    t.boolean  "confirmed_coach"
+    t.boolean  "confirmed_hr"
+  end
+
+  create_table "week3s", :force => true do |t|
+    t.boolean  "prayer_sheet"
+    t.boolean  "memorize_prayer_sheet_passage"
+    t.boolean  "share_call_testimony"
+    t.boolean  "share_salvation_testimony"
+    t.boolean  "recite_passage_from_dmpd_prayer_sheet"
+    t.boolean  "listen_to_attitude_message"
+    t.boolean  "review_how_to_develop_your_ministry_partners"
+    t.boolean  "practice_tandems_financial_policy"
+    t.datetime "created_at",                                   :null => false
+    t.datetime "updated_at",                                   :null => false
+    t.integer  "user_id"
+    t.boolean  "confirmed_coach"
+    t.boolean  "confirmed_hr"
+    t.boolean  "practice_our_teams_current_financial_needs"
+  end
+
+  create_table "week4s", :force => true do |t|
+    t.boolean  "prayer_sheet"
+    t.boolean  "memorize_prayer_sheet_passage"
+    t.boolean  "share_call_testimony"
+    t.boolean  "share_salvation_testimony"
+    t.boolean  "recite_passage_from_dmpd_prayer_sheet"
+    t.boolean  "listen_to_attitude_message"
+    t.boolean  "review_the_five_main_things"
+    t.datetime "created_at",                            :null => false
+    t.datetime "updated_at",                            :null => false
+    t.integer  "user_id"
+    t.boolean  "confirmed_coach"
+    t.boolean  "confirmed_hr"
+  end
 
   create_table "week5s", :force => true do |t|
     t.boolean  "recite_passage_from_dmpd_prayer_sheet"

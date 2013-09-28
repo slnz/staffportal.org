@@ -5,6 +5,11 @@ class User < ActiveRecord::Base
   belongs_to :bootcamp_coach, :class_name => "User"
   has_many :trainees, :class_name => "User", :foreign_key => "bootcamp_coach_id"
   has_one :week6
+  has_one :week5
+  has_one :week4
+  has_one :week3
+  has_one :week2
+  has_one :week1
   belongs_to :currency
   has_many :contacts
   has_many :user_accounts

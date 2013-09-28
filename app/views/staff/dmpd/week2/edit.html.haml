@@ -1,0 +1,39 @@
+- title "MSP | Taskset 5"
+%section.intro-box.margin-80.hidden-print
+  .container
+    .row
+      .span12
+        %h3.pull-right.hidden-phone= current_user.name
+        %ul.breadcrumb
+          %li
+            %a{:href => root_path} Home
+            %span.divider /
+          %li
+            %a{:href => staff_dmpd_root_path} DMPD
+            %span.divider /
+          %li.active
+            Taskset 5
+        %span.arrow.hidden-phone
+.white
+  .container
+    - flash.each do |key, value|
+      %div{class: flash_class(key)}
+        = value
+    %h2.page-header
+      Taskset 5
+      - if @week2.confirmed_hr
+        %div Confirmed by HR
+      - if @week2.confirmed_coach
+        %div Confirmed by Coach
+    = semantic_form_for @week2, url: staff_dmpd_week2_path do |f|
+      = f.inputs do
+        .well
+          %h4 Tasks
+          = f.input :prayer_sheet, :label => "As a group pray through <strong>DMPD Prayer Sheet</strong>".html_safe
+          = f.input :listen_to_attitude_message, :label => "As a group listen to one of the <strong>Attitude Messages</strong> & continue to be more detailed with your notes".html_safe
+          = f.input :memorize_prayer_sheet_passage, :label => "Memorize one of the passages from <strong>DMPD Prayer Sheet</strong>".html_safe
+          = f.input :recite_passage_from_dmpd_prayer_sheet, :label => "Recite the passage you memorized from the <strong>DMPD Prayer Sheet</strong>".html_safe
+          = f.input :share_call_testimony, :label => "Share with your group your <strong>2 Minute Call Testimony</strong>".html_safe
+          = f.input :share_salvation_testimony, :label => "Share with your group your <strong>2 Minute Salvation Testimony</strong>".html_safe
+      = f.actions do
+        = f.action :submit, :as => :button, :label => "Save"

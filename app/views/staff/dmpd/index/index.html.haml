@@ -17,32 +17,120 @@
       %div{class: flash_class(key)}
         = value
     %h1.page-header DMPD
-    .well
+    .well{class: ("success" if current_user.contacts.count >= 10)}
       %h4
+        .pull-right.muted
+          %i.icon-user
+            &nbsp;
+            = current_user.contacts.count
+            \/ 10
         %a{href: "/staff/dmpd/contacts"} Contacts for Auckland
-    .well
+      %p Continue to pray and look for more contacts in Auckland and in your primary DMPD location.
+    .well{class: ("success" if @week6.completed?)}
       %h4
+        .pull-right.muted
+          %i.icon-time
+            &nbsp;
+            = Week6.finish_date
         %a{href: edit_staff_dmpd_week6_path(@week6)} Taskset 1
-      - if @week6.assignments_remaining!
-        %div
-          %i.icon-briefcase &nbsp;
-          = pluralize(@week6.assignments_remaining, 'assignment')
-          remaining
       - if @week6.tasks_remaining!
         %div
           %i.icon-tasks &nbsp;
           = pluralize(@week6.tasks_remaining, 'task')
           remaining
-    .well
-      %h4
-        %a{href: edit_staff_dmpd_week5_path(@week5)} Taskset 2
-      - if @week5.assignments_remaining!
+      - if @week6.assignments_remaining!
         %div
           %i.icon-briefcase &nbsp;
-          = pluralize(@week5.assignments_remaining, 'assignment')
+          = pluralize(@week6.assignments_remaining, 'assignment')
           remaining
+    .well{class: ("success" if @week5.completed?)}
+      %h4
+        .pull-right.muted
+          %i.icon-time 
+            &nbsp;
+            = Week5.finish_date
+        %a{href: edit_staff_dmpd_week5_path(@week5)} Taskset 2
       - if @week5.tasks_remaining!
         %div
           %i.icon-tasks &nbsp;
           = pluralize(@week5.tasks_remaining, 'task')
           remaining
+      - if @week5.assignments_remaining!
+        %div
+          %i.icon-briefcase &nbsp;
+          = pluralize(@week5.assignments_remaining, 'assignment')
+          remaining
+    .well{class: ("success" if @week4.completed?)}
+      %h4
+        .pull-right.muted
+          %i.icon-time 
+            &nbsp;
+            = Week4.finish_date
+        %a{href: edit_staff_dmpd_week4_path(@week4)} Taskset 3
+      - if @week4.tasks_remaining!
+        %div
+          %i.icon-tasks &nbsp;
+          = pluralize(@week4.tasks_remaining, 'task')
+          remaining
+      - if @week4.assignments_remaining!
+        %div
+          %i.icon-briefcase &nbsp;
+          = pluralize(@week4.assignments_remaining, 'assignment')
+          remaining
+    .well{class: ("success" if @week3.completed?)}
+      %h4
+        .pull-right.muted
+          %i.icon-time 
+            &nbsp;
+            = Week3.finish_date
+        %a{href: edit_staff_dmpd_week3_path(@week3)} Taskset 4
+      - if @week4.tasks_remaining!
+        %div
+          %i.icon-tasks &nbsp;
+          = pluralize(@week3.tasks_remaining, 'task')
+          remaining
+      - if @week3.assignments_remaining!
+        %div
+          %i.icon-briefcase &nbsp;
+          = pluralize(@week3.assignments_remaining, 'assignment')
+          remaining
+    .well{class: ("success" if @week2.completed?)}
+      %h4
+        .pull-right.muted
+          %i.icon-time 
+            &nbsp;
+            = Week2.finish_date
+        %a{href: edit_staff_dmpd_week2_path(@week2)} Taskset 5
+      - if @week4.tasks_remaining!
+        %div
+          %i.icon-tasks &nbsp;
+          = pluralize(@week2.tasks_remaining, 'task')
+          remaining
+      - if @week2.assignments_remaining!
+        %div
+          %i.icon-briefcase &nbsp;
+          = pluralize(@week2.assignments_remaining, 'assignment')
+          remaining
+    .well{class: ("success" if @week1.completed?)}
+      %h4
+        .pull-right.muted
+          %i.icon-time 
+            &nbsp;
+            = Week1.finish_date
+        %a{href: edit_staff_dmpd_week1_path(@week1)} Taskset 6
+      - if @week1.tasks_remaining!
+        %div
+          %i.icon-tasks &nbsp;
+          = pluralize(@week1.tasks_remaining, 'task')
+          remaining
+      - if @week1.assignments_remaining!
+        %div
+          %i.icon-briefcase &nbsp;
+          = pluralize(@week1.assignments_remaining, 'assignment')
+          remaining
+    .well
+      %h4 Regular Activities
+      %ul
+        %li Use DMPD Prayer Sheet during your daily meditations and prayer times.
+        %li Listen to the Attitude Message &amp; continue to be more detailed with your notes.
+        %li Memorize a passage from the DMPD Prayer Sheet.

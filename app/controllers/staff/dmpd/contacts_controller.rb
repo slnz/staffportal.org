@@ -2,9 +2,6 @@ class Staff::Dmpd::ContactsController < InheritedResources::Base
   before_filter :authenticate_user!
 
   respond_to :html, :only => [:index, :show, :update, :create, :delete]
-  def index
-    redirect_to staff_dmpd_root
-  end
   def create
     if params[:contact][:first_name].empty? or params[:contact][:last_name].empty? or params[:contact][:phone].empty?
       flash[:notice] = "Missing Contact Field Data".html_safe

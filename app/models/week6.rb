@@ -5,6 +5,10 @@ class Week6 < ActiveRecord::Base
   COMPLETE = "complete"
   IN_PROGRESS = "in_progress"
 
+  def self.finish_date
+    Date.new(2013, 10, 6)
+  end
+
   def username
     self.user.name unless self.user.nil?
   end
@@ -17,25 +21,17 @@ class Week6 < ActiveRecord::Base
     end
   end
   def completed?
-    if !call_testimony.blank? and !discipleship_story_1.blank? and !discipleship_story_2.blank? and !discipleship_story_3.blank? and listen_to_attitude_message and memorize_prayer_sheet_passage and prayer_sheet and review_how_to_get_contacts_faster_than_you_can_use_them and review_purpose_of_dmpd_training and !salvation_testimony.blank? and share_call_testimony and share_salvation_testimony and !victory_story_1.blank? and !victory_story_2.blank?
-      true
-    else
-      false
-    end
+    tasks_remaining == 0 and assignments_remaining == 0
   end
   def error
-    if !completed and Time.now > Date.new(2012, 10, 15)
+    if !completed? and Time.now > self.finish_date
       true
     else
       false
     end
   end
   def tasks_remaining!
-    if listen_to_attitude_message and memorize_prayer_sheet_passage and prayer_sheet and review_how_to_get_contacts_faster_than_you_can_use_them and review_purpose_of_dmpd_training and share_call_testimony and share_salvation_testimony
-      false
-    else
-      true
-    end
+    tasks_remaining > 0
   end
   def tasks_remaining
     count = 0
@@ -43,17 +39,12 @@ class Week6 < ActiveRecord::Base
     count+= 1 unless memorize_prayer_sheet_passage
     count+= 1 unless prayer_sheet
     count+= 1 unless review_how_to_get_contacts_faster_than_you_can_use_them
-    count+= 1 unless review_purpose_of_dmpd_training
     count+= 1 unless share_call_testimony
     count+= 1 unless share_salvation_testimony
     count
   end
   def assignments_remaining!
-    if !call_testimony.blank? and !discipleship_story_1.blank? and !discipleship_story_2.blank? and !discipleship_story_3.blank? and !salvation_testimony.blank? and !victory_story_1.blank? and !victory_story_2.blank?
-      false
-    else
-      true
-    end
+    assignments_remaining > 0
   end
   def assignments_remaining
     count = 0

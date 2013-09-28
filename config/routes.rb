@@ -20,6 +20,10 @@ Staff::Application.routes.draw do
         resources :contacts
         resources :week6
         resources :week5
+        resources :week4
+        resources :week3
+        resources :week2
+        resources :week1
       end
       resources :accounts do
         member do
