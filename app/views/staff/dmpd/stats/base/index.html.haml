@@ -58,7 +58,6 @@
               - appointments_support = current_user.appointment_set_record.where("date_of_appointment_week_id = ? and frequency > 0", wk.id).count
               - monthly = current_user.appointment_set_record.where("date_of_appointment_week_id = ? and frequency > 0", wk.id).sum(:monthly)
               - special = current_user.appointment_set_record.where("date_of_appointment_week_id = ? and frequency = 0", wk.id).sum(:amount)
-              - ratio = number_with_precision(contacts_received.to_d / ccb.contact_ratio_total.to_d, :precision => 2)
               %tr
                 - if ccb.nil? or srd.nil?
                   %td.gray
@@ -91,7 +90,7 @@
                   %td.orange= "#{number_to_currency (monthly / appointments_support)}/mo"
                   %td= number_to_currency special
                   - stat_totals[7] += special
-                  %td.orange= ratio
+                  %td.orange= number_with_precision(contacts_received.to_d / ccb.contact_ratio_total.to_d, :precision => 2)
 
 
             %tr.totals
@@ -101,10 +100,16 @@
               %td= stat_totals[1]
               %td= stat_totals[2]
               %td= stat_totals[3]
-              %td.visible-desktop.orange= "#{number_with_precision((stat_totals[3].to_d / stat_totals[2]) * 100, :precision => 0)}%"
+              - if stat_totals[2] = 0
+                %td.orange %
+              - else
+                %td.visible-desktop.orange= "#{number_with_precision((stat_totals[3].to_d / stat_totals[2]) * 100, :precision => 0)}%"
               %td= stat_totals[4]
               %td= stat_totals[5]
-              %td.orange= "#{number_with_precision((stat_totals[5].to_d / stat_totals[4].to_d) * 100, :precision => 0)}%"
+              - if stat_totals[4] = 0
+                %td.orange %
+              - else
+                %td.orange= "#{number_with_precision((stat_totals[5].to_d / stat_totals[4].to_d) * 100, :precision => 0)}%"
               %td= "#{number_to_currency stat_totals[6]}/mo"
               - if stat_totals[5] == 0
                 %td.orange $0.00/mo
