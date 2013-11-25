@@ -64,13 +64,14 @@
         - @income.each do |key, value|
           %tr.record.expandable.closed
             %td
-              .type= key
+              .type= value[:name]
             - @total = 0
             - value.each_with_index do |t, index|
-              %td.text-right{class: (if index < 5 then "visible-desktop" elsif index < 10 then "hidden-phone" end)}= link_to number_with_precision(t[1], :precision => 0, :delimiter => ','), :controller => "accounts", :action => :transactions, :id => params[:id], :type => key, :month => t[0]
-              - @total += t[1]
-              - @data.push (t[1]).to_i
-              - @income_summary[ t[0] ] += t[1]
+              - unless t[0] == :name
+                %td.text-right{class: (if index < 5 then "visible-desktop" elsif index < 10 then "hidden-phone" end)}= link_to number_with_precision(t[1], :precision => 0, :delimiter => ','), :controller => "accounts", :action => :transactions, :id => params[:id], :type => key, :month => t[0]
+                - @total += t[1]
+                - @data.push (t[1]).to_i
+                - @income_summary[ t[0] ] += t[1]
             %td.text-right= number_to_currency @total, :precision => 0
             %td.text-right
               - unless @goals[key].nil?
@@ -114,13 +115,14 @@
         - @expense.each do |key, value|
           %tr.record.expandable.closed
             %td
-              .type= key
+              .type= value[:name]
             - @total = 0
             - value.each_with_index do |t,index|
-              %td.text-right{class: (if index < 5 then "visible-desktop" elsif index < 10 then "hidden-phone" end)}= link_to number_with_precision(t[1], :precision => 0, :delimiter => ','), :controller => "accounts", :action => :transactions, :id => params[:id], :type => key, :month => t[0]
-              - @total += t[1]
-              - @data.push t[1].to_i
-              - @expense_summary[ t[0] ] += t[1]
+              - unless t[0] == :name
+                %td.text-right{class: (if index < 5 then "visible-desktop" elsif index < 10 then "hidden-phone" end)}= link_to number_with_precision(t[1], :precision => 0, :delimiter => ','), :controller => "accounts", :action => :transactions, :id => params[:id], :type => key, :month => t[0]
+                - @total += t[1]
+                - @data.push t[1].to_i
+                - @expense_summary[ t[0] ] += t[1]
             %td.text-right= number_to_currency @total, :precision => 0
             %td.text-right
               - unless @goals[key].nil?
@@ -183,7 +185,7 @@
               -@advances_row = value
             - else
               %tr.record.closed
-                %td= key
+                %td= value[:name]
                 - @total = 0
                 - @stock = 0
                 - if key == "Vehicle Advance"
@@ -191,14 +193,15 @@
                 - elsif key == "Merchandise Inventory"
                   - @stock += @stock_advances
                 - value.each_with_index do |t,index|
-                  - if t[1] == 0
-                    %td.text-right{class: (if index < 5 then "visible-desktop" elsif index < 10 then "hidden-phone" end)}= number_with_precision @stock, :precision => 0, :delimiter => ','
-                  - else
-                    - @stock += t[1].amount * @currency_summary[ t[0] ]
-                    - @total += t[1].amount * @currency_summary[ t[0] ]
-                    %td.text-right{class: (if index < 5 then "visible-desktop" elsif index < 10 then "hidden-phone" end)}= link_to number_with_precision(@stock, :precision => 0, :delimiter => ','), :controller => "accounts", :action => :transactions, :id => params[:id], :type => key, :month => t[0]
-                    - if t[1].code == "1225" or t[1].code == "1350" #VEHICLE ADVANCES & STOCK
-                      - @advance_summary[ t[0] ] -= t[1].amount * @currency_summary[ t[0] ]
+                  - unless t[0] == :name
+                    - if t[1] == 0
+                      %td.text-right{class: (if index < 5 then "visible-desktop" elsif index < 10 then "hidden-phone" end)}= number_with_precision @stock, :precision => 0, :delimiter => ','
+                    - else
+                      - @stock += t[1].amount * @currency_summary[ t[0] ]
+                      - @total += t[1].amount * @currency_summary[ t[0] ]
+                      %td.text-right{class: (if index < 5 then "visible-desktop" elsif index < 10 then "hidden-phone" end)}= link_to number_with_precision(@stock, :precision => 0, :delimiter => ','), :controller => "accounts", :action => :transactions, :id => params[:id], :type => key, :month => t[0]
+                      - if t[1].code == "1225" or t[1].code == "1350" #VEHICLE ADVANCES & STOCK
+                        - @advance_summary[ t[0] ] -= t[1].amount * @currency_summary[ t[0] ]
                 %td
                 - @advance_final = @total
                 %td

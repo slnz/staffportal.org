@@ -41,10 +41,9 @@ class Staff::AccountsController < InheritedResources::Base
     @account = current_user.accounts.find(params[:id])
     query = @account.records
     unless params[:type].nil?
-      @type_id = Type.where(:name => params[:type]).first
-      params[:type_id] = @type_id.id unless @type_id.nil?
+      @type_id = Type.where(:id => params[:type]).first
     end
-    query = query.where(:type_id => params[:type_id]) unless params[:type_id].nil?
+    query = query.where(:type_id => @type_id.id) unless @type_id.nil?
     query = query.where(:month => Date.strptime(params[:month], '%b %y').beginning_of_month ) unless params[:month].nil?
     @transactions = query.order('date DESC, id DESC').includes(:type).page params[:page]
     @money_in = 0
@@ -65,10 +64,10 @@ class Staff::AccountsController < InheritedResources::Base
     #  raise t.inspect
     #end
     @latest = @account.records.order(:date).last
-    @transactions = @account.records.where("month <= ? and month >= ?", @latest.date.end_of_month, @latest.date.ago(@months_to_show.month).beginning_of_month).limit(500).joins(:type).select("types.code, types.name, types.definition, records.month, sum(records.amount) as amount").group("types.code, types.id, types.name, records.month, types.definition").order("types.code asc, records.month desc, types.definition desc")
+    @transactions = @account.records.where("month <= ? and month >= ?", @latest.date.end_of_month, @latest.date.ago(@months_to_show.month).beginning_of_month).limit(500).joins(:type).select("types.id, types.code, types.name, types.definition, records.month, sum(records.amount) as amount").group("types.code, types.id, types.name, records.month, types.definition").order("types.code asc, records.month desc, types.definition desc")
     @goals = {}
     @account.goals.all.each do |value|
-      @goals[value.type.name] = value.amount
+      @goals[value.type.id.to_s] = value.amount
     end
     @months = {}
 
@@ -105,15 +104,15 @@ class Staff::AccountsController < InheritedResources::Base
     @stock_advances = @account.records.where("month < ? and type_id = 163", @latest.date.ago(@months_to_show.month).beginning_of_month).sum(:amount)
     @transactions.each do |t|
       if t.definition == "IN" or t.code == "1301" or t.code == "P1301"
-        @income[t.name] = @months.deep_dup if @income[t.name].blank?
+        @income[t.id.to_s] = @months.deep_dup.merge({name: t.name}) if @income[t.id.to_s].blank?
         raise t.month.strftime('%b %y').inspect if @currency_summary[t.month.strftime('%b %y')].nil?
-        @income[t.name][t.month.strftime('%b %y')] = t.amount * @currency_summary[t.month.strftime('%b %y')]
+        @income[t.id.to_s][t.month.strftime('%b %y')] = t.amount * @currency_summary[t.month.strftime('%b %y')]
       elsif t.definition == "EX"
-        @expense[t.name] = @months.deep_dup if @expense[t.name].blank?
-        @expense[t.name][t.month.strftime('%b %y')] = t.amount * @currency_summary[t.month.strftime('%b %y')]
+        @expense[t.id.to_s] = @months.deep_dup.merge({name: t.name}) if @expense[t.id.to_s].blank?
+        @expense[t.id.to_s][t.month.strftime('%b %y')] = t.amount * @currency_summary[t.month.strftime('%b %y')]
       elsif t.code == "1220" or t.code == "1350" or t.code == "1225" or t.code == "P1210"
-        @advance[t.name] = @months.deep_dup if @advance[t.name].blank?
-        @advance[t.name][t.month.strftime('%b %y')] = t
+        @advance[t.id.to_s] = @months.deep_dup.merge({name: t.name}) if @advance[t.id.to_s].blank?
+        @advance[t.id.to_s][t.month.strftime('%b %y')] = t
       end
     end
   end
