@@ -22,26 +22,30 @@ class AppointmentSetRecord < ActiveRecord::Base
   end
 
   def pretty_amount
-    "#{ActionController::Base.helpers.number_to_currency self.amount, precision: 0}/#{AppointmentSetRecord::pledge_frequencies.invert[self.frequency].downcase}"
+    unless self.frequency.nil? or self.amount.nil?
+      "#{ActionController::Base.helpers.number_to_currency self.amount, precision: 0}/#{AppointmentSetRecord::pledge_frequencies.invert[self.frequency].downcase}"
+    else
+      ""
+    end
   end
 
   def date_set=(date)
-    self.date_set_week = Week.where('date_start <= ? and date_finished >= ?', date, date).first
+    self.date_set_week = Week.where('date_start <= ? and date_finished >= ?', date, date).first unless date == ""
     super(date)
   end
 
   def date_of_appointment=(date)
-    self.date_of_appointment_week = Week.where('date_start <= ? and date_finished >= ?', date, date).first
+    self.date_of_appointment_week = Week.where('date_start <= ? and date_finished >= ?', date, date).first unless date == ""
     super(date)
   end
 
   def gift_date=(date)
-    self.gift_date_week = Week.where('date_start <= ? and date_finished >= ?', date, date).first
+    self.gift_date_week = Week.where('date_start <= ? and date_finished >= ?', date, date).first unless date == ""
     super(date)
   end
 
   def gift_confirmed_date=(date)
-    self.gift_confirmed_date_week = Week.where('date_start <= ? and date_finished >= ?', date, date).first
+    self.gift_confirmed_date_week = Week.where('date_start <= ? and date_finished >= ?', date, date).first unless date == ""
     super(date)
   end
 
