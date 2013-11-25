@@ -42,7 +42,6 @@ end
 gem 'jquery-rails'
 gem 'puma'
 
-gem 'ckeditor', '3.7.1'
 gem 'paperclip'
 gem 'formtastic'
 gem 'formtastic-bootstrap'
