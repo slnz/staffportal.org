@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130928050040) do
+ActiveRecord::Schema.define(:version => 20131124221351) do
 
   create_table "accounts", :force => true do |t|
     t.string   "code"
@@ -35,6 +35,29 @@ ActiveRecord::Schema.define(:version => 20130928050040) do
   add_index "active_admin_comments", ["namespace"], :name => "index_active_admin_comments_on_namespace"
   add_index "active_admin_comments", ["resource_type", "resource_id"], :name => "index_admin_notes_on_resource_type_and_resource_id"
 
+  create_table "appointment_set_records", :force => true do |t|
+    t.string   "first_name"
+    t.string   "last_name"
+    t.date     "date_set"
+    t.date     "date_of_appointment"
+    t.boolean  "support"
+    t.decimal  "amount"
+    t.date     "gift_date"
+    t.date     "gift_confirmed_date"
+    t.boolean  "asked_for_contacts"
+    t.integer  "number_of_contacts_received"
+    t.boolean  "thank_you_posted"
+    t.integer  "date_set_week_id"
+    t.datetime "created_at",                  :null => false
+    t.datetime "updated_at",                  :null => false
+    t.integer  "user_id"
+    t.integer  "date_of_appointment_week_id"
+    t.integer  "gift_date_week_id"
+    t.integer  "gift_confirmed_date_week_id"
+    t.decimal  "frequency"
+    t.decimal  "monthly"
+  end
+
   create_table "ckeditor_assets", :force => true do |t|
     t.string   "data_file_name",                  :null => false
     t.string   "data_content_type"
@@ -50,6 +73,29 @@ ActiveRecord::Schema.define(:version => 20130928050040) do
 
   add_index "ckeditor_assets", ["assetable_type", "assetable_id"], :name => "idx_ckeditor_assetable"
   add_index "ckeditor_assets", ["assetable_type", "type", "assetable_id"], :name => "idx_ckeditor_assetable_type"
+
+  create_table "contact_card_boxes", :force => true do |t|
+    t.integer  "week_id"
+    t.integer  "contact_cards"
+    t.integer  "not_back_until"
+    t.integer  "office_phone_only"
+    t.integer  "research"
+    t.integer  "call_back_for_appointment"
+    t.integer  "call_back_for_decision"
+    t.integer  "call_back_for_contacts"
+    t.integer  "appointment_set"
+    t.integer  "called_no_appointment_set"
+    t.integer  "appointment_no_support"
+    t.integer  "new_ministry_partner"
+    t.integer  "call_back_in_a_year"
+    t.integer  "would_have_met"
+    t.integer  "on_list"
+    t.integer  "maintainance"
+    t.integer  "maintainance_done"
+    t.integer  "user_id"
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
+  end
 
   create_table "contacts", :force => true do |t|
     t.string   "first_name"
@@ -115,6 +161,17 @@ ActiveRecord::Schema.define(:version => 20130928050040) do
 
   add_index "sessions", ["session_id"], :name => "index_sessions_on_session_id"
   add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
+
+  create_table "support_raising_developments", :force => true do |t|
+    t.integer  "number_of_calls_made"
+    t.integer  "appointments_asked_for"
+    t.integer  "contacts_asked_for"
+    t.integer  "user_id"
+    t.integer  "week_id"
+    t.datetime "created_at",             :null => false
+    t.datetime "updated_at",             :null => false
+    t.integer  "hours_calling"
+  end
 
   create_table "types", :force => true do |t|
     t.string   "name"
@@ -254,6 +311,13 @@ ActiveRecord::Schema.define(:version => 20130928050040) do
     t.datetime "updated_at",                                              :null => false
     t.boolean  "confirmed_coach"
     t.boolean  "confirmed_hr"
+  end
+
+  create_table "weeks", :force => true do |t|
+    t.date     "date_start"
+    t.date     "date_finished"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
   end
 
 end

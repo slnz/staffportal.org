@@ -1,0 +1,46 @@
+- title "MSP | DMPD Weekly Support Raising Development Chart"
+%section.intro-box.margin-80.hidden-print
+  .container
+    .row
+      .span12
+        %h3.pull-right.hidden-phone= current_user.name
+        %ul.breadcrumb
+          %li
+            %a{:href => root_path} Home
+            %span.divider /
+          %li
+            %a{:href => staff_dmpd_root_path} DMPD
+            %span.divider /
+          %li
+            %a{:href => staff_dmpd_stats_root_path} Statistics
+            %span.divider /
+          %li.active
+            Weekly Calling Chart
+        %span.arrow.hidden-phone
+.white
+  .container
+    %h1.page-header
+      Weekly Calling Chart
+      .pull-right
+        - if @late > 0
+          %a.btn.btn-danger.disabled= "#{@late} Late Reports"
+        %a.btn.btn-primary{href: new_staff_dmpd_stats_support_raising_development_path}
+          %i.icon-plus
+            Add Data
+
+    - unless @support_raising_development.empty?
+      = table_for @support_raising_development, :html => {:class => "table table-striped"} do
+        - column :week do |week|
+          - week.name
+        - column :appointments_asked_for
+        - column :contacts_asked_for
+        - column :number_of_calls_made
+        - column :hours_calling
+        - column :title => "Actions" do |srd|
+          - link_to("Edit", edit_staff_dmpd_stats_support_raising_development_path(srd) )
+    - else
+      .well.text-center
+        %p No Statistics Entered.
+        %a.btn.btn-primary{href: new_staff_dmpd_stats_support_raising_development_path}
+          %i.icon-plus
+            Add Data

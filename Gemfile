@@ -26,10 +26,21 @@ end
 
 group :development do
   gem 'awesome_print'
+  gem 'guard-rails'
+  gem 'guard-bundler'
+  gem 'guard-spork'
+  gem "better_errors"
+  gem "binding_of_caller"
+end
+
+group :test do
+  gem 'cucumber-rails', :require => false
+  # database_cleaner is not required, but highly recommended
+  gem 'database_cleaner'
 end
 
 gem 'jquery-rails'
-gem 'unicorn'
+gem 'puma'
 
 gem 'ckeditor', '3.7.1'
 gem 'paperclip'

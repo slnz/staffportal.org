@@ -1,0 +1,21 @@
+.row
+	.span4
+		%h5.badge.badge-success Contact Details
+		= f.input :first_name
+		= f.input :last_name
+		= f.input :date_set, as: :string, input_html: {:class => 'datepicker', "data-date-format" => "yyyy-mm-dd", placeholder: "yyyy-mm-dd"}
+		= f.input :date_of_appointment, as: :string, input_html: {:class => 'datepicker', "data-date-format" => "yyyy-mm-dd", placeholder: "yyyy-mm-dd"}
+	.span4
+		%h5.badge.badge-success Giving
+		= f.input :gift_date, as: :string, input_html: {:class => 'datepicker', "data-date-format" => "yyyy-mm-dd", placeholder: "yyyy-mm-dd"}
+		= f.input :gift_confirmed_date, as: :string, input_html: {:class => 'datepicker', "data-date-format" => "yyyy-mm-dd", placeholder: "yyyy-mm-dd"}
+		= f.input :amount
+		= f.input :frequency, as: :select, collection: AppointmentSetRecord.pledge_frequencies
+	.span4
+		%h5.badge.badge-success Post Appointment
+		= f.input :number_of_contacts_received
+		= f.input :asked_for_contacts
+		= f.input :thank_you_posted
+= f.actions do
+	= f.action :submit, :as => :button, label: "Save", button_html: {:class => "btn btn-primary"}
+	%a.btn{href: staff_dmpd_stats_appointment_set_record_index_path} Cancel

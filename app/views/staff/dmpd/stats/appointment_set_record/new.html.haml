@@ -1,0 +1,28 @@
+- title "MSP | DMPD Weekly Support Raising Development Chart"
+%section.intro-box.margin-80.hidden-print
+  .container
+    .row
+      .span12
+        %h3.pull-right.hidden-phone= current_user.name
+        %ul.breadcrumb
+          %li
+            %a{:href => root_path} Home
+            %span.divider /
+          %li
+            %a{:href => staff_dmpd_root_path} DMPD
+            %span.divider /
+          %li
+            %a{:href => staff_dmpd_stats_root_path} Statistics
+            %span.divider /
+          %li.active
+            %a{:href => staff_dmpd_stats_appointment_set_record_index_path} Appointment Set Record
+            %span.divider /
+          %li.active
+            +
+        %span.arrow.hidden-phone
+.white
+  .container
+    %h1.page-header
+      Appointment Set Record
+    = semantic_form_for @appointment_set_record, url: staff_dmpd_stats_appointment_set_record_index_path do |f|
+      = render :partial => "form", :locals => { :f => f }

@@ -3,6 +3,7 @@
 //= require highcharts
 //= require highcharts/highcharts-more
 //= require bootstrap
+//= require bootstrap-datepicker
 //= require summernote
 //= require accounts
 //= require_self
@@ -25,5 +26,7 @@ $(function() {
 		});
 		return true;
 	});
+
+	$('.datepicker').datepicker()
 
 });

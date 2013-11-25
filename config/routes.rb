@@ -24,6 +24,12 @@ Staff::Application.routes.draw do
         resources :week3
         resources :week2
         resources :week1
+        namespace :stats do
+          root to: "base#index"
+          resources :appointment_set_record
+          resources :support_raising_development
+          resources :contact_card_box
+        end
       end
       resources :accounts do
         member do

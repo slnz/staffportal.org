@@ -1,0 +1,42 @@
+- title "MSP | DMPD Appointment Set Record"
+%section.intro-box.margin-80.hidden-print
+  .container
+    .row
+      .span12
+        %h3.pull-right.hidden-phone= current_user.name
+        %ul.breadcrumb
+          %li
+            %a{:href => root_path} Home
+            %span.divider /
+          %li
+            %a{:href => staff_dmpd_root_path} DMPD
+            %span.divider /
+          %li
+            %a{:href => staff_dmpd_stats_root_path} Statistics
+            %span.divider /
+          %li.active
+            Appointment Set Record
+        %span.arrow.hidden-phone
+.white
+  .container
+    %h1.page-header
+      Appointment Set Record
+      .pull-right
+        %a.btn.btn-primary{href: new_staff_dmpd_stats_appointment_set_record_path}
+          %i.icon-plus
+            Add Data
+
+    - unless @appointment_set_record.empty?
+      = table_for @appointment_set_record, :html => {:class => "table table-striped"} do
+        - column :first_name
+        - column :last_name
+        - column :date_set
+        - column :date_of_appointment
+        - column :title => "Actions" do |asr|
+          - link_to("Edit", edit_staff_dmpd_stats_appointment_set_record_path(asr) )
+    - else
+      .well.text-center
+        %p No Statistics Entered.
+        %a.btn.btn-primary{href: new_staff_dmpd_stats_appointment_set_record_path}
+          %i.icon-plus
+            Add Data

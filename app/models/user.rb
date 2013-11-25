@@ -14,6 +14,9 @@ class User < ActiveRecord::Base
   has_many :contacts
   has_many :user_accounts
   has_many :accounts, :through => :user_accounts
+  has_many :support_raising_developments
+  has_many :contact_card_box
+  has_many :appointment_set_record
 
   before_save do
     self.username.downcase! if self.username
@@ -67,5 +70,25 @@ class User < ActiveRecord::Base
       self.save
     end
     self.currency.code
+  end
+
+  def support_raising_development
+    self.support_raising_developments
+  end
+
+  def late_support_raising_developments
+    hide_weeks = []
+    self.support_raising_developments.each do |srd|
+      hide_weeks << srd.week_id
+    end
+    Week.where('id not in (?) and date_finished < ?', hide_weeks, Time.now.to_date).count
+  end
+
+  def late_contact_card_box
+    hide_weeks = []
+    self.contact_card_box.each do |ccb|
+      hide_weeks << ccb.week_id
+    end
+    Week.where('id not in (?) and date_finished < ?', hide_weeks, Time.now.to_date).count
   end
 end

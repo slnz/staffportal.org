@@ -20,11 +20,17 @@
     .well{class: ("success" if current_user.contacts.count >= 30)}
       %h4
         .pull-right.muted
+          %i.icon-tasks
+        %a{href: "/staff/dmpd/stats"} Statistics
+      %p Access your personal statistics including appointment set record, contact ratios and summaries.
+    .well{class: ("success" if current_user.contacts.count >= 30)}
+      %h4
+        .pull-right.muted
           %i.icon-user
             &nbsp;
             = current_user.contacts.count
             \/ 30
-        %a{href: "/staff/dmpd/contacts"} Contacts for Auckland
+        %a{href: "/staff/dmpd/contacts"} DMPD Contacts
       %p Continue to pray and look for more contacts in Auckland and in your primary DMPD location.
     .well{class: [("success" if @week6.completed?), ("danger" if @week6.error)].compact.join(" ")}
       %h4

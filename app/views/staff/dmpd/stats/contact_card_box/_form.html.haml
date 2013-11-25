@@ -1,0 +1,34 @@
+- unless params[:action] == "edit"
+	= f.input :week, collection: @available_weeks
+.row
+	.span2
+		%h5.badge.badge-yellow Contacts
+		= f.input :contact_cards, input_html: { :class => "span2"}
+		= f.input :not_back_until, input_html: { :class => "span2"}
+		= f.input :office_phone_only, input_html: { :class => "span2"}
+		= f.input :research, input_html: { :class => "span2"}
+
+	.span2
+		%h5.badge.badge-success Call Back
+		= f.input :call_back_for_appointment, input_html: { :class => "span2"}, label: "Call back for appt"
+		= f.input :call_back_for_decision, input_html: { :class => "span2"}
+		= f.input :call_back_for_contacts, input_html: { :class => "span2"}
+	.span2
+
+		%h5.badge.badge-info Appointment
+		= f.input :appointment_set, input_html: { :class => "span2"}
+		= f.input :called_no_appointment_set, input_html: { :class => "span2"}, label: "Called no appt set"
+		= f.input :appointment_no_support, input_html: { :class => "span2"}
+		= f.input :new_ministry_partner, input_html: { :class => "span2"}
+	.span2
+		%h5.badge.badge-pink Future
+		= f.input :call_back_in_a_year, input_html: { :class => "span2"}
+		= f.input :would_have_met, input_html: { :class => "span2"}
+		= f.input :on_list, input_html: { :class => "span2"}
+	.span2
+		%h5.badge.badge-warning MPM
+		= f.input :maintainance, input_html: { :class => "span2"}
+		= f.input :maintainance_done, input_html: { :class => "span2"}
+= f.actions do
+	= f.action :submit, :as => :button, label: "Save", button_html: {:class => "btn btn-primary"}
+	%a.btn{href: staff_dmpd_stats_contact_card_box_index_path} Cancel

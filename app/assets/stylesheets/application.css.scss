@@ -6,14 +6,24 @@
 $iconSpritePath: '';
 $iconWhiteSpritePath: '';
 
-@import 'bootstrap';
-@import 'bootstrap-responsive';
+@import 'bootstrap-static';
+@import 'bootstrap-responsive-static';
+@import 'datepicker';
 @import 'formtastic-bootstrap';
 @import '_font-awesome';
 
 @import 'compass/css3';
 @import 'accounts';
 @import 'staff';
+/*!
+ * Custom metro-inspired theme for Bootstrap v3.0.0
+ *
+ * Copyright 2013 Scott Dorman
+ * Licensed under the Apache License v2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Designed and built with all the love in the world by @sdorman.
+ */
 
 @media (min-width: 980px) {
   tr.visible-desktop {
@@ -474,4 +484,39 @@ body {
   .container {
     width:100%;
   }
+}
+
+.table {
+  font-size: 12px;
+}
+
+.table-striped thead > tr > th {
+  &.orange{
+    background-color: #ffde00;
+  }
+  &.gray{
+    background-color: #aaa;
+  }
+}
+.table-striped tbody > tr.totals > td {
+  border-top: 2px solid #777;
+}
+
+.table-striped tbody > tr > td, .table-striped tbody > tr.totals > td {
+  &.orange{
+    background-color: #ffee7c;
+  }
+  &.gray{
+    background-color: #ccc;
+  }
+}
+.badge-yellow {
+  background-color: #ddec5d;
+  color: #444;
+}
+.badge-pink {
+  background-color: #f31698;
+}
+.nav-tabs {
+  font-size: 12px;
 }

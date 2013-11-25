@@ -1,0 +1,48 @@
+- title "MSP | DMPD Contact Card Box"
+%section.intro-box.margin-80.hidden-print
+  .container
+    .row
+      .span12
+        %h3.pull-right.hidden-phone= current_user.name
+        %ul.breadcrumb
+          %li
+            %a{:href => root_path} Home
+            %span.divider /
+          %li
+            %a{:href => staff_dmpd_root_path} DMPD
+            %span.divider /
+          %li
+            %a{:href => staff_dmpd_stats_root_path} Statistics
+            %span.divider /
+          %li.active
+            Contact Card Box
+        %span.arrow.hidden-phone
+.white
+  .container
+    %h1.page-header
+      Contact Card Box
+      .pull-right
+        - if @late > 0
+          %a.btn.btn-danger.disabled= "#{@late} Late Reports"
+        %a.btn.btn-primary{href: new_staff_dmpd_stats_contact_card_box_path}
+          %i.icon-plus
+            Add Data
+
+    - unless @contact_card_box.empty?
+      = table_for @contact_card_box, :html => {:class => "table table-striped"} do
+        - column :week do |week|
+          - week.name
+        - column :contact_total
+        - column :call_back_total
+        - column :appointment_total
+        - column :future_total
+        - column :mpm_total
+        - column :total
+        - column :title => "Actions" do |ccb|
+          - link_to("Edit", edit_staff_dmpd_stats_contact_card_box_path(ccb) )
+    - else
+      .well.text-center
+        %p No Statistics Entered.
+        %a.btn.btn-primary{href: new_staff_dmpd_stats_contact_card_box_path}
+          %i.icon-plus
+            Add Data
