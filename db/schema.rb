@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131125005504) do
+ActiveRecord::Schema.define(:version => 20131125033951) do
 
   create_table "accounts", :force => true do |t|
     t.string   "code"
@@ -60,25 +60,25 @@ ActiveRecord::Schema.define(:version => 20131125005504) do
 
   create_table "contact_card_boxes", :force => true do |t|
     t.integer  "week_id"
-    t.integer  "contact_cards"
-    t.integer  "not_back_until"
-    t.integer  "office_phone_only"
-    t.integer  "research"
-    t.integer  "call_back_for_appointment"
-    t.integer  "call_back_for_decision"
-    t.integer  "call_back_for_contacts"
-    t.integer  "appointment_set"
-    t.integer  "called_no_appointment_set"
-    t.integer  "appointment_no_support"
-    t.integer  "new_ministry_partner"
-    t.integer  "call_back_in_a_year"
-    t.integer  "would_have_met"
-    t.integer  "on_list"
-    t.integer  "maintainance"
-    t.integer  "maintainance_done"
+    t.integer  "contact_cards",             :default => 0
+    t.integer  "not_back_until",            :default => 0
+    t.integer  "office_phone_only",         :default => 0
+    t.integer  "research",                  :default => 0
+    t.integer  "call_back_for_appointment", :default => 0
+    t.integer  "call_back_for_decision",    :default => 0
+    t.integer  "call_back_for_contacts",    :default => 0
+    t.integer  "appointment_set",           :default => 0
+    t.integer  "called_no_appointment_set", :default => 0
+    t.integer  "appointment_no_support",    :default => 0
+    t.integer  "new_ministry_partner",      :default => 0
+    t.integer  "call_back_in_a_year",       :default => 0
+    t.integer  "would_have_met",            :default => 0
+    t.integer  "on_list",                   :default => 0
+    t.integer  "maintainance",              :default => 0
+    t.integer  "maintainance_done",         :default => 0
     t.integer  "user_id"
-    t.datetime "created_at",                :null => false
-    t.datetime "updated_at",                :null => false
+    t.datetime "created_at",                               :null => false
+    t.datetime "updated_at",                               :null => false
   end
 
   create_table "contacts", :force => true do |t|
