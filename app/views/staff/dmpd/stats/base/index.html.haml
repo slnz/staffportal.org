@@ -106,7 +106,10 @@
               %td= stat_totals[5]
               %td.orange= "#{number_with_precision((stat_totals[5].to_d / stat_totals[4].to_d) * 100, :precision => 0)}%"
               %td= "#{number_to_currency stat_totals[6]}/mo"
-              %td.orange= "#{number_to_currency (stat_totals[6] / stat_totals[5])}/mo"
+              - if stat_totals[5] == 0
+                %td.orange $0.00/mo
+              - else
+                %td.orange= "#{number_to_currency (stat_totals[6] / stat_totals[5])}/mo"
               %td= number_to_currency stat_totals[7]
               %td.orange
       #cr.tab-pane

@@ -60,3 +60,5 @@ gem 'summernote-rails'
 # Gemfile
 gem 'paperclip'
 gem 'aws-sdk'
+
+gem 'rails_12factor'
