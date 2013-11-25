@@ -12,7 +12,7 @@
             %a{:href => staff_dmpd_root_path} DMPD
             %span.divider /
           %li
-            %a{:href => staff_dmpd_stats_root_path} Statistics
+            %a{:href => staff_dmpd_stats_root_path} WCS
             %span.divider /
           %li.active
             Weekly Calling Chart
@@ -22,6 +22,9 @@
     %h1.page-header
       Weekly Calling Chart
       .pull-right
+        %a.btn{href: staff_dmpd_stats_root_path} WCS
+        %a.btn{href: staff_dmpd_stats_contact_card_box_index_path} Contact Card Box
+        %a.btn{href: staff_dmpd_stats_appointment_set_record_index_path} Appointment Set Record
         - if @late > 0
           %a.btn.btn-danger.disabled= "#{@late} Late Reports"
         %a.btn.btn-primary{href: new_staff_dmpd_stats_support_raising_development_path}
@@ -30,8 +33,8 @@
 
     - unless @support_raising_development.empty?
       = table_for @support_raising_development, :html => {:class => "table table-striped"} do
-        - column :week do |week|
-          - week.name
+        - column :week, title: "Week Ending", :html => { :th => { :class => "gray" }, :td => { :class => "gray" }} do |week|
+          - week.end_name
         - column :appointments_asked_for
         - column :contacts_asked_for
         - column :number_of_calls_made

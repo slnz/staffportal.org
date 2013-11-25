@@ -9,16 +9,20 @@ class AppointmentSetRecord < ActiveRecord::Base
 
   def self.pledge_frequencies
     {
-      "Special" => 0.0,
-      "Weekly" => 0.23076923076923,
-      "Fortnightly" => 0.46153846153846,
-      "Monthly" => 1.0,
-      "Bi-Monthly" => 2.0,
-      "Quarterly" => 3.0,
-      "Semi-Annual" => 6.0,
-      "Annual" => 12.0,
-      "Biennial" => 24.0
+      "Special" => (0.0).to_d,
+      "Weekly" => (0.23076923076923).to_d,
+      "Fortnightly" => (0.46153846153846).to_d,
+      "Monthly" => (1.0).to_d,
+      "Bi-Monthly" => (2.0).to_d,
+      "Quarterly" => (3.0).to_d,
+      "Semi-Annual" => (6.0).to_d,
+      "Annual" => (12.0).to_d,
+      "Biennial" => (24.0).to_d
     }
+  end
+
+  def pretty_amount
+    "#{ActionController::Base.helpers.number_to_currency self.amount, precision: 0}/#{AppointmentSetRecord::pledge_frequencies.invert[self.frequency].downcase}"
   end
 
   def date_set=(date)
@@ -57,6 +61,10 @@ class AppointmentSetRecord < ActiveRecord::Base
     else 
       self.monthly = self.amount / (self.frequency)
     end
+  end
+
+  def name
+    "#{self.first_name} #{self.last_name}"
   end
 
 end

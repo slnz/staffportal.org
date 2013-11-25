@@ -12,7 +12,7 @@
             %a{:href => staff_dmpd_root_path} DMPD
             %span.divider /
           %li
-            %a{:href => staff_dmpd_stats_root_path} Statistics
+            %a{:href => staff_dmpd_stats_root_path} WCS
             %span.divider /
           %li.active
             Appointment Set Record
@@ -22,16 +22,26 @@
     %h1.page-header
       Appointment Set Record
       .pull-right
+        %a.btn{href: staff_dmpd_stats_root_path} WCS
+        %a.btn{href: staff_dmpd_stats_contact_card_box_index_path} Contact Card Box
+        %a.btn{href: staff_dmpd_stats_support_raising_development_index_path} Weekly Calling Chart
         %a.btn.btn-primary{href: new_staff_dmpd_stats_appointment_set_record_path}
           %i.icon-plus
             Add Data
 
     - unless @appointment_set_record.empty?
       = table_for @appointment_set_record, :html => {:class => "table table-striped"} do
-        - column :first_name
-        - column :last_name
+        - column :name, :html => { :th => { :class => "gray" }, :td => { :class => "gray" }}
         - column :date_set
-        - column :date_of_appointment
+        - column :date_of_appointment, title: "Appt Date"
+        - column :gift_date
+        - column :gift_confirmed_date, title: "Confirmed"
+        - column :pretty_amount, title: "Amount"
+        - column :number_of_contacts_received, title: "# Contacts"
+        - column :asked_for_contacts, title: "Asked for Contacts" do |bool|
+          - if bool then "Yes" else "No" end
+        - column :thank_you_posted, title: "TY Posted" do |bool|
+          - if bool then "Yes" else "No" end
         - column :title => "Actions" do |asr|
           - link_to("Edit", edit_staff_dmpd_stats_appointment_set_record_path(asr) )
     - else

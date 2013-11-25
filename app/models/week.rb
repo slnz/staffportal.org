@@ -11,4 +11,8 @@ class Week < ActiveRecord::Base
   def name
   	"#{self.date_start.strftime('%a, %d %b %y')} - #{date_finished.strftime('%a, %d %b %y')}"
   end
+
+  def end_name
+    "#{self.date_finished.strftime('%d %b')}"
+  end
 end

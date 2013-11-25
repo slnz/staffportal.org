@@ -12,7 +12,7 @@
             %a{:href => staff_dmpd_root_path} DMPD
             %span.divider /
           %li
-            %a{:href => staff_dmpd_stats_root_path} Statistics
+            %a{:href => staff_dmpd_stats_root_path} WCS
             %span.divider /
           %li.active
             Contact Card Box
@@ -22,6 +22,9 @@
     %h1.page-header
       Contact Card Box
       .pull-right
+        %a.btn{href: staff_dmpd_stats_root_path} WCS
+        %a.btn{href: staff_dmpd_stats_support_raising_development_index_path} Weekly Calling Chart
+        %a.btn{href: staff_dmpd_stats_appointment_set_record_index_path} Appointment Set Record
         - if @late > 0
           %a.btn.btn-danger.disabled= "#{@late} Late Reports"
         %a.btn.btn-primary{href: new_staff_dmpd_stats_contact_card_box_path}
@@ -30,14 +33,24 @@
 
     - unless @contact_card_box.empty?
       = table_for @contact_card_box, :html => {:class => "table table-striped"} do
-        - column :week do |week|
-          - week.name
-        - column :contact_total
-        - column :call_back_total
-        - column :appointment_total
-        - column :future_total
-        - column :mpm_total
-        - column :total
+        - column :week, title: "Week Ending", :html => { :th => { :class => "gray" }, :td => { :class => "gray" }} do |week|
+          - week.end_name
+        - column :contact_cards
+        - column :not_back_until
+        - column :office_phone_only
+        - column :contact_total, :html => { :th => { :class => "orange" }, :td => { :class => "orange" }}
+        - column :call_back_for_appointment, title: "CB Appt"
+        - column :call_back_for_decision, title: "CB Decision"
+        - column :call_back_for_contacts, title: "CB Contacts"
+        - column :call_back_total, :html => { :th => { :class => "orange" }, :td => { :class => "orange" }}
+        - column :appointment_set, title: "Appt Set"
+        - column :called_no_appointment_set, title: "No Appt"
+        - column :appointment_no_support, title: "Appt No Sup"
+        - column :new_ministry_partner, title: "New MP"
+        - column :appointment_total, title: "Appt Total", :html => { :th => { :class => "orange" }, :td => { :class => "orange" }}
+        -# column :future_total, :html => { :th => { :class => "orange" }, :td => { :class => "orange" }}
+        -# column :mpm_total, :html => { :th => { :class => "orange" }, :td => { :class => "orange" }}
+        -# column :total, :html => { :th => { :class => "orange" }, :td => { :class => "orange" }}
         - column :title => "Actions" do |ccb|
           - link_to("Edit", edit_staff_dmpd_stats_contact_card_box_path(ccb) )
     - else
