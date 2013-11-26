@@ -1,0 +1,101 @@
+%table.table.table-striped
+  %thead
+    %tr
+      %th.week Week Ending
+      %th.visible-desktop Total Hours Calling
+      %th.visible-desktop Total # of Dials
+      %th.visible-desktop # Responses to Appt Ask
+      %th.visible-desktop Got Appt Time &amp; Place
+      %th.visible-desktop.orange % Giving Appts
+      %th.visible-desktop # Y/N Decisions
+      %th.visible-desktop # Y to Reccuring
+      %th.orange % Y to Reccuring
+      %th Total Monthly Pledge
+      %th.orange Average Monthly Pledge
+      %th Total Special Pledge
+      %th.orange Contact Ratio
+  %tbody
+    - stat_totals = [0, 0, 0, 0, 0, 0, 0, 0]
+    - @weeks.each do |wk|
+      - srd = user.support_raising_developments.find_by_week_id(wk.id)
+      - ccb = user.contact_card_box.find_by_week_id(wk.id)
+      - contacts_received = user.appointment_set_record.where(date_set_week_id: wk.id).sum(:number_of_contacts_received)
+      - appointments_set = user.appointment_set_record.where(date_set_week_id: wk.id).count
+      - appointments_had = user.appointment_set_record.where(date_of_appointment_week_id: wk.id).count
+      - appointments_support = user.appointment_set_record.where("date_of_appointment_week_id = ? and frequency > 0", wk.id).count
+      - monthly = user.appointment_set_record.where("date_of_appointment_week_id = ? and frequency > 0", wk.id).sum(:monthly)
+      - special = user.appointment_set_record.where("date_of_appointment_week_id = ? and frequency = 0", wk.id).sum(:amount)
+      %tr
+        - if ccb.nil? or srd.nil?
+          %td.week
+            %strong= wk.end_name
+          %td{colspan: "12"}
+            .text-center
+              There is insufficient data to calculate your weekly stats this week.
+              %a{:href => new_staff_dmpd_stats_contact_card_box_path} Add your contact card box statistics
+              or
+              %a{:href => new_staff_dmpd_stats_support_raising_development_path} add your calling chart statistics.
+        - else
+          %td.week
+            %strong= wk.end_name
+          %td.visible-desktop= srd.hours_calling
+          - stat_totals[0] += srd.hours_calling
+          %td.visible-desktop= srd.number_of_calls_made
+          - stat_totals[1] += srd.number_of_calls_made
+          %td.visible-desktop= srd.appointments_asked_for
+          - stat_totals[2] += srd.appointments_asked_for
+          %td.visible-desktop= appointments_set
+          - stat_totals[3] += appointments_set
+          - if appointments_set > srd.appointments_asked_for or srd.appointments_asked_for == 0
+            %td.visible-desktop.orange
+              %strong ASR ERR
+          - else
+            %td.visible-desktop.orange= "#{number_with_precision((appointments_set.to_d /  srd.appointments_asked_for.to_d) * 100, :precision => 0)}%"
+          %td.visible-desktop= appointments_had
+          - stat_totals[4] += appointments_had
+          %td.visible-desktop= appointments_support
+          - stat_totals[5] += appointments_support
+
+          - if appointments_had == 0
+            %td.visible-desktop.orange
+              %strong ASR ERR
+          - else
+            %td.orange= "#{number_with_precision((appointments_support.to_d / appointments_had.to_d) * 100, :precision => 0)}%"
+          %td= "#{number_to_currency monthly, :precision => 0}/mo"
+          - stat_totals[6] += monthly
+          - if appointments_support == 0
+            %td.orange= "$0.00/mo"
+          - else
+            %td.orange= "#{number_to_currency (monthly / appointments_support), precision: 0}/mo"
+          %td= number_to_currency special, :precision => 0
+          - stat_totals[7] += special
+          %td.orange
+            - if ccb.used_contacts_total == 0
+              %strong ERR
+            - else
+              = number_with_precision(contacts_received.to_d / ccb.used_contacts_total.to_d, :precision => 2)
+    %tr.totals
+      %td.week
+        %strong Totals
+      %td= stat_totals[0]
+      %td= stat_totals[1]
+      %td= stat_totals[2]
+      %td= stat_totals[3]
+      - if stat_totals[3] > stat_totals[2] or stat_totals[2] == 0
+        %td.visible-desktop.orange
+          %strong ASR ERR
+      - else
+        %td.visible-desktop.orange= "#{number_with_precision((stat_totals[3].to_d / stat_totals[2]) * 100, :precision => 0)}%"
+      %td= stat_totals[4]
+      %td= stat_totals[5]
+      - if stat_totals[4] == 0
+        %td.orange %
+      - else
+        %td.orange= "#{number_with_precision((stat_totals[5].to_d / stat_totals[4].to_d) * 100, :precision => 0)}%"
+      %td= "#{number_to_currency stat_totals[6], :precision => 0}/mo"
+      - if stat_totals[5] == 0
+        %td.orange $0.00/mo
+      - else
+        %td.orange= "#{number_to_currency (stat_totals[6] / stat_totals[5]), :precision => 0}/mo"
+      %td= number_to_currency stat_totals[7], :precision => 0
+      %td.orange

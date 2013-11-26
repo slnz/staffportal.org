@@ -1,0 +1,32 @@
+@import "active_admin/mixins";
+@import 'active_admin/base';
+@import 'chosen';
+
+.panel_contents table {
+	&.ccbs {
+		td {
+			width: 5%;
+		}
+	}
+	th {
+		text-shadow: none;
+		color: #000;
+		&.week {
+			text-align: right;
+			background-color: #aaa;
+		}
+		&.orange {
+			background-color: #ffde00;
+		}
+	}
+
+	tr > td {
+		&.week {
+			text-align: right;
+			background-color: #ccc;
+		}
+		&.orange {
+			background-color: #ffee7c;
+		}
+	}
+}
