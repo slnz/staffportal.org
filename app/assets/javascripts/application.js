@@ -27,6 +27,8 @@ $(function() {
 		return true;
 	});
 
-	$('.datepicker').datepicker()
+	$('.datepicker').datepicker();
+
+	$('[rel=tooltip]').tooltip();
 
 });

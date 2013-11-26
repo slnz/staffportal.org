@@ -29,7 +29,11 @@ class ContactCardBox < ActiveRecord::Base
 		self.maintainance	+ self.maintainance_done.to_i
 	end
 
-	def contact_ratio_total
+	def used_contacts_total
 		self.call_back_for_decision.to_i + self.call_back_for_contacts.to_i + self.appointment_set.to_i + self.called_no_appointment_set.to_i + self.appointment_no_support.to_i + self.new_ministry_partner.to_i
 	end
+
+	def created_at_print
+  	self.created_at.strftime('%a, %d %b %y')
+  end
 end

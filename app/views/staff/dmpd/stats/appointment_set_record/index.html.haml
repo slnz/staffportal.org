@@ -19,13 +19,19 @@
         %span.arrow.hidden-phone
 .white
   .container
-    %h1.page-header
+    %h3.page-header
       Appointment Set Record
       .pull-right
-        %a.btn{href: staff_dmpd_stats_root_path} WCS
-        %a.btn{href: staff_dmpd_stats_contact_card_box_index_path} Contact Card Box
-        %a.btn{href: staff_dmpd_stats_support_raising_development_index_path} Weekly Calling Chart
-        %a.btn.btn-primary{href: new_staff_dmpd_stats_appointment_set_record_path}
+        %a.btn.btn-primary{href: staff_dmpd_stats_root_path}
+          %i.icon-home &nbsp;
+          WCS
+        %a.btn{href: staff_dmpd_stats_contact_card_box_index_path}
+          %i.icon-user &nbsp;
+          Contact Card Box
+        %a.btn{href: staff_dmpd_stats_support_raising_development_index_path}
+          %i.icon-phone &nbsp;
+          Weekly Calling Chart
+        %a.btn.btn-info{href: new_staff_dmpd_stats_appointment_set_record_path}
           %i.icon-plus
             Add Data
 

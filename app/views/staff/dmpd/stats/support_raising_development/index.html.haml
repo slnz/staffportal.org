@@ -19,15 +19,21 @@
         %span.arrow.hidden-phone
 .white
   .container
-    %h1.page-header
+    %h3.page-header
       Weekly Calling Chart
       .pull-right
-        %a.btn{href: staff_dmpd_stats_root_path} WCS
-        %a.btn{href: staff_dmpd_stats_contact_card_box_index_path} Contact Card Box
-        %a.btn{href: staff_dmpd_stats_appointment_set_record_index_path} Appointment Set Record
+        %a.btn.btn-primary{href: staff_dmpd_stats_root_path}
+          %i.icon-home &nbsp;
+          WCS
+        %a.btn{href: staff_dmpd_stats_contact_card_box_index_path}
+          %i.icon-user &nbsp;
+          Contact Card Box
+        %a.btn{href: staff_dmpd_stats_appointment_set_record_index_path}
+          %i.icon-calendar &nbsp;
+          Appointment Set Record
         - if @late > 0
           %a.btn.btn-danger.disabled= "#{@late} Late Reports"
-        %a.btn.btn-primary{href: new_staff_dmpd_stats_support_raising_development_path}
+        %a.btn.btn-info{href: new_staff_dmpd_stats_support_raising_development_path}
           %i.icon-plus
             Add Data
 

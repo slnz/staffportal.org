@@ -148,6 +148,8 @@ ActiveAdmin.setup do |config|
   # config.csv_column_separator = ','
    config.load_paths = [File.expand_path('app/admin', Rails.root), File.expand_path('app/coach', Rails.root), File.expand_path('app/hr', Rails.root)]
 
+  config.show_comments_in_menu = false
+
   config.namespace :coach do |coach|
     coach.site_title = "Bootcamp Coaches"
     coach.authentication_method = :authenticate_coach_user!

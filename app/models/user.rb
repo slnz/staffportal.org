@@ -91,4 +91,13 @@ class User < ActiveRecord::Base
     end
     Week.where('id not in (?) and date_finished < ?', hide_weeks, Time.now.to_date).count
   end
+
+  def mpd_goal
+    my_account = self.accounts.where("name LIKE (?)", "%#{self.last_name}%#{self.first_name}%").first
+    unless my_account.nil?
+      @goal = my_account.goals.find_by_type_id(164)
+      return @goal.amount.to_i unless @goal.nil?
+    end
+    return self.mpd_goal
+  end
 end

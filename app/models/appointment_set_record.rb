@@ -71,4 +71,8 @@ class AppointmentSetRecord < ActiveRecord::Base
     "#{self.first_name} #{self.last_name}"
   end
 
+  def created_at_print
+    self.created_at.strftime('%a, %d %b %y')
+  end
+
 end

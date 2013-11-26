@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131125044918) do
+ActiveRecord::Schema.define(:version => 20131126000023) do
 
   create_table "accounts", :force => true do |t|
     t.string   "code"
@@ -183,6 +183,7 @@ ActiveRecord::Schema.define(:version => 20131125044918) do
     t.string   "last_name"
     t.integer  "bootcamp_coach_id"
     t.integer  "currency_id"
+    t.decimal  "mpd_goal"
   end
 
   add_index "users", ["username"], :name => "index_users_on_username", :unique => true
