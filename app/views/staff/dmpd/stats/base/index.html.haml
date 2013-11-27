@@ -14,6 +14,7 @@
           %li.active
             WCS
         %span.arrow.hidden-phone
+
 .white
   .container
     - @graph_data = {months: [], pledge: [], goal: 30000}
@@ -167,6 +168,7 @@
               %th.orange
                 %a{href: "#", rel: "tooltip", title: "<strong>Received</strong><hr /><strong>Used</strong>"} Ratio
           %tbody
+
             - @weeks.each do |wk|
               - ccb = current_user.contact_card_box.find_by_week_id(wk.id)
               - contacts_received = current_user.appointment_set_record.where(date_set_week_id: wk.id).sum(:number_of_contacts_received)
@@ -187,15 +189,18 @@
                         %strong ERR
                     - else
                       = number_with_precision(contacts_received.to_d / ccb.used_contacts_total.to_d, :precision => 2)
+
       %br/
       %div.page-header MPD Graph
       #mpd
-      - if current_user.mpd_goal.blank? and false
-        .well.text-center
-          %p Your MPD Goal is not set.
-          %a.btn.btn-primary{href: new_staff_dmpd_stats_contact_card_box_path}
-            %i.icon-tasks
-              Set Goal
-      -else
-        %script{:type => 'text/javascript'}
-          = "insert_graph('mpd',#{@graph_data[:months].to_json}, #{@graph_data[:pledge].to_json}, 'Pledges', #{current_user.mpd_goal.to_i});".html_safe
+      -#
+        - if current_user.mpd_goal.blank?
+          .well.text-center
+            %p Your MPD Goal is not set.
+            %a.btn.btn-primary{href: new_staff_dmpd_stats_contact_card_box_path}
+              %i.icon-tasks
+                Set Goal
+        -else
+          %script{:type => 'text/javascript'}
+            = "insert_graph('mpd',#{@graph_data[:months].to_json}, #{@graph_data[:pledge].to_json}, 'Pledges', #{current_user.mpd_goal.to_i});".html_safe
+
