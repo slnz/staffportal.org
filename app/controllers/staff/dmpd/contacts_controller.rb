@@ -17,7 +17,7 @@ class Staff::Dmpd::ContactsController < InheritedResources::Base
       if @exists.nil?
         super
       else
-        flash[:notice] = "Contact already claimed".html_safe
+        flash[:notice] = "Contact already claimed by <a href=\"mailto:#{@exists.user.username}\">#{@exists.user.username}</a>".html_safe
         redirect_to staff_dmpd_contacts_path
       end
     end
