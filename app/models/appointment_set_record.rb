@@ -60,7 +60,7 @@ class AppointmentSetRecord < ActiveRecord::Base
   end
 
   def set_monthly
-    if self.frequency == 0 or self.frequency.nil?
+    if self.frequency == 0 or self.frequency.nil? or self.amount.nil?
       self.monthly = 0
     else 
       self.monthly = self.amount / (self.frequency)
