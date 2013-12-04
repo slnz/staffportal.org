@@ -13,6 +13,10 @@ ActiveAdmin.register Type do
     redirect_to :action => :index
   end
 
+  filter :code
+  filter :name
+  filter :definition
+
   index do
     selectable_column
     column :code

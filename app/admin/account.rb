@@ -26,6 +26,11 @@ ActiveAdmin.register Account do
     redirect_to :action => :index
   end
 
+  filter :code
+  filter :name
+
+
+
   index do
     selectable_column
     column :code

@@ -8,4 +8,6 @@ ActiveAdmin.register Currency do
     default_actions
   end
 
+  config.filters = false
+
 end

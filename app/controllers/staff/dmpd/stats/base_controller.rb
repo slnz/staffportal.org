@@ -6,7 +6,6 @@ class Staff::Dmpd::Stats::BaseController < ApplicationController
 		rescue
 			@mpd_goal = 0
 		end
-
 		@weeks = Week.where('date_finished < ?', Time.now.to_date + 1.week)
 	end
 

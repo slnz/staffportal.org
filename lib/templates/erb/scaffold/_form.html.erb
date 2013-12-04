@@ -1,4 +1,4 @@
-<%%= semantic_form_for @<%= singular_name %> do |f| %>
+<%%= semantic_form_for @<%= singular_name %>, builder: FormtasticBootstrap::FormBuilder do |f| %>
   <%%= f.inputs do %>
   <%- attributes.each do |attribute| -%>
     <%%= f.input :<%= attribute.name %> %>

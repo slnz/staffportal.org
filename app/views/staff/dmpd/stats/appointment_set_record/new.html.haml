@@ -24,5 +24,5 @@
   .container
     %h3.page-header
       Appointment Set Record
-    = semantic_form_for @appointment_set_record, url: staff_dmpd_stats_appointment_set_record_index_path do |f|
+    = semantic_form_for @appointment_set_record, url: staff_dmpd_stats_appointment_set_record_index_path, builder: FormtasticBootstrap::FormBuilder do |f|
       = render :partial => "form", :locals => { :f => f }

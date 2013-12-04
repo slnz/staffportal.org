@@ -64,3 +64,4 @@ gem 'aws-sdk'
 gem 'rails_12factor'
 
 gem 'seed_dump', '~> 0.5.3'
+gem 'chosen-rails'

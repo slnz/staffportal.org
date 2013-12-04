@@ -31,5 +31,5 @@
           %i.icon-angle-left &nbsp;
           Back
     - else
-      = semantic_form_for @contact_card_box, url: staff_dmpd_stats_contact_card_box_index_path do |f|
+      = semantic_form_for @contact_card_box, url: staff_dmpd_stats_contact_card_box_index_path, builder: FormtasticBootstrap::FormBuilder do |f|
         = render :partial => "form", :locals => { :f => f }

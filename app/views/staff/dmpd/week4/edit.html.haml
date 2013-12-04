@@ -25,7 +25,7 @@
         %div Confirmed by HR
       - if @week4.confirmed_coach
         %div Confirmed by Coach
-    = semantic_form_for @week4, url: staff_dmpd_week4_path do |f|
+    = semantic_form_for @week4, url: staff_dmpd_week4_path, builder: FormtasticBootstrap::FormBuilder do |f|
       = f.inputs do
         .well
           %h4 Tasks

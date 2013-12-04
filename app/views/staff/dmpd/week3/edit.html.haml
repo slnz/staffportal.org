@@ -25,7 +25,7 @@
         %div Confirmed by HR
       - if @week3.confirmed_coach
         %div Confirmed by Coach
-    = semantic_form_for @week3, url: staff_dmpd_week3_path, :html => { :multipart => true } do |f|
+    = semantic_form_for @week3, url: staff_dmpd_week3_path, :html => { :multipart => true }, builder: FormtasticBootstrap::FormBuilder do |f|
       = f.inputs do
         .well
           %h4 Tasks

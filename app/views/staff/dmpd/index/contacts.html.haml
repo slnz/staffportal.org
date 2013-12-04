@@ -20,7 +20,7 @@
       %div{class: flash_class(key)}
         = value
     %h2.page-header DMPD Contacts
-    = semantic_form_for Contact.new, url: staff_dmpd_contacts_path do |f|
+    = semantic_form_for Contact.new, url: staff_dmpd_contacts_path, builder: FormtasticBootstrap::FormBuilder do |f|
       = f.input :first_name
       = f.input :last_name
       = f.input :phone

@@ -31,5 +31,5 @@
           %i.icon-angle-left &nbsp;
           Back
     - else
-      = semantic_form_for @support_raising_development, url: staff_dmpd_stats_support_raising_development_index_path do |f|
+      = semantic_form_for @support_raising_development, url: staff_dmpd_stats_support_raising_development_index_path, builder: FormtasticBootstrap::FormBuilder do |f|
         = render :partial => "form", :locals => { :f => f }
