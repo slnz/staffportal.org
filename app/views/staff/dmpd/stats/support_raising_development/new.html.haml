@@ -24,7 +24,7 @@
   .container
     %h3.page-header
       Weekly Calling Chart
-    - if @available_weeks.empty?
+    - if @available_weeks.blank?
       .well.text-center
         %p You're all up to date.
         %a.btn.btn-primary{href: staff_dmpd_stats_support_raising_development_index_path}
