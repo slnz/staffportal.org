@@ -1,0 +1,31 @@
+%table.table.table-striped
+  %thead
+    %tr
+      %th.week Week Ending
+      %th
+        Used
+      %th
+        Received
+      %th.orange
+        Ratio
+  %tbody
+
+    - @weeks.each do |wk|
+      - ccb = user.contact_card_box.find_by_week_id(wk.id)
+      - contacts_received = user.appointment_set_record.where(date_set_week_id: wk.id).sum(:number_of_contacts_received)
+      %tr
+        - if ccb.nil?
+          %td.week= wk.end_name
+          %td{colspan: "3"}
+            .text-center
+              = "There is insufficient data to calculate #{user.first_name}'s weekly stats this week."
+        - else
+          %td.week= wk.end_name
+          %td= ccb.used_contacts_total
+          %td= contacts_received
+          %td.orange
+            - if ccb.used_contacts_total == 0
+              %a{href: "#", rel: "tooltip", title: "No Contacts Used"} 
+                %strong ERR
+            - else
+              = number_with_precision(contacts_received.to_d / ccb.used_contacts_total.to_d, :precision => 2)

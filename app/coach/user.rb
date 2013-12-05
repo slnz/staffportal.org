@@ -18,6 +18,11 @@ ActiveAdmin.register User, :namespace => :coach do
       row("admin") { |user| status_tag(user.admin, "orange") }
     end
 
+    panel "Statistics Summary" do
+      @weeks = Week.where('date_finished < ?', Time.now.to_date + 1.week)
+      render :partial => "stats", :locals => { :@weeks => @weeks, user: user }
+    end
+
     panel "Contact Card Box" do
       table_for(user.contact_card_box, :class => "ccbs") do
         column :week, title: "Week Ending", :html => { :th => { :class => "gray" }, :td => { :class => "gray" }} do |ccb|
@@ -77,9 +82,9 @@ ActiveAdmin.register User, :namespace => :coach do
       end
     end
 
-    panel "Statistics Summary" do
+    panel "Contact Ratio" do
       @weeks = Week.where('date_finished < ?', Time.now.to_date + 1.week)
-      render :partial => "stats", :locals => { :@weeks => @weeks, user: user }
+      render :partial => "contacts", :locals => { :@weeks => @weeks, user: user }
     end
   end
 end

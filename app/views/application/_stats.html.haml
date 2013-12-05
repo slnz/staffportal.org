@@ -31,10 +31,7 @@
             %strong= wk.end_name
           %td{colspan: "12"}
             .text-center
-              There is insufficient data to calculate your weekly stats this week.
-              %a{:href => new_staff_dmpd_stats_contact_card_box_path} Add your contact card box statistics
-              or
-              %a{:href => new_staff_dmpd_stats_support_raising_development_path} add your calling chart statistics.
+              = "There is insufficient data to calculate #{user.first_name}'s weekly stats this week."
         - else
           %td.week
             %strong= wk.end_name
