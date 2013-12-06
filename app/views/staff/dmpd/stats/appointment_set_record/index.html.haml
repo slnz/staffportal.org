@@ -44,10 +44,10 @@
         - column :gift_confirmed_date, title: "Confirmed"
         - column :pretty_amount, title: "Amount"
         - column :number_of_contacts_received, title: "# Contacts"
-        - column :asked_for_contacts, title: "Asked for Contacts" do |bool|
-          - if bool then "Yes" else "No" end
-        - column :thank_you_posted, title: "TY Posted" do |bool|
-          - if bool then "Yes" else "No" end
+        - column :asked_for_contacts, title: "Asked for Contacts" do |asr|
+          - if asr.asked_for_contacts then "Yes" else "No" end
+        - column :thank_you_posted, title: "TY Posted" do |asr|
+          - if asr.thank_you_posted then "Yes" else "No" end
         - column :title => "Actions" do |asr|
           - link_to("Edit", edit_staff_dmpd_stats_appointment_set_record_path(asr) )
     - else

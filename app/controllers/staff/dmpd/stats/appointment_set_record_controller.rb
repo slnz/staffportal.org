@@ -2,7 +2,7 @@ class Staff::Dmpd::Stats::AppointmentSetRecordController < InheritedResources::B
   before_filter :authenticate_user!
 
   def index
-		@appointment_set_record = current_user.appointment_set_record
+		@appointment_set_record = current_user.appointment_set_record.order(:date_set)
   end
 
 	def new

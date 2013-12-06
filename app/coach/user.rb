@@ -65,7 +65,7 @@ ActiveAdmin.register User, :namespace => :coach do
     end
 
     panel "Appointment Set Record" do
-      table_for(user.appointment_set_record) do
+      table_for(user.appointment_set_record.order(:date_set)) do
         column :name, :class => "week"
         column :date_set
         column "Appt Date", :date_of_appointment
@@ -73,11 +73,11 @@ ActiveAdmin.register User, :namespace => :coach do
         column "Confirmed", :gift_confirmed_date
         column "Amount", :pretty_amount
         column "# Contacts", :number_of_contacts_received
-        column "Asked for Contacts", :asked_for_contacts do |bool|
-          if bool then "Yes" else "No" end
+        column "Asked for Contacts", :asked_for_contacts do |asr|
+          if asr.asked_for_contacts then "Yes" else "No" end
         end
-        column :thank_you_posted, title: "TY Posted" do |bool|
-          if bool then "Yes" else "No" end
+        column :thank_you_posted, title: "TY Posted" do |asr|
+          if asr.thank_you_posted then "Yes" else "No" end
         end
       end
     end

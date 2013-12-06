@@ -76,7 +76,7 @@ ActiveAdmin.register User, :namespace => :hr do
 
 
     panel "Appointment Set Record" do
-      table_for(user.appointment_set_record) do
+      table_for(user.appointment_set_record.order(:date_set)) do
         column :name, :class => "week"
         column :date_set
         column "Appt Date", :date_of_appointment
