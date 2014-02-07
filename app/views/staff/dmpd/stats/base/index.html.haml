@@ -67,10 +67,11 @@
                 %a{href: "#", rel: "tooltip", title: "See Contact Ratio Tab"}  Contact Ratio
           %tbody
             - stat_totals = [0, 0, 0, 0, 0, 0, 0, 0]
+            - contacts_received = 0
             - @weeks.each do |wk|
               - srd = current_user.support_raising_developments.find_by_week_id(wk.id)
               - ccb = current_user.contact_card_box.find_by_week_id(wk.id)
-              - contacts_received = current_user.appointment_set_record.where(date_set_week_id: wk.id).sum(:number_of_contacts_received)
+              - contacts_received += current_user.appointment_set_record.where(date_set_week_id: wk.id).sum(:number_of_contacts_received)
               - appointments_set = current_user.appointment_set_record.where(date_set_week_id: wk.id).count
               - appointments_had = current_user.appointment_set_record.where(date_of_appointment_week_id: wk.id).count
               - appointments_support = current_user.appointment_set_record.where("date_of_appointment_week_id = ? and frequency > 0", wk.id).count
@@ -168,10 +169,10 @@
               %th.orange
                 %a{href: "#", rel: "tooltip", title: "<strong>Received</strong><hr /><strong>Used</strong>"} Ratio
           %tbody
-
+            - contacts_received = 0
             - @weeks.each do |wk|
               - ccb = current_user.contact_card_box.find_by_week_id(wk.id)
-              - contacts_received = current_user.appointment_set_record.where(date_set_week_id: wk.id).sum(:number_of_contacts_received)
+              - contacts_received += current_user.appointment_set_record.where(date_set_week_id: wk.id).sum(:number_of_contacts_received)
               %tr
                 - if ccb.nil?
                   %td.gray= wk.end_name

@@ -9,10 +9,10 @@
       %th.orange
         Ratio
   %tbody
-
+    - contacts_received = 0
     - @weeks.each do |wk|
       - ccb = user.contact_card_box.find_by_week_id(wk.id)
-      - contacts_received = user.appointment_set_record.where(date_set_week_id: wk.id).sum(:number_of_contacts_received)
+      - contacts_received += user.appointment_set_record.where(date_set_week_id: wk.id).sum(:number_of_contacts_received)
       %tr
         - if ccb.nil?
           %td.week= wk.end_name
