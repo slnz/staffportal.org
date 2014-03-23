@@ -48,4 +48,8 @@ body.staff_portal {
   }
   .loginlink img { vertical-align: middle }
   .loginlink.relay img { margin-top: -5px }
+
+  a:link:after, a:visited:after {    
+    content: "";     
+  }
 }
