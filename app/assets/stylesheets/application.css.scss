@@ -124,7 +124,7 @@ body {
   border-left: 5px solid #eee;
   background-color: #f0f7fd;
   border-color: #d0e3f0;
-  &.info { 
+  &.info {
     background-color: #fefbed;
     border-color: #f1e7bc;
   }
@@ -140,6 +140,30 @@ body {
 
 .note-editor {
   background-color: white;
+}
+
+
+/* ==================================================
+   Callout
+================================================== */
+
+.bs-callout {
+margin: 20px 0;
+padding: 20px;
+border-left: 3px solid #eee;
+}
+
+.bs-callout-info {
+background-color: #f4f8fa;
+border-color: #5bc0de;
+}
+
+.bs-callout-info h4 {
+color: #5bc0de;
+}
+.bs-callout h4 {
+margin-top: 0;
+margin-bottom: 5px;
 }
 
 /* ==================================================

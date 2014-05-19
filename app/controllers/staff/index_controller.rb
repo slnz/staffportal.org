@@ -1,6 +1,6 @@
 class Staff::IndexController < ApplicationController
   before_filter :authenticate_user!
   def index
-
+    @feed = Feedjira::Feed.fetch_and_parse('http://www.tandem.org.nz/tools/blocks/problog_list/rss?cID=187')
   end
 end

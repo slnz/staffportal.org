@@ -15,10 +15,17 @@
         = value
   .container.listing
     .row
-      .roadshow.span6
-        %a{:href => "/staff/accounts"}
-          My Accounts
-      .roadshow.span6
-        %a{:href => "/staff/dmpd"}
-          DMPD
-
+      .span2
+        %ul.nav.nav-pills.nav-stacked
+          %li
+            %a{:href => "/staff/accounts"}
+              My Accounts
+          %li
+            %a{:href => "/staff/dmpd"}
+              DMPD
+      .span10
+        %h1 Latest News
+        - @feed.entries.each do |entry|
+          .bs-callout.bs-callout-info
+            %h4= link_to entry.title, entry.url
+            = entry.published.to_formatted_s(:short)
