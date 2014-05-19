@@ -1,4 +1,4 @@
-- title "MSP | DMPD Statistics Summary"
+- title "DMPD Statistics Summary"
 %section.intro-box.margin-80.hidden-print
   .container
     .row
@@ -101,7 +101,7 @@
                   - stat_totals[3] += appointments_set
                   - if appointments_set > srd.appointments_asked_for or srd.appointments_asked_for == 0
                     %td.visible-desktop.orange
-                      %a{href: "#", rel: "tooltip", title: "\"# Responses to Appt Ask\" is less than \"Got Appt Time & Place\""} 
+                      %a{href: "#", rel: "tooltip", title: "\"# Responses to Appt Ask\" is less than \"Got Appt Time & Place\""}
                         %strong ASR ERR
                   - else
                     %td.visible-desktop.orange= "#{number_with_precision((appointments_set.to_d /  srd.appointments_asked_for.to_d) * 100, :precision => 0)}%"
@@ -112,7 +112,7 @@
 
                   - if appointments_had == 0
                     %td.visible-desktop.orange
-                      %a{href: "#", rel: "tooltip", title: "\"# Y/N Decisions\" is zero"} 
+                      %a{href: "#", rel: "tooltip", title: "\"# Y/N Decisions\" is zero"}
                         %strong ASR ERR
                   - else
                     %td.orange= "#{number_with_precision((appointments_support.to_d / appointments_had.to_d) * 100, :precision => 0)}%"
@@ -127,7 +127,7 @@
                   - stat_totals[7] += special
                   %td.orange
                     - if ccb.used_contacts_total == 0
-                      %a{href: "#", rel: "tooltip", title: "No Contacts Used"} 
+                      %a{href: "#", rel: "tooltip", title: "No Contacts Used"}
                         %strong ERR
                     - else
                       = number_with_precision(contacts_received.to_d / ccb.used_contacts_total.to_d, :precision => 2)
@@ -140,7 +140,7 @@
               %td= stat_totals[3]
               - if stat_totals[3] > stat_totals[2] or stat_totals[2] == 0
                 %td.visible-desktop.orange
-                  %a{href: "#", rel: "tooltip", title: "\"# Responses to Appt Ask\" is less than \"Got Appt Time & Place\""} 
+                  %a{href: "#", rel: "tooltip", title: "\"# Responses to Appt Ask\" is less than \"Got Appt Time & Place\""}
                     %strong ASR ERR
               - else
                 %td.visible-desktop.orange= "#{number_with_precision((stat_totals[3].to_d / stat_totals[2]) * 100, :precision => 0)}%"
@@ -186,7 +186,7 @@
                   %td= contacts_received
                   %td.orange
                     - if ccb.used_contacts_total == 0
-                      %a{href: "#", rel: "tooltip", title: "No Contacts Used"} 
+                      %a{href: "#", rel: "tooltip", title: "No Contacts Used"}
                         %strong ERR
                     - else
                       = number_with_precision(contacts_received.to_d / ccb.used_contacts_total.to_d, :precision => 2)
