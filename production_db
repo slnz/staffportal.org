@@ -3,7 +3,6 @@
 # This script does the following:
 # 1/ capture and download the latest backup
 # 2/ load it to your local database
-# 3/ run your app and open Safari
 
 # Just replace any uppercase string with your own data
 
