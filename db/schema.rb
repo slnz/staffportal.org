@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131126000023) do
+ActiveRecord::Schema.define(:version => 20140519055725) do
 
   create_table "accounts", :force => true do |t|
     t.string   "code"
@@ -19,6 +19,16 @@ ActiveRecord::Schema.define(:version => 20131126000023) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+
+  create_table "achievements", :force => true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.integer  "xp_value"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "achievements", ["name"], :name => "index_achievements_on_name"
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -129,9 +139,15 @@ ActiveRecord::Schema.define(:version => 20131126000023) do
     t.date     "month"
   end
 
-  create_table "scopes", :force => true do |t|
-    t.integer  "user_id"
-    t.string   "name"
+  create_table "review_questions", :force => true do |t|
+    t.string   "text"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "reviews", :force => true do |t|
+    t.date     "open"
+    t.date     "due"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
@@ -173,6 +189,38 @@ ActiveRecord::Schema.define(:version => 20131126000023) do
     t.integer  "by_id"
   end
 
+  create_table "user_achievements", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "achievement_id"
+    t.integer  "count",          :default => 0
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
+  end
+
+  add_index "user_achievements", ["achievement_id"], :name => "index_user_achievements_on_achievement_id"
+  add_index "user_achievements", ["user_id"], :name => "index_user_achievements_on_user_id"
+
+  create_table "user_review_answers", :force => true do |t|
+    t.integer  "user_review_id"
+    t.integer  "review_question_id"
+    t.integer  "value"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+  end
+
+  add_index "user_review_answers", ["review_question_id"], :name => "index_user_review_answers_on_review_question_id"
+  add_index "user_review_answers", ["user_review_id"], :name => "index_user_review_answers_on_user_review_id"
+
+  create_table "user_reviews", :force => true do |t|
+    t.integer  "review_id"
+    t.integer  "user_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "user_reviews", ["review_id"], :name => "index_user_reviews_on_review_id"
+  add_index "user_reviews", ["user_id"], :name => "index_user_reviews_on_user_id"
+
   create_table "users", :force => true do |t|
     t.string   "username"
     t.string   "admin"
@@ -184,6 +232,7 @@ ActiveRecord::Schema.define(:version => 20131126000023) do
     t.integer  "bootcamp_coach_id"
     t.integer  "currency_id"
     t.decimal  "mpd_goal"
+    t.integer  "XP",                :default => 0
   end
 
   add_index "users", ["username"], :name => "index_users_on_username", :unique => true
@@ -303,6 +352,15 @@ ActiveRecord::Schema.define(:version => 20131126000023) do
     t.date     "date_finished"
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
+  end
+
+  create_table "xp_levels", :force => true do |t|
+    t.integer  "xp_min"
+    t.integer  "xp_max"
+    t.integer  "next_id"
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
 end

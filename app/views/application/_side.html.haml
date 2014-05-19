@@ -1,0 +1,16 @@
+%ul.nav.nav-pills.nav-stacked
+  %li{ class: ('active' if params[:controller] == 'staff/index') }
+    %a{:href => root_path}
+      Home
+  %li{ class: ('active' if params[:controller] == 'staff/accounts') }
+    %a{:href => staff_accounts_path}
+      My Accounts
+  %li{ class: ('active' if params[:controller] == 'staff/reviews') }
+    %a{:href => staff_reviews_path}
+      People & Culture
+  %li
+    %a{:href => staff_dmpd_root_path}
+      DMPD
+  %li
+    %a{:href => staff_leaderboard_path}
+      Leaderboard

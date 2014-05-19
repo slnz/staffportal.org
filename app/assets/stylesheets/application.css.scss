@@ -11,6 +11,7 @@ $iconWhiteSpritePath: '';
 @import 'datepicker';
 @import 'formtastic-bootstrap';
 @import '_font-awesome';
+@import 'simple-slider';
 
 @import 'compass/css3';
 @import 'accounts';
@@ -142,6 +143,33 @@ body {
   background-color: white;
 }
 
+.question {
+  position: relative;
+  margin: 15px 0;
+  padding: 19px 19px 14px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+}
+
+.question:after {
+content: "Question";
+position: absolute;
+top: -1px;
+left: -1px;
+padding: 3px 7px;
+font-size: 12px;
+font-weight: bold;
+background-color: #f5f5f5;
+border: 1px solid #ddd;
+color: #9da0a4;
+-webkit-border-radius: 4px 0 4px 0;
+-moz-border-radius: 4px 0 4px 0;
+border-radius: 4px 0 4px 0;
+}
+
 
 /* ==================================================
    Callout
@@ -164,6 +192,13 @@ color: #5bc0de;
 .bs-callout h4 {
 margin-top: 0;
 margin-bottom: 5px;
+}
+
+/* ==================================================
+   Progress
+================================================== */
+.progress {
+background-color: #ddd;
 }
 
 /* ==================================================

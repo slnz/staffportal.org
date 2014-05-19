@@ -5,6 +5,7 @@
 //= require bootstrap
 //= require bootstrap-datepicker
 //= require summernote
+//= require simple-slider.min
 //= require accounts
 //= require_self
 

@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  xp_min: 1
+  next_id: 1
+
+two:
+  xp_min: 1
+  next_id: 1

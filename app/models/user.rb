@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
   devise :cas_authenticatable
-  attr_accessible :currency_id, :username, :first_name, :last_name, :email, :admin, :id, :bootcamp_coach_id
+  attr_accessible :currency_id, :username, :first_name, :last_name, :email, :admin, :id, :bootcamp_coach_id, :xp
   validates_presence_of :username, :email
   belongs_to :bootcamp_coach, :class_name => "User"
   has_many :trainees, :class_name => "User", :foreign_key => "bootcamp_coach_id"
@@ -14,9 +14,13 @@ class User < ActiveRecord::Base
   has_many :contacts
   has_many :user_accounts
   has_many :accounts, :through => :user_accounts
+  has_many :user_reviews
+  has_many :reviews, :through => :user_reviews
   has_many :support_raising_developments
   has_many :contact_card_box
   has_many :appointment_set_record
+  has_many :user_achievements
+  has_many :achievements, :through => :user_achievements
 
   before_save do
     self.username.downcase! if self.username
@@ -99,5 +103,24 @@ class User < ActiveRecord::Base
       return @goal.amount.to_i unless @goal.nil?
     end
     return self.mpd_goal
+  end
+
+  def xp_level
+    XpLevel.where('xp_min <= ? and xp_max > ?',
+                          self.XP,
+                          self.XP).first
+  end
+
+
+  def add_achievement(name)
+    achievement = Achievement.where(name: name).first
+    unless achievement.nil?
+      UserAchievement.create(user_id: self.id,
+                             achievement_id: achievement.id)
+      self.XP += achievement.xp_value
+      self.save!
+    end
+
+    achievement
   end
 end

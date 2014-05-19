@@ -1,0 +1,38 @@
+- title "MSP | People & Culture"
+%section.intro-box.margin-80
+  .container
+    .row
+      .span12
+        %h3.pull-right.hidden-phone= current_user.name
+        %ul.breadcrumb
+          %li
+            %a{:href => root_path} Home
+            %span.divider /
+          %li
+            %a{:href => staff_reviews_path} People & Culture
+            %span.divider /
+          %li.active
+            New
+        %span.arrow.hidden-phone
+.white
+  .container
+    - flash.each do |key, value|
+      %div{class: flash_class(key)}
+        = value
+  .container.listing
+    .row
+      .span2
+        = render 'side'
+      .span10
+        %h3.page-header My People & Culture Review
+        = form_tag(staff_reviews_path, method: "POST") do
+          - @review_questions.each do |question|
+            .text-center.question
+              %h4= question.text
+              =text_field_tag "answer[#{question.id}]", "0", type: "text", "data-slider" => "true", "data-slider-range" => "0, 10", "data-slider-snap" => "true"
+              %span.muted{style:"vertical-align: top"} 5
+              %script
+                $("[data-slider]").bind("slider:ready slider:changed", function (event, data) {
+                $(this).nextAll("span").html(data.value.toFixed(0) + " / 10");
+                });
+          %input.btn.btn-primary{type: "submit"}

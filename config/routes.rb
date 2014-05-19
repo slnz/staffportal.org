@@ -13,6 +13,7 @@ Staff::Application.routes.draw do
 
     namespace :staff do
       root :to => 'index#index'
+      get 'leaderboard' => 'index#leaderboard'
 
       namespace :dmpd do
         root :to => 'index#index'
@@ -31,6 +32,8 @@ Staff::Application.routes.draw do
           resources :contact_card_box
         end
       end
+      resources :reports
+      resources :reviews
       resources :accounts do
         member do
           get 'transactions'

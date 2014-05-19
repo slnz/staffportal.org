@@ -16,13 +16,7 @@
   .container.listing
     .row
       .span2
-        %ul.nav.nav-pills.nav-stacked
-          %li
-            %a{:href => "/staff/accounts"}
-              My Accounts
-          %li
-            %a{:href => "/staff/dmpd"}
-              DMPD
+        = render 'side'
       .span10
         %h1 Latest News
         - @feed.entries.each do |entry|
