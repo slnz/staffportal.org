@@ -75,7 +75,7 @@ module Staff
 
     def transactions
       @account = current_user.accounts.find(params[:id])
-      add_breadcrumb @account.code, staff_account_path(@account)
+      add_breadcrumb @account.code, transactions_staff_account_path(@account)
 
       @currency_rate = current_user.currency.currency_rates.order(:month).last
       @currency_rate = @currency_rate.blank? ? 1 : @currency_rate.rate
