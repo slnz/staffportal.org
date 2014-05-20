@@ -8,15 +8,15 @@ Staff::Application.routes.draw do
     ActiveAdmin.routes(self)
 
     devise_scope :user do
-      get "auth/logout" => "devise/sessions#destroy"
+      get 'auth/logout' => 'devise/sessions#destroy'
     end
 
     namespace :staff do
-      root :to => 'index#index'
+      root to: 'index#index'
       get 'leaderboard' => 'index#leaderboard'
 
       namespace :dmpd do
-        root :to => 'index#index'
+        root to: 'index#index'
         get 'contacts' => 'index#contacts'
         resources :contacts
         resources :week6
@@ -26,7 +26,7 @@ Staff::Application.routes.draw do
         resources :week2
         resources :week1
         namespace :stats do
-          root to: "base#index"
+          root to: 'base#index'
           resources :appointment_set_record
           resources :support_raising_development
           resources :contact_card_box
@@ -39,12 +39,15 @@ Staff::Application.routes.draw do
           get 'transactions'
         end
         collection do
-          get 'change_default_currency/:code' => 'accounts#change_default_currency'
+          get 'change_default_currency/:code' =>
+            'accounts#change_default_currency'
         end
       end
     end
   end
 
   match 'auth/key' => 'auth#key'
-  root :to => 'auth#home'
+  root to: 'auth#home'
+  match '*path' => redirect('/')
+
 end

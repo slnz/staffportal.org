@@ -5,11 +5,11 @@ class Type < ActiveRecord::Base
   has_many :records
   has_many :goals
 
-  def is_income
-    self.definition == "IN" or self.code == "1301" or self.code == "P1301"
+  def income?
+    definition == 'IN' || code == '1301' || code == 'P1301'
   end
 
-  def is_expense
-    self.definition == "EX"
+  def expense?
+    definition == 'EX'
   end
 end

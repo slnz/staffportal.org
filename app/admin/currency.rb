@@ -1,5 +1,5 @@
 ActiveAdmin.register Currency do
-  menu :parent => "Finance", :label => "Currency"
+  menu parent: 'Finance', label: 'Currency'
 
   index do
     selectable_column

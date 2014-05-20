@@ -1,5 +1,4 @@
 class TransactionQueue
-
   @queue = :balances
 
   def self.perform(id)

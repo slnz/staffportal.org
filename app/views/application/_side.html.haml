@@ -1,16 +1,22 @@
-%ul.nav.nav-pills.nav-stacked
-  %li{ class: ('active' if params[:controller] == 'staff/index') }
-    %a{:href => root_path}
-      Home
-  %li{ class: ('active' if params[:controller] == 'staff/accounts') }
-    %a{:href => staff_accounts_path}
-      My Accounts
-  %li{ class: ('active' if params[:controller] == 'staff/reviews') }
-    %a{:href => staff_reviews_path}
-      People & Culture
-  %li
-    %a{:href => staff_dmpd_root_path}
-      DMPD
-  %li
-    %a{:href => staff_leaderboard_path}
-      Leaderboard
+.bs-sidebar
+  %ul.nav.nav-pills.nav-stacked
+    %li{ class: ('active' if current_page? staff_root_path) }
+      %a{:href => staff_root_path}
+        Home
+    %li{ class: ('active' if current_page? staff_accounts_path) }
+      %a{:href => staff_accounts_path}
+        My Accounts
+      %ul.nav
+        - current_user.accounts.limit(5).all.each do |account|
+          %li{ class: ('active' if current_page? staff_account_path(account.id)) }
+            %a{:href => staff_account_path(account.id)}
+              = account.name
+    %li{ class: ('active' if current_page? staff_reviews_path) }
+      %a{:href => staff_reviews_path}
+        People & Culture
+    %li
+      %a{:href => staff_dmpd_root_path}
+        DMPD
+    %li{ class: ('active' if current_page? staff_leaderboard_path) }
+      %a{:href => staff_leaderboard_path}
+        Leaderboard

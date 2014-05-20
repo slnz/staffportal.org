@@ -5,12 +5,12 @@ ActiveAdmin.setup do |config|
   # Set the title that is displayed on the main layout
   # for each of the active admin pages.
   #
-  config.site_title = "MSP"
+  config.site_title = 'MSP'
 
   # Set the link url for the title. For example, to take
   # users to your main site. Defaults to no link.
   #
-  config.site_title_link = "/"
+  config.site_title_link = '/'
 
   # Set an optional image to be displayed for the header
   # instead of a string (overrides :site_title)
@@ -66,7 +66,6 @@ ActiveAdmin.setup do |config|
   # to return the currently logged in user.
   config.current_user_method = :current_admin_user
 
-
   # == Logging Out
   #
   # Active Admin displays a logout link on each screen. These
@@ -109,13 +108,11 @@ ActiveAdmin.setup do |config|
   #     without_comments.allow_comments = false
   #   end
 
-
   # == Batch Actions
   #
   # Enable and disable Batch Actions
   #
   config.batch_actions = true
-
 
   # == Controller Filters
   #
@@ -124,7 +121,6 @@ ActiveAdmin.setup do |config|
   #
   # config.before_filter :do_something_awesome
 
-
   # == Register Stylesheets & Javascripts
   #
   # We recommend using the built in Active Admin layout and loading
@@ -132,32 +128,34 @@ ActiveAdmin.setup do |config|
   # and feel.
   #
   # To load a stylesheet:
-     config.register_stylesheet 'active_admin.css'
+  config.register_stylesheet 'active_admin.css'
 
-  # You can provide an options hash for more control, which is passed along to stylesheet_link_tag():
+  # You can provide an options hash for more control,
+  # which is passed along to stylesheet_link_tag():
   #   config.register_stylesheet 'my_print_stylesheet.css', :media => :print
   #
   # To load a javascript file:
-    config.register_javascript 'chosen.jquery.min.js'
-    config.register_javascript 'active_admin_configurable.js'
-
+  config.register_javascript 'chosen.jquery.min.js'
+  config.register_javascript 'active_admin_configurable.js'
 
   # == CSV options
   #
   # Set the CSV builder separator (default is ",")
   # config.csv_column_separator = ','
-   config.load_paths = [File.expand_path('app/admin', Rails.root), File.expand_path('app/coach', Rails.root), File.expand_path('app/hr', Rails.root)]
+  config.load_paths = [File.expand_path('app/admin', Rails.root),
+                       File.expand_path('app/coach', Rails.root),
+                       File.expand_path('app/hr', Rails.root)]
 
   config.show_comments_in_menu = false
 
   config.namespace :coach do |coach|
-    coach.site_title = "Bootcamp Coaches"
+    coach.site_title = 'Bootcamp Coaches'
     coach.authentication_method = :authenticate_coach_user!
     coach.current_user_method = :current_coach_user
   end
 
   config.namespace :hr do |coach|
-    coach.site_title = "Human Resources"
+    coach.site_title = 'Human Resources'
     coach.authentication_method = :authenticate_hr_user!
     coach.current_user_method = :current_hr_user
   end

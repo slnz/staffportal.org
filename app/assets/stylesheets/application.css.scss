@@ -170,7 +170,47 @@ color: #9da0a4;
 border-radius: 4px 0 4px 0;
 }
 
+/* ==================================================
+   Sidebar
+================================================== */
+.bs-sidebar .nav>li>a {
+display: block;
+font-size: 13px;
+font-weight: 500;
+font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+color: #999;
+padding: 4px 20px;
+}
 
+.bs-sidebar .nav>li>a:hover, .bs-sidebar .nav>li>a:focus {
+padding-right: 19px;
+color: #006699;
+text-decoration: none;
+background-color: transparent;
+border-right: 1px solid #006699;
+}
+
+.bs-sidebar .nav>.active>a, .bs-sidebar .nav>.active:hover>a, .bs-sidebar .nav>.active:focus>a {
+padding-right: 18px;
+font-weight: 700;
+color: #006699;
+background-color: transparent;
+border-right: 2px solid #006699;
+}
+
+.bs-sidebar .nav .nav {
+display: block;
+padding-bottom: 10px;
+margin-bottom: 0;
+}
+
+.bs-sidebar .nav .nav>li>a {
+  padding-top: 1px;
+  padding-bottom: 1px;
+  padding-left: 30px;
+  font-size: 12px;
+  font-weight: 400;
+}
 /* ==================================================
    Callout
 ================================================== */

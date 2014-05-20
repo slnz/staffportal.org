@@ -1,5 +1,6 @@
- Staff::Application.configure do
-  # Settings specified here will take precedence over those in config/application.rb
+Staff::Application.configure do
+  # Settings specified here will take precedence over those
+  # in config/application.rb
 
   # Code is not reloaded between requests
   config.cache_classes = true
@@ -27,7 +28,8 @@
   # config.action_dispatch.x_sendfile_header = "X-Sendfile" # for apache
   # config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # for nginx
 
-  # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
+  # Force all access to the app over SSL, use Strict-Transport-Security,
+  # and use secure cookies.
   # config.force_ssl = true
 
   # See everything in the log (default is :info)
@@ -45,8 +47,14 @@
   # Enable serving of images, stylesheets, and JavaScripts from an asset server
   # config.action_controller.asset_host = "http://assets.example.com"
 
-  # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
-    config.assets.precompile += %w( active_admin.css auth.css staff.css bootcamp.css chosen.css chosen.jquery.min.js active_admin_configurable.js )
+  # Precompile additional assets
+  config.assets.precompile += %w( active_admin.css
+                                  auth.css
+                                  staff.css
+                                  bootcamp.css
+                                  chosen.css
+                                  chosen.jquery.min.js
+                                  active_admin_configurable.js )
 
   # Disable delivery errors, bad email addresses will be ignored
   # config.action_mailer.raise_delivery_errors = false
@@ -66,11 +74,11 @@
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
 
   config.paperclip_defaults = {
-    :storage => :s3,
-    :s3_credentials => {
-      :bucket => ENV['AWS_BUCKET'],
-      :access_key_id => ENV['AWS_ACCESS_KEY_ID'],
-      :secret_access_key => ENV['AWS_SECRET_ACCESS_KEY']
+    storage: :s3,
+    s3_credentials: {
+      bucket: ENV['AWS_BUCKET'],
+      access_key_id: ENV['AWS_ACCESS_KEY_ID'],
+      secret_access_key: ENV['AWS_SECRET_ACCESS_KEY']
     }
   }
 end

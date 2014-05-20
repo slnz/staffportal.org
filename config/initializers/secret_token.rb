@@ -2,6 +2,18 @@
 
 # Your secret key for verifying the integrity of signed cookies.
 # If you change this key, all old signed cookies will become invalid!
+
 # Make sure the secret is at least 30 characters and all random,
 # no regular words or you'll be exposed to dictionary attacks.
-Staff::Application.config.secret_token = 'be3bb1d2e0fafcd2347fb6ff09fa97db0eb687da37a39151976fefb56db285e71af9ac0dd1d3e0986a6e1d8eb3786fdb5271fa315c7bee5480e0652502267cc2'
+# You can use `rake secret` to generate a secure secret key.
+
+# Make sure your secret_key_base is kept private
+# if you're sharing your code publicly.
+
+# Although this is not needed for an api-only application, rails4
+# requires secret_key_base or secret_token to be defined, otherwise an
+# error is raised.
+# Using secret_token for rails3 compatibility. Change to secret_key_base
+# to avoid deprecation warning.
+# Can be safely removed in a rails3 api-only application.
+Staff::Application.config.secret_token = ENV['SECRET_KEY_BASE']

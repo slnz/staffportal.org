@@ -1,5 +1,6 @@
-class Staff::ReviewsController < InheritedResources::Base
-    defaults :resource_class => UserReview
+module Staff
+  class ReviewsController < InheritedResources::Base
+    defaults resource_class: UserReview
     def index
       @review = get_review
       @xp = current_user.xp_level
@@ -8,7 +9,7 @@ class Staff::ReviewsController < InheritedResources::Base
     def new
       @review = get_review
       if @review.nil?
-        flash[:alert] = "No pending reviews!"
+        flash[:alert] = 'No pending reviews!'
         redirect_to staff_reviews_path
         return
       end
@@ -19,7 +20,7 @@ class Staff::ReviewsController < InheritedResources::Base
       @review = get_review
 
       if @review.nil?
-        flash[:alert] = "No pending reviews!"
+        flash[:alert] = 'No pending reviews!'
         redirect_to staff_reviews_path
         return
       end
@@ -35,11 +36,11 @@ class Staff::ReviewsController < InheritedResources::Base
       flash[:achievement] = Array.new if flash[:achievement].nil?
 
       # Paperwork Hero Achievement
-      flash[:achievement] << current_user.add_achievement("paperwork hero")
+      flash[:achievement] << current_user.add_achievement('paperwork hero')
 
       # Speedy Achievement
       if UserReview.where(review_id: @review.id).count <= 20
-        flash[:achievement] << current_user.add_achievement("speedy")
+        flash[:achievement] << current_user.add_achievement('speedy')
       end
 
       redirect_to staff_reviews_path
@@ -48,18 +49,18 @@ class Staff::ReviewsController < InheritedResources::Base
     private
 
     def get_review
-      @review = Review
-                      .where('open <= ? and due >= ?',
+      @review = Review.
+                       where('open <= ? and due >= ?',
                              Time.now,
-                             Time.now)
-                      .first
+                             Time.now).
+                       first
       unless @review.nil?
-        @review = nil unless current_user
-                                         .user_reviews
-                                         .find_by_review_id(@review.id)
-                                         .nil?
+        @review = nil unless current_user.user_reviews.
+                                          find_by_review_id(@review.id).
+                                          nil?
       end
 
       @review
     end
+  end
 end

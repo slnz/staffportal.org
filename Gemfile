@@ -5,7 +5,6 @@ gem 'pg'
 gem 'devise'
 gem 'devise_cas_authenticatable'
 
-gem 'rake'
 gem 'redis'
 gem 'resque'
 
@@ -18,33 +17,15 @@ gem 'bootstrap-sass', '~> 2.1.1.0'
 gem 'font-awesome-sass-rails'
 gem 'compass-rails'
 gem 'feedjira'
-
+gem 'breadcrumbs_on_rails'
 
 group :assets do
-  gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
   gem 'uglifier', '>= 1.0.3'
 end
 
-group :development do
-  gem 'awesome_print'
-  gem 'guard-rails'
-  gem 'guard-bundler'
-  gem 'guard-spork'
-  gem "better_errors"
-  gem "binding_of_caller"
-end
-
-group :test do
-  gem 'cucumber-rails', :require => false
-  # database_cleaner is not required, but highly recommended
-  gem 'database_cleaner'
-end
-
 gem 'jquery-rails'
-gem 'puma'
 
-gem 'paperclip'
 gem 'formtastic'
 gem 'formtastic-bootstrap'
 gem 'haml'
@@ -54,16 +35,52 @@ gem "airbrake"
 gem "cancan"
 gem 'inherited_resources'
 gem 'table_for_collection'
-gem 'activeadmin', :git => 'git://github.com/gregbell/active_admin.git'
+gem 'activeadmin'
 
 gem 'highcharts-rails'
 gem 'summernote-rails'
 
-# Gemfile
 gem 'paperclip'
 gem 'aws-sdk'
 
-gem 'rails_12factor'
-
-gem 'seed_dump', '~> 0.5.3'
 gem 'chosen-rails'
+
+group :development, :production do
+  gem 'puma'
+end
+
+group :development, :test do
+  gem 'pry'
+  gem 'spring-commands-rspec'
+  gem 'rspec-rails'
+  gem 'dotenv-rails'
+end
+
+group :development do
+  gem 'foreman'
+  gem 'travis'
+  gem 'rails-erd'
+  gem 'better_errors'
+  gem 'binding_of_caller'
+  gem 'spring'
+  gem 'guard'
+  gem 'guard-bundler'
+  gem 'guard-rspec'
+  gem 'guard-spring'
+  gem 'guard-rubocop'
+end
+
+group :test do
+  gem 'rake'
+  gem 'database_cleaner'
+  gem 'shoulda-matchers'
+  gem 'oauth2'
+  gem 'fuubar'
+  gem 'factory_girl_rails'
+  gem "codeclimate-test-reporter", require: nil
+  gem 'simplecov', :require => false
+end
+
+group :production do
+  gem 'rails_12factor'
+end

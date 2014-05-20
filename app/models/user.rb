@@ -1,9 +1,10 @@
 class User < ActiveRecord::Base
   devise :cas_authenticatable
-  attr_accessible :currency_id, :username, :first_name, :last_name, :email, :admin, :id, :bootcamp_coach_id, :xp
+  attr_accessible :currency_id, :username, :first_name,
+                  :last_name, :email, :admin, :id, :bootcamp_coach_id, :xp
   validates_presence_of :username, :email
-  belongs_to :bootcamp_coach, :class_name => "User"
-  has_many :trainees, :class_name => "User", :foreign_key => "bootcamp_coach_id"
+  belongs_to :bootcamp_coach, class_name: 'User'
+  has_many :trainees, class_name: 'User', foreign_key: 'bootcamp_coach_id'
   has_one :week6
   has_one :week5
   has_one :week4
@@ -13,17 +14,17 @@ class User < ActiveRecord::Base
   belongs_to :currency
   has_many :contacts
   has_many :user_accounts
-  has_many :accounts, :through => :user_accounts
+  has_many :accounts, through: :user_accounts
   has_many :user_reviews
-  has_many :reviews, :through => :user_reviews
+  has_many :reviews, through: :user_reviews
   has_many :support_raising_developments
   has_many :contact_card_box
   has_many :appointment_set_record
   has_many :user_achievements
-  has_many :achievements, :through => :user_achievements
+  has_many :achievements, through: :user_achievements
 
   before_save do
-    self.username.downcase! if self.username
+    username.downcase! if username
   end
 
   def self.current
@@ -47,80 +48,85 @@ class User < ActiveRecord::Base
   end
 
   def name
-    name = "#{self.first_name} #{self.last_name}"
-    name = self.username if self.first_name.blank? and self.last_name.blank?
+    name = "#{first_name} #{last_name}"
+    name = username if first_name.blank? && last_name.blank?
     name
   end
 
   def username=(name)
     super
-    self.email = name
   end
+
   def role?(role)
-    self.admin == role
+    admin == role
   end
 
   def admin?
-    self.admin != ''
+    admin != ''
   end
 
   def is_admin?
-    self.admin != 'admin'
+    admin != 'admin'
   end
 
   def currency_code
-    if self.currency.nil?
-      self.currency = Currency.where(:code => 'NZD').first_or_create(:name => 'New Zealand Dollar')
-      self.save
+    if currency.nil?
+      self.currency = Currency.where(code: 'NZD').
+                               first_or_create(name: 'New Zealand Dollar')
+      save
     end
-    self.currency.code
+    currency.code
   end
 
   def support_raising_development
-    self.support_raising_developments
+    support_raising_developments
   end
 
   def late_support_raising_developments
     hide_weeks = []
-    self.support_raising_developments.each do |srd|
+    support_raising_developments.each do |srd|
       hide_weeks << srd.week_id
     end
-    Week.where('id not in (?) and date_finished < ?', hide_weeks, Time.now.to_date).count
+    Week.where('id not in (?) and date_finished < ?',
+               hide_weeks,
+               Time.now.to_date).count
   end
 
   def late_contact_card_box
     hide_weeks = []
-    self.contact_card_box.each do |ccb|
+    contact_card_box.each do |ccb|
       hide_weeks << ccb.week_id
     end
-    Week.where('id not in (?) and date_finished < ?', hide_weeks, Time.now.to_date).count
+    Week.where('id not in (?) and date_finished < ?',
+               hide_weeks,
+               Time.now.to_date).count
   end
 
   def mpd_goal
-    my_account = self.accounts.where("name LIKE (?)", "%#{self.last_name}%#{self.first_name}%").first
+    my_account = accounts.where('name LIKE (?)',
+                                "%#{last_name}%#{first_name}%").
+                          first
     unless my_account.nil?
       @goal = my_account.goals.find_by_type_id(164)
       return @goal.amount.to_i unless @goal.nil?
     end
-    return self.mpd_goal
+    mpd_goal
   end
 
   def xp_level
     XpLevel.where('xp_min <= ? and xp_max > ?',
-                          self.XP,
-                          self.XP).first
+                  self.XP,
+                  self.XP).first
   end
-
 
   def add_achievement(name)
     achievement = Achievement.where(name: name).first
     unless achievement.nil?
-      UserAchievement.create(user_id: self.id,
+      UserAchievement.create(user_id: id,
                              achievement_id: achievement.id)
       self.XP += achievement.xp_value
-      self.save!
+      save!
     end
-
     achievement
   end
 end

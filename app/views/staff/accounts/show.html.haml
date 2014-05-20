@@ -1,23 +1,4 @@
 - title "#{@account.name} (Summary)"
-%section.intro-box.margin-80.hidden-print
-  .container
-    .row
-      .span6
-        %ul.breadcrumb
-          %li
-            %a{:href => root_path} Home
-            %span.divider /
-          %li
-            %a{:href => "/staff/accounts"} My Accounts
-            %span.divider /
-          %li.active
-            = @account.code
-            %span.divider /
-          %li
-            %a{:href => "/staff/accounts/#{params[:id]}/transactions"} Transactions
-        %span.arrow.hidden-phone
-      .span6.text-right.hidden-phone
-        %h3= "#{@account.code} #{@account.name}"
 .white
   .container
     .pull-right.hidden-phone.hidden-print

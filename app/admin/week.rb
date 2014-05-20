@@ -1,8 +1,8 @@
 ActiveAdmin.register Week do
-  menu :parent => "DMPD"
+  menu parent: 'DMPD'
 
-  action_item :only => :index do
-    link_to 'Add 12 Weeks to System', :action => 'add_week'
+  action_item only: :index do
+    link_to 'Add 12 Weeks to System', action: 'add_week'
   end
 
   collection_action :add_week do
@@ -16,8 +16,8 @@ ActiveAdmin.register Week do
       w.save
     end
 
-    flash[:notice] = "Created!"
-    redirect_to :action => :index
+    flash[:notice] = 'Created!'
+    redirect_to action: :index
   end
 
 end

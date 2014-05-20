@@ -1,4 +1,6 @@
-unless ENV["REDISTOGO_URL"].blank?
-	uri = URI.parse(ENV["REDISTOGO_URL"])
-	REDIS = Redis.new(:host => uri.host, :port => uri.port, :password => uri.password)
+unless ENV['REDISTOGO_URL'].blank?
+  uri = URI.parse(ENV['REDISTOGO_URL'])
+  REDIS = Redis.new(host: uri.host,
+                    port: uri.port,
+                    password: uri.password)
 end

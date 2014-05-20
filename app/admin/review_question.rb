@@ -1,5 +1,5 @@
 ActiveAdmin.register ReviewQuestion do
-  menu :parent => "Campus Reports"
+  menu parent: 'Campus Reports'
 
   index do
     selectable_column

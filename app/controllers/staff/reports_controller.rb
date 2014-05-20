@@ -1,3 +1,4 @@
-class Staff::ReportsController < InheritedResources::Base
-
+module Staff
+  class ReportsController < InheritedResources::Base
+  end
 end
