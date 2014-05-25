@@ -12,7 +12,7 @@
     = javascript_include_tag "application"
     = csrf_meta_tags
   %body.staff_portal
-    - if !current_user.nil?
+    - unless current_user.nil?
       .navbar.navbar-fixed-top
         .navbar-inner
           .container
@@ -46,7 +46,8 @@
   .container
     .row
       .span12
-        %h3.pull-right.hidden-phone= current_user.name
+        - unless current_user.nil?
+          %h3.pull-right.hidden-phone= current_user.name
         %ul.breadcrumb
           = render_breadcrumbs :tag => :li, :separator => ' / '
         %span.arrow.hidden-phone
