@@ -10,7 +10,7 @@ class AppointmentSetRecord < ActiveRecord::Base
   belongs_to :gift_confirmed_date_week, class_name: Week
   validates_presence_of :first_name, :last_name, :date_set, :date_of_appointment
 
-  def pledge_frequencies
+  def self.pledge_frequencies
     {
       'Special' => (0.0).to_d,
       'Weekly' => (0.23076923076923).to_d,

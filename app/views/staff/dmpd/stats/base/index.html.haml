@@ -1,20 +1,4 @@
 - title "DMPD Statistics Summary"
-%section.intro-box.margin-80.hidden-print
-  .container
-    .row
-      .span12
-        %h3.pull-right.hidden-phone= current_user.name
-        %ul.breadcrumb
-          %li
-            %a{:href => root_path} Home
-            %span.divider /
-          %li
-            %a{:href => staff_dmpd_root_path} DMPD
-            %span.divider /
-          %li.active
-            WCS
-        %span.arrow.hidden-phone
-
 .white
   .container
     - @graph_data = {months: [], pledge: [], goal: 30000}

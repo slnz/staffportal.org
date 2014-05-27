@@ -6,6 +6,12 @@ module Staff
       def show
         redirect_to staff_dmpd_root_path, notice: 'Saved Taskset 1'
       end
+
+      def edit
+        add_breadcrumb 'dmpd', :staff_dmpd_root_path
+        add_breadcrumb 'taskset 1', edit_staff_dmpd_week6_path(params[:id])
+        super
+      end
     end
   end
 end

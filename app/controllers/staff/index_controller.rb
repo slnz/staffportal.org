@@ -8,6 +8,7 @@ module Staff
     end
 
     def leaderboard
+      add_breadcrumb 'leaderboard', :staff_leaderboard_path
       @users = User.where('"XP" > 0').limit(10).order('"XP" desc')
     end
   end

@@ -2,8 +2,8 @@ module Staff
   module Dmpd
     class ContactsController < InheritedResources::Base
       before_filter :authenticate_user!
-
       respond_to :html, only: [:index, :show, :update, :create, :delete]
+
       def create
         if params[:contact][:first_name].empty? ||
            params[:contact][:last_name].empty? ||
@@ -41,7 +41,8 @@ module Staff
         redirect_to staff_dmpd_contacts_path
       end
 
-      def delete
+      def destroy
+        Contact.find(params[:id]).destroy
         flash[:notice] = 'Contact Removed'
         redirect_to staff_dmpd_contacts_path
       end

@@ -35,6 +35,15 @@
                   %a{:href => "/hr"} admin
               %li
                 %a.last{:href => "/auth/logout"} sign out
+      %section.intro-box.margin-80.hidden-print
+        .container
+          .row
+            .span12
+              - unless current_user.nil?
+                %h3.pull-right.hidden-phone= current_user.name
+              %ul.breadcrumb
+                = render_breadcrumbs :tag => :li, :separator => ' / '
+              %span.arrow.hidden-phone
     = yield
     %footer.hidden-print
       .container
@@ -42,12 +51,3 @@
         %h6.muted
           CCCI © Copyright
           = Time.now.strftime('%Y')
-%section.intro-box.margin-80.hidden-print
-  .container
-    .row
-      .span12
-        - unless current_user.nil?
-          %h3.pull-right.hidden-phone= current_user.name
-        %ul.breadcrumb
-          = render_breadcrumbs :tag => :li, :separator => ' / '
-        %span.arrow.hidden-phone
