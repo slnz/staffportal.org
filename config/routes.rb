@@ -19,6 +19,7 @@ Staff::Application.routes.draw do
         root to: 'index#index'
         get 'contacts' => 'index#contacts'
         resources :contacts
+        resources :taskset
         resources :week6
         resources :week5
         resources :week4
@@ -46,8 +47,8 @@ Staff::Application.routes.draw do
     end
   end
 
-  match 'auth/key' => 'auth#key'
+  get 'auth/key' => 'auth#key'
   root to: 'auth#home'
-  match '*path' => redirect('/')
+  get '*path' => redirect('/')
 
 end

@@ -7,13 +7,13 @@ class ContactCardBox < ActiveRecord::Base
                         :maintainance, :maintainance_done,
                         :new_ministry_partner, :not_back_until,
                         :office_phone_only, :on_list, :research, :would_have_met
-  attr_accessible :appointment_no_support, :appointment_set,
-                  :call_back_for_appointment, :call_back_for_contacts,
-                  :call_back_for_decision, :call_back_in_a_year,
-                  :called_no_appointment_set, :contact_cards, :maintainance,
-                  :maintainance_done, :new_ministry_partner, :not_back_until,
-                  :office_phone_only, :on_list, :research, :would_have_met,
-                  :week_id
+  # attr_accessible :appointment_no_support, :appointment_set,
+  #                 :call_back_for_appointment, :call_back_for_contacts,
+  #                 :call_back_for_decision, :call_back_in_a_year,
+  #                 :called_no_appointment_set, :contact_cards, :maintainance,
+  #                 :maintainance_done, :new_ministry_partner, :not_back_until,
+  #                 :office_phone_only, :on_list, :research, :would_have_met,
+  #                 :week_id
   belongs_to :user
   belongs_to :week
 

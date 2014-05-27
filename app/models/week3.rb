@@ -1,11 +1,11 @@
 class Week3 < ActiveRecord::Base
-  attr_accessible :listen_to_attitude_message, :memorize_prayer_sheet_passage,
-                  :practice_our_teams_current_financial_needs,
-                  :practice_tandems_financial_policy, :prayer_sheet,
-                  :recite_passage_from_dmpd_prayer_sheet,
-                  :review_how_to_develop_your_ministry_partners,
-                  :share_call_testimony, :share_salvation_testimony,
-                  :confirmed_coach, :confirmed_hr, :user_id, :vision_folder
+  # attr_accessible :listen_to_attitude_message, :memorize_prayer_sheet_passage,
+  #                 :practice_our_teams_current_financial_needs,
+  #                 :practice_tandems_financial_policy, :prayer_sheet,
+  #                 :recite_passage_from_dmpd_prayer_sheet,
+  #                 :review_how_to_develop_your_ministry_partners,
+  #                 :share_call_testimony, :share_salvation_testimony,
+  #                 :confirmed_coach, :confirmed_hr, :user_id, :vision_folder
   belongs_to :user
 
   has_attached_file :vision_folder
@@ -16,7 +16,7 @@ class Week3 < ActiveRecord::Base
   IN_PROGRESS = 'in_progress'
 
   def self.finish_date
-    Date.new(2013, 10, 28)
+    Date.new(Time.now.year, 10, 28)
   end
 
   def username

@@ -1,108 +1,106 @@
-- title "#{@account.name} (Transactions)"
-.white
-  .container
-    .pull-right.hidden-phone.hidden-print
-      %br/
-      = collection_select("summary", "currency", Currency.all, :code, :name, {:selected => current_user.currency_code})
-    %table#records.transactions
-      %thead
-        %tr
-          %th Date
-          %th
-            %span.hidden-phone Transaction
-            Type
-          %th.visible-desktop Payee
-          %th
-            %span.hidden-phone Money
-            In
-          %th
-            %span.hidden-phone Money
-            Out
-          %th Balance
-          %th.details.closed.hidden-phone
-      %tbody
-        - @last = nil
-        - @transactions.each do |p|
-          - @last = p if @last.nil?
-          - unless @last.date == p.date
-            - unless params.has_key?("type")
-              %tr.balance
-                %td= @last.date.strftime('%d %b  <span class="hidden-phone">%Y</span>').html_safe
-                %td
-                  Balance
-                  %span.hidden-phone at close of day
-                %td.visible-desktop
-                %td
-                %td
-                %td= number_to_currency(@last.balance * @currency_rate)
-                %td.hidden-phone.details
-            - @last = p
-          %tr.record.expandable.closed{:id => "record_#{p.id}"}
-            %td= p.date.strftime('%d %b <span class="hidden-phone">%Y</span>').html_safe
+.page-header
+  = title "#{@account.code} #{@account.name} (Transactions)"
+  .pull-right.hidden-phone.hidden-print
+    = collection_select("summary", "currency", Currency.all, :code, :name, {:selected => current_user.currency_code})
+%table#records.transactions
+  %thead
+    %tr
+      %th Date
+      %th
+        %span.hidden-phone Transaction
+        Type
+      %th.visible-desktop Payee
+      %th
+        %span.hidden-phone Money
+        In
+      %th
+        %span.hidden-phone Money
+        Out
+      %th Balance
+      %th.details.closed.hidden-phone
+  %tbody
+    - @last = nil
+    - @transactions.each do |p|
+      - @last = p if @last.nil?
+      - unless @last.date == p.date
+        - unless params.has_key?("type")
+          %tr.balance
+            %td= @last.date.strftime('%d %b  <span class="hidden-phone">%Y</span>').html_safe
             %td
-              .type= p.type.name
-            %td.visible-desktop= p.who
-            %td= number_to_currency(p.amount * @currency_rate) if p.type.income?
-            %td= number_to_currency(p.amount * @currency_rate) unless p.type.income?
-            %td
-            %td.hidden-phone.details
-          %tr.details_row
-            %td.subdetails{:colspan => "7"}
-              .bd
-                %dl
-                  %dt Transaction type:
-                  %dd= p.type.name.upcase
-                  %dt Payee:
-                  %dd= "#{p.who} &nbsp;".html_safe
-                  %dt Description:
-                  %dd= p.reason
-                  %dt Reference:
-                  %dd= p.subtext
-        - if @last.nil? or @transactions.nil?
-          %tr.bottom
-            %td= Time.now.strftime('%d %b <span class="hidden-phone">%Y</span>').html_safe
-            %td Opening balance for these transactions
+              Balance
+              %span.hidden-phone at close of day
             %td.visible-desktop
             %td
             %td
-            %td $0.00
+            %td= number_to_currency(@last.balance * @currency_rate)
             %td.hidden-phone.details
-        - else
-          - unless params.has_key?("type")
-            %tr.balance
-              %td= @last.date.strftime('%d %b <span class="hidden-phone">%Y</span>').html_safe
-              %td
-                Balance
-                %span.hidden-phone at close of day
-              %td.visible-desktop
-              %td
-              %td
-              %td= number_to_currency(@last.balance)
-              %td.hidden-phone.details
-            %tr.bottom
-              %td= @transactions.last.date.strftime('%d %b <span class="hidden-phone">%Y</span>').html_safe
-              %td Opening balance for these transactions
-              %td.visible-desktop
-              %td
-              %td.hidden-phone
-              - if @transactions.last.type.income?
-                %td= number_to_currency(@transactions.last.balance - @transactions.last.amount )
-              - else
-                %td= number_to_currency(@transactions.last.balance + @transactions.last.amount )
-              %td.details
-        - unless params.has_key?("type")
-          %tr.totals
-            %td{:colspan => "7"}
-              %table#moneyinmoneyout
-                %tbody
-                  %tr
-                    %td Total Money in
-                    %td= number_to_currency @money_in
-                  %tr
-                    %td Total Money out
-                    %td= number_to_currency @money_out
-                  %tr
-                    %td Difference
-                    %td= number_to_currency @money_in + @money_out
-    .hidden-print
-      = paginate @transactions
+        - @last = p
+      %tr.record.expandable.closed{:id => "record_#{p.id}"}
+        %td= p.date.strftime('%d %b <span class="hidden-phone">%Y</span>').html_safe
+        %td
+          .type= p.type.name
+        %td.visible-desktop= p.who
+        %td= number_to_currency(p.amount * @currency_rate) if p.type.income?
+        %td= number_to_currency(p.amount * @currency_rate) unless p.type.income?
+        %td
+        %td.hidden-phone.details
+      %tr.details_row
+        %td.subdetails{:colspan => "7"}
+          .bd
+            %dl
+              %dt Transaction type:
+              %dd= p.type.name.upcase
+              %dt Payee:
+              %dd= "#{p.who} &nbsp;".html_safe
+              %dt Description:
+              %dd= p.reason
+              %dt Reference:
+              %dd= p.subtext
+    - if @last.nil? or @transactions.nil?
+      %tr.bottom
+        %td= Time.now.strftime('%d %b <span class="hidden-phone">%Y</span>').html_safe
+        %td Opening balance for these transactions
+        %td.visible-desktop
+        %td
+        %td
+        %td $0.00
+        %td.hidden-phone.details
+    - else
+      - unless params.has_key?("type")
+        %tr.balance
+          %td= @last.date.strftime('%d %b <span class="hidden-phone">%Y</span>').html_safe
+          %td
+            Balance
+            %span.hidden-phone at close of day
+          %td.visible-desktop
+          %td
+          %td
+          %td= number_to_currency(@last.balance)
+          %td.hidden-phone.details
+        %tr.bottom
+          %td= @transactions.last.date.strftime('%d %b <span class="hidden-phone">%Y</span>').html_safe
+          %td Opening balance for these transactions
+          %td.visible-desktop
+          %td
+          %td.hidden-phone
+          - if @transactions.last.type.income?
+            %td= number_to_currency(@transactions.last.balance - @transactions.last.amount )
+          - else
+            %td= number_to_currency(@transactions.last.balance + @transactions.last.amount )
+          %td.details
+    - unless params.has_key?("type")
+      %tr.totals
+        %td{:colspan => "7"}
+          %table#moneyinmoneyout
+            %tbody
+              %tr
+                %td Total Money in
+                %td= number_to_currency @money_in
+              %tr
+                %td Total Money out
+                %td= number_to_currency @money_out
+              %tr
+                %td Difference
+                %td= number_to_currency @money_in + @money_out
+.hidden-print
+  = paginate @transactions

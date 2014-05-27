@@ -15,7 +15,7 @@ ActiveAdmin.register User do
         status_tag(user.admin, 'orange')
       end
     end
-    default_actions
+    actions
   end
 
   batch_action :make_hr do |selection|

@@ -6,7 +6,7 @@ ActiveAdmin.register UserAccount, as: 'Permission' do
     column :account
     column :created_at
     column :by
-    default_actions
+    actions
   end
 
   form do |f|

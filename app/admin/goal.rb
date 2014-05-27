@@ -18,6 +18,6 @@ ActiveAdmin.register Goal do
     column :account
     column :type
     column :amount
-    default_actions
+    actions
   end
 end

@@ -49,7 +49,7 @@ ActiveAdmin.register Account do
         number_to_currency (acct.balance - @stock - @vehicle_advance)
       end
     end
-    default_actions
+    actions
   end
 
 end

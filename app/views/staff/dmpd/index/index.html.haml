@@ -1,124 +1,48 @@
-- title "DMPD"
-.white
-  .container
-    - flash.each do |key, value|
-      %div{class: flash_class(key)}
-        = value
-    %h1.page-header DMPD
-    .well{class: ("success" if current_user.contacts.count >= 30)}
-      %h4
-        .pull-right.muted
-          %i.icon-tasks
-        %a{href: "/staff/dmpd/stats"} Weekly Cumulative Statistics
-      %p Access your personal statistics including appointment set record, contact ratios and summaries.
-    .well{class: ("success" if current_user.contacts.count >= 30)}
-      %h4
-        .pull-right.muted
-          %i.icon-user
-            &nbsp;
-            = current_user.contacts.count
-            \/ 30
-        %a{href: "/staff/dmpd/contacts"} DMPD Contacts
-      %p Continue to pray and look for more contacts in Auckland and in your primary DMPD location.
-    .well{class: [("success" if @week6.completed?), ("danger" if @week6.error)].compact.join(" ")}
-      %h4
-        .pull-right.muted
-          %i.icon-time
-            &nbsp;
-            = Week6.finish_date
-        %a{href: edit_staff_dmpd_week6_path(@week6)} Taskset 1
-      - if @week6.tasks_remaining!
-        %div
-          %i.icon-tasks &nbsp;
-          = pluralize(@week6.tasks_remaining, 'task')
-          remaining
-      - if @week6.assignments_remaining!
-        %div
-          %i.icon-briefcase &nbsp;
-          = pluralize(@week6.assignments_remaining, 'assignment')
-          remaining
-    .well{class: [("success" if @week5.completed?), ("danger" if @week5.error)].compact.join(" ")}
-      %h4
-        .pull-right.muted
-          %i.icon-time
-            &nbsp;
-            = Week5.finish_date
-        %a{href: edit_staff_dmpd_week5_path(@week5)} Taskset 2
-      - if @week5.tasks_remaining!
-        %div
-          %i.icon-tasks &nbsp;
-          = pluralize(@week5.tasks_remaining, 'task')
-          remaining
-      - if @week5.assignments_remaining!
-        %div
-          %i.icon-briefcase &nbsp;
-          = pluralize(@week5.assignments_remaining, 'assignment')
-          remaining
-    .well{class: [("success" if @week4.completed?), ("danger" if @week4.error)].compact.join(" ")}
-      %h4
-        .pull-right.muted
-          %i.icon-time
-            &nbsp;
-            = Week4.finish_date
-        %a{href: edit_staff_dmpd_week4_path(@week4)} Taskset 3
-      - if @week4.tasks_remaining!
-        %div
-          %i.icon-tasks &nbsp;
-          = pluralize(@week4.tasks_remaining, 'task')
-          remaining
-      - if @week4.assignments_remaining!
-        %div
-          %i.icon-briefcase &nbsp;
-          = pluralize(@week4.assignments_remaining, 'assignment')
-          remaining
-    .well{class: [("success" if @week3.completed?), ("danger" if @week3.error)].compact.join(" ")}
-      %h4
-        .pull-right.muted
-          %i.icon-time
-            &nbsp;
-            = Week3.finish_date
-        %a{href: edit_staff_dmpd_week3_path(@week3)} Taskset 4
-      - if @week4.tasks_remaining!
-        %div
-          %i.icon-tasks &nbsp;
-          = pluralize(@week3.tasks_remaining, 'task')
-          remaining
-      - if @week3.assignments_remaining!
-        %div
-          %i.icon-briefcase &nbsp;
-          = pluralize(@week3.assignments_remaining, 'assignment')
-          remaining
-    .well{class: [("success" if @week2.completed?), ("danger" if @week2.error)].compact.join(" ")}
-      %h4
-        .pull-right.muted
-          %i.icon-time
-            &nbsp;
-            = Week2.finish_date
-        %a{href: edit_staff_dmpd_week2_path(@week2)} Taskset 5
-      - if @week4.tasks_remaining!
-        %div
-          %i.icon-tasks &nbsp;
-          = pluralize(@week2.tasks_remaining, 'task')
-          remaining
-      - if @week2.assignments_remaining!
-        %div
-          %i.icon-briefcase &nbsp;
-          = pluralize(@week2.assignments_remaining, 'assignment')
-          remaining
-    .well{class: [("success" if @week1.completed?), ("danger" if @week1.error)].compact.join(" ")}
-      %h4
-        .pull-right.muted
-          %i.icon-time
-            &nbsp;
-            = Week1.finish_date
-        %a{href: edit_staff_dmpd_week1_path(@week1)} Taskset 6
-      - if @week1.tasks_remaining!
-        %div
-          %i.icon-tasks &nbsp;
-          = pluralize(@week1.tasks_remaining, 'task')
-          remaining
-      - if @week1.assignments_remaining!
-        %div
-          %i.icon-briefcase &nbsp;
-          = pluralize(@week1.assignments_remaining, 'assignment')
-          remaining
+.page-header
+  = title 'DMPD'
+.well{class: ("success" if current_user.contacts.count >= 30)}
+  %h4
+    .pull-right.muted
+      = fa_icon 'tasks'
+    %a{href: "/staff/dmpd/stats"} Weekly Cumulative Statistics
+  %p Access your personal statistics including appointment set record, contact ratios and summaries.
+.well{class: ("success" if current_user.contacts.count >= 30)}
+  %h4
+    .pull-right.muted
+      = fa_icon 'user'
+      &nbsp;
+      = current_user.contacts.count
+      \/ 30
+    %a{href: "/staff/dmpd/contacts"} DMPD Contacts
+  %p Continue to pray and look for more contacts in Auckland and in your primary DMPD location.
+- Taskset.order(:due_week).all.each do |t|
+  .well
+    -#{class: [("success" if week.completed?), ("danger" if week.error)].compact.join(" ")}
+    %h4
+      .pull-right.muted
+        = fa_icon 'clock-o'
+        &nbsp;
+        = t.due_week
+      %a{href: edit_staff_dmpd_taskset_path(t)}= t.name
+    - if t.assignments.boolean.exists?
+      %div
+        = fa_icon 'tasks'
+        = pluralize(t.assignments.boolean.count, 'task')
+        to do
+    - if t.assignments.text.exists?
+      %div
+        = fa_icon 'file'
+        = pluralize(t.assignments.boolean.count, 'written assignment')
+        to do
+    - if t.assignments.upload.exists?
+      %div
+        = fa_icon 'cloud-upload'
+        = pluralize(t.assignments.upload.count, 'document')
+        to upload
+\# OLD CODE
+= render partial: 'weekview', locals: { week: @week6, count: 1 }
+= render partial: 'weekview', locals: { week: @week5, count: 2 }
+= render partial: 'weekview', locals: { week: @week4, count: 3 }
+= render partial: 'weekview', locals: { week: @week3, count: 4 }
+= render partial: 'weekview', locals: { week: @week2, count: 5 }
+= render partial: 'weekview', locals: { week: @week1, count: 6 }

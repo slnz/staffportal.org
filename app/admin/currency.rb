@@ -5,7 +5,7 @@ ActiveAdmin.register Currency do
     selectable_column
     column :code
     column :name
-    default_actions
+    actions
   end
 
   config.filters = false

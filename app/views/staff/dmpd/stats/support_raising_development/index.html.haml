@@ -1,37 +1,34 @@
-- title "DMPD Weekly Support Raising Development Chart"
-.white
-  .container
-    %h3.page-header
-      Weekly Calling Chart
-      .pull-right
-        %a.btn.btn-primary{href: staff_dmpd_stats_root_path}
-          %i.icon-home &nbsp;
-          WCS
-        %a.btn{href: staff_dmpd_stats_contact_card_box_index_path}
-          %i.icon-user &nbsp;
-          Contact Card Box
-        %a.btn{href: staff_dmpd_stats_appointment_set_record_index_path}
-          %i.icon-calendar &nbsp;
-          Appointment Set Record
-        - if @late > 0
-          %a.btn.btn-danger.disabled= "#{@late} Late Reports"
-        %a.btn.btn-info{href: new_staff_dmpd_stats_support_raising_development_path}
-          %i.icon-plus
-            Add Data
+.page-header
+  = title "Weekly Calling Chart"
+  .pull-right
+    %a.btn.btn-primary{href: staff_dmpd_stats_root_path}
+      = fa_icon 'home'
+      WCS
+    %a.btn.btn-default{href: staff_dmpd_stats_contact_card_box_index_path}
+      = fa_icon 'user'
+      Contact Card Box
+    %a.btn.btn-default{href: staff_dmpd_stats_appointment_set_record_index_path}
+      = fa_icon 'calendar'
+      Appointment Set Record
+    - if @late > 0
+      %a.btn.btn-danger.disabled= "#{@late} Late Reports"
+    %a.btn.btn-info{href: new_staff_dmpd_stats_support_raising_development_path}
+      = fa_icon 'plus'
+      Add Data
 
-    - unless @support_raising_development.empty?
-      = table_for @support_raising_development, :html => {:class => "table table-striped"} do
-        - column :week, title: "Week Ending", :html => { :th => { :class => "gray" }, :td => { :class => "gray" }} do |week|
-          - week.end_name
-        - column :appointments_asked_for
-        - column :contacts_asked_for
-        - column :number_of_calls_made
-        - column :hours_calling
-        - column :title => "Actions" do |srd|
-          - link_to("Edit", edit_staff_dmpd_stats_support_raising_development_path(srd) )
-    - else
-      .well.text-center
-        %p No Statistics Entered.
-        %a.btn.btn-primary{href: new_staff_dmpd_stats_support_raising_development_path}
-          %i.icon-plus
-            Add Data
+- unless @support_raising_development.empty?
+  = table_for @support_raising_development, :html => {:class => "table table-striped"} do
+    - column :week, title: "Week Ending", :html => { :th => { :class => "gray" }, :td => { :class => "gray" }} do |week|
+      - week.end_name
+    - column :appointments_asked_for
+    - column :contacts_asked_for
+    - column :number_of_calls_made
+    - column :hours_calling
+    - column :title => "Actions" do |srd|
+      - link_to("Edit", edit_staff_dmpd_stats_support_raising_development_path(srd) )
+- else
+  .well.text-center
+    %p No Statistics Entered.
+    %a.btn.btn-primary{href: new_staff_dmpd_stats_support_raising_development_path}
+      = fa_icon 'plus'
+      Add Data

@@ -1,191 +1,188 @@
-- title "DMPD Statistics Summary"
-.white
-  .container
-    - @graph_data = {months: [], pledge: [], goal: 30000}
-    %h3.page-header
-      Weekly Cumulative Statistics
-      .pull-right
-        %a.btn{href: staff_dmpd_stats_contact_card_box_index_path}
-          %i.icon-user &nbsp;
-          Contact Card Box
-        %a.btn{href: staff_dmpd_stats_support_raising_development_index_path}
-          %i.icon-phone &nbsp;
-          Weekly Calling Chart
-        %a.btn{href: staff_dmpd_stats_appointment_set_record_index_path}
-          %i.icon-calendar &nbsp;
-          Appointment Set Record
-    %ul.nav.nav-tabs
-      %li.active
-        %a{"data-toggle" => "tab", href: "#ss"} Statistics Summary
-      %li
-        %a{"data-toggle" => "tab", href: "#cr"} Contact Ratio
-    .tab-content
-      #ss.tab-pane.active
-        %table.table.table-striped
-          %thead
-            %tr
-              %th.gray Week Ending
-              %th.visible-desktop
-                %a{href: "#", rel: "tooltip", title: "<strong>From WCC</strong> <br/>[Hours calling]"}  Total Hours Calling
-              %th.visible-desktop
-                %a{href: "#", rel: "tooltip", title: "<strong>From WCC</strong> <br/>[Number of calls made]"}  Total # of Dials
-              %th.visible-desktop
-                %a{href: "#", rel: "tooltip", title: "<strong>From WCC</strong> <br/>[Appts Asked For]"}  # Responses to Appt Ask
-              %th.visible-desktop
-                %a{href: "#", rel: "tooltip", title: "<strong>From ASR</strong> <br/>Weekly Total"}  Got Appt Time &amp; Place
-              %th.visible-desktop.orange
-                %a{href: "#", rel: "tooltip", title: "<strong>ASR</strong> <br/>Weekly Total<hr /><strong>WCC</strong> <br/> [Appts Asked For]"}  % Giving Appts
-              %th.visible-desktop
-                %a{href: "#", rel: "tooltip", title: "<strong>From ASR</strong> <br/>Where date of appt has past"}  # Y/N Decisions
-              %th.visible-desktop
-                %a{href: "#", rel: "tooltip", title: "<strong>From ASR</strong> <br/>Where appt giving freq. is regular"}  # Y to Reccuring
-              %th.orange
-                %a{href: "#", rel: "tooltip", title: "<strong>From ASR</strong> <br/>Where appt giving freq. is regular<hr /><strong>From ASR</strong> <br/>Where date of appt has past"}  % Y to Reccuring
-              %th
-                %a{href: "#", rel: "tooltip", title: "<strong>From ASR</strong> <br/> Monthly total support"}  Total Monthly Pledge
-              %th.orange
-                %a{href: "#", rel: "tooltip", title: "<strong>From ASR</strong> <br/> Monthly total support<hr /><strong>From ASR</strong> <br/>Where appt giving freq. is regular"}  Average Monthly Pledge
-              %th
-                %a{href: "#", rel: "tooltip", title: "<strong>From ASR</strong> <br/> Special total support"}  Total Special Pledge
-              %th.orange
-                %a{href: "#", rel: "tooltip", title: "See Contact Ratio Tab"}  Contact Ratio
-          %tbody
-            - stat_totals = [0, 0, 0, 0, 0, 0, 0, 0]
-            - contacts_received = 0
-            - @weeks.each do |wk|
-              - srd = current_user.support_raising_developments.find_by_week_id(wk.id)
-              - ccb = current_user.contact_card_box.find_by_week_id(wk.id)
-              - contacts_received += current_user.appointment_set_record.where(date_set_week_id: wk.id).sum(:number_of_contacts_received)
-              - appointments_set = current_user.appointment_set_record.where(date_set_week_id: wk.id).count
-              - appointments_had = current_user.appointment_set_record.where(date_of_appointment_week_id: wk.id).count
-              - appointments_support = current_user.appointment_set_record.where("date_of_appointment_week_id = ? and frequency > 0", wk.id).count
-              - monthly = current_user.appointment_set_record.where("date_of_appointment_week_id = ? and frequency > 0", wk.id).sum(:monthly)
-              - special = current_user.appointment_set_record.where("date_of_appointment_week_id = ? and frequency = 0", wk.id).sum(:amount)
-              - @graph_data[:months] << wk.end_name
-              %tr
-                - if ccb.nil? or srd.nil?
-                  %td.gray
-                    %strong= wk.end_name
-                  %td{colspan: "12"}
-                    .text-center
-                      There is insufficient data to calculate your weekly stats this week.
-                      %a{:href => new_staff_dmpd_stats_contact_card_box_path} Add your contact card box statistics
-                      or
-                      %a{:href => new_staff_dmpd_stats_support_raising_development_path} add your calling chart statistics.
-                - else
-                  %td.gray
-                    %strong= wk.end_name
-                  %td.visible-desktop= srd.hours_calling
-                  - stat_totals[0] += srd.hours_calling
-                  %td.visible-desktop= srd.number_of_calls_made
-                  - stat_totals[1] += srd.number_of_calls_made
-                  %td.visible-desktop= srd.appointments_asked_for
-                  - stat_totals[2] += srd.appointments_asked_for
-                  %td.visible-desktop= appointments_set
-                  - stat_totals[3] += appointments_set
-                  - if appointments_set > srd.appointments_asked_for or srd.appointments_asked_for == 0
-                    %td.visible-desktop.orange
-                      %a{href: "#", rel: "tooltip", title: "\"# Responses to Appt Ask\" is less than \"Got Appt Time & Place\""}
-                        %strong ASR ERR
-                  - else
-                    %td.visible-desktop.orange= "#{number_with_precision((appointments_set.to_d /  srd.appointments_asked_for.to_d) * 100, :precision => 0)}%"
-                  %td.visible-desktop= appointments_had
-                  - stat_totals[4] += appointments_had
-                  %td.visible-desktop= appointments_support
-                  - stat_totals[5] += appointments_support
-
-                  - if appointments_had == 0
-                    %td.visible-desktop.orange
-                      %a{href: "#", rel: "tooltip", title: "\"# Y/N Decisions\" is zero"}
-                        %strong ASR ERR
-                  - else
-                    %td.orange= "#{number_with_precision((appointments_support.to_d / appointments_had.to_d) * 100, :precision => 0)}%"
-                  %td= "#{number_to_currency monthly, :precision => 0}/mo"
-                  - stat_totals[6] += monthly
-                  - @graph_data[:pledge] << monthly.to_i
-                  - if appointments_support == 0
-                    %td.orange= "$0.00/mo"
-                  - else
-                    %td.orange= "#{number_to_currency (monthly / appointments_support), precision: 0}/mo"
-                  %td= number_to_currency special, :precision => 0
-                  - stat_totals[7] += special
-                  %td.orange
-                    - if ccb.used_contacts_total == 0
-                      %a{href: "#", rel: "tooltip", title: "No Contacts Used"}
-                        %strong ERR
-                    - else
-                      = number_with_precision(contacts_received.to_d / ccb.used_contacts_total.to_d, :precision => 2)
-            %tr.totals
+- @graph_data = {months: [], pledge: [], goal: 30000}
+.page-header
+  = title "Weekly Cumulative Statistics"
+  .pull-right
+    %a.btn.btn-default{href: staff_dmpd_stats_contact_card_box_index_path}
+      = fa_icon 'user'
+      Contact Card Box
+    %a.btn.btn-default{href: staff_dmpd_stats_support_raising_development_index_path}
+      = fa_icon 'phone'
+      Weekly Calling Chart
+    %a.btn.btn-default{href: staff_dmpd_stats_appointment_set_record_index_path}
+      = fa_icon 'calendar'
+      Appointment Set Record
+%ul.nav.nav-tabs
+  %li.active
+    %a{"data-toggle" => "tab", href: "#ss"} Statistics Summary
+  %li
+    %a{"data-toggle" => "tab", href: "#cr"} Contact Ratio
+.tab-content
+  #ss.tab-pane.active
+    %table.table.table-striped
+      %thead
+        %tr
+          %th.gray Week Ending
+          %th.visible-desktop
+            %a{href: "#", rel: "tooltip", title: "<strong>From WCC</strong> <br/>[Hours calling]"}  Total Hours Calling
+          %th.visible-desktop
+            %a{href: "#", rel: "tooltip", title: "<strong>From WCC</strong> <br/>[Number of calls made]"}  Total # of Dials
+          %th.visible-desktop
+            %a{href: "#", rel: "tooltip", title: "<strong>From WCC</strong> <br/>[Appts Asked For]"}  # Responses to Appt Ask
+          %th.visible-desktop
+            %a{href: "#", rel: "tooltip", title: "<strong>From ASR</strong> <br/>Weekly Total"}  Got Appt Time &amp; Place
+          %th.visible-desktop.orange
+            %a{href: "#", rel: "tooltip", title: "<strong>ASR</strong> <br/>Weekly Total<hr /><strong>WCC</strong> <br/> [Appts Asked For]"}  % Giving Appts
+          %th.visible-desktop
+            %a{href: "#", rel: "tooltip", title: "<strong>From ASR</strong> <br/>Where date of appt has past"}  # Y/N Decisions
+          %th.visible-desktop
+            %a{href: "#", rel: "tooltip", title: "<strong>From ASR</strong> <br/>Where appt giving freq. is regular"}  # Y to Reccuring
+          %th.orange
+            %a{href: "#", rel: "tooltip", title: "<strong>From ASR</strong> <br/>Where appt giving freq. is regular<hr /><strong>From ASR</strong> <br/>Where date of appt has past"}  % Y to Reccuring
+          %th
+            %a{href: "#", rel: "tooltip", title: "<strong>From ASR</strong> <br/> Monthly total support"}  Total Monthly Pledge
+          %th.orange
+            %a{href: "#", rel: "tooltip", title: "<strong>From ASR</strong> <br/> Monthly total support<hr /><strong>From ASR</strong> <br/>Where appt giving freq. is regular"}  Average Monthly Pledge
+          %th
+            %a{href: "#", rel: "tooltip", title: "<strong>From ASR</strong> <br/> Special total support"}  Total Special Pledge
+          %th.orange
+            %a{href: "#", rel: "tooltip", title: "See Contact Ratio Tab"}  Contact Ratio
+      %tbody
+        - stat_totals = [0, 0, 0, 0, 0, 0, 0, 0]
+        - contacts_received = 0
+        - @weeks.each do |wk|
+          - srd = current_user.support_raising_developments.find_by_week_id(wk.id)
+          - ccb = current_user.contact_card_box.find_by_week_id(wk.id)
+          - contacts_received += current_user.appointment_set_record.where(date_set_week_id: wk.id).sum(:number_of_contacts_received)
+          - appointments_set = current_user.appointment_set_record.where(date_set_week_id: wk.id).count
+          - appointments_had = current_user.appointment_set_record.where(date_of_appointment_week_id: wk.id).count
+          - appointments_support = current_user.appointment_set_record.where("date_of_appointment_week_id = ? and frequency > 0", wk.id).count
+          - monthly = current_user.appointment_set_record.where("date_of_appointment_week_id = ? and frequency > 0", wk.id).sum(:monthly)
+          - special = current_user.appointment_set_record.where("date_of_appointment_week_id = ? and frequency = 0", wk.id).sum(:amount)
+          - @graph_data[:months] << wk.end_name
+          %tr
+            - if ccb.nil? or srd.nil?
               %td.gray
-                %strong Totals
-              %td= stat_totals[0]
-              %td= stat_totals[1]
-              %td= stat_totals[2]
-              %td= stat_totals[3]
-              - if stat_totals[3] > stat_totals[2] or stat_totals[2] == 0
+                %strong= wk.end_name
+              %td{colspan: "12"}
+                .text-center
+                  There is insufficient data to calculate your weekly stats this week.
+                  %a{:href => new_staff_dmpd_stats_contact_card_box_path} Add your contact card box statistics
+                  or
+                  %a{:href => new_staff_dmpd_stats_support_raising_development_path} add your calling chart statistics.
+            - else
+              %td.gray
+                %strong= wk.end_name
+              %td.visible-desktop= srd.hours_calling
+              - stat_totals[0] += srd.hours_calling
+              %td.visible-desktop= srd.number_of_calls_made
+              - stat_totals[1] += srd.number_of_calls_made
+              %td.visible-desktop= srd.appointments_asked_for
+              - stat_totals[2] += srd.appointments_asked_for
+              %td.visible-desktop= appointments_set
+              - stat_totals[3] += appointments_set
+              - if appointments_set > srd.appointments_asked_for or srd.appointments_asked_for == 0
                 %td.visible-desktop.orange
                   %a{href: "#", rel: "tooltip", title: "\"# Responses to Appt Ask\" is less than \"Got Appt Time & Place\""}
                     %strong ASR ERR
               - else
-                %td.visible-desktop.orange= "#{number_with_precision((stat_totals[3].to_d / stat_totals[2]) * 100, :precision => 0)}%"
-              %td= stat_totals[4]
-              %td= stat_totals[5]
-              - if stat_totals[4] == 0
-                %td.orange %
-              - else
-                %td.orange= "#{number_with_precision((stat_totals[5].to_d / stat_totals[4].to_d) * 100, :precision => 0)}%"
-              %td= "#{number_to_currency stat_totals[6], :precision => 0}/mo"
-              - if stat_totals[5] == 0
-                %td.orange $0.00/mo
-              - else
-                %td.orange= "#{number_to_currency (stat_totals[6] / stat_totals[5]), :precision => 0}/mo"
-              %td= number_to_currency stat_totals[7], :precision => 0
-              %td.orange
-      #cr.tab-pane
-        %table.table.table-striped
-          %thead
-            %tr
-              %th.gray Week Ending
-              %th
-                %a{href: "#", rel: "tooltip", title: "<strong>From CCB</strong>"} Used
-              %th
-                %a{href: "#", rel: "tooltip", title: "<strong>From ASR</strong>"} Received
-              %th.orange
-                %a{href: "#", rel: "tooltip", title: "<strong>Received</strong><hr /><strong>Used</strong>"} Ratio
-          %tbody
-            - contacts_received = 0
-            - @weeks.each do |wk|
-              - ccb = current_user.contact_card_box.find_by_week_id(wk.id)
-              - contacts_received += current_user.appointment_set_record.where(date_set_week_id: wk.id).sum(:number_of_contacts_received)
-              %tr
-                - if ccb.nil?
-                  %td.gray= wk.end_name
-                  %td{colspan: "3"}
-                    .text-center
-                      There is insufficient data to calculate the contact ratio this week.
-                      %a{:href => new_staff_dmpd_stats_contact_card_box_path} Add your contact card box statistics.
-                - else
-                  %td.gray= wk.end_name
-                  %td= ccb.used_contacts_total
-                  %td= contacts_received
-                  %td.orange
-                    - if ccb.used_contacts_total == 0
-                      %a{href: "#", rel: "tooltip", title: "No Contacts Used"}
-                        %strong ERR
-                    - else
-                      = number_with_precision(contacts_received.to_d / ccb.used_contacts_total.to_d, :precision => 2)
+                %td.visible-desktop.orange= "#{number_with_precision((appointments_set.to_d /  srd.appointments_asked_for.to_d) * 100, :precision => 0)}%"
+              %td.visible-desktop= appointments_had
+              - stat_totals[4] += appointments_had
+              %td.visible-desktop= appointments_support
+              - stat_totals[5] += appointments_support
 
-      %br/
-      %div.page-header MPD Graph
-      #mpd
-      -#
-        - if current_user.mpd_goal.blank?
-          .well.text-center
-            %p Your MPD Goal is not set.
-            %a.btn.btn-primary{href: new_staff_dmpd_stats_contact_card_box_path}
-              %i.icon-tasks
-                Set Goal
-        -else
-          %script{:type => 'text/javascript'}
-            = "insert_graph('mpd',#{@graph_data[:months].to_json}, #{@graph_data[:pledge].to_json}, 'Pledges', #{current_user.mpd_goal.to_i});".html_safe
+              - if appointments_had == 0
+                %td.visible-desktop.orange
+                  %a{href: "#", rel: "tooltip", title: "\"# Y/N Decisions\" is zero"}
+                    %strong ASR ERR
+              - else
+                %td.orange= "#{number_with_precision((appointments_support.to_d / appointments_had.to_d) * 100, :precision => 0)}%"
+              %td= "#{number_to_currency monthly, :precision => 0}/mo"
+              - stat_totals[6] += monthly
+              - @graph_data[:pledge] << monthly.to_i
+              - if appointments_support == 0
+                %td.orange= "$0.00/mo"
+              - else
+                %td.orange= "#{number_to_currency (monthly / appointments_support), precision: 0}/mo"
+              %td= number_to_currency special, :precision => 0
+              - stat_totals[7] += special
+              %td.orange
+                - if ccb.used_contacts_total == 0
+                  %a{href: "#", rel: "tooltip", title: "No Contacts Used"}
+                    %strong ERR
+                - else
+                  = number_with_precision(contacts_received.to_d / ccb.used_contacts_total.to_d, :precision => 2)
+        %tr.totals
+          %td.gray
+            %strong Totals
+          %td= stat_totals[0]
+          %td= stat_totals[1]
+          %td= stat_totals[2]
+          %td= stat_totals[3]
+          - if stat_totals[3] > stat_totals[2] or stat_totals[2] == 0
+            %td.visible-desktop.orange
+              %a{href: "#", rel: "tooltip", title: "\"# Responses to Appt Ask\" is less than \"Got Appt Time & Place\""}
+                %strong ASR ERR
+          - else
+            %td.visible-desktop.orange= "#{number_with_precision((stat_totals[3].to_d / stat_totals[2]) * 100, :precision => 0)}%"
+          %td= stat_totals[4]
+          %td= stat_totals[5]
+          - if stat_totals[4] == 0
+            %td.orange %
+          - else
+            %td.orange= "#{number_with_precision((stat_totals[5].to_d / stat_totals[4].to_d) * 100, :precision => 0)}%"
+          %td= "#{number_to_currency stat_totals[6], :precision => 0}/mo"
+          - if stat_totals[5] == 0
+            %td.orange $0.00/mo
+          - else
+            %td.orange= "#{number_to_currency (stat_totals[6] / stat_totals[5]), :precision => 0}/mo"
+          %td= number_to_currency stat_totals[7], :precision => 0
+          %td.orange
+  #cr.tab-pane
+    %table.table.table-striped
+      %thead
+        %tr
+          %th.gray Week Ending
+          %th
+            %a{href: "#", rel: "tooltip", title: "<strong>From CCB</strong>"} Used
+          %th
+            %a{href: "#", rel: "tooltip", title: "<strong>From ASR</strong>"} Received
+          %th.orange
+            %a{href: "#", rel: "tooltip", title: "<strong>Received</strong><hr /><strong>Used</strong>"} Ratio
+      %tbody
+        - contacts_received = 0
+        - @weeks.each do |wk|
+          - ccb = current_user.contact_card_box.find_by_week_id(wk.id)
+          - contacts_received += current_user.appointment_set_record.where(date_set_week_id: wk.id).sum(:number_of_contacts_received)
+          %tr
+            - if ccb.nil?
+              %td.gray= wk.end_name
+              %td{colspan: "3"}
+                .text-center
+                  There is insufficient data to calculate the contact ratio this week.
+                  %a{:href => new_staff_dmpd_stats_contact_card_box_path} Add your contact card box statistics.
+            - else
+              %td.gray= wk.end_name
+              %td= ccb.used_contacts_total
+              %td= contacts_received
+              %td.orange
+                - if ccb.used_contacts_total == 0
+                  %a{href: "#", rel: "tooltip", title: "No Contacts Used"}
+                    %strong ERR
+                - else
+                  = number_with_precision(contacts_received.to_d / ccb.used_contacts_total.to_d, :precision => 2)
+
+  %br/
+  %div.page-header MPD Graph
+  #mpd
+  -#
+    - if current_user.mpd_goal.blank?
+      .well.text-center
+        %p Your MPD Goal is not set.
+        %a.btn.btn-primary{href: new_staff_dmpd_stats_contact_card_box_path}
+          %i.icon-tasks
+            Set Goal
+    -else
+      %script{:type => 'text/javascript'}
+        = "insert_graph('mpd',#{@graph_data[:months].to_json}, #{@graph_data[:pledge].to_json}, 'Pledges', #{current_user.mpd_goal.to_i});".html_safe
 

@@ -34,7 +34,7 @@ ActiveAdmin.register Record, as: 'Transaction', sort_order: :date do
     column :date
     column(:amount) { |t| number_to_currency t.amount }
     column :balance
-    default_actions
+    actions
   end
 
   csv do

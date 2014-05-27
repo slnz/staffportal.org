@@ -1,8 +1,8 @@
 class AppointmentSetRecord < ActiveRecord::Base
-  attr_accessible :amount, :asked_for_contacts, :date_of_appointment,
-                  :date_set, :first_name, :gift_confirmed_date, :gift_date,
-                  :last_name, :number_of_contacts_received, :support,
-                  :thank_you_posted, :frequency
+  # attr_accessible :amount, :asked_for_contacts, :date_of_appointment,
+  #                 :date_set, :first_name, :gift_confirmed_date, :gift_date,
+  #                 :last_name, :number_of_contacts_received, :support,
+  #                 :thank_you_posted, :frequency
   belongs_to :user
   belongs_to :date_set_week, class_name: Week
   belongs_to :date_of_appointment_week, class_name: Week

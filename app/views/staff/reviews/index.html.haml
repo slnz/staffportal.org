@@ -1,55 +1,22 @@
-- title "People & Culture"
-%section.intro-box.margin-80
-  .container
-    .row
-      .span12
-        %h3.pull-right.hidden-phone= current_user.name
-        %ul.breadcrumb
-          %li
-            %a{:href => root_path} Home
-            %span.divider /
-          %li.active
-            People & Culture
-        %span.arrow.hidden-phone
-.white
-  .container
-  .container.listing
-    .row
-      .span2
-        = render 'side'
-      .span10
-        - flash.each do |key, value|
-          - case key
-            - when :achievement
-              - value.each do |achievement|
-                .alert.alert-block.alert-info.clearfix
-                  = image_tag "achievement_#{achievement.name.tr(" ", "_")}.png", style: "border-radius: 5px; margin-right: 10px", class: "pull-left", width: "50"
-                  %h4= "Achievement Added: #{achievement.name.titleize}"
-                  = achievement.description
-                  %span.muted= "+#{achievement.xp_value} XP"
-            - else
-              %div{class: flash_class(key)}
-                = value
-
-        %h3.page-header
-          People & Culture Reviews
-          .pull-right
-            - unless @review.blank?
-              %a.btn.btn-primary{href: new_staff_review_path}
-                %i.icon-bolt &nbsp;
-                Submit Open Review
-            - else
-              %a.btn.btn-disabled
-                No Reviews Currently Due
-        .row-fluid
-          .span2.text-center
-            = image_tag "badge_#{@xp.name}.gif", style: "border-radius: 5px"
-            %small.muted= @xp.name.capitalize
-          .span10
-            %h4= "My Championship Rank"
-            %small.muted= "XP #{current_user.XP} / #{@xp.xp_max}"
-            %small= "(#{@xp.xp_max - current_user.XP} Till #{@xp.next.name.capitalize})"
-            .progress.progress-striped
-              .bar.bar-success{style: "width:#{( (current_user.XP.to_f - @xp.xp_min.to_f) / (@xp.xp_max.to_f - @xp.xp_min.to_f) ) * 100}%"}
-            .alert.alert-info
-              %small You can gain XP by doing tasks around MSP and convert them to real prizes at Staff Conference!
+.page-header
+  = title 'People and Culture Reviews'
+  .pull-right
+    - unless @review.blank?
+      %a.btn.btn-primary{href: new_staff_review_path}
+        = fa_icon 'bolt'
+        Submit Open Review
+    - else
+      %a.btn.btn-disabled
+        No Reviews Currently Due
+.row-fluid
+  .col-md-2.text-center
+    = image_tag "badge_#{@xp.name}.gif", style: "border-radius: 5px"
+    %small.muted= @xp.name.capitalize
+  .col-md-10
+    %h4= "My Championship Rank"
+    %small.muted= "XP #{current_user.XP} / #{@xp.xp_max}"
+    %small= "(#{@xp.xp_max - current_user.XP} Till #{@xp.next.name.capitalize})"
+    .progress.progress-striped
+      .bar.bar-success{style: "width:#{( (current_user.XP.to_f - @xp.xp_min.to_f) / (@xp.xp_max.to_f - @xp.xp_min.to_f) ) * 100}%"}
+    .alert.alert-info
+      %small You can gain XP by doing tasks around MSP and convert them to real prizes at Staff Conference!

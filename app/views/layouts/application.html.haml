@@ -2,8 +2,7 @@
 %html{lang: :en}
   %head
     %title
-      MSP -
-      = content_for(:title)
+      = "MSP | #{content_for(:title)}"
     %link{:href => "http://fonts.googleapis.com/css?family=Open+Sans:100,400,700", :rel => "stylesheet", :type => "text/css"}/
     %meta{:content => "width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no", :name => "viewport"}
     = stylesheet_link_tag "application", :media => "all"
@@ -12,42 +11,71 @@
     = javascript_include_tag "application"
     = csrf_meta_tags
   %body.staff_portal
-    - unless current_user.nil?
-      .navbar.navbar-fixed-top
-        .navbar-inner
-          .container
-            %a.brand{href: root_path}
-              .hidden-phone
-                Ministry Services Portal
-              .visible-phone
-                msp
-            %ul.nav.pull-right
-              - if current_user.admin == "admin"
-                %li.hidden-phone
-                  %a{:href => "/resque"} resque
-                %li.hidden-phone
-                  %a{:href => "/admin"} admin
-              - if current_user.admin == "coach"
-                %li.hidden-phone
-                  %a{:href => "/coach"} admin
-              - if current_user.admin == "hr"
-                %li.hidden-phone
-                  %a{:href => "/hr"} admin
-              %li
-                %a.last{:href => "/auth/logout"} sign out
-      %section.intro-box.margin-80.hidden-print
-        .container
-          .row
-            .span12
-              - unless current_user.nil?
-                %h3.pull-right.hidden-phone= current_user.name
-              %ul.breadcrumb
-                = render_breadcrumbs :tag => :li, :separator => ' / '
-              %span.arrow.hidden-phone
-    = yield
-    %footer.hidden-print
-      .container
-        %span.arrow-down
-        %h6.muted
+    .sidebar
+      .brand
+        MSP
+      %ul.nav.nav-pills.nav-stacked
+        %li{ class: ('active' if current_page? staff_root_path) }
+          %a{:href => staff_root_path}
+            = fa_icon 'home'
+            Home
+        %li{ class: ('active' if current_page? staff_accounts_path) }
+          %a{:href => staff_accounts_path}
+            = fa_icon 'money'
+            My Accounts
+          %ul.nav.sub
+            - current_user.accounts.limit(5).all.each do |account|
+              %li{ class: ('active' if current_page? staff_account_path(account.id)) }
+                %a{:href => staff_account_path(account.id)}
+                  = account.name
+        %li
+          %a{:href => '#'}
+            = fa_icon 'user'
+            My Profile
+          %ul.nav.sub
+            %li
+              %a{:href => staff_dmpd_root_path}
+                = fa_icon 'tasks'
+                DMPD
+            %li
+              %a{:href => '#'}
+                = fa_icon 'bar-chart-o'
+                Statistics
+            %li{ class: ('active' if current_page? staff_reviews_path) }
+              %a{:href => staff_reviews_path}
+                = fa_icon 'university'
+                People & Culture
+            %li{ class: ('active' if current_page? staff_leaderboard_path) }
+              %a{:href => staff_leaderboard_path}
+                = fa_icon 'signal'
+                Leaderboard
+    %nav.navbar-fixed-top
+      .navbar-header
+        %ul.breadcrumb
+          = render_breadcrumbs :tag => :li, separator: ' '
+      %ul.nav.navbar-nav.navbar-right
+        %li.dropdown
+          %a.dropdown-toggle{"data-toggle" => "dropdown", href: "#"}
+            = current_user.name
+            %b.caret
+          %ul.dropdown-menu
+            - if current_user.admin == "admin"
+              %li.hidden-phone
+                %a{:href => "/resque"} Resque
+              %li.hidden-phone
+                %a{:href => "/admin"} Admin
+            - if current_user.admin == "coach"
+              %li.hidden-phone
+                %a{:href => "/coach"} Admin
+            - if current_user.admin == "hr"
+              %li.hidden-phone
+                %a{:href => "/hr"} Admin
+            %li
+              %a.last{:href => "/auth/logout"} Sign Out
+    .content
+      = render 'flash'
+      = yield
+      %footer.hidden-print.text-center
+        %h6.text-muted
           CCCI © Copyright
           = Time.now.strftime('%Y')

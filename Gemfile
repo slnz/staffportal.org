@@ -1,49 +1,56 @@
 source 'https://rubygems.org'
 ruby '2.1.0'
-gem 'rails', '3.2.14'
+# Rails
+gem 'rails', '4.1.1'
+
+# Postgres
 gem 'pg'
+
+# Authentication & Authorization
 gem 'devise'
 gem 'devise_cas_authenticatable'
+gem 'cancancan'
 
+# Queue
 gem 'redis'
 gem 'resque'
+gem 'hirefire-resource'
 
-gem "hirefire-resource"
-
+# Currency
 gem 'open_exchange_rates'
 
-gem 'sass-rails',   '~> 3.2.3'
-gem 'bootstrap-sass', '~> 2.1.1.0'
-gem 'font-awesome-sass-rails'
-gem 'compass-rails'
+# API
 gem 'feedjira'
-gem 'breadcrumbs_on_rails'
 
-group :assets do
-  gem 'coffee-rails', '~> 3.2.1'
-  gem 'uglifier', '>= 1.0.3'
-end
-
-gem 'jquery-rails'
-
-gem 'formtastic'
-gem 'formtastic-bootstrap'
-gem 'haml'
-gem 'kaminari-bootstrap'
-gem "airbrake"
-
-gem "cancan"
+# Controller
 gem 'inherited_resources'
-gem 'table_for_collection'
-gem 'activeadmin'
-
-gem 'highcharts-rails'
-gem 'summernote-rails'
-
 gem 'paperclip'
 gem 'aws-sdk'
 
+# View
+gem 'breadcrumbs_on_rails'
+gem 'formtastic'
+gem 'formtastic-bootstrap'
+gem 'kaminari-bootstrap'
+gem 'haml'
+gem 'table_for_collection'
+
+# Javascript
+gem 'highcharts-rails'
+gem 'summernote-rails'
 gem 'chosen-rails'
+
+# Administration
+gem 'activeadmin', github: 'gregbell/active_admin'
+gem 'airbrake'
+
+group :assets do
+  gem 'sass-rails',   '>= 3.2'
+  gem 'bootstrap-sass', '~> 3.1.1'
+  gem 'font-awesome-rails'
+  gem 'uglifier', '>= 1.0.3'
+  gem 'jquery-rails'
+end
 
 group :development, :production do
   gem 'puma'

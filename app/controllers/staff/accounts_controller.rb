@@ -42,18 +42,16 @@ module Staff
                                sum(:amount)
         current_user.accounts.
                      joins(:records).
-                     group([:code, :month, :date, 'records.id']).
-                     order(:date, 'records.id').
+                     group([:code, :month, 'records.date', 'records.id']).
+                     order('records.date', 'records.id').
                      select('records.id, code, month, last(balance)').
                      each do |value|
                        unless @graphs.has_key?(value.code)
                          @graphs[value.code] = @months.deep_dup
                        end
-                       value.month =  DateTime.strptime(value.month,
-                                                        '%Y-%m-%d').
-                                               strftime('%b %y')
-                       if @graphs[value.code].has_key?(value.month)
-                         @graphs[value.code][value.month] = value.last.to_i *
+                       string_month = value.month.strftime('%b %y')
+                       if @graphs[value.code].has_key?(string_month)
+                         @graphs[value.code][string_month] = value.last.to_i *
                                                             @currency_rate
                        end
                      end
@@ -75,7 +73,8 @@ module Staff
 
     def transactions
       @account = current_user.accounts.find(params[:id])
-      add_breadcrumb @account.code, transactions_staff_account_path(@account)
+      add_breadcrumb @account.code, staff_account_path(@account)
+      add_breadcrumb 'transactions', transactions_staff_account_path(@account)
 
       @currency_rate = current_user.currency.currency_rates.order(:month).last
       @currency_rate = @currency_rate.blank? ? 1 : @currency_rate.rate
@@ -100,11 +99,14 @@ module Staff
           @money_out -= t.amount
         end
       end
+
+      @fullwidth = true
     end
 
     def show
       @account = current_user.accounts.find(params[:id])
       add_breadcrumb @account.code, staff_account_path(@account)
+      add_breadcrumb 'transactions', transactions_staff_account_path(@account)
 
       @months_to_show = 11
       @latest = @account.records.order(:date).last
@@ -204,6 +206,8 @@ module Staff
           @advance[t.id.to_s][t.month.strftime('%b %y')] = t
         end
       end
+
+      @fullwidth = true
     end
   end
 end

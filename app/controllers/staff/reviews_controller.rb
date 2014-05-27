@@ -1,6 +1,8 @@
 module Staff
   class ReviewsController < InheritedResources::Base
     defaults resource_class: UserReview
+
+    add_breadcrumb 'people and culture', :staff_reviews_path
     def index
       @review = get_review
       @xp = current_user.xp_level

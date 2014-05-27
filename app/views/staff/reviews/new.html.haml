@@ -2,7 +2,7 @@
 %section.intro-box.margin-80
   .container
     .row
-      .span12
+      .col-md-12
         %h3.pull-right.hidden-phone= current_user.name
         %ul.breadcrumb
           %li
@@ -21,9 +21,9 @@
         = value
   .container.listing
     .row
-      .span2
+      .col-md-2
         = render 'side'
-      .span10
+      .col-md-10
         %h3.page-header My People & Culture Review
         = form_tag(staff_reviews_path, method: "POST") do
           - @review_questions.each do |question|

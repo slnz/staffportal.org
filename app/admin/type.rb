@@ -22,6 +22,6 @@ ActiveAdmin.register Type do
     column :code
     column :name
     column :definition
-    default_actions
+    actions
   end
 end

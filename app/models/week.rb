@@ -1,5 +1,5 @@
 class Week < ActiveRecord::Base
-  attr_accessible :date_start, :date_finished
+  # attr_accessible :date_start, :date_finished
 
   def date_start=(date)
     if date.instance_of?(Date)

@@ -1,5 +1,5 @@
 class Type < ActiveRecord::Base
-  attr_accessible :code, :definition, :name
+  # attr_accessible :code, :definition, :name
   validates_uniqueness_of :code
   validates_presence_of :code, :definition
   has_many :records

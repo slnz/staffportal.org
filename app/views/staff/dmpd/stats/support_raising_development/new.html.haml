@@ -1,14 +1,11 @@
-- title "DMPD Weekly Support Raising Development Chart"
-.white
-  .container
-    %h3.page-header
-      Weekly Calling Chart
-    - if @available_weeks.blank?
-      .well.text-center
-        %p You're all up to date.
-        %a.btn.btn-primary{href: staff_dmpd_stats_support_raising_development_index_path}
-          %i.icon-angle-left &nbsp;
-          Back
-    - else
-      = semantic_form_for @support_raising_development, url: staff_dmpd_stats_support_raising_development_index_path, builder: FormtasticBootstrap::FormBuilder do |f|
-        = render :partial => "form", :locals => { :f => f }
+.page-header
+  = title "Weekly Calling Chart"
+- if @available_weeks.blank?
+  .well.text-center
+    %p You're all up to date.
+    %a.btn.btn-primary{href: staff_dmpd_stats_support_raising_development_index_path}
+      %i.icon-angle-left &nbsp;
+      Back
+- else
+  = semantic_form_for @support_raising_development, url: staff_dmpd_stats_support_raising_development_index_path, builder: FormtasticBootstrap::FormBuilder do |f|
+    = render :partial => "form", :locals => { :f => f }

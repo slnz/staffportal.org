@@ -1,25 +1,6 @@
-- title "Home"
-%section.intro-box.margin-80
-  .container
-    .row
-      .span12
-        %h3.pull-right.hidden-phone= current_user.name
-        %ul.breadcrumb
-          %li.active
-            Home
-        %span.arrow.hidden-phone
-.white
-  .container
-    - flash.each do |key, value|
-      %div{class: flash_class(key)}
-        = value
-  .container.listing
-    .row
-      .span2
-        = render 'side'
-      .span10
-        %h1 Latest News
-        - @feed.entries.each do |entry|
-          .bs-callout.bs-callout-info
-            %h4= link_to entry.title, entry.url
-            = entry.published.to_formatted_s(:short)
+.page-header
+  = title "Home"
+- @feed.entries.each do |entry|
+  .bs-callout.bs-callout-info
+    %h4= link_to entry.title, entry.url, target: '_blank'
+    = entry.published.to_formatted_s(:short)

@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
-  devise :cas_authenticatable
-  attr_accessible :currency_id, :username, :first_name,
-                  :last_name, :email, :admin, :id, :bootcamp_coach_id, :xp
+  devise :cas_authenticatable, :trackable
+  # attr_accessible :currency_id, :username, :first_name,
+  #                 :last_name, :email, :admin, :id, :bootcamp_coach_id, :xp
   validates_presence_of :username, :email
   belongs_to :bootcamp_coach, class_name: 'User'
   has_many :trainees, class_name: 'User', foreign_key: 'bootcamp_coach_id'
@@ -16,6 +16,7 @@ class User < ActiveRecord::Base
   has_many :user_accounts
   has_many :accounts, through: :user_accounts
   has_many :user_reviews
+  has_many :user_review_answers
   has_many :reviews, through: :user_reviews
   has_many :support_raising_developments
   has_many :contact_card_box
@@ -51,10 +52,6 @@ class User < ActiveRecord::Base
     name = "#{first_name} #{last_name}"
     name = username if first_name.blank? && last_name.blank?
     name
-  end
-
-  def username=(name)
-    super
   end
 
   def role?(role)

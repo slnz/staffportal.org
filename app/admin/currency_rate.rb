@@ -31,7 +31,7 @@ ActiveAdmin.register CurrencyRate do
     column :currency
     column :month
     column :rate
-    default_actions
+    actions
   end
 
 end

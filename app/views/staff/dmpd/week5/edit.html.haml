@@ -1,31 +1,25 @@
-- title "Taskset 2"
-.white
-  .container
-    - flash.each do |key, value|
-      %div{class: flash_class(key)}
-        = value
-    %h2.page-header
-      Taskset 2
-      - if @week5.confirmed_hr
-        %div Confirmed by HR
-      - if @week5.confirmed_coach
-        %div Confirmed by Coach
-    = semantic_form_for @week5, url: staff_dmpd_week5_path, builder: FormtasticBootstrap::FormBuilder do |f|
-      = f.inputs do
-        .well
-          %h4 Tasks
-          = f.input :prayer_sheet, :label => "As a group pray through <a target=\"_blank\" href=\"https://docs.google.com/file/d/0B-dq1Hc0jvdBODk4QXlUbEtqejA/edit\">DMPD Prayer Sheet</a>".html_safe
-          = f.input :listen_to_attitude_message, :label => "As a group listen to one of the <a target=\"_blank\" href=\"https://docs.google.com/file/d/0B-dq1Hc0jvdBMDZiTUFfeTZkUGM/edit\">Attitude Messages</a> & continue to be more detailed with your notes".html_safe
-          = f.input :memorize_prayer_sheet_passage, :label => "Memorize one of the passages from <a target=\"_blank\" href=\"https://docs.google.com/file/d/0B-dq1Hc0jvdBODk4QXlUbEtqejA/edit\">DMPD Prayer Sheet</a>".html_safe
-          = f.input :recite_passage_from_dmpd_prayer_sheet, :label => "Recite the passage you memorized from the <a target=\"_blank\" href=\"https://docs.google.com/file/d/0B-dq1Hc0jvdBODk4QXlUbEtqejA/edit\">DMPD Prayer Sheet</a>".html_safe
-          = f.input :review_non_negotiables_of_effective_mpd, :label => "Review <a target=\"_blank\" href=\"https://docs.google.com/file/d/0B-dq1Hc0jvdBeGJBbnJuc013YjA/edit\">Non Negotiables of Effective MPD</a>".html_safe
-          = f.input :share_call_testimony, :label => "Share with your group your <strong>2 Minute Call Testimony</strong>".html_safe
-          = f.input :share_salvation_testimony, :label => "Share with your group your <strong>2 Minute Salvation Testimony</strong>".html_safe
-      = f.actions do
-        = f.action :submit, :as => :button, :label => "Save"
-      = f.inputs do
-        .well
-          %h4 Assignments
-          = f.input :missionary_profile, :label => "Write your <strong>Missionary Profile</strong>".html_safe, input_html: {class:'summernote'}
-      = f.actions do
-        = f.action :submit, :as => :button, :label => "Save"
+.page-header
+  = title "Taskset 2"
+  - if @week5.confirmed_hr
+    %div Confirmed by HR
+  - if @week5.confirmed_coach
+    %div Confirmed by Coach
+= semantic_form_for @week5, url: staff_dmpd_week5_path, builder: FormtasticBootstrap::FormBuilder do |f|
+  = f.inputs do
+    .well
+      %h4 Tasks
+      = f.input :prayer_sheet, :label => "As a group pray through <a target=\"_blank\" href=\"https://docs.google.com/file/d/0B-dq1Hc0jvdBODk4QXlUbEtqejA/edit\">DMPD Prayer Sheet</a>".html_safe
+      = f.input :listen_to_attitude_message, :label => "As a group listen to one of the <a target=\"_blank\" href=\"https://docs.google.com/file/d/0B-dq1Hc0jvdBMDZiTUFfeTZkUGM/edit\">Attitude Messages</a> & continue to be more detailed with your notes".html_safe
+      = f.input :memorize_prayer_sheet_passage, :label => "Memorize one of the passages from <a target=\"_blank\" href=\"https://docs.google.com/file/d/0B-dq1Hc0jvdBODk4QXlUbEtqejA/edit\">DMPD Prayer Sheet</a>".html_safe
+      = f.input :recite_passage_from_dmpd_prayer_sheet, :label => "Recite the passage you memorized from the <a target=\"_blank\" href=\"https://docs.google.com/file/d/0B-dq1Hc0jvdBODk4QXlUbEtqejA/edit\">DMPD Prayer Sheet</a>".html_safe
+      = f.input :review_non_negotiables_of_effective_mpd, :label => "Review <a target=\"_blank\" href=\"https://docs.google.com/file/d/0B-dq1Hc0jvdBeGJBbnJuc013YjA/edit\">Non Negotiables of Effective MPD</a>".html_safe
+      = f.input :share_call_testimony, :label => "Share with your group your <strong>2 Minute Call Testimony</strong>".html_safe
+      = f.input :share_salvation_testimony, :label => "Share with your group your <strong>2 Minute Salvation Testimony</strong>".html_safe
+  = f.actions do
+    = f.action :submit, :as => :button, :label => "Save"
+  = f.inputs do
+    .well
+      %h4 Assignments
+      = f.input :missionary_profile, :label => "Write your <strong>Missionary Profile</strong>".html_safe, input_html: {class:'summernote'}
+  = f.actions do
+    = f.action :submit, :as => :button, :label => "Save"
