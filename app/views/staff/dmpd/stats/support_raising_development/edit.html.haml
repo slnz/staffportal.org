@@ -1,7 +1,7 @@
 .page-header
   = title "Weekly Calling Chart"
   .pull-right
-    = link_to "Delete WCC", staff_dmpd_stats_support_raising_development_path(@support_raising_development), class: "btn btn-danger", method: :delete, :confirm => "Are you sure you want to delete this WCC Record?"
+    = link_to "Delete WCC", dmpd_stats_support_raising_development_path(@support_raising_development), class: "btn btn-danger", method: :delete, :confirm => "Are you sure you want to delete this WCC Record?"
 %h5.muted= @support_raising_development.week.name
-= semantic_form_for @support_raising_development, url: staff_dmpd_stats_support_raising_development_path(@support_raising_development), builder: FormtasticBootstrap::FormBuilder do |f|
+= semantic_form_for @support_raising_development, url: dmpd_stats_support_raising_development_path(@support_raising_development), builder: FormtasticBootstrap::FormBuilder do |f|
   = render :partial => "form", :locals => { :f => f }

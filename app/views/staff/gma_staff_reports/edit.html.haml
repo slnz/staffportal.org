@@ -1,0 +1,46 @@
+= semantic_form_for [@gma_organization, @gma_staff_report], builder: FormtasticBootstrap::FormBuilder do |f|
+  = f.inputs do
+    .list-group#gma_measurements
+      = f.semantic_fields_for :gma_measurements do |h|
+        .list-group-item
+          - @history = current_user.gma_measurements.unscoped.joins(:gma_staff_report).where('gma_staff_reports.end_date < ?', @gma_staff_report.start_date).where(gma_id: h.object.gma_id).where('gma_staff_reports.user_id = ?', current_user.id).select('gma_measurements.value').order('start_date DESC').limit(10).pluck(:value)
+          .graph{"data-history" => @history.map{|v| v.to_i}.reverse}
+          = h.input :value, label: h.object.name, as: :string, input_html: {value: h.object.value}
+          .info.clearfix
+            = h.object.description.html_safe
+            .panel.panel-info
+              .panel-heading
+                History
+                %span.text-muted (Past 10 Reports)
+              .panel-body
+                .row.text-center
+                  .col-xs-3
+                    = fa_icon 'arrow-left'
+                    Last
+                    .number
+                      = @history.first.to_i
+                  .col-xs-3
+                    %span.text-danger
+                      = fa_icon 'chevron-down'
+                    Min
+                    .number
+                      = @history.min.to_i
+                  .col-xs-3
+                    %span.text-success
+                      = fa_icon 'chevron-up'
+                    Max
+                    .number
+                      = @history.max.to_i
+                  .col-xs-3
+                    = fa_icon 'bars'
+                    Avg
+                    .number
+                      - if @history.size > 0
+                        = (@history.sum / @history.size.to_f).to_i
+                      - else
+                        0
+  = f.inputs do
+    .pad-10.text-right
+      = f.submit class: 'btn btn-primary btn-sm', value: "Submit Report"
+  .fixed-top.text-right
+    = f.submit class: 'btn btn-primary btn-sm', value: "Submit Report"

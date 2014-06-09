@@ -2,14 +2,23 @@ module Staff
   class IndexController < ApplicationController
     before_filter :authenticate_user!
     def index
-      @feed = Feedjira::Feed.fetch_and_parse('http://www.tandem.org.nz/' +
-                                             'tools/blocks/problog_list/rss' +
-                                             '?cID=187')
+
     end
 
     def leaderboard
-      add_breadcrumb 'leaderboard', :staff_leaderboard_path
+      add_breadcrumb 'leaderboard', :leaderboard_path
       @users = User.where('"XP" > 0').limit(10).order('"XP" desc')
+    end
+
+    def roadblock
+      if Roadblock.where('created_at > ?', current_user.last_sign_in_at).exists?
+        @rb = Roadblock.where('created_at > ?', current_user.last_sign_in_at).
+                  order('created_at').
+                  last
+        render layout: 'signed_out'
+      else
+        redirect_to root_path
+      end
     end
   end
 end

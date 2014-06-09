@@ -11,21 +11,16 @@ Staff::Application.routes.draw do
       get 'auth/logout' => 'devise/sessions#destroy'
     end
 
-    namespace :staff do
-      root to: 'index#index'
+    scope module: :staff do
+      root to: 'index#index', as: :authenticated_root
+      get 'since-youve-been-gone' => 'index#roadblock'
       get 'leaderboard' => 'index#leaderboard'
-
+      resource :user, only: [:edit, :update]
       namespace :dmpd do
-        root to: 'index#index'
+        root 'index#index'
         get 'contacts' => 'index#contacts'
         resources :contacts
         resources :taskset
-        resources :week6
-        resources :week5
-        resources :week4
-        resources :week3
-        resources :week2
-        resources :week1
         namespace :stats do
           root to: 'base#index'
           resources :appointment_set_record
@@ -35,6 +30,9 @@ Staff::Application.routes.draw do
       end
       resources :reports
       resources :reviews
+      resources :gma_organizations, only: [:index] do
+        resources :gma_staff_reports, only: [:index, :edit, :update]
+      end
       resources :accounts do
         member do
           get 'transactions'

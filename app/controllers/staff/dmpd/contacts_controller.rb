@@ -9,7 +9,7 @@ module Staff
            params[:contact][:last_name].empty? ||
            params[:contact][:phone].empty?
           flash[:notice] = 'Missing Contact Field Data'.html_safe
-          redirect_to staff_dmpd_contacts_path
+          redirect_to dmpd_contacts_path
         else
           params[:contact][:first_name] =
             params[:contact][:first_name].capitalize
@@ -31,20 +31,20 @@ module Staff
               'Contact already claimed by ' +
               "<a href=\"mailto:#{@exists.user.username}\">" +
               "#{@exists.user.username}</a>".html_safe
-            redirect_to staff_dmpd_contacts_path
+            redirect_to dmpd_contacts_path
           end
         end
       end
 
       def show
         flash[:notice] = 'Contact Created'
-        redirect_to staff_dmpd_contacts_path
+        redirect_to dmpd_contacts_path
       end
 
       def destroy
         Contact.find(params[:id]).destroy
         flash[:notice] = 'Contact Removed'
-        redirect_to staff_dmpd_contacts_path
+        redirect_to dmpd_contacts_path
       end
     end
   end

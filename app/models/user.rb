@@ -5,12 +5,6 @@ class User < ActiveRecord::Base
   validates_presence_of :username, :email
   belongs_to :bootcamp_coach, class_name: 'User'
   has_many :trainees, class_name: 'User', foreign_key: 'bootcamp_coach_id'
-  has_one :week6
-  has_one :week5
-  has_one :week4
-  has_one :week3
-  has_one :week2
-  has_one :week1
   belongs_to :currency
   has_many :contacts
   has_many :user_accounts
@@ -23,9 +17,47 @@ class User < ActiveRecord::Base
   has_many :appointment_set_record
   has_many :user_achievements
   has_many :achievements, through: :user_achievements
+  has_many :user_assignments
 
+  has_many :gma_memberships
+  has_many :gma_organizations, through: :gma_memberships
+  has_many :gma_staff_reports
+  has_many :gma_measurements, through: :gma_staff_reports
+
+  attr_encrypted :password
+
+  validates :encrypted_password, symmetric_encryption: true
+  validate :key_password
   before_save do
     username.downcase! if username
+  end
+
+  after_save :gma_update!
+
+  def gma_update!
+    unless encrypted_password.nil? || gma_update? || !encrypted_password_changed?
+      self.update_column(
+        :gma_update, Job::GmaGetUserMeasurements.create(user_id: self.id)
+      )
+    end
+  end
+
+  def gma_update?
+    return false if status.nil?
+    return false if status.completed? || status.failed?
+    return true
+  end
+
+  def status
+    Resque::Plugins::Status::Hash.get(self.read_attribute(:gma_update))
+  end
+
+  def key_password
+    response = HTTParty.post('https://thekey.me/cas/v1/tickets',
+                  body: { username: email, password: password })
+    if response.code != 201
+      errors.add(:password, 'Incorrect Password')
+    end
   end
 
   def self.current

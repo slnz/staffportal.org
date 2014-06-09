@@ -4,7 +4,7 @@
       = fa_icon 'clock-o'
       &nbsp;
       = week.class.finish_date
-    %a{href: send("edit_staff_dmpd_#{week.class.to_s.downcase}_path", week)}= "Taskset #{count}"
+    %a{href: send("edit_dmpd_#{week.class.to_s.downcase}_path", week)}= "Taskset #{count}"
   - if week.tasks_remaining!
     %div
       = fa_icon 'tasks'

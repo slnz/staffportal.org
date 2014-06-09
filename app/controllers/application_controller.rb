@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
-  add_breadcrumb 'home', :staff_root_path
+  add_breadcrumb 'home', :authenticated_root_path
 
   def authenticate_admin_user!
     authenticate_user!

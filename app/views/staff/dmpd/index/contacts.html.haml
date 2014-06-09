@@ -1,6 +1,6 @@
 
 .page-header= title "Contacts"
-= semantic_form_for Contact.new, url: staff_dmpd_contacts_path, builder: FormtasticBootstrap::FormBuilder do |f|
+= semantic_form_for Contact.new, url: dmpd_contacts_path, builder: FormtasticBootstrap::FormBuilder do |f|
   = f.input :first_name
   = f.input :last_name
   = f.input :phone
@@ -13,4 +13,4 @@
     - column :last_name
     - column :phone
     - column :title => "Actions" do |contact|
-      - link_to("Delete", staff_dmpd_contact_path(contact), :method => :delete)
+      - link_to("Delete", dmpd_contact_path(contact), :method => :delete)

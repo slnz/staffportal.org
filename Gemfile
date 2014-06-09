@@ -9,11 +9,14 @@ gem 'pg'
 # Authentication & Authorization
 gem 'devise'
 gem 'devise_cas_authenticatable'
+gem 'symmetric-encryption'
 gem 'cancancan'
 
 # Queue
 gem 'redis'
 gem 'resque'
+gem 'resque-retry'
+gem 'resque-status'
 gem 'hirefire-resource'
 
 # Currency
@@ -21,11 +24,15 @@ gem 'open_exchange_rates'
 
 # API
 gem 'feedjira'
+gem 'gravatarify'
+gem 'httparty'
+gem 'httparty-cookies'
 
 # Controller
 gem 'inherited_resources'
 gem 'paperclip'
 gem 'aws-sdk'
+gem 'fiscali'
 
 # View
 gem 'breadcrumbs_on_rails'
@@ -57,13 +64,14 @@ group :development, :production do
 end
 
 group :development, :test do
-  gem 'pry'
   gem 'spring-commands-rspec'
   gem 'rspec-rails'
   gem 'dotenv-rails'
 end
 
 group :development do
+  gem 'pry-rails'
+  gem 'pry-debugger'
   gem 'foreman'
   gem 'travis'
   gem 'rails-erd'

@@ -3,9 +3,9 @@
 - if @available_weeks.blank?
   .well.text-center
     %p You're all up to date.
-    %a.btn.btn-primary{href: staff_dmpd_stats_contact_card_box_index_path}
+    %a.btn.btn-primary{href: dmpd_stats_contact_card_box_index_path}
       %i.icon-angle-left &nbsp;
       Back
 - else
-  = semantic_form_for @contact_card_box, url: staff_dmpd_stats_contact_card_box_index_path, builder: FormtasticBootstrap::FormBuilder do |f|
+  = semantic_form_for @contact_card_box, url: dmpd_stats_contact_card_box_index_path, builder: FormtasticBootstrap::FormBuilder do |f|
     = render :partial => "form", :locals => { :f => f }

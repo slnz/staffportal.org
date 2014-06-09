@@ -1,0 +1,22 @@
+.page-header
+  - title 'My Profile'
+  %h1
+    %span.avatar
+      = gravatar_tag current_user.email, size: 50
+    = current_user.name
+= semantic_form_for current_user, builder: FormtasticBootstrap::FormBuilder do |f|
+  .row
+    .col-md-4
+      %h4 My Profile
+      = f.inputs do
+        = f.input :first_name
+        = f.input :last_name
+        = f.input :email
+    .col-md-4
+      %h4
+        The Key Credentials
+      = f.inputs do
+        = f.input :password
+      .text-right
+        = image_tag 'key_logo.png'
+  = f.submit class: 'btn btn-primary'

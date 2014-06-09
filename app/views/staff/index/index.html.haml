@@ -1,6 +1,2 @@
 .page-header
-  = title "Home"
-- @feed.entries.each do |entry|
-  .bs-callout.bs-callout-info
-    %h4= link_to entry.title, entry.url, target: '_blank'
-    = entry.published.to_formatted_s(:short)
+  = title 'Home'

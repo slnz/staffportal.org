@@ -4,8 +4,8 @@ module Staff
       class BaseController < ApplicationController
         before_filter :authenticate_user!
 
-        add_breadcrumb 'dmpd', :staff_dmpd_root_path
-        add_breadcrumb 'wcs', :staff_dmpd_stats_root_path
+        add_breadcrumb 'dmpd', :dmpd_root_path
+        add_breadcrumb 'wcs', :dmpd_stats_root_path
         def index
           begin
             @mpd_goal =

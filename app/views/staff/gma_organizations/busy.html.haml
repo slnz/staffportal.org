@@ -1,0 +1,29 @@
+.page-header
+  = title 'My Statistics'
+.row
+  .col-md-4.col-md-offset-4
+    .panel.panel-default
+      .panel-body
+        .text-center
+          %h1.text-muted
+            = fa_icon "bar-chart-o"
+          %h3 Fetching Your Statistics
+          Go have a cup of coffee and come back later.
+
+.row
+  .col-md-4.col-md-offset-4
+    - if @status.queued?
+      .text-right
+        %small.text-muted Your statistics will be available shortly
+      .progress.progress-striped
+        .progress-bar.progress-bar-success{style: "width: 1%"}
+    - else
+      .text-right
+        %small.text-muted= @status.message
+      .progress.progress-striped
+        - if @status.total.nil? || @status.num.nil?
+          .progress-bar.progress-bar-success{style: "width: 1%"}
+        - else
+          .progress-bar.progress-bar-success{style: "width:#{( (@status.num.to_f / @status.total.to_f ) * 100).to_i}%"}
+%script{:text => "text/javascript"}
+  setTimeout("location.reload(true);", 60000);

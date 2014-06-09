@@ -1,18 +1,18 @@
 .page-header
   = title "Contact Card Box"
   .pull-right
-    %a.btn.btn-primary{href: staff_dmpd_stats_root_path}
+    %a.btn.btn-primary{href: dmpd_stats_root_path}
       = fa_icon 'home'
       WCS
-    %a.btn.btn-default{href: staff_dmpd_stats_support_raising_development_index_path}
+    %a.btn.btn-default{href: dmpd_stats_support_raising_development_index_path}
       = fa_icon 'phone'
       Weekly Calling Chart
-    %a.btn.btn-default{href: staff_dmpd_stats_appointment_set_record_index_path}
+    %a.btn.btn-default{href: dmpd_stats_appointment_set_record_index_path}
       = fa_icon 'calendar'
       Appointment Set Record
     - if @late > 0
       %a.btn.btn-danger.disabled= "#{@late} Late Reports"
-    %a.btn.btn-info{href: new_staff_dmpd_stats_contact_card_box_path}
+    %a.btn.btn-info{href: new_dmpd_stats_contact_card_box_path}
       = fa_icon 'plus'
       Add Data
 
@@ -37,10 +37,10 @@
     -# column :mpm_total, :html => { :th => { :class => "orange" }, :td => { :class => "orange" }}
     -# column :total, :html => { :th => { :class => "orange" }, :td => { :class => "orange" }}
     - column :title => "Actions" do |ccb|
-      - link_to("Edit", edit_staff_dmpd_stats_contact_card_box_path(ccb) )
+      - link_to("Edit", edit_dmpd_stats_contact_card_box_path(ccb) )
 - else
   .well.text-center
     %p No Statistics Entered.
-    %a.btn.btn-primary{href: new_staff_dmpd_stats_contact_card_box_path}
+    %a.btn.btn-primary{href: new_dmpd_stats_contact_card_box_path}
       = fa_icon 'plus'
       Add Data

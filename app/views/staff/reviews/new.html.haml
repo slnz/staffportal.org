@@ -1,38 +1,50 @@
-- title "People & Culture"
-%section.intro-box.margin-80
-  .container
-    .row
-      .col-md-12
-        %h3.pull-right.hidden-phone= current_user.name
-        %ul.breadcrumb
-          %li
-            %a{:href => root_path} Home
-            %span.divider /
-          %li
-            %a{:href => staff_reviews_path} People & Culture
-            %span.divider /
-          %li.active
-            New
-        %span.arrow.hidden-phone
-.white
-  .container
-    - flash.each do |key, value|
-      %div{class: flash_class(key)}
-        = value
-  .container.listing
-    .row
-      .col-md-2
-        = render 'side'
-      .col-md-10
-        %h3.page-header My People & Culture Review
-        = form_tag(staff_reviews_path, method: "POST") do
-          - @review_questions.each do |question|
-            .text-center.question
-              %h4= question.text
-              =text_field_tag "answer[#{question.id}]", "0", type: "text", "data-slider" => "true", "data-slider-range" => "0, 10", "data-slider-snap" => "true"
-              %span.muted{style:"vertical-align: top"} 5
-              %script
-                $("[data-slider]").bind("slider:ready slider:changed", function (event, data) {
-                $(this).nextAll("span").html(data.value.toFixed(0) + " / 10");
-                });
-          %input.btn.btn-primary{type: "submit"}
+.page-header= title "My People and Culture Review"
+= form_tag(reviews_path, method: "POST") do
+  .row
+    .col-md-4.col-md-offset-4
+      .panel.panel-default
+        .panel-heading
+          %h5.panel-title Welcome
+        .panel-body
+          This review will help with your personal growth and development, and will be used as a conversation tool with your team leader. It should take approximately 10 minutes. Please answer honestly.
+        .panel-footer.text-right
+          %a.btn.btn-primary.btn-sm.next
+            Next
+            = fa_icon 'chevron-right'
+      - @review_questions.each_with_index do |question, index|
+        .panel.panel-default
+          .panel-heading
+            .pull-right.text-muted
+              = "#{index + 1} of #{@review_questions.count}"
+            %h5.panel-title= question.text
+          .panel-body.text-center
+            =text_field_tag "answer[#{question.id}]", "0", type: "text", "data-slider" => "true", "data-slider-range" => "0, 10", "data-slider-snap" => "true"
+            %span.muted{style:"vertical-align: top"} 5
+            %script
+              $("[data-slider]").bind("slider:ready slider:changed", function (event, data) {
+              $(this).nextAll("span").html(data.value.toFixed(0) + " / 10");
+              });
+          .panel-footer.text-right
+            .btn-group
+              %a.btn.btn-default.btn-sm.back
+                = fa_icon 'chevron-left'
+                Back
+              %a.btn.btn-primary.btn-sm.next
+                Next
+                = fa_icon 'chevron-right'
+      .panel.panel-default
+        .panel-heading
+          %h5.panel-title Thank You
+        .panel-body.text-center
+          %h1.cheers_icon
+            = fa_stacked_icon "thumbs-up", base: "circle-thin"
+          %h3 Thumbs Up!
+          %h5
+            Click submit below and you're all done.
+        .panel-footer.text-right
+          .btn-group
+            %a.btn.btn-default.btn-sm.back
+              = fa_icon 'chevron-left'
+              Back
+            %input.btn.btn-primary.btn-sm{type: "submit"}
+

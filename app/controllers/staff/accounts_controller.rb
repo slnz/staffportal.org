@@ -2,7 +2,7 @@ module Staff
   class AccountsController < ApplicationController
     include InheritedResources::DSL
 
-    add_breadcrumb 'my accounts', :staff_accounts_path
+    add_breadcrumb 'my accounts', :accounts_path
 
     respond_to :html, only: [:index, :show]
     before_filter :authenticate_user!
@@ -73,8 +73,8 @@ module Staff
 
     def transactions
       @account = current_user.accounts.find(params[:id])
-      add_breadcrumb @account.code, staff_account_path(@account)
-      add_breadcrumb 'transactions', transactions_staff_account_path(@account)
+      add_breadcrumb @account.code, account_path(@account)
+      add_breadcrumb 'transactions', transactions_account_path(@account)
 
       @currency_rate = current_user.currency.currency_rates.order(:month).last
       @currency_rate = @currency_rate.blank? ? 1 : @currency_rate.rate
@@ -105,8 +105,8 @@ module Staff
 
     def show
       @account = current_user.accounts.find(params[:id])
-      add_breadcrumb @account.code, staff_account_path(@account)
-      add_breadcrumb 'transactions', transactions_staff_account_path(@account)
+      add_breadcrumb @account.code, account_path(@account)
+      add_breadcrumb 'transactions', transactions_account_path(@account)
 
       @months_to_show = 11
       @latest = @account.records.order(:date).last

@@ -11,6 +11,10 @@
 @import 'accounts';
 @import 'bootcamp';
 
+body {
+  background: #f1f1f1;
+}
+
 // Sidebar
 .sidebar {
   position: fixed;
@@ -19,6 +23,26 @@
   bottom: 0;
   width: 200px;
   background: #4a5363;
+  .rank {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    padding: 20px 20px 0;
+    background-color: #364051;
+    color: #fff;
+    img {
+      width: 100%;
+      margin-bottom: 10px;
+    }
+    h5 {
+      position: absolute;
+      left: 30px;
+      top: 20px;
+      z-index: 10;
+      opacity: 0.5;
+    }
+  }
   .brand {
     color: #29a6f7;
     background: #364051;
@@ -61,6 +85,16 @@
         padding: 5px 15px;
       }
     }
+  }
+}
+
+// List Group
+.list-group-item {
+  &:first-child {
+    border-radius: 0;
+  }
+  &:last-child {
+    border-radius: 0;
   }
 }
 
@@ -113,14 +147,54 @@ nav.navbar-fixed-top {
   }
 }
 
+
+// Avatar
+.avatar img {
+  border-radius: 100%;
+  border: 1px solid #777;
+  margin-right: 10px;
+}
+
+.stream {
+  position: absolute;
+  right: 0;
+  top: 80px;
+  bottom: 0;
+  width: 250px;
+  background-color: #fff;
+  border-left: 1px solid #ccc;
+  .title {
+    text-align: center;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    border-bottom: 1px solid #ccc;
+    color: #ccc;
+    padding: 20px 10px;
+    font-size: 12px;
+  }
+  .item {
+    margin: 0 10px;
+    padding: 10px 0;
+    border-bottom: 1px solid #efefef;
+    font-size: 12px;
+      .row {
+        margin: 0;
+      }
+  }
+}
+
 // Main Content Area
 .content {
   position: fixed;
   left: 200px;
-  right: 0;
-  bottom: 0;
+  right: 250px;
   top: 80px;
+  bottom: 0;
   padding: 20px 30px;
+  background-color: #fff;
+  background-repeat: no-repeat;
+  background-size: cover;
   overflow: auto;
   .page-header {
     display:inline-block;
@@ -145,8 +219,158 @@ nav.navbar-fixed-top {
   }
 }
 
+// Login
+#sign_in {
+  width: 320px;
+  padding: 7% 0 0;
+  margin: auto;
+  a {
+    text-decoration: none;
+    color: #999;
+    @include transition-property(color);
+    @include transition-duration(0.3s);
+    &:hover {
+      color: #2ea2cc;
+    }
+  }
+  .form {
+    margin-left: 0;
+    font-weight: 400;
+    overflow: hidden;
+    background: #fff;
+    -webkit-box-shadow: 0 1px 3px rgba(0,0,0,.13);
+    box-shadow: 0 1px 3px rgba(0,0,0,.13);
+    .body {
+      padding: 10px 20px;
+    }
+    .page-header {
+      margin-top:0;
+      margin-bottom:0;
+      padding: 20px;
+      border-bottom: 1px solid #5d6676;
+      color: #29a6f7;
+      background: #364051;
+    }
+    h3 {
+      padding: 26px 24px 46px;
+    }
+  }
+  #backtoblog {
+    font-size: 13px;
+    padding: 0 24px;
+    margin: 16px 0 0;
+  }
+}
+
 // Footer
 footer {
   border-top: 1px solid #eee;
   margin-top: 10px;
+}
+
+// Panel
+.panel {
+  border-radius: 0;
+}
+
+// GMA
+iframe {
+  &#gma_staff_reports, &#gma_measurements {
+    border: 1px solid #dddddd;
+  }
+}
+
+.frame {
+  padding-top: 50px;
+  background-color: #fff;
+  .fixed-top {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 20;
+    background-color: #fff;
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 10px;
+    border-bottom: 1px solid #dddddd;
+    line-height: 30px;
+  }
+  .list-group {
+    margin-bottom: 0;
+    .list-group-item {
+      border-width: 0 0 1px 0;
+      margin-bottom: 0;
+      &:last-child {
+        border-width: 0;
+      }
+    }
+  }
+  .pad-10 {
+    padding: 10px;
+  }
+}
+
+form.gma_staff_report {
+  label {
+    text-transform: uppercase;
+    color: gray;
+  }
+  .form-group {
+    margin-bottom: 0;
+  }
+  .info {
+    margin-top: 15px;
+  }
+  .form-wrapper {
+    position: relative;
+    display: block;
+    &:after {
+      position: absolute;
+      font-family: 'FontAwesome';
+      font-size: 20px;
+      top: 15px;
+      right: 10px;
+      content: "\f078";
+      color: #ccc;
+    }
+    &.closed:after {
+      content: "\f053";
+      z-index: -10;
+    }
+  }
+  .form-control {
+    background-color: transparent;
+    border: 1px solid transparent;
+    box-shadow: none;
+    font-size: 30px;
+    font-weight: bold;
+    height: auto;
+    cursor: pointer;
+    padding-left: 10px;
+    &:focus {
+      border: 1px solid #ccc;
+      background-color: #fff;
+      cursor: text;
+    }
+  }
+  .graph {
+    height: 120px;
+    width: 100%;
+    position: absolute;
+    bottom:-19px;
+    right:0;
+    z-index: -10;
+  }
+  .list-group-item {
+    position: relative;
+    background-color: transparent;
+  }
+  .number {
+    font-size: 30px;
+    font-weight: bold;
+  }
+}
+.cheers_icon {
+    font-size: 100px;
+    color: #29a6f7;
 }

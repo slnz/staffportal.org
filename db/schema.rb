@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140527065520) do
+ActiveRecord::Schema.define(version: 20140609064706) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,8 +27,8 @@ ActiveRecord::Schema.define(version: 20140527065520) do
     t.string   "name"
     t.text     "description"
     t.integer  "xp_value"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "achievements", ["name"], name: "index_achievements_on_name", using: :btree
@@ -127,6 +127,52 @@ ActiveRecord::Schema.define(version: 20140527065520) do
     t.integer  "currency_id"
   end
 
+  create_table "gma_measurements", force: true do |t|
+    t.integer  "gma_organization_id"
+    t.integer  "gma_staff_report_id"
+    t.integer  "gma_id"
+    t.string   "name"
+    t.text     "description"
+    t.decimal  "value"
+    t.string   "strategy"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "gma_measurements", ["gma_id", "gma_staff_report_id", "gma_organization_id"], name: "gma_measurements_triple_index", unique: true, using: :btree
+
+  create_table "gma_memberships", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "gma_organization_id"
+    t.boolean  "director",            default: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "gma_memberships", ["user_id", "gma_organization_id"], name: "index_gma_memberships_on_user_id_and_gma_organization_id", unique: true, using: :btree
+
+  create_table "gma_organizations", force: true do |t|
+    t.integer  "gma_id"
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "gma_organizations", ["gma_id"], name: "index_gma_organizations_on_gma_id", using: :btree
+
+  create_table "gma_staff_reports", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "gma_organization_id"
+    t.integer  "gma_id"
+    t.date     "end_date"
+    t.date     "start_date"
+    t.integer  "version"
+    t.boolean  "submitted"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "gma_update"
+  end
+
   create_table "goals", force: true do |t|
     t.integer  "type_id"
     t.integer  "account_id"
@@ -153,13 +199,27 @@ ActiveRecord::Schema.define(version: 20140527065520) do
 
   create_table "review_questions", force: true do |t|
     t.string   "text"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "reviews", force: true do |t|
     t.date     "open"
     t.date     "due"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "roadblocks", force: true do |t|
+    t.string   "title"
+    t.text     "message"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "scopes", force: true do |t|
+    t.integer  "user_id"
+    t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -212,8 +272,8 @@ ActiveRecord::Schema.define(version: 20140527065520) do
     t.integer  "user_id"
     t.integer  "achievement_id"
     t.integer  "count",          default: 0
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "user_achievements", ["achievement_id"], name: "index_user_achievements_on_achievement_id", using: :btree
@@ -230,14 +290,17 @@ ActiveRecord::Schema.define(version: 20140527065520) do
     t.string   "answer_upload_content_type"
     t.integer  "answer_upload_file_size"
     t.datetime "answer_upload_updated_at"
+    t.integer  "taskset_id"
   end
+
+  add_index "user_assignments", ["taskset_id"], name: "index_user_assignments_on_taskset_id", using: :btree
 
   create_table "user_review_answers", force: true do |t|
     t.integer  "user_review_id"
     t.integer  "review_question_id"
     t.integer  "value"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "user_review_answers", ["review_question_id"], name: "index_user_review_answers_on_review_question_id", using: :btree
@@ -246,8 +309,8 @@ ActiveRecord::Schema.define(version: 20140527065520) do
   create_table "user_reviews", force: true do |t|
     t.integer  "review_id"
     t.integer  "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "user_reviews", ["review_id"], name: "index_user_reviews_on_review_id", using: :btree
@@ -270,6 +333,9 @@ ActiveRecord::Schema.define(version: 20140527065520) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
+    t.string   "encrypted_password"
+    t.integer  "gma_id"
+    t.string   "gma_update"
   end
 
   add_index "users", ["username"], name: "index_users_on_username", unique: true, using: :btree
@@ -396,8 +462,8 @@ ActiveRecord::Schema.define(version: 20140527065520) do
     t.integer  "xp_max"
     t.integer  "next_id"
     t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
 end

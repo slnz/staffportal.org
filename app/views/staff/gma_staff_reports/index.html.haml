@@ -1,0 +1,15 @@
+.fixed-top
+  .pull-right
+    Start Date
+  End Date
+.list-group#gma_staff_reports
+  - @gma_staff_reports.each_with_index do |gma_staff_report, index|
+    %a.list-group-item{class: (if gma_staff_report.submitted? then 'list-group-item-success' elsif index == 0 then 'list-group-item-info' else 'list-group-item-danger' end), href: edit_gma_organization_gma_staff_report_path(gma_organization_id: gma_staff_report.gma_organization.id, id: gma_staff_report.id, compare_id: @gma_staff_reports[index+1])}
+      .pull-right
+        - if gma_staff_report.gma_update?
+          %span.label.label-info
+            = fa_icon 'circle-o-notch spin', text: 'Syncing'
+          &nbsp;
+        = "#{gma_staff_report.start_date.strftime('%d %B %y')}"
+      %h4.list-group-item-heading
+        = "#{gma_staff_report.end_date.strftime('%d %B %y')}"

@@ -4,7 +4,7 @@
   %h4
     .pull-right.muted
       = fa_icon 'tasks'
-    %a{href: "/staff/dmpd/stats"} Weekly Cumulative Statistics
+    %a{href: dmpd_stats_root_path} Weekly Cumulative Statistics
   %p Access your personal statistics including appointment set record, contact ratios and summaries.
 .well{class: ("success" if current_user.contacts.count >= 30)}
   %h4
@@ -13,7 +13,7 @@
       &nbsp;
       = current_user.contacts.count
       \/ 30
-    %a{href: "/staff/dmpd/contacts"} DMPD Contacts
+    %a{href: dmpd_contacts_path} DMPD Contacts
   %p Continue to pray and look for more contacts in Auckland and in your primary DMPD location.
 - Taskset.order(:due_week).all.each do |t|
   .well
@@ -23,7 +23,7 @@
         = fa_icon 'clock-o'
         &nbsp;
         = t.due_week
-      %a{href: edit_staff_dmpd_taskset_path(t)}= t.name
+      %a{href: edit_dmpd_taskset_path(t)}= t.name
     - if t.assignments.boolean.exists?
       %div
         = fa_icon 'tasks'
@@ -39,10 +39,3 @@
         = fa_icon 'cloud-upload'
         = pluralize(t.assignments.upload.count, 'document')
         to upload
-\# OLD CODE
-= render partial: 'weekview', locals: { week: @week6, count: 1 }
-= render partial: 'weekview', locals: { week: @week5, count: 2 }
-= render partial: 'weekview', locals: { week: @week4, count: 3 }
-= render partial: 'weekview', locals: { week: @week3, count: 4 }
-= render partial: 'weekview', locals: { week: @week2, count: 5 }
-= render partial: 'weekview', locals: { week: @week1, count: 6 }

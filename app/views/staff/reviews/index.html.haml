@@ -2,21 +2,24 @@
   = title 'People and Culture Reviews'
   .pull-right
     - unless @review.blank?
-      %a.btn.btn-primary{href: new_staff_review_path}
+      %a.btn.btn-primary{href: new_review_path}
         = fa_icon 'bolt'
         Submit Open Review
     - else
       %a.btn.btn-disabled
         No Reviews Currently Due
-.row-fluid
-  .col-md-2.text-center
-    = image_tag "badge_#{@xp.name}.gif", style: "border-radius: 5px"
-    %small.muted= @xp.name.capitalize
-  .col-md-10
-    %h4= "My Championship Rank"
-    %small.muted= "XP #{current_user.XP} / #{@xp.xp_max}"
-    %small= "(#{@xp.xp_max - current_user.XP} Till #{@xp.next.name.capitalize})"
-    .progress.progress-striped
-      .bar.bar-success{style: "width:#{( (current_user.XP.to_f - @xp.xp_min.to_f) / (@xp.xp_max.to_f - @xp.xp_min.to_f) ) * 100}%"}
-    .alert.alert-info
-      %small You can gain XP by doing tasks around MSP and convert them to real prizes at Staff Conference!
+- if @graph.empty?
+  .panel.panel-default
+    .panel-body
+      .text-center
+        %h1.text-muted
+          = fa_icon "university"
+        %h3 Reviews
+  .text-center.alert.alert-info
+    %h5 No Completed Reviews
+    Talk to your Director about completing a Review.
+- else
+  %script{:text => "text/javascript"}
+    var series = #{@series.to_json.html_safe};
+    var categories = #{@categories.to_json.html_safe};
+  #reviews_graph{style: 'height: 850px;'}

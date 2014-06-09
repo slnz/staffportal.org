@@ -1,15 +1,14 @@
 class AuthController < ApplicationController
   before_filter :authenticate_user!, except: [:home]
   def home
-    if current_user.nil?
-      add_breadcrumb 'sign in', :root_path
-      @fullwidth = true
-    else
-      redirect_to '/staff'
-    end
+    render layout: 'signed_out'
   end
 
   def key
-    redirect_to '/staff'
+    if Roadblock.where('created_at > ?', current_user.last_sign_in_at).exists?
+      redirect_to since_youve_been_gone_path
+    else
+      redirect_to root_path
+    end
   end
 end

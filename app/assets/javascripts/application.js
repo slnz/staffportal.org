@@ -7,6 +7,8 @@
 //= require summernote
 //= require simple-slider.min
 //= require accounts
+//= require gma
+//= require reviews
 //= require_self
 
 $(function() {
@@ -23,7 +25,7 @@ $(function() {
 
 	summer_note.first().closest('form').submit(function() {
 		$.each(summer_note, function(key, value) {
-			$( value ).val($( value ).code()[0]);
+			$( value ).val($( value ).code());
 		});
 		return true;
 	});

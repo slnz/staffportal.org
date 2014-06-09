@@ -4,10 +4,10 @@ module Staff
       class SupportRaisingDevelopmentController < InheritedResources::Base
         before_filter :authenticate_user!
 
-        add_breadcrumb 'dmpd', :staff_dmpd_root_path
-        add_breadcrumb 'wcs', :staff_dmpd_stats_root_path
+        add_breadcrumb 'dmpd', :dmpd_root_path
+        add_breadcrumb 'wcs', :dmpd_stats_root_path
         add_breadcrumb 'weekly calling chart',
-                       :staff_dmpd_stats_support_raising_development_index_path
+                       :dmpd_stats_support_raising_development_index_path
         def index
           @late = current_user.late_support_raising_developments
           @support_raising_development =
@@ -16,7 +16,7 @@ module Staff
 
         def new
           add_breadcrumb 'add',
-                         :new_staff_dmpd_stats_support_raising_development_path
+                         :new_dmpd_stats_support_raising_development_path
           @support_raising_development = SupportRaisingDevelopment.new
           hide_weeks = [-1]
           current_user.support_raising_developments.each do |srd|
@@ -31,19 +31,19 @@ module Staff
 
         def edit
           add_breadcrumb 'edit',
-                         :edit_staff_dmpd_stats_support_raising_development_path
+                         :edit_dmpd_stats_support_raising_development_path
           super
         end
 
         def create
           create!(notice: 'Nice job creating your weekly calling chart.') do
-            staff_dmpd_stats_support_raising_development_index_path
+            dmpd_stats_support_raising_development_index_path
           end
         end
 
         def update
           update!(notice: 'Nice job updating your weekly calling chart.') do
-            staff_dmpd_stats_support_raising_development_index_path
+            dmpd_stats_support_raising_development_index_path
           end
         end
 

@@ -1,12 +1,14 @@
 - title "Sign In"
-.banner
-  .container
-    .floater
-      .pull-right
-        %h3.inverted.login
-          %a{:href => "/auth/key"}
-            Sign in
-            %img{:alt => "Key_logo", :src => (asset_path 'key_logo.png')}/
-      %h3.sub Tandem Ministries
-      %br.hidden-phone/
-      %h1 Making Disciples Everywhere
+#sign_in
+  = image_tag 'logo.png'
+  .form.text-center
+    .page-header
+      %h4
+        Ministry Services Portal
+    .body
+      %h3
+        %a{:href => "/auth/key"}
+          Sign in
+          %img{:alt => "Key_logo", :src => (asset_path 'key_logo.png')}/
+  #backtoblog
+    = link_to '← Back to Tandem', 'http://www.tandem.org.nz'

@@ -1,8 +1,16 @@
 .page-header
   = title @taskset.name
-= semantic_form_for @taskset, url: staff_dmpd_taskset_path, builder: FormtasticBootstrap::FormBuilder do |f|
-  = f.semantic_fields_for :assignments, @taskset.assignments.boolean do |assignment|
-    = assignment.semantic_fields_for :user_assignments, assignment.object.user_assignments.where(user: current_user).first_or_create do |user_assignment|
-      = user_assignment.input "answer_#{assignment.object.kind}".to_sym, label: assignment.object.name.html_safe, as: assignment.object.kind
-
-  = f.submit input_html: {class: 'btn btn-default'}
+= semantic_form_for @taskset, url: dmpd_taskset_path, builder: FormtasticBootstrap::FormBuilder, :html => { :multipart => true } do |f|
+  - if @taskset.assignments.boolean.exists?
+    %h3 Tasks
+    = f.semantic_fields_for :assignments, @taskset.assignments.boolean do |assignment|
+      = assignment.semantic_fields_for :user_assignments, assignment.object.user_assignments.where(user: current_user).first_or_create do |user_assignment|
+        = user_assignment.input "answer_#{assignment.object.kind}".to_sym, label: assignment.object.name.html_safe, as: :boolean
+    = f.submit class: 'btn btn-primary'
+  - if @taskset.assignments.text.exists?
+    %hr/
+    %h3 Written Assignments
+    = f.semantic_fields_for :assignments, @taskset.assignments.text do |assignment|
+      = assignment.semantic_fields_for :user_assignments, assignment.object.user_assignments.where(user: current_user).first_or_create do |user_assignment|
+        = user_assignment.input "answer_#{assignment.object.kind}".to_sym, label: assignment.object.name.html_safe, as: :text, input_html: {class:'summernote'}
+    = f.submit class: 'btn btn-primary'

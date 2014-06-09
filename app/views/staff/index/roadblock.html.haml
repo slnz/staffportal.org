@@ -1,0 +1,13 @@
+- title 'Roadblock'
+#sign_in
+  = image_tag 'logo.png'
+  .form
+    .page-header
+      %h4
+        = @rb.title
+      %small.text-muted Changes since you've been gone
+    .body
+      %h5= @rb.created_at.strftime('%A, %-d %B %Y')
+      %p= @rb.message
+  #backtoblog.text-right
+    %a{href: authenticated_root_path} Onward →

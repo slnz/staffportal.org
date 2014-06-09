@@ -2,13 +2,13 @@
 .page-header
   = title "Weekly Cumulative Statistics"
   .pull-right
-    %a.btn.btn-default{href: staff_dmpd_stats_contact_card_box_index_path}
+    %a.btn.btn-default{href: dmpd_stats_contact_card_box_index_path}
       = fa_icon 'user'
       Contact Card Box
-    %a.btn.btn-default{href: staff_dmpd_stats_support_raising_development_index_path}
+    %a.btn.btn-default{href: dmpd_stats_support_raising_development_index_path}
       = fa_icon 'phone'
       Weekly Calling Chart
-    %a.btn.btn-default{href: staff_dmpd_stats_appointment_set_record_index_path}
+    %a.btn.btn-default{href: dmpd_stats_appointment_set_record_index_path}
       = fa_icon 'calendar'
       Appointment Set Record
 %ul.nav.nav-tabs
@@ -66,9 +66,9 @@
               %td{colspan: "12"}
                 .text-center
                   There is insufficient data to calculate your weekly stats this week.
-                  %a{:href => new_staff_dmpd_stats_contact_card_box_path} Add your contact card box statistics
+                  %a{:href => new_dmpd_stats_contact_card_box_path} Add your contact card box statistics
                   or
-                  %a{:href => new_staff_dmpd_stats_support_raising_development_path} add your calling chart statistics.
+                  %a{:href => new_dmpd_stats_support_raising_development_path} add your calling chart statistics.
             - else
               %td.gray
                 %strong= wk.end_name
@@ -160,7 +160,7 @@
               %td{colspan: "3"}
                 .text-center
                   There is insufficient data to calculate the contact ratio this week.
-                  %a{:href => new_staff_dmpd_stats_contact_card_box_path} Add your contact card box statistics.
+                  %a{:href => new_dmpd_stats_contact_card_box_path} Add your contact card box statistics.
             - else
               %td.gray= wk.end_name
               %td= ccb.used_contacts_total
@@ -179,7 +179,7 @@
     - if current_user.mpd_goal.blank?
       .well.text-center
         %p Your MPD Goal is not set.
-        %a.btn.btn-primary{href: new_staff_dmpd_stats_contact_card_box_path}
+        %a.btn.btn-primary{href: new_dmpd_stats_contact_card_box_path}
           %i.icon-tasks
             Set Goal
     -else

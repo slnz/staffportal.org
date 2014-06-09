@@ -1,18 +1,18 @@
 .page-header
   = title "Weekly Calling Chart"
   .pull-right
-    %a.btn.btn-primary{href: staff_dmpd_stats_root_path}
+    %a.btn.btn-primary{href: dmpd_stats_root_path}
       = fa_icon 'home'
       WCS
-    %a.btn.btn-default{href: staff_dmpd_stats_contact_card_box_index_path}
+    %a.btn.btn-default{href: dmpd_stats_contact_card_box_index_path}
       = fa_icon 'user'
       Contact Card Box
-    %a.btn.btn-default{href: staff_dmpd_stats_appointment_set_record_index_path}
+    %a.btn.btn-default{href: dmpd_stats_appointment_set_record_index_path}
       = fa_icon 'calendar'
       Appointment Set Record
     - if @late > 0
       %a.btn.btn-danger.disabled= "#{@late} Late Reports"
-    %a.btn.btn-info{href: new_staff_dmpd_stats_support_raising_development_path}
+    %a.btn.btn-info{href: new_dmpd_stats_support_raising_development_path}
       = fa_icon 'plus'
       Add Data
 
@@ -25,10 +25,10 @@
     - column :number_of_calls_made
     - column :hours_calling
     - column :title => "Actions" do |srd|
-      - link_to("Edit", edit_staff_dmpd_stats_support_raising_development_path(srd) )
+      - link_to("Edit", edit_dmpd_stats_support_raising_development_path(srd) )
 - else
   .well.text-center
     %p No Statistics Entered.
-    %a.btn.btn-primary{href: new_staff_dmpd_stats_support_raising_development_path}
+    %a.btn.btn-primary{href: new_dmpd_stats_support_raising_development_path}
       = fa_icon 'plus'
       Add Data

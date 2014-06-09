@@ -1,7 +1,8 @@
 - flash.each do |key, value|
   - case key
-    - when :achievement
-      - value.each do |achievement|
+    - when 'achievement'
+      - value.each do |achievement_id|
+        - achievement = Achievement.find(achievement_id)
         .alert.alert-block.alert-info.clearfix
           = image_tag "achievement_#{achievement.name.tr(" ", "_")}.png", style: "border-radius: 5px; margin-right: 10px", class: "pull-left", width: "50"
           %h4= "Achievement Added: #{achievement.name.titleize}"
