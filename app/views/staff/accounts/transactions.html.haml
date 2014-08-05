@@ -1,7 +1,5 @@
 .page-header
   = title "#{@account.code} #{@account.name} (Transactions)"
-  .pull-right.hidden-phone.hidden-print
-    = collection_select("summary", "currency", Currency.all, :code, :name, {:selected => current_user.currency_code})
 %table#records.transactions
   %thead
     %tr
@@ -32,7 +30,7 @@
             %td.visible-desktop
             %td
             %td
-            %td= number_to_currency(@last.balance * @currency_rate)
+            %td= number_to_currency(@last.balance)
             %td.hidden-phone.details
         - @last = p
       %tr.record.expandable.closed{:id => "record_#{p.id}"}
@@ -40,8 +38,8 @@
         %td
           .type= p.type.name
         %td.visible-desktop= p.who
-        %td= number_to_currency(p.amount * @currency_rate) if p.type.income?
-        %td= number_to_currency(p.amount * @currency_rate) unless p.type.income?
+        %td= number_to_currency(p.amount) if p.type.income?
+        %td= number_to_currency(p.amount) unless p.type.income?
         %td
         %td.hidden-phone.details
       %tr.details_row

@@ -5,7 +5,6 @@ class User < ActiveRecord::Base
   validates_presence_of :username, :email
   belongs_to :bootcamp_coach, class_name: 'User'
   has_many :trainees, class_name: 'User', foreign_key: 'bootcamp_coach_id'
-  belongs_to :currency
   has_many :contacts
   has_many :user_accounts
   has_many :accounts, through: :user_accounts
@@ -96,15 +95,6 @@ class User < ActiveRecord::Base
 
   def is_admin?
     admin != 'admin'
-  end
-
-  def currency_code
-    if currency.nil?
-      self.currency = Currency.where(code: 'NZD').
-                               first_or_create(name: 'New Zealand Dollar')
-      save
-    end
-    currency.code
   end
 
   def support_raising_development

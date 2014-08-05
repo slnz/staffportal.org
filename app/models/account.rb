@@ -35,10 +35,8 @@ class Account < ActiveRecord::Base
   end
 
   def get_balance(current_user)
-    @currency_rate = current_user.currency.currency_rates.order(:month).last
-    @currency_rate = @currency_rate.blank? ? 1 : @currency_rate.rate
     @record = records.order('date DESC, id desc').first
-    @record.blank? ? 0 : @record.balance * @currency_rate
+    @record.blank? ? 0 : @record.balance
   end
 
   def last_updated

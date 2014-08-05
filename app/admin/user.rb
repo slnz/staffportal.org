@@ -54,9 +54,6 @@ ActiveAdmin.register User do
               collection: @coaches,
               input_html: { class: 'chosen' }
     end
-    f.inputs title: 'Finances' do
-      f.input :currency, input_html: { class: 'chosen' }
-    end
     f.actions
   end
 

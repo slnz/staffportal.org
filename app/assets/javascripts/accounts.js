@@ -17,11 +17,6 @@ $(document).ready(function() {
         });
       }
     });
-    $('#summary_currency').change(function() {
-      $.get( '/staff/accounts/change_default_currency/' + $(this).children('option:selected').val() + '.json').complete(function(data) {
-        window.location.reload(true);
-      });
-    })
   }
 });
 

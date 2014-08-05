@@ -1,7 +1,5 @@
 .page-header
   = title "My Accounts"
-  .pull-right.hidden-phone.hidden-print
-    = collection_select("summary", "currency", Currency.all, :code, :name, {:selected => current_user.currency_code})
 = #render 'table'
 %table#accounts
   %thead
@@ -25,7 +23,7 @@
         %td.text-right= number_to_currency p.get_balance current_user
         %td.text-right.hidden-phone
           - unless @advances[p.id].nil?
-            = number_to_currency(@advances[p.id].to_d * @currency_rate) if @advances[p.id].to_i > 0
+            = number_to_currency(@advances[p.id].to_d) if @advances[p.id].to_i > 0
         %td= p.last_updated
         %td.text-right
           %a{:href => "/staff/accounts/#{p.id}"} Summary
@@ -41,8 +39,8 @@
             .bd{:id => @random, :style => ( (p.code[0] == '1' or p.code[0] == '9') ? 'display:block' : 'display:none' )}
               %script{:type => 'text/javascript'}
                 - if @salary.has_key?(p.id) and @goals.has_key?(p.id)
-                  = "insert_graph(\"#{@random}\",#{@months.keys.inspect.html_safe}, #{@graphs[p.code].to_a.map{|v| v[1].to_i} },\"Balance\", #{(@goals[p.id].to_d * @currency_rate).to_i}, #{(@salary[p.id].to_d * @currency_rate).to_i});".html_safe
+                  = "insert_graph(\"#{@random}\",#{@months.keys.inspect.html_safe}, #{@graphs[p.code].to_a.map{|v| v[1].to_i} },\"Balance\", #{@goals[p.id]}, #{@salary[p.id]});".html_safe
                 - elsif @goals.has_key?(p.id)
-                  = "insert_graph(\"#{@random}\",#{@months.keys.inspect.html_safe}, #{@graphs[p.code].to_a.map{|v| v[1].to_i} },\"Balance\", #{(@goals[p.id].to_d * @currency_rate).to_i});".html_safe
+                  = "insert_graph(\"#{@random}\",#{@months.keys.inspect.html_safe}, #{@graphs[p.code].to_a.map{|v| v[1].to_i} },\"Balance\", #{@goals[p.id]});".html_safe
                 - else
                   = "insert_graph(\"#{@random}\",#{@months.keys.inspect.html_safe}, #{@graphs[p.code].to_a.map{|v| v[1].to_i} },\"Balance\", 0);".html_safe

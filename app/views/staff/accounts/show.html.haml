@@ -1,7 +1,5 @@
 .page-header
   = title "#{@account.code} #{@account.name} (Summary)"
-  .pull-right.hidden-phone.hidden-print
-    = collection_select("summary", "currency", Currency.all, :code, :name, {:selected => current_user.currency_code})
 %table#records
   %thead
     %tr
@@ -54,8 +52,8 @@
         %td.text-right= number_to_currency @total, :precision => 0
         %td.text-right
           - unless @goals[key].nil?
-            = number_to_currency @goals[key] * @currency_summary[@day.strftime('%b %y')], :precision => 0
-            - @income_goal += @goals[key] * @currency_summary[@day.strftime('%b %y')]
+            = number_to_currency @goals[key], :precision => 0
+            - @income_goal += @goals[key]
         %td.visible-desktop.details
       - @random = SecureRandom::uuid
       %tr{:style => 'display:none'}
@@ -176,11 +174,11 @@
                 - if t[1] == 0
                   %td.text-right{class: (if index < 5 then "visible-desktop" elsif index < 10 then "hidden-phone" end)}= number_with_precision @stock, :precision => 0, :delimiter => ','
                 - else
-                  - @stock += t[1].amount * @currency_summary[ t[0] ]
-                  - @total += t[1].amount * @currency_summary[ t[0] ]
+                  - @stock += t[1].amount
+                  - @total += t[1].amount
                   %td.text-right{class: (if index < 5 then "visible-desktop" elsif index < 10 then "hidden-phone" end)}= link_to number_with_precision(@stock, :precision => 0, :delimiter => ','), :controller => "accounts", :action => :transactions, :id => params[:id], :type => key, :month => t[0]
                   - if t[1].code == "1225" or t[1].code == "1350" #VEHICLE ADVANCES & STOCK
-                    - @advance_summary[ t[0] ] -= t[1].amount * @currency_summary[ t[0] ]
+                    - @advance_summary[ t[0] ] -= t[1].amount
             %td
             - @advance_final = @total
             %td

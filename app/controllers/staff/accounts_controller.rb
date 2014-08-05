@@ -23,12 +23,6 @@ module Staff
                          ago((13 - count).month).
                          strftime('%b %y')] = 0
       end
-      if current_user.currency.nil?
-        current_user.currency = Currency.find_by_code('NZD')
-        current_user.save
-      end
-      @currency_rate = current_user.currency.currency_rates.order(:month).last
-      @currency_rate = @currency_rate.blank? ? 1 : @currency_rate.rate
       if current_user.accounts.count <= 15
         @goals = current_user.accounts.
                               joins(goals: :type).
@@ -51,23 +45,9 @@ module Staff
                        end
                        string_month = value.month.strftime('%b %y')
                        if @graphs[value.code].has_key?(string_month)
-                         @graphs[value.code][string_month] = value.last.to_i *
-                                                            @currency_rate
+                         @graphs[value.code][string_month] = value.last.to_i
                        end
                      end
-      end
-    end
-
-    def change_default_currency
-      if current_user.currency.nil?
-        current_user.currency = Currency.where(code: 'NZD').
-                                         first_or_create(name: 'New Zealand ' +
-                                                         'Dollar')
-      end
-      current_user.currency = Currency.where(code: params[:code]).first
-      current_user.save
-      respond_to do |format|
-        format.json { render json: 'success' }
       end
     end
 
@@ -76,8 +56,6 @@ module Staff
       add_breadcrumb @account.code, account_path(@account)
       add_breadcrumb 'transactions', transactions_account_path(@account)
 
-      @currency_rate = current_user.currency.currency_rates.order(:month).last
-      @currency_rate = @currency_rate.blank? ? 1 : @currency_rate.rate
       query = @account.records
       unless params[:type].nil?
         @type_id = Type.where(id: params[:type]).first
@@ -99,8 +77,6 @@ module Staff
           @money_out -= t.amount
         end
       end
-
-      @fullwidth = true
     end
 
     def show
@@ -131,28 +107,11 @@ module Staff
       end
       @months = {}
 
-      @currency_summary = {}
-
-      fx = OpenExchangeRates::Rates.new
+      @expense = {}
 
       @day = @latest.date.ago((@months_to_show).month).beginning_of_month
       (0..@months_to_show).each do
         @months[@day.strftime('%b %y')] = 0
-        @currency_summary[@day.strftime('%b %y')] = 1
-        unless current_user.currency_code == 'NZD'
-          @query = current_user.currency.
-                                currency_rates.
-                                where(month: @day.end_of_day).
-                                first_or_create(
-                                rate: fx.convert(1,
-                                                 from: 'NZD',
-                                                 to: current_user.currency_code,
-                                                 on: @day.strftime('%Y-%m-%d')))
-          unless @query.nil?
-            @currency_summary[@day.strftime('%b %y')] = @query.rate
-          end
-        end
-
         @day += 1.month
       end
       @day -= 1.month # last
@@ -187,16 +146,13 @@ module Staff
           if @income[t.id.to_s].blank?
             @income[t.id.to_s] = @months.deep_dup.merge(name: t.name)
           end
-          if @currency_summary[t.month.strftime('%b %y')].nil?
-            fail t.month.strftime('%b %y').inspect
-          end
           @income[t.id.to_s][t.month.strftime('%b %y')] =
-            t.amount * @currency_summary[t.month.strftime('%b %y')]
+            t.amount
         elsif t.definition == 'EX'
           @expense[t.id.to_s] =
             @months.deep_dup.merge(name: t.name) if @expense[t.id.to_s].blank?
           @expense[t.id.to_s][t.month.strftime('%b %y')] =
-            t.amount * @currency_summary[t.month.strftime('%b %y')]
+            t.amount
         elsif t.code == '1220' ||
               t.code == '1350' ||
               t.code == '1225' ||
@@ -206,8 +162,6 @@ module Staff
           @advance[t.id.to_s][t.month.strftime('%b %y')] = t
         end
       end
-
-      @fullwidth = true
     end
   end
 end

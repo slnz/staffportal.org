@@ -26,7 +26,6 @@ ActiveAdmin.register User, namespace: :coach do
     attributes_table do
       row :name
       row :username
-      row :currency
       row('admin') { |user| status_tag(user.admin, 'orange') }
     end
 
