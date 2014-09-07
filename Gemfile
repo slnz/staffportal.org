@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.1.0'
+ruby '2.1.2'
 # Rails
 gem 'rails', '4.1.1'
 
@@ -72,7 +72,6 @@ end
 
 group :development do
   gem 'pry-rails'
-  gem 'pry-debugger'
   gem 'foreman'
   gem 'travis'
   gem 'rails-erd'
