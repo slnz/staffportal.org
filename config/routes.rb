@@ -19,6 +19,7 @@ Staff::Application.routes.draw do
       namespace :dmpd do
         root 'index#index'
         get 'contacts' => 'index#contacts'
+        get 'signup' => 'index#signup'
         resources :contacts
         resources :taskset
         namespace :stats do
@@ -29,8 +30,15 @@ Staff::Application.routes.draw do
         end
       end
       resources :reports
-      resources :reviews
+      resources :reviews do
+        collection do
+          get 'signup'
+        end
+      end
       resources :gma_organizations, only: [:index] do
+        collection do
+          get 'signup'
+        end
         resources :gma_staff_reports, only: [:index, :edit, :update]
       end
       resources :accounts do
