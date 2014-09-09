@@ -1,4 +1,4 @@
-.page-header
+.page-header.account
   = title "#{@account.code} #{@account.name} (Summary)"
 %table#records
   %thead
@@ -15,24 +15,6 @@
       %th Budget
       %th.visible-desktop
   %tbody
-    -# EXCHANGE RATES
-    - unless current_user.currency_code == "NZD"
-      %tr.record
-        %td{:colspan => @months.length + 4} Exchange Rates
-        %tr.record.expandable.closed
-          %td= current_user.currency.name
-          - @total = 0
-          - @currency_summary.each_with_index do |t, index|
-            %td{class: (if index < 5 then "visible-desktop" elsif index < 10 then "hidden-phone" end)}= number_with_precision(t[1], :precision => 2, :delimiter => ',')
-          %td
-          %td=@currency_summary[@day.strftime('%b %y')]
-          %td.hidden-phone
-        - @random = SecureRandom::uuid
-        %tr{:style => 'display:none'}
-          %td{:colspan => 100}
-            .bd{:id => @random, :style => 'display:none'}
-              %script{:type => 'text/javascript'}
-                = "insert_graph(\"#{@random}\",#{@months.keys.inspect.html_safe}, #{@data});".html_safe
     -# INCOME
     %tr.record.hidden-print
       %td{:colspan => @months.length + 4}

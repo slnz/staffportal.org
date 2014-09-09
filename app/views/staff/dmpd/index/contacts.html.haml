@@ -1,16 +1,19 @@
-
-.page-header= title "Contacts"
-= semantic_form_for Contact.new, url: dmpd_contacts_path, builder: FormtasticBootstrap::FormBuilder do |f|
-  = f.input :first_name
-  = f.input :last_name
-  = f.input :phone
-  = f.input :user_id, :as => :hidden, :input_html => { :value => current_user.id }
-  = f.actions do
-    = f.action :submit, :as => :button, :label => "Add Contact"
-- unless @contacts.empty?
-  = table_for @contacts,:html => {:class => "table table-striped"} do
-    - column :first_name
-    - column :last_name
-    - column :phone
-    - column :title => "Actions" do |contact|
-      - link_to("Delete", dmpd_contact_path(contact), :method => :delete)
+.page-header.dmpd
+  = title "Contacts"
+.row
+  .col-md-4
+    = semantic_form_for Contact.new, url: dmpd_contacts_path, builder: FormtasticBootstrap::FormBuilder do |f|
+      = f.input :first_name
+      = f.input :last_name
+      = f.input :phone
+      = f.input :user_id, :as => :hidden, :input_html => { :value => current_user.id }
+      = f.actions do
+        = f.action :submit, :as => :button, :label => "Add Contact"
+  .col-md-8
+    - unless @contacts.empty?
+      = table_for @contacts,:html => {:class => "table table-striped"} do
+        - column :first_name
+        - column :last_name
+        - column :phone
+        - column :title => "Actions" do |contact|
+          - link_to("Delete", dmpd_contact_path(contact), :method => :delete)
