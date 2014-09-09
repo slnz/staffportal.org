@@ -25,7 +25,9 @@ class User < ActiveRecord::Base
 
   attr_encrypted :password
 
-  validates :encrypted_password, symmetric_encryption: true
+  validates :encrypted_password,
+            symmetric_encryption: true,
+            unless: -> { encrypted_password.blank? }
   validate :key_password
   before_save do
     username.downcase! if username
@@ -52,6 +54,7 @@ class User < ActiveRecord::Base
   end
 
   def key_password
+    return if password.blank?
     response = HTTParty.post('https://thekey.me/cas/v1/tickets',
                   body: { username: email, password: password })
     if response.code != 201
