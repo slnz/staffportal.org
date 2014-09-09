@@ -26,9 +26,9 @@
             = number_to_currency(@advances[p.id].to_d) if @advances[p.id].to_i > 0
         %td= p.last_updated
         %td.text-right
-          %a{:href => "/staff/accounts/#{p.id}"} Summary
+          %a{:href => account_path(p.id)} Summary
           \ 
-          %a{:href => "/staff/accounts/#{p.id}/transactions"} Transactions
+          %a{:href => transactions_account_path(p.id)} Transactions
           \
         - if current_user.accounts.count <= 15
           %td.visible-desktop.details
