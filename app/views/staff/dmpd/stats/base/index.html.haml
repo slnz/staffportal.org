@@ -171,18 +171,4 @@
                     %strong ERR
                 - else
                   = number_with_precision(contacts_received.to_d / ccb.used_contacts_total.to_d, :precision => 2)
-
-  %br/
-  %div.page-header MPD Graph
-  #mpd
-  -#
-    - if current_user.mpd_goal.blank?
-      .well.text-center
-        %p Your MPD Goal is not set.
-        %a.btn.btn-primary{href: new_dmpd_stats_contact_card_box_path}
-          %i.icon-tasks
-            Set Goal
-    -else
-      %script{:type => 'text/javascript'}
-        = "insert_graph('mpd',#{@graph_data[:months].to_json}, #{@graph_data[:pledge].to_json}, 'Pledges', #{current_user.mpd_goal.to_i});".html_safe
-
+  .text-center= paginate @weeks
