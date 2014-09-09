@@ -34,7 +34,7 @@
             = fa_icon 'user'
             My Profile
           %ul.nav.sub
-            %li
+            %li{ class: ('active' if request.path.match(/dmpd/)) }
               %a{:href => dmpd_root_path}
                 = fa_icon 'tasks'
                 DMPD
