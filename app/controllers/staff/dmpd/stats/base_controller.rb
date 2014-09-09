@@ -21,7 +21,11 @@ module Staff
           rescue
             @mpd_goal = 0
           end
-          @weeks = Week.where('date_finished < ?', Time.now.to_date + 1.week)
+          @weeks =
+            Week.where('date_finished < ?',
+                       Time.now.to_date + 1.week).
+                 order('date_finished desc').
+                 page params[:page]
         end
 
         def contact_ratio

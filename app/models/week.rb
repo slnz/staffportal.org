@@ -1,5 +1,6 @@
 class Week < ActiveRecord::Base
   # attr_accessible :date_start, :date_finished
+  paginates_per 10
 
   def date_start=(date)
     if date.instance_of?(Date)
