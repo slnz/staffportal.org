@@ -3,12 +3,22 @@ module Staff
     before_filter :authenticate_user!
 
     def index
-      if current_user.gma_update?
-        @status = current_user.status
-        render 'busy'
+      if current_user.stats?
+        if current_user.gma_update?
+          @status = current_user.status
+          render 'busy'
+        else
+          super
+        end
       else
-        super
+        render 'signup'
       end
+    end
+
+    def signup
+      current_user.stats = true
+      current_user.save!
+      redirect_to action: :index
     end
 
     protected

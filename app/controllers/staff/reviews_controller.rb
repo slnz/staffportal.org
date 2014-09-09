@@ -4,36 +4,41 @@ module Staff
 
     add_breadcrumb 'people and culture', :reviews_path
     def index
-      @review = get_review
-      @categories = []
-      @graph = current_user.user_reviews.
-      joins('INNER JOIN "review_questions" ON "review_questions"."id"' +
-            ' = "user_review_answers"."review_question_id"').
-      joins(:user_review_answers).
-      joins(:review).
-      where('reviews.open > ?', 2.years.ago).
-      group('reviews.id').
-      select('array_agg(user_review_answers.value) as values',
-             'array_agg(review_questions.text) as text',
-             'reviews.open as date').
-      map do |r|
-        r[:text].each do |text|
-          @categories << text unless @categories.include?(text)
-        end
-        @values = {}
-        r[:values].each_with_index do |value, index|
-          @values[r[:text][index]] = value
-        end
-        { values: @values, date: r[:date].financial_quarter }
-      end
-      @series = []
+      if current_user.pac?
 
-      @graph.each do |question|
-        @values_array = []
-        @categories.each do |text|
-          @values_array << question[:values][text].to_int || 0
+        @review = get_review
+        @categories = []
+        @graph = current_user.user_reviews.
+        joins('INNER JOIN "review_questions" ON "review_questions"."id"' +
+              ' = "user_review_answers"."review_question_id"').
+        joins(:user_review_answers).
+        joins(:review).
+        where('reviews.open > ?', 2.years.ago).
+        group('reviews.id').
+        select('array_agg(user_review_answers.value) as values',
+               'array_agg(review_questions.text) as text',
+               'reviews.open as date').
+        map do |r|
+          r[:text].each do |text|
+            @categories << text unless @categories.include?(text)
+          end
+          @values = {}
+          r[:values].each_with_index do |value, index|
+            @values[r[:text][index]] = value
+          end
+          { values: @values, date: r[:date].financial_quarter }
         end
-        @series << { name: question[:date], data: @values_array }
+        @series = []
+
+        @graph.each do |question|
+          @values_array = []
+          @categories.each do |text|
+            @values_array << question[:values][text].to_int || 0
+          end
+          @series << { name: question[:date], data: @values_array }
+        end
+      else
+        render 'signup'
       end
     end
 
@@ -75,6 +80,12 @@ module Staff
       end
 
       redirect_to reviews_path
+    end
+
+    def signup
+      current_user.pac = true
+      current_user.save!
+      redirect_to action: :index
     end
 
     private
