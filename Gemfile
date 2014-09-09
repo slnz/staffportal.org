@@ -19,8 +19,6 @@ gem 'resque-retry'
 gem 'resque-status'
 gem 'hirefire-resource'
 
-# Currency
-gem 'open_exchange_rates'
 
 # API
 gem 'feedjira'
@@ -33,6 +31,7 @@ gem 'inherited_resources'
 gem 'paperclip'
 gem 'aws-sdk'
 gem 'fiscali'
+gem 'kaminari'
 
 # View
 gem 'breadcrumbs_on_rails'
