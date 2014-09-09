@@ -13,6 +13,8 @@
 
 body {
   background: #f1f1f1;
+  font-family: "proxima-nova",sans-serif;
+  font-size: 15px;
 }
 
 // Sidebar
@@ -197,24 +199,30 @@ nav.navbar-fixed-top {
   background-size: cover;
   overflow: auto;
   .page-header {
-    display:inline-block;
-    width:100%;
-    line-height: auto;
-    margin-bottom: 15px;
-    margin-top: 10px;
-    &:after {
-      content: " ";
-      display:block;
-      height:0;
-      clear: both;
-      overflow:hidden;
-      visibility:hidden;
-    }
+    margin: 0;
+    background-color: #474747;
+    border-left: 10px #cccccc solid;
+    padding: 15px 20px;
+    color: #fff;
+    margin-bottom: 10px;
+    height: 78px;
     h1 {
       font-size: 22px;
-      line-height: 37px;
-      float: left;
+      line-height: 50px;
       margin: 0;
+      float: left;
+    }
+    &.account {
+      border-left-color: #f78c2a;
+    }
+    &.pac {
+      border-left-color: #1d9bfc;
+    }
+    &.statistics {
+      border-left-color: #34fee6;
+    }
+    &.dmpd {
+      border-left-color: #f32370;
     }
   }
 }
@@ -373,4 +381,55 @@ form.gma_staff_report {
 .cheers_icon {
     font-size: 100px;
     color: #29a6f7;
+}
+
+// dashboard
+.dashboard {
+  .box {
+    background-color: #474747;
+    border-top: 10px #cccccc solid;
+    padding: 20px;
+    color: #fff;
+    text-align: center;
+    min-height: 292px;
+    margin-bottom: 20px;
+    border-radius: 0 0 5px 5px;
+    .title {
+      display: block;
+      text-transform: uppercase;
+      font-weight: bold;
+    }
+    .stat {
+      font-weight: 100;
+      font-size: 40px;
+      padding: 40px 0;
+      i {
+        font-size: 70px;
+        color: #585858;
+      }
+    }
+    &.account {
+      border-top-color: #f78c2a;
+    }
+    &.pac {
+      border-top-color: #1d9bfc;
+    }
+    &.statistics {
+      border-top-color: #34fee6;
+    }
+    &.dmpd {
+      border-top-color: #f32370;
+    }
+    &.empty {
+      min-height: 282px;
+      border: 10px #ccc dashed;
+      background: #fff;
+      color: #ccc;
+      .stat {
+        i {
+          color: #ccc;
+        }
+      }
+    }
+  }
 }

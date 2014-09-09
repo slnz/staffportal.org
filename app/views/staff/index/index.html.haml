@@ -1,2 +1,69 @@
-.page-header
-  = title 'Home'
+- title 'Home'
+.dashboard.row
+  - current_user.accounts.limit(3).all.each do |account|
+    %a{:href => account_path(account.id)}
+      .col-md-4.col-sm-6
+        .box.account
+          .title
+            = account.name
+            %span.text-muted Balance
+          .stat
+            %div= fa_icon 'money'
+            = number_to_currency account.get_balance current_user
+  - if current_user.pac?
+    %a{href: reviews_path}
+      .col-md-4
+        .box.pac
+          .title
+            People & Culture
+            %span.text-muted Due Reviews
+          .stat
+            %div= fa_icon 'university'
+            0
+  - if current_user.stats?
+    %a{href: gma_organizations_path}
+      .col-md-4
+        .box.statistics
+          .title
+            Statistics
+            %span.text-muted Due Reports
+          .stat
+            %div= fa_icon 'bar-chart-o'
+            = current_user.gma_staff_reports.where(submitted: false).count
+  - if current_user.dmpd?
+    %a{href: dmpd_contacts_path}
+      .col-md-4
+        .box.dmpd
+          .title
+            %span.text-muted DMPD
+            Contacts
+          .stat
+            %div= fa_icon 'users'
+            = current_user.contacts.count
+  - unless current_user.pac?
+    %a{href: reviews_path}
+      .col-md-4
+        .box.empty
+          .title
+            People & Culture
+          .stat
+            %div= fa_icon 'plus'
+            Activate
+  - unless current_user.stats?
+    %a{href: gma_organizations_path}
+      .col-md-4
+        .box.empty
+          .title
+            Statistics
+          .stat
+            %div= fa_icon 'plus'
+            Activate
+  - unless current_user.dmpd?
+    %a{href: dmpd_root_path}
+      .col-md-4
+        .box.empty
+          .title
+            DMPD
+          .stat
+            %div= fa_icon 'plus'
+            Activate
