@@ -2,7 +2,7 @@
 .dashboard.row
   - current_user.accounts.limit(3).all.each do |account|
     %a{:href => account_path(account.id)}
-      .col-md-4.col-sm-6
+      .col-md-4
         .box.account
           .title
             = account.name

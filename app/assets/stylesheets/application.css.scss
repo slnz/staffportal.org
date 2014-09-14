@@ -433,3 +433,49 @@ form.gma_staff_report {
     }
   }
 }
+
+.navbar-alternative {
+  display: none;
+}
+
+@media (max-width: 1280px) {
+  .sidebar, .stream {
+    display: none;
+  }
+  .content {
+    left: 0;
+    right: 0;
+    top: 140px;
+  }
+  nav.navbar-fixed-top {
+    left: 0;
+  }
+  .navbar-alternative {
+    display: block;
+    background-color: #364051;
+    position: fixed;
+    left: 0;
+    top: 80px;
+    right: 0;
+    border: 0;
+    border-radius: 0;
+    z-index: 100;
+    .navbar-brand {
+      color: #29a6f7;
+      font-weight: bold;
+    }
+    .container-fluid {
+      padding-left: 30px;
+      padding-right: 30px;
+    }
+    .navbar-nav > .active > a, .navbar-nav > .open > a {
+      background-color: #4a5363;
+      &:hover {
+        background-color: #4a5363;
+      }
+    }
+    .navbar-nav > li > a {
+      color: #a4acb7;
+    }
+  }
+}

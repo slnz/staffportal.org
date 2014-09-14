@@ -1,0 +1,9 @@
+.stream.hidden-sm.hidden-xs
+  .title Activity Stream
+  - UserAchievement.order('created_at DESC').all.limit(10).each do |achievement|
+    .item
+      .row
+        .col-xs-2
+          = image_tag "achievement_#{achievement.achievement.name.tr(" ", "_")}.png", style: "border-radius: 5px; margin-right: 5px", width: 25
+        .col-xs-10
+          = "<strong>#{achievement.user.name}</strong> earned the acheivement <strong>#{achievement.achievement.name.titleize}</strong> for #{pluralize achievement.achievement.xp_value, 'points'}".html_safe
