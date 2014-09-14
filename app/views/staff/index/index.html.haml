@@ -3,7 +3,7 @@
   - current_user.accounts.limit(3).all.each do |account|
     %a{:href => account_path(account.id)}
       .col-md-4
-        .box.account
+        .box.account.clearfix
           .title
             = account.name
             %span.text-muted Balance
@@ -23,7 +23,7 @@
   - if current_user.stats?
     %a{href: gma_organizations_path}
       .col-md-4
-        .box.statistics
+        .box.statistics.clearfix
           .title
             Statistics
             %span.text-muted Due Reports
@@ -33,7 +33,7 @@
   - if current_user.dmpd?
     %a{href: dmpd_contacts_path}
       .col-md-4
-        .box.dmpd
+        .box.dmpd.clearfix
           .title
             %span.text-muted DMPD
             Contacts
@@ -43,7 +43,7 @@
   - unless current_user.pac?
     %a{href: reviews_path}
       .col-md-4
-        .box.empty
+        .box.empty.clearfix
           .title
             People & Culture
           .stat
@@ -52,7 +52,7 @@
   - unless current_user.stats?
     %a{href: gma_organizations_path}
       .col-md-4
-        .box.empty
+        .box.empty.clearfix
           .title
             Statistics
           .stat
@@ -61,7 +61,7 @@
   - unless current_user.dmpd?
     %a{href: dmpd_root_path}
       .col-md-4
-        .box.empty
+        .box.empty.clearfix
           .title
             DMPD
           .stat

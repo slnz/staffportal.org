@@ -385,6 +385,9 @@ form.gma_staff_report {
 
 // dashboard
 .dashboard {
+  a:hover {
+    text-decoration: none;
+  }
   .box {
     background-color: #474747;
     border-top: 10px #cccccc solid;
@@ -445,7 +448,7 @@ form.gma_staff_report {
   .content {
     left: 0;
     right: 0;
-    top: 140px;
+    top: 130px;
   }
   nav.navbar-fixed-top {
     left: 0;
@@ -476,6 +479,52 @@ form.gma_staff_report {
     }
     .navbar-nav > li > a {
       color: #a4acb7;
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .content {
+    padding: 10px;
+  }
+
+  .navbar-alternative {
+    .container-fluid {
+      padding-left: 10px;
+      padding-right: 10px;
+    }
+  }
+
+  .dashboard {
+    .box {
+      min-height: 0;
+      margin-bottom: 10px;
+      &.empty {
+        min-height: 0;
+        border-width: 2px;
+        line-height: 21px;
+        .stat {
+          line-height: 21px;
+          text-transform: uppercase;
+          font-size: 15px;
+        }
+      }
+      i {
+        display: none;
+      }
+      .title {
+        float: left;
+        text-align: left;
+        .text-muted {
+          display: block;
+        }
+      }
+      .stat {
+        padding: 0;
+        float: right;
+        font-size: 20px;
+        line-height: 42px;
+      }
     }
   }
 }
