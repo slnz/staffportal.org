@@ -484,27 +484,36 @@ form.gma_staff_report {
 }
 
 @media (max-width: 767px) {
+  .zopim {
+    display: none;
+  }
   .content {
-    padding: 10px;
-    top: 90px;
+    position: static;
+    padding: 15px;
+    .page-header {
+      margin: -15px;
+      margin-bottom: 0;
+    }
   }
 
   .navbar-alternative {
-    top: 42px;
+    top: 0;
     .container-fluid {
-      padding-left: 10px;
-      padding-right: 10px;
+      padding: 0 15px;
     }
   }
   nav.navbar-fixed-top {
+    position: static;
     height: 42px;
+    margin-top: 52px;
     .navbar-header {
-      padding: 0 10px;
+      padding: 0 15px;
       height: 42px;
     }
   }
 
   .dashboard {
+    padding-top:20px;
     .box {
       min-height: 0;
       margin-bottom: 10px;
