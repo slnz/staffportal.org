@@ -486,12 +486,21 @@ form.gma_staff_report {
 @media (max-width: 767px) {
   .content {
     padding: 10px;
+    top: 90px;
   }
 
   .navbar-alternative {
+    top: 42px;
     .container-fluid {
       padding-left: 10px;
       padding-right: 10px;
+    }
+  }
+  nav.navbar-fixed-top {
+    height: 42px;
+    .navbar-header {
+      padding: 0 10px;
+      height: 42px;
     }
   }
 
