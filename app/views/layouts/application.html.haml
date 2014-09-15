@@ -8,9 +8,6 @@
     %meta{name: "apple-mobile-web-app-capable", content:"yes"}/
     %meta{name: "mobile-web-app-capable", content:"yes"}/
     = stylesheet_link_tag "application", :media => "all"
-    %script{:text => "text/javascript"}
-      var controller = "#{params[:controller]}";
-      var action = "#{params[:action]}";
     = javascript_include_tag "application"
     = csrf_meta_tags
   %body
@@ -24,6 +21,9 @@
         %h6.text-muted
           CCCI © Copyright
           = Time.now.strftime('%Y')
+    %script{:text => "text/javascript"}
+      var controller = "#{params[:controller]}";
+      var action = "#{params[:action]}";
     / Start of Zopim Live Chat Script
     :javascript
       window.$zopim||(function(d,s){var z=$zopim=function(c){z._.push(c)},$=z.s=

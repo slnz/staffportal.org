@@ -1,6 +1,8 @@
 // Vendor
 @import 'bootstrap';
 @import 'formtastic-bootstrap';
+@import 'nprogress';
+@import 'nprogress-bootstrap';
 @import 'font-awesome';
 @import 'compass/css3';
 @import 'datepicker';
@@ -383,6 +385,10 @@ form.gma_staff_report {
     color: #29a6f7;
 }
 
+#nprogress .bar {
+  height: 3px;
+}
+
 // dashboard
 .dashboard {
   a:hover {
@@ -439,6 +445,9 @@ form.gma_staff_report {
 
 .navbar-alternative {
   display: none;
+  .navbar-toggle {
+    border: 0;
+  }
 }
 
 @media (max-width: 1280px) {
@@ -484,6 +493,9 @@ form.gma_staff_report {
 }
 
 @media (max-width: 767px) {
+  body {
+    background-color: #fff;
+  }
   .zopim {
     display: none;
   }

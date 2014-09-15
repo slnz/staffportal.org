@@ -32,6 +32,7 @@ $(window).resize(function()
 });
 
 function insert_graph(container, categories, data, name, goal_input, salary_input) {
+  setTimeout(function() {
     var goal = [0];
     if (goal_input != null)
     {
@@ -77,52 +78,51 @@ function insert_graph(container, categories, data, name, goal_input, salary_inpu
             }]
     }
 
-    $(document).ready(function() {
-        graphs[container] = new Highcharts.Chart({
-            chart: {
-                renderTo: container,
-                reflow: false,
-                height: 200
-            },
+    graphs[container] = new Highcharts.Chart({
+        chart: {
+            renderTo: container,
+            reflow: false,
+            height: 200
+        },
+        title: {
+            text: ''
+        },
+        yAxis: {
             title: {
                 text: ''
-            },
-            yAxis: {
-                title: {
-                    text: ''
-                }
-            },
-            xAxis: {
-                categories: categories
-            },
-            tooltip: {
-                formatter: function() {
-                    return ''+
-                    this.x +': $'+ this.y;
-                }
-            },
-            credits: {
-                enabled: false
-            },
-            plotOptions: {
-                area: {
-                    marker: {
-                        enabled: false,
-                        symbol: 'circle',
-                        radius: 2,
-                        states: {
-                            hover: {
-                                enabled: true
-                            }
+            }
+        },
+        xAxis: {
+            categories: categories
+        },
+        tooltip: {
+            formatter: function() {
+                return ''+
+                this.x +': $'+ this.y;
+            }
+        },
+        credits: {
+            enabled: false
+        },
+        plotOptions: {
+            area: {
+                marker: {
+                    enabled: false,
+                    symbol: 'circle',
+                    radius: 2,
+                    states: {
+                        hover: {
+                            enabled: true
                         }
                     }
                 }
-            },
-            series: series,
-            legend: {
-              enabled: true
             }
+        },
+        series: series,
+        legend: {
+          enabled: true
+        }
 
-        });
     });
+  }, 100);
 }

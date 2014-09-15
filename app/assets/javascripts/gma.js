@@ -1,7 +1,7 @@
 $(document).ready(function() {
   if ( controller == "staff/gma_organizations" ) {
     $('iframe').hide();
-    $('#gma_organizations a').click(function (e) {
+    $('#gma_organizations a.list-group-item').click(function (e) {
       change_iframe_src('#gma_staff_reports', $(this).attr('href'), '#gma_staff_report_select');
       $('#gma_measurement_select').show();
       parent.change_iframe_src('#gma_measurements', 'about:blank');
