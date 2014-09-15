@@ -2,6 +2,8 @@ module Staff
   class GmaOrganizationsController < InheritedResources::Base
     before_filter :authenticate_user!
 
+    add_breadcrumb 'my statistics', :gma_organizations_path
+
     def index
       if current_user.stats?
         if current_user.gma_update?
