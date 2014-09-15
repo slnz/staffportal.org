@@ -5,13 +5,13 @@
   %thead
     %tr
       %th Code
-      %th.hidden-phone Name
+      %th.hidden-sm.hidden-xs Name
       %th Balance
-      %th.hidden-phone
+      %th.hidden-sm.hidden-xs
         Advances
       %th
         Updated
-        %span.hidden-phone On
+        %span.hidden-sm.hidden-xs On
       %th
       - if current_user.accounts.count <= 15
         %th.visible-desktop
@@ -19,9 +19,9 @@
     - current_user.accounts.order(:code).all.each do |p|
       %tr.record.account{:class => "#{ if current_user.accounts.count <= 15 then 'expandable' else 'closed' end} #{'closed' unless p.code[0] == '1' or p.code[0] == '9'}" }
         %td= p.code
-        %td.hidden-phone= p.name
+        %td.hidden-sm.hidden-xs= p.name
         %td.text-right= number_to_currency p.get_balance current_user
-        %td.text-right.hidden-phone
+        %td.text-right.hidden-sm.hidden-xs
           - unless @advances[p.id].nil?
             = number_to_currency(@advances[p.id].to_d) if @advances[p.id].to_i > 0
         %td= p.last_updated
