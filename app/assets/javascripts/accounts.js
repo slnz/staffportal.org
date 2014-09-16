@@ -2,6 +2,7 @@ var reload = false;
 var graphs = {};
 $(document).ready(function() {
   if ( controller == "staff/accounts" ) {
+    $('div.content').addClass('no-stream');
     $('tr.expandable > td > a').click(function() {
       reload = true;
     });
