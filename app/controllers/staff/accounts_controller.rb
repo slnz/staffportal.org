@@ -54,7 +54,7 @@ module Staff
     def transactions
       @account = current_user.accounts.find(params[:id])
       add_breadcrumb @account.code, account_path(@account)
-      add_breadcrumb 'transactions', transactions_account_path(@account)
+      add_breadcrumb 'history', transactions_account_path(@account)
 
       query = @account.records
       unless params[:type].nil?
@@ -82,7 +82,7 @@ module Staff
     def show
       @account = current_user.accounts.find(params[:id])
       add_breadcrumb @account.code, account_path(@account)
-      add_breadcrumb 'transactions', transactions_account_path(@account)
+      add_breadcrumb 'history', transactions_account_path(@account)
 
       @months_to_show = 11
       @latest = @account.records.order(:date).last
