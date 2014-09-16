@@ -706,6 +706,22 @@ form.gma_staff_report {
       .go {
         display: none;
       }
+      &.taskset {
+        .title {
+          float: none;
+          margin-bottom: 10px;
+        }
+        .stat {
+          float: none;
+        }
+        .text {
+          float: none;
+          text-align: center;
+        }
+        i {
+          display: inline-block;
+        }
+      }
     }
   }
 }

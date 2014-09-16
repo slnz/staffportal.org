@@ -6,7 +6,7 @@
   - @tasksets.each do |t|
     .col-md-4
       %a{href: edit_dmpd_taskset_path(t)}
-        .box.dmpd
+        .box.dmpd.taskset
           .border
           .title.clearfix
             .pull-right.muted
@@ -16,7 +16,7 @@
             .pull-left
               = "Taskset #{t.name}"
           .row
-            .col-sm-4
+            .col-xs-4
               - count = t.assignments.boolean.count - t.user_assignments.where(user: current_user, answer_boolean: true).joins(:assignment).where('kind = ?', Assignment.kinds[:boolean]).count
               .stat
                 - if !t.assignments.boolean.exists?
@@ -27,7 +27,7 @@
                   = fa_icon 'check'
               .text
                 = pluralize(count, 'task')
-            .col-sm-4
+            .col-xs-4
               - count = t.assignments.text.count - t.user_assignments.where(user: current_user).where('answer_text != ?', '').joins(:assignment).where('kind = ?', Assignment.kinds[:text]).count
               .stat
                 - if !t.assignments.text.exists?
@@ -38,7 +38,7 @@
                   = fa_icon 'check'
               .text
                 = pluralize(count, 'essay')
-            .col-sm-4
+            .col-xs-4
               - count = t.assignments.upload.count - t.user_assignments.where(user: current_user).where('answer_upload_file_name != ?', '').joins(:assignment).where('kind = ?', Assignment.kinds[:upload]).count
               .stat
                 - if !t.assignments.upload.exists?
