@@ -1,7 +1,10 @@
 .page-header.account
   %a.back{href: accounts_path}
     = fa_icon 'chevron-left'
-  = title "#{@account.code} #{@account.name} (Summary)"
+  - title "#{@account.code} #{@account.name} (Summary)"
+  %h1
+    = "#{@account.code} #{@account.name}"
+    %span.hidden-xs (Summary)
 %table#records
   %thead
     %tr

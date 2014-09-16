@@ -30,7 +30,7 @@
         %td.text-right
           %a{:href => account_path(p.id)} Summary
           \ 
-          %a{:href => transactions_account_path(p.id)} Transactions
+          %a{:href => transactions_account_path(p.id)} History
           \
         - if current_user.accounts.count <= 15
           %td.visible-desktop.details
