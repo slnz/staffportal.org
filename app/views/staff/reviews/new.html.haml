@@ -1,4 +1,6 @@
 .page-header.pac
+  %a.back{href: reviews_path}
+    = fa_icon 'chevron-left'
   = title "My People and Culture Review"
 = form_tag(reviews_path, method: "POST") do
   .row

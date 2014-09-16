@@ -1,4 +1,6 @@
 .page-header.pac
+  %a.back{href: authenticated_root_path}
+    = fa_icon 'chevron-left'
   = title 'People and Culture'
   .pull-right
     - unless @review.blank?

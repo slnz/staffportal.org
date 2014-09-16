@@ -1,5 +1,7 @@
 .page-header.dmpd
-  = title @taskset.name
+  %a.back{href: dmpd_taskset_index_path}
+    = fa_icon 'chevron-left'
+  = title "Taskset #{@taskset.name}"
 = semantic_form_for @taskset, url: dmpd_taskset_path, builder: FormtasticBootstrap::FormBuilder, :html => { :multipart => true } do |f|
   - if @taskset.assignments.boolean.exists?
     %h3 Tasks

@@ -208,10 +208,23 @@ nav.navbar-fixed-top {
   .page-header {
     margin: 0;
     background-color: #474747;
-    padding: 15px 20px;
     color: #fff;
     margin-bottom: 20px;
     height: 78px;
+    position: relative;
+    a.back {
+      background-color: #575757;
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      font-size: 20px;
+      line-height: 80px;
+      color: #fff;
+      padding: 0 10px;
+      width: 50px;
+      text-align: center;
+    }
     h1 {
       font-weight: 100;
       text-transform: uppercase;
@@ -219,6 +232,8 @@ nav.navbar-fixed-top {
       line-height: 50px;
       margin: 0;
       float: left;
+      padding: 15px 20px;
+      margin-left: 50px;
     }
     &.account {
       background: #d24726; /* Old browsers */
@@ -229,6 +244,9 @@ nav.navbar-fixed-top {
       background: -ms-linear-gradient(left,  #d24726 0%,#dc572e 100%); /* IE10+ */
       background: linear-gradient(to right,  #d24726 0%,#dc572e 100%); /* W3C */
       filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d24726', endColorstr='#dc572e',GradientType=1 ); /* IE6-9 */
+      a.back {
+        background-color: #e7512d;
+      }
     }
     &.pac {
       background: #2672ec; /* Old browsers */
@@ -239,6 +257,9 @@ nav.navbar-fixed-top {
       background: -ms-linear-gradient(left,  #2672ec 0%,#2e8def 100%); /* IE10+ */
       background: linear-gradient(to right,  #2672ec 0%,#2e8def 100%); /* W3C */
       filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2672ec', endColorstr='#2e8def',GradientType=1 ); /* IE6-9 */
+      a.back {
+        background-color: #4083ef;
+      }
     }
     &.statistics {
       background: #00a0b1; /* Old browsers */
@@ -249,6 +270,9 @@ nav.navbar-fixed-top {
       background: -ms-linear-gradient(left,  #00a0b1 0%,#7db9e8 100%); /* IE10+ */
       background: linear-gradient(to right,  #00a0b1 0%,#7db9e8 100%); /* W3C */
       filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00a0b1', endColorstr='#7db9e8',GradientType=1 ); /* IE6-9 */
+      a.back {
+        background-color: #09c1d4;
+      }
     }
     &.dmpd {
       background: #008a00; /* Old browsers */
@@ -259,6 +283,9 @@ nav.navbar-fixed-top {
       background: -ms-linear-gradient(left,  #008a00 0%,#00a500 100%); /* IE10+ */
       background: linear-gradient(to right,  #008a00 0%,#00a500 100%); /* W3C */
       filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#008a00', endColorstr='#00a500',GradientType=1 ); /* IE6-9 */
+      a.back {
+        background-color: #03a803;
+      }
     }
   }
 }
@@ -445,7 +472,6 @@ form.gma_staff_report {
       height: 5px;
     }
     .title {
-      z-index: 10;
       display: block;
       text-transform: uppercase;
       font-weight: bold;
@@ -458,10 +484,10 @@ form.gma_staff_report {
       margin-bottom: 40px;
     }
     .stat {
-      z-index: 10;
       font-weight: 100;
       font-size: 40px;
       padding: 40px 0;
+      height: 155px;
       i {
         font-size: 70px;
         color: #aaa;

@@ -1,4 +1,6 @@
 .page-header.account
+  %a.back{href: authenticated_root_path}
+    = fa_icon 'chevron-left'
   = title "My Accounts"
 = #render 'table'
 %table#accounts

@@ -1,6 +1,8 @@
 - @graph_data = {months: [], pledge: [], goal: 30000}
 .page-header.dmpd
-  = title "Weekly Cumulative Statistics"
+  %a.back{href: dmpd_root_path}
+    = fa_icon 'chevron-left'
+  = title "DMPD Statistics"
   .pull-right
     %a.btn.btn-default{href: dmpd_stats_contact_card_box_index_path}
       = fa_icon 'user'

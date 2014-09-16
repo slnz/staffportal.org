@@ -1,5 +1,7 @@
 .page-header.statistics
-  = title 'My Statistics'
+  %a.back{href: authenticated_root_path}
+    = fa_icon 'chevron-left'
+  = title 'statistics'
 .row
   .col-md-4.col-md-offset-4
     .panel.panel-default
