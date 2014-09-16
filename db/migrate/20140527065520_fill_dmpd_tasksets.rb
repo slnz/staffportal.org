@@ -1,6 +1,6 @@
 class FillDmpdTasksets < ActiveRecord::Migration
   def up
-    task = Taskset.create(name: 'Taskset 1', due_week: 42)
+    task = Taskset.create(name: '1', due_week: 42)
     Assignment.create(name: 'As a group pray through <a target="_blank" href=' +
                       '"https://docs.google.com/file/d/0B-dq1Hc0jvdBODk4QXlUb' +
                       'EtqejA/edit">DMPD Prayer Sheet</a>',
@@ -36,7 +36,7 @@ class FillDmpdTasksets < ActiveRecord::Migration
                       'g from your ministry location or discipleship chain',
                       kind: Assignment.kinds[:text], taskset: task)
 
-    task = Taskset.create(name: 'Taskset 2', due_week: 43)
+    task = Taskset.create(name: '2', due_week: 43)
     Assignment.create(name: 'As a group pray through <a target="_blank" href=' +
                       '"https://docs.google.com/file/d/0B-dq1Hc0jvdBODk4QXlUb' +
                       'EtqejA/edit">DMPD Prayer Sheet</a>',
@@ -68,7 +68,7 @@ class FillDmpdTasksets < ActiveRecord::Migration
     Assignment.create(name: 'Write your <strong>Missionary Profile</strong>',
                       kind: Assignment.kinds[:text], taskset: task)
 
-    task = Taskset.create(name: 'Taskset 3', due_week: 44)
+    task = Taskset.create(name: '3', due_week: 44)
     Assignment.create(name: 'As a group pray through <a target="_blank" href=' +
                       '"https://docs.google.com/file/d/0B-dq1Hc0jvdBODk4QXlUb' +
                       'EtqejA/edit">DMPD Prayer Sheet</a>',
@@ -97,7 +97,7 @@ class FillDmpdTasksets < ActiveRecord::Migration
                       'ation Testimony</strong>',
                       kind: Assignment.kinds[:boolean], taskset: task)
 
-    task = Taskset.create(name: 'Taskset 4', due_week: 45)
+    task = Taskset.create(name: '4', due_week: 45)
     Assignment.create(name: 'As a group pray through <a target="_blank" href=' +
                       '"https://docs.google.com/file/d/0B-dq1Hc0jvdBODk4QXlUb' +
                       'EtqejA/edit">DMPD Prayer Sheet</a>',
@@ -139,7 +139,7 @@ class FillDmpdTasksets < ActiveRecord::Migration
                       'll>',
                       kind: Assignment.kinds[:upload], taskset: task)
 
-    task = Taskset.create(name: 'Taskset 5', due_week: 46)
+    task = Taskset.create(name: '5', due_week: 46)
     Assignment.create(name: 'As a group pray through <a target="_blank" href=' +
                       '"https://docs.google.com/file/d/0B-dq1Hc0jvdBODk4QXlUb' +
                       'EtqejA/edit">DMPD Prayer Sheet</a>',
@@ -168,7 +168,7 @@ class FillDmpdTasksets < ActiveRecord::Migration
                       'ation Testimony</strong>',
                       kind: Assignment.kinds[:boolean], taskset: task)
 
-    task = Taskset.create(name: 'Taskset 6', due_week: 47)
+    task = Taskset.create(name: '6', due_week: 47)
     Assignment.create(name: 'As a group pray through <a target="_blank" href=' +
                       '"https://docs.google.com/file/d/0B-dq1Hc0jvdBODk4QXlUb' +
                       'EtqejA/edit">DMPD Prayer Sheet</a>',

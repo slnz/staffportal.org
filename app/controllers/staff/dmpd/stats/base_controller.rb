@@ -5,7 +5,7 @@ module Staff
         before_filter :authenticate_user!
 
         add_breadcrumb 'dmpd', :dmpd_root_path
-        add_breadcrumb 'wcs', :dmpd_stats_root_path
+        add_breadcrumb 'statistics', :dmpd_stats_root_path
         def index
           begin
             @mpd_goal =

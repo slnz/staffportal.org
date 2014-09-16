@@ -4,6 +4,12 @@ module Staff
       before_filter :authenticate_user!
 
       add_breadcrumb 'dmpd', :dmpd_root_path
+      add_breadcrumb 'tasksets', :dmpd_taskset_index_path
+
+      def index
+        @tasksets = Taskset.order(:due_week).all
+      end
+
       def edit
         @taskset = Taskset.find(params[:id])
         add_breadcrumb @taskset.name, edit_dmpd_taskset_path(params[:id])
@@ -21,7 +27,7 @@ module Staff
             answer_key => update_assignment[answer_key]
           )
         end
-        redirect_to dmpd_root_path
+        redirect_to dmpd_taskset_index_path
         flash[:notice] = 'Taskset Updated'
       end
 

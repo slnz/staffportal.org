@@ -1,0 +1,54 @@
+.page-header.dmpd
+  %a.back{href: dmpd_root_path}
+    = fa_icon 'chevron-left'
+  = title 'Tasksets'
+.dashboard.row
+  - @tasksets.each do |t|
+    .col-md-4
+      %a{href: edit_dmpd_taskset_path(t)}
+        .box.dmpd
+          .border
+          .title.clearfix
+            .pull-right.muted
+              = fa_icon 'clock-o'
+              &nbsp;
+              = t.due_week
+            .pull-left
+              = "Taskset #{t.name}"
+          .row
+            .col-sm-4
+              - count = t.assignments.boolean.count - t.user_assignments.where(user: current_user, answer_boolean: true).joins(:assignment).where('kind = ?', Assignment.kinds[:boolean]).count
+              .stat
+                - if !t.assignments.boolean.exists?
+                  %i.fa -
+                - elsif count > 0
+                  = fa_icon 'tasks'
+                - else
+                  = fa_icon 'check'
+              .text
+                = pluralize(count, 'task')
+            .col-sm-4
+              - count = t.assignments.text.count - t.user_assignments.where(user: current_user).where('answer_text != ?', '').joins(:assignment).where('kind = ?', Assignment.kinds[:text]).count
+              .stat
+                - if !t.assignments.text.exists?
+                  %i.fa -
+                - elsif count > 0
+                  = fa_icon 'file'
+                - else
+                  = fa_icon 'check'
+              .text
+                = pluralize(count, 'essay')
+            .col-sm-4
+              - count = t.assignments.upload.count - t.user_assignments.where(user: current_user).where('answer_upload_file_name != ?', '').joins(:assignment).where('kind = ?', Assignment.kinds[:upload]).count
+              .stat
+                - if !t.assignments.upload.exists?
+                  %i.fa -
+                - elsif count > 0
+                  = fa_icon 'cloud-upload'
+                - else
+                  = fa_icon 'check'
+              .text
+                = pluralize(count, 'upload')
+          .go
+            = "Taskset #{t.name}"
+            = fa_icon 'chevron-right'

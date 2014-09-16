@@ -2,42 +2,41 @@
   %a.back{href: authenticated_root_path}
     = fa_icon 'chevron-left'
   = title 'DMPD'
-.well{class: ("success" if current_user.contacts.count >= 30)}
-  %h4
-    .pull-right.muted
-      = fa_icon 'tasks'
-    %a{href: dmpd_stats_root_path} Weekly Cumulative Statistics
-  %p Access your personal statistics including appointment set record, contact ratios and summaries.
-.well{class: ("success" if current_user.contacts.count >= 30)}
-  %h4
-    .pull-right.muted
-      = fa_icon 'user'
-      &nbsp;
-      = current_user.contacts.count
-      \/ 30
-    %a{href: dmpd_contacts_path} Contacts
-  %p Continue to pray and look for more contacts in Auckland and in your primary DMPD location.
-- Taskset.order(:due_week).all.each do |t|
-  .well
-    -#{class: [("success" if week.completed?), ("danger" if week.error)].compact.join(" ")}
-    %h4
-      .pull-right.muted
-        = fa_icon 'clock-o'
-        &nbsp;
-        = t.due_week
-      %a{href: edit_dmpd_taskset_path(t)}= t.name
-    - if t.assignments.boolean.exists?
-      %div
-        = fa_icon 'tasks'
-        = pluralize(t.assignments.boolean.count - t.user_assignments.where(user: current_user, answer_boolean: true).joins(:assignment).where('kind = ?', Assignment.kinds[:boolean]).count, 'task')
-        to do
-    - if t.assignments.text.exists?
-      %div
-        = fa_icon 'file'
-        = pluralize(t.assignments.text.count - t.user_assignments.where(user: current_user).where('answer_text != ?', '').joins(:assignment).where('kind = ?', Assignment.kinds[:text]).count, 'written assignment')
-        to do
-    - if t.assignments.upload.exists?
-      %div
-        = fa_icon 'cloud-upload'
-        = pluralize(t.assignments.upload.count, 'document')
-        to upload
+.dashboard.row
+  .col-sm-4
+    %a{href: dmpd_stats_root_path}
+      .box.dmpd.clearfix{class: ("success" if current_user.contacts.count >= 30)}
+        .border
+        .title
+          DMPD Statistics
+        .stat
+          = fa_icon 'bar-chart-o'
+        .text Access your personal statistics including appointment set record, contact ratios and summaries.
+        .go
+          DMPD Statistics
+          = fa_icon 'chevron-right'
+  .col-sm-4
+    %a{href: dmpd_contacts_path}
+      .box.dmpd.clearfix{class: ("success" if current_user.contacts.count >= 30)}
+        .border
+        .title
+          Contacts
+        .stat
+          = fa_icon 'user'
+        .text Manage contacts in your primary DMPD location and reduce clashes between you and your staff team.
+        .go
+          Contacts
+          = fa_icon 'chevron-right'
+  .col-sm-4
+    %a{href: dmpd_taskset_index_path}
+      .box.dmpd.clearfix
+        .border
+        .title
+          Tasksets
+        .stat
+          = fa_icon 'check-circle-o'
+        .text Complete all your Pre-DMPD activities here. These will help you prepare for effective DMPD.
+        .go
+          Tasksets
+          = fa_icon 'chevron-right'
+
