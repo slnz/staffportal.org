@@ -1,13 +1,18 @@
 - title "Sign In"
+%nav.navbar.navbar-default.navbar-inverse.navbar-alternative.visible-xs{:role => "navigation"}
+  .container-fluid
+    / Brand and toggle get grouped for better mobile display
+    .navbar-header
+      %a.navbar-brand{:href => "#"} Staff Portal
 #sign_in
-  = image_tag 'logo.png'
+  = image_tag 'logo.png', class: 'logo'
   .form.text-center
     .page-header
       %h4
         Ministry Services Portal
     .body
       %h3
-        %a{:href => "/auth/key"}
+        %a{:href => "/auth/key", "data-no-turbolinks" => true}
           Sign in
           %img{:alt => "Key_logo", :src => (asset_path 'key_logo.png')}/
   #backtoblog

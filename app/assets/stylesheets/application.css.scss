@@ -633,6 +633,25 @@ form.gma_staff_report {
 }
 
 @media (max-width: 767px) {
+  #sign_in {
+    margin: 0;
+    width: auto;
+    padding-top: 50px;
+    .page-header {
+      display: none;
+    }
+    .logo {
+      width: 100%;
+    }
+    #backtoblog {
+      display: none;
+    }
+    .form {
+      -webkit-box-shadow: none;
+      box-shadow: none;
+    }
+  }
+
   #accounts, #records {
     margin: -15px -15px 0 -15px;
   }
