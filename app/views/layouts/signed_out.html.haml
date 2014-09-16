@@ -2,7 +2,7 @@
 %html{lang: :en}
   %head
     %title
-      = "MSP › #{content_for(:title)}"
+      = "Staff Portal › #{content_for(:title)}"
     %link{:href => "http://fonts.googleapis.com/css?family=Open+Sans:100,400,700", :rel => "stylesheet", :type => "text/css"}/
     %meta{:content => "width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no", :name => "viewport"}/
     %meta{name: "apple-mobile-web-app-capable", content:"yes"}/
@@ -14,3 +14,6 @@
     = csrf_meta_tags
   %body
     = yield
+    %script{:src => "//use.typekit.net/oed2qww.js", :type => "text/javascript"}
+    :javascript
+      try{Typekit.load();}catch(e){}
