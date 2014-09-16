@@ -13,7 +13,8 @@
   %body
     = render 'sidebar'
     = render 'topbar'
-    = render 'stream'
+    - unless params[:controller] == 'staff/accounts'
+      = render 'stream'
     .content{style: (yield :content_style) }
       = render 'flash'
       = yield
