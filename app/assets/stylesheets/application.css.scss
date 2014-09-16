@@ -633,6 +633,9 @@ form.gma_staff_report {
 }
 
 @media (max-width: 767px) {
+  #accounts, #records {
+    margin: -15px -15px 0 -15px;
+  }
   .zopim {
     display: none;
   }

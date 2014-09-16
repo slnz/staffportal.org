@@ -5,30 +5,74 @@
   %h1
     = "#{@account.code} #{@account.name}"
     %span.hidden-xs (History)
-%table#records.transactions
-  %thead
-    %tr
-      %th Date
-      %th
-        %span.hidden-sm.hidden-xs Transaction
-        Type
-      %th.hidden-sm.hidden-xs Payee
-      %th
-        %span.hidden-sm.hidden-xs Money
-        In
-      %th
-        %span.hidden-sm.hidden-xs Money
-        Out
-      %th Balance
-      %th.details.closed.hidden-sm.hidden-xs
-  %tbody
-    - @last = nil
-    - @transactions.each do |p|
-      - @last = p if @last.nil?
-      - unless @last.date == p.date
+#records.transactions
+  %table
+    %thead
+      %tr
+        %th Date
+        %th
+          %span.hidden-sm.hidden-xs Transaction
+          Type
+        %th.hidden-sm.hidden-xs Payee
+        %th
+          %span.hidden-sm.hidden-xs Money
+          In
+        %th
+          %span.hidden-sm.hidden-xs Money
+          Out
+        %th Balance
+        %th.details.closed.hidden-sm.hidden-xs
+    %tbody
+      - @last = nil
+      - @transactions.each do |p|
+        - @last = p if @last.nil?
+        - unless @last.date == p.date
+          - unless params.has_key?("type")
+            %tr.balance
+              %td= @last.date.strftime('%d %b  <span class="hidden-sm hidden-xs">%Y</span>').html_safe
+              %td
+                Balance
+                %span.hidden-sm.hidden-xs at close of day
+              %td.hidden-sm.hidden-xs
+              %td
+              %td
+              %td= number_to_currency(@last.balance)
+              %td.hidden-sm.hidden-xs.details
+          - @last = p
+        %tr.record.expandable.closed{:id => "record_#{p.id}"}
+          %td= p.date.strftime('%d %b <span class="hidden-sm hidden-xs">%Y</span>').html_safe
+          %td
+            .type= p.type.name
+          %td.hidden-sm.hidden-xs= p.who
+          %td= number_to_currency(p.amount) if p.type.income?
+          %td= number_to_currency(p.amount) unless p.type.income?
+          %td
+          %td.hidden-sm.hidden-xs.details
+        %tr.details_row
+          %td.subdetails{:colspan => "7"}
+            .bd
+              %dl
+                %dt Transaction type:
+                %dd= p.type.name.upcase
+                %dt Payee:
+                %dd= "#{p.who} &nbsp;".html_safe
+                %dt Description:
+                %dd= p.reason
+                %dt Reference:
+                %dd= p.subtext
+      - if @last.nil? or @transactions.nil?
+        %tr.bottom
+          %td= Time.now.strftime('%d %b <span class="hidden-sm hidden-xs">%Y</span>').html_safe
+          %td Opening balance for these transactions
+          %td.hidden-sm.hidden-xs
+          %td
+          %td
+          %td $0.00
+          %td.hidden-sm.hidden-xs.details
+      - else
         - unless params.has_key?("type")
           %tr.balance
-            %td= @last.date.strftime('%d %b  <span class="hidden-sm hidden-xs">%Y</span>').html_safe
+            %td= @last.date.strftime('%d %b <span class="hidden-sm hidden-xs">%Y</span>').html_safe
             %td
               Balance
               %span.hidden-sm.hidden-xs at close of day
@@ -37,73 +81,30 @@
             %td
             %td= number_to_currency(@last.balance)
             %td.hidden-sm.hidden-xs.details
-        - @last = p
-      %tr.record.expandable.closed{:id => "record_#{p.id}"}
-        %td= p.date.strftime('%d %b <span class="hidden-sm hidden-xs">%Y</span>').html_safe
-        %td
-          .type= p.type.name
-        %td.hidden-sm.hidden-xs= p.who
-        %td= number_to_currency(p.amount) if p.type.income?
-        %td= number_to_currency(p.amount) unless p.type.income?
-        %td
-        %td.hidden-sm.hidden-xs.details
-      %tr.details_row
-        %td.subdetails{:colspan => "7"}
-          .bd
-            %dl
-              %dt Transaction type:
-              %dd= p.type.name.upcase
-              %dt Payee:
-              %dd= "#{p.who} &nbsp;".html_safe
-              %dt Description:
-              %dd= p.reason
-              %dt Reference:
-              %dd= p.subtext
-    - if @last.nil? or @transactions.nil?
-      %tr.bottom
-        %td= Time.now.strftime('%d %b <span class="hidden-sm hidden-xs">%Y</span>').html_safe
-        %td Opening balance for these transactions
-        %td.hidden-sm.hidden-xs
-        %td
-        %td
-        %td $0.00
-        %td.hidden-sm.hidden-xs.details
-    - else
+          %tr.bottom
+            %td= @transactions.last.date.strftime('%d %b <span class="hidden-sm hidden-xs">%Y</span>').html_safe
+            %td Opening balance for these transactions
+            %td.hidden-sm.hidden-xs
+            %td
+            %td.hidden-sm.hidden-xs
+            - if @transactions.last.type.income?
+              %td= number_to_currency(@transactions.last.balance - @transactions.last.amount )
+            - else
+              %td= number_to_currency(@transactions.last.balance + @transactions.last.amount )
+            %td.details
       - unless params.has_key?("type")
-        %tr.balance
-          %td= @last.date.strftime('%d %b <span class="hidden-sm hidden-xs">%Y</span>').html_safe
-          %td
-            Balance
-            %span.hidden-sm.hidden-xs at close of day
-          %td.hidden-sm.hidden-xs
-          %td
-          %td
-          %td= number_to_currency(@last.balance)
-          %td.hidden-sm.hidden-xs.details
-        %tr.bottom
-          %td= @transactions.last.date.strftime('%d %b <span class="hidden-sm hidden-xs">%Y</span>').html_safe
-          %td Opening balance for these transactions
-          %td.hidden-sm.hidden-xs
-          %td
-          %td.hidden-sm.hidden-xs
-          - if @transactions.last.type.income?
-            %td= number_to_currency(@transactions.last.balance - @transactions.last.amount )
-          - else
-            %td= number_to_currency(@transactions.last.balance + @transactions.last.amount )
-          %td.details
-    - unless params.has_key?("type")
-      %tr.totals
-        %td{:colspan => "7"}
-          %table#moneyinmoneyout
-            %tbody
-              %tr
-                %td Total Money in
-                %td= number_to_currency @money_in
-              %tr
-                %td Total Money out
-                %td= number_to_currency @money_out
-              %tr
-                %td Difference
-                %td= number_to_currency @money_in + @money_out
-.hidden-print.text-center
-  = paginate @transactions
+        %tr.totals
+          %td{:colspan => "7"}
+            %table#moneyinmoneyout
+              %tbody
+                %tr
+                  %td Total Money in
+                  %td= number_to_currency @money_in
+                %tr
+                  %td Total Money out
+                  %td= number_to_currency @money_out
+                %tr
+                  %td Difference
+                  %td= number_to_currency @money_in + @money_out
+  .hidden-print.text-center
+    = paginate @transactions
