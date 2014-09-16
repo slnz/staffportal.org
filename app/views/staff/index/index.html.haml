@@ -2,48 +2,65 @@
 .dashboard.row
   - current_user.accounts.limit(3).all.each do |account|
     %a{:href => account_path(account.id)}
-      .col-md-4
+      .col-md-4.col-sm-6
         .box.account.clearfix
+          .border
           .title
             = account.name
-            %span.text-muted Balance
+            .text-muted Balance
           .stat
             %div= fa_icon 'money'
             = number_to_currency account.get_balance current_user
+          .go
+            = account.name
+            = fa_icon 'chevron-right'
   - if current_user.pac?
     %a{href: reviews_path}
-      .col-md-4
+      .col-md-4.col-sm-6
         .box.pac.clearfix
+          .border
           .title
             People & Culture
-            %span.text-muted Due Reviews
+            .text-muted Due Reviews
           .stat
             %div= fa_icon 'university'
             0
+          .go
+            People & Culture
+            = fa_icon 'chevron-right'
   - if current_user.stats?
     %a{href: gma_organizations_path}
-      .col-md-4
+      .col-md-4.col-sm-6
         .box.statistics.clearfix
+          .border
           .title
             Statistics
-            %span.text-muted Due Reports
+            .text-muted Due Reports
           .stat
             %div= fa_icon 'bar-chart-o'
             = current_user.gma_staff_reports.where(submitted: false).count
+          .go
+            Statistics
+            = fa_icon 'chevron-right'
   - if current_user.dmpd?
     %a{href: dmpd_contacts_path}
-      .col-md-4
+      .col-md-4.col-sm-6
         .box.dmpd.clearfix
+          .border
           .title
-            %span.text-muted DMPD
-            Contacts
+            DMPD
+            .text-muted Contacts
           .stat
             %div= fa_icon 'users'
             = current_user.contacts.count
+          .go
+            Contacts
+            = fa_icon 'chevron-right'
   - unless current_user.pac?
     %a{href: reviews_path}
-      .col-md-4
+      .col-md-4.col-sm-6
         .box.empty.clearfix
+          .border
           .title
             People & Culture
           .stat
@@ -51,8 +68,9 @@
             Activate
   - unless current_user.stats?
     %a{href: gma_organizations_path}
-      .col-md-4
+      .col-md-4.col-sm-6
         .box.empty.clearfix
+          .border
           .title
             Statistics
           .stat
@@ -60,8 +78,9 @@
             Activate
   - unless current_user.dmpd?
     %a{href: dmpd_root_path}
-      .col-md-4
+      .col-md-4.col-sm-6
         .box.empty.clearfix
+          .border
           .title
             DMPD
           .stat
