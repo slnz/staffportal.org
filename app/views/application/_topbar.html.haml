@@ -11,16 +11,16 @@
         %b.caret
       %ul.dropdown-menu
         - if current_user.admin == "admin"
-          %li.hidden-phone
-            %a{:href => "/resque"} Resque
-          %li.hidden-phone
-            %a{:href => "/admin"} Admin
+          %li
+            %a{:href => "/resque", "data-no-turbolinks" => true} Resque
+          %li
+            %a{:href => "/admin", "data-no-turbolinks" => true} Admin
         - if current_user.admin == "coach"
-          %li.hidden-phone
+          %li
             %a{:href => "/coach"} Admin
         - if current_user.admin == "hr"
-          %li.hidden-phone
-            %a{:href => "/hr"} Admin
+          %li
+            %a{:href => "/hr", "data-no-turbolinks" => true} Admin
         %li
           %a.last{:href => "/auth/logout"} Sign Out
 %nav.navbar.navbar-default.navbar-inverse.navbar-alternative{:role => "navigation"}
