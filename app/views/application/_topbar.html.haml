@@ -12,15 +12,15 @@
       %ul.dropdown-menu
         - if current_user.admin == "admin"
           %li
-            %a{:href => "/resque", "data-no-turbolinks" => true} Resque
+            %a{:href => "/resque", "data-no-turbolink" => true} Resque
           %li
-            %a{:href => "/admin", "data-no-turbolinks" => true} Admin
+            %a{:href => "/admin", "data-no-turbolink" => true} Admin
         - if current_user.admin == "coach"
           %li
             %a{:href => "/coach"} Admin
         - if current_user.admin == "hr"
           %li
-            %a{:href => "/hr", "data-no-turbolinks" => true} Admin
+            %a{:href => "/hr", "data-no-turbolink" => true} Admin
         %li
           %a.last{:href => "/auth/logout"} Sign Out
 %nav.navbar.navbar-default.navbar-inverse.navbar-alternative{:role => "navigation"}

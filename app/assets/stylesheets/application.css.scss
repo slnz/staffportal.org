@@ -19,6 +19,10 @@ body {
   font-size: 15px;
 }
 
+body.signed_out {
+  background-color: #F1F1F1;
+}
+
 // Sidebar
 .sidebar {
   position: fixed;

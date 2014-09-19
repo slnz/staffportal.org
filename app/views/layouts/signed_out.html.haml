@@ -10,8 +10,7 @@
     = javascript_include_tag "application"
     = csrf_meta_tags
     = render 'mobile'
-  %body
-
+  %body.signed_out
     = yield
     %script{:src => "//use.typekit.net/oed2qww.js", :type => "text/javascript"}
     :javascript
