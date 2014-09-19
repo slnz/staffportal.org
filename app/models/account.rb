@@ -18,8 +18,8 @@ class Account < ActiveRecord::Base
   def update_balance
     balance = 0
     Record.after_save.clear
-    records = records.order('date ASC, id ASC').includes(:type).all
-    records.each do |record|
+    return if records.nil?
+    records.order('date ASC, id ASC').includes(:type).each do |record|
       if record.type.income?
         balance += record.amount
       elsif record.type.expense? ||
