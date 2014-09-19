@@ -11,7 +11,7 @@ class CsvQueue
       when 'amount'
         value = hash['amount'].gsub(/\, /, '').to_d
         new_object.send "#{key}=", value
-      when'"account_id'
+      when'account_id'
         if hash.has_key?('gl_code')
           codes = hash['gl_code'].split(/-/)
           account = Account.where(code: codes[1].gsub(/~/, '')).first
