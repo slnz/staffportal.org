@@ -666,12 +666,9 @@ form.gma_staff_report {
       height: auto;
       position: absolute;
       left: 0;
-      top: 171px;
+      top: 127px;
       bottom: 60px;
       right: 0;
-      .btn {
-        display: none;
-      }
     }
     .header {
       padding-bottom: 20px;
@@ -682,6 +679,9 @@ form.gma_staff_report {
       }
       .text-right {
         text-align: center;
+      }
+      .btn {
+        display: none;
       }
     }
     .footer {

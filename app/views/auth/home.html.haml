@@ -15,8 +15,12 @@
     .container
       %h1 Spend less time administrating.
       %h4 And more time on the mission field.
-      %a.btn.btn-primary.btn-lg{href: "/auth/key", "data-no-turbolinks" => true}
+      %a.btn.btn-primary.btn-lg.hidden-xs{href: "/auth/key", "data-no-turbolinks" => true}
         Get Started
+        = fa_icon 'chevron-right'
+      %br/
+      %a.btn.btn-primary.btn-lg.visible-xs-inline-block{href: "/auth/key", "data-no-turbolinks" => true}
+        Sign in with The Key
         = fa_icon 'chevron-right'
   .footer
     .container
