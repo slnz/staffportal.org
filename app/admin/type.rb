@@ -1,5 +1,5 @@
-ActiveAdmin.register Type do
-  menu parent: 'Accounts', label: 'Transaction Types'
+ActiveAdmin.register Type, as: 'Ledger Code' do
+  menu parent: 'Accounts'
   permit_params :name, :code, :definition
 
   action_item only: :index do

@@ -1,4 +1,5 @@
 ActiveAdmin.register Record, as: 'Transaction', sort_order: :date do
+  config.sort_order = 'id_desc'
   menu parent: 'Accounts'
   permit_params :account_id, :type_id, :date, :amount, :reason, :who, :subtext
   action_item only: :index do

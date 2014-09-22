@@ -1,5 +1,5 @@
-ActiveAdmin.register Account do
-  menu parent: 'Accounts', label: 'Responsibility Centers'
+ActiveAdmin.register Account, as: 'Responsibility Center' do
+  menu parent: 'Accounts'
   permit_params :name, :code
 
   action_item only: :index do
