@@ -1,5 +1,5 @@
 ActiveAdmin.register Type do
-  permit_params :name, :code, :definintion
+  permit_params :name, :code, :definition
 
   menu parent: 'Finance', label: 'Transaction Types'
 
