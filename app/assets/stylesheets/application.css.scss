@@ -666,16 +666,16 @@ form.gma_staff_report {
       height: auto;
       position: absolute;
       left: 0;
-      top: 127px;
+      top: 125px;
       bottom: 60px;
       right: 0;
+      min-height: auto;
     }
     .header {
-      padding-bottom: 20px;
+      padding-top: 40px;
       .col-sm-centered {
         width: 260px;
         margin: 0 auto;
-        padding-bottom: 20px;
       }
       .text-right {
         text-align: center;
