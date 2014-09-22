@@ -1,19 +1,27 @@
 - title "Sign In"
-%nav.navbar.navbar-default.navbar-inverse.navbar-alternative.visible-xs{:role => "navigation"}
-  .container-fluid
-    / Brand and toggle get grouped for better mobile display
-    .navbar-header
-      %a.navbar-brand{:href => "#"} Staff Portal
 #sign_in
-  = image_tag 'logo.png', class: 'logo'
-  .form.text-center
-    .page-header
-      %h4
-        Ministry Services Portal
-    .body
-      %h3
-        %a{:href => "/auth/key", "data-no-turbolinks" => true}
-          Sign in
-          %img{:alt => "Key_logo", :src => (asset_path 'key_logo.png')}/
-  #backtoblog
-    = link_to '← Back to Tandem', 'http://www.tandem.org.nz'
+  .header
+    .container
+      .row
+        .col-sm-6.col-sm-centered
+          %h3
+            = image_tag 'logo.png', class: 'logo', width: 50
+            Staff Portal
+            %small Admin made simple
+        .col-sm-6.text-right
+          %a.btn.btn-primary.btn-lg{href: "/auth/key", "data-no-turbolinks" => true}
+            Sign in with The Key
+  .hero
+    .container
+      %h1 Spend less time administrating.
+      %h4 And more time on the mission field.
+      %a.btn.btn-primary.btn-lg{href: "/auth/key", "data-no-turbolinks" => true}
+        Get Started
+        = fa_icon 'chevron-right'
+  .footer
+    .container
+      Powered by
+      %a{href: 'http://www.cru.org'} Cru
+      .pull-right
+        CCCI © Copyright
+        = Time.now.strftime('%Y')

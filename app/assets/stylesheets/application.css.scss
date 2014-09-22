@@ -20,7 +20,7 @@ body {
 }
 
 body.signed_out {
-  background-color: #F1F1F1;
+  background-size: cover;
 }
 
 // Sidebar
@@ -296,44 +296,67 @@ nav.navbar-fixed-top {
 
 // Login
 #sign_in {
-  width: 320px;
-  padding: 7% 0 0;
-  margin: auto;
-  a {
-    text-decoration: none;
-    color: #999;
-    @include transition-property(color);
-    @include transition-duration(0.3s);
-    &:hover {
-      color: #2ea2cc;
-    }
-  }
-  .form {
-    margin-left: 0;
-    font-weight: 400;
-    overflow: hidden;
-    background: #fff;
-    -webkit-box-shadow: 0 1px 3px rgba(0,0,0,.13);
-    box-shadow: 0 1px 3px rgba(0,0,0,.13);
-    .body {
-      padding: 10px 20px;
-    }
-    .page-header {
-      margin-top:0;
-      margin-bottom:0;
-      padding: 20px;
-      border-bottom: 1px solid #5d6676;
-      color: #29a6f7;
-      background: #364051;
-    }
+  font-size: 20px;
+  .header {
+    background-color: #3EBFAC;
+    min-height: 125px;
+    padding-top: 30px;
     h3 {
-      padding: 26px 24px 46px;
+      text-transform: uppercase;
+      line-height: 20px;
+      margin-top: -5px;
+      color: #fff;
+      padding-top: 10px;
+      small {
+        text-transform: none;
+        color: #fff;
+        display: block;
+        margin-top: 5px;
+      }
+      img.logo {
+        float: left;
+        margin-right: 10px;
+        margin-top: -5px;
+      }
+    }
+    a.btn-primary {
+      img {
+        width: 20px;
+      }
+      color: #fff;
+      background-color: #85D2C4;
+      border-color: #85D2C4;
+      &:hover {
+        background-color: #85D2C4;
+        border-color: #85D2C4;
+      }
     }
   }
-  #backtoblog {
+  .hero {
+    background: image-url('background.jpg') no-repeat center center;
+    background-size: cover;
+    padding-top: 250px;
+    height: 623px;
+    text-align: center;
+    color: #fff;
+    a.btn-primary {
+      min-width: 150px;
+      color: #fff;
+      background-color: #3EBFAC;
+      border-color: #3EBFAC;
+      &:hover {
+        background-color: #85D2C4;
+        border-color: #85D2C4;
+      }
+    }
+  }
+  .footer {
+    padding: 20px;
     font-size: 13px;
-    padding: 0 24px;
-    margin: 16px 0 0;
+    color: #999;
+    a:link, a:visited {
+      color: #85D2C4;
+    }
   }
 }
 
@@ -638,21 +661,34 @@ form.gma_staff_report {
 
 @media (max-width: 767px) {
   #sign_in {
-    margin: 0;
-    width: auto;
-    padding-top: 50px;
-    .page-header {
-      display: none;
+    .hero {
+      padding-top: 50px;
+      height: auto;
+      position: absolute;
+      left: 0;
+      top: 171px;
+      bottom: 60px;
+      right: 0;
+      .btn {
+        display: none;
+      }
     }
-    .logo {
-      width: 100%;
+    .header {
+      padding-bottom: 20px;
+      .col-sm-centered {
+        width: 260px;
+        margin: 0 auto;
+        padding-bottom: 20px;
+      }
+      .text-right {
+        text-align: center;
+      }
     }
-    #backtoblog {
-      display: none;
-    }
-    .form {
-      -webkit-box-shadow: none;
-      box-shadow: none;
+    .footer {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
     }
   }
 
