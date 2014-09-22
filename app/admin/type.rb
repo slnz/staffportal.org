@@ -1,7 +1,6 @@
 ActiveAdmin.register Type do
+  menu parent: 'Accounts', label: 'Transaction Types'
   permit_params :name, :code, :definition
-
-  menu parent: 'Finance', label: 'Transaction Types'
 
   action_item only: :index do
     link_to 'Import from CSV', action: 'upload_csv'

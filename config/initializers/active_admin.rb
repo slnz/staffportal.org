@@ -146,7 +146,15 @@ ActiveAdmin.setup do |config|
                        File.expand_path('app/coach', Rails.root),
                        File.expand_path('app/hr', Rails.root)]
 
-  # config.show_comments_in_menu = false
+  config.show_comments_in_menu = false
+  config.allow_comments = false
+
+  config.namespace :admin do |admin|
+    admin.build_menu :utility_navigation do |menu|
+      menu.add :label => 'Resque', :url => '/resque'
+      admin.add_logout_button_to_menu menu
+    end
+  end
 
   config.namespace :coach do |coach|
     coach.site_title = 'Bootcamp Coaches'

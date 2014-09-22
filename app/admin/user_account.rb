@@ -1,5 +1,5 @@
 ActiveAdmin.register UserAccount, as: 'Permission' do
-  menu parent: 'Finance'
+  menu parent: 'Accounts'
   index do
     selectable_column
     column :user

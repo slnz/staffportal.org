@@ -1,5 +1,5 @@
 ActiveAdmin.register Account do
-  menu parent: 'Finance', label: 'Accounts'
+  menu parent: 'Accounts', label: 'Responsibility Centers'
   permit_params :name, :code
 
   action_item only: :index do

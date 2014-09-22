@@ -1,5 +1,5 @@
 ActiveAdmin.register Record, as: 'Transaction', sort_order: :date do
-  menu parent: 'Finance'
+  menu parent: 'Accounts'
   permit_params :account_id, :type_id, :date, :amount, :reason, :who, :subtext
   action_item only: :index do
     link_to 'Import from CSV', action: 'upload_csv'

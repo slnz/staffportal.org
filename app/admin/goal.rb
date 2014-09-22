@@ -1,5 +1,5 @@
 ActiveAdmin.register Goal do
-  menu parent: 'Finance', label: 'MPD Goals'
+  menu parent: 'Accounts', label: 'MPD Goals'
 
   action_item only: :index do
     link_to 'Import from CSV', action: 'upload_csv'

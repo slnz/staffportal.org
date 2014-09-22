@@ -1,5 +1,5 @@
 ActiveAdmin.register ReviewQuestion do
-  menu parent: 'Campus Reports'
+  menu parent: 'People & Culture'
   permit_params :text
 
   index do
