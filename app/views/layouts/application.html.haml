@@ -16,8 +16,10 @@
     .content{style: (yield :content_style) }
       = render 'flash'
       = yield
-      %footer.hidden-print.text-center
-        %h6.text-muted
+      %footer.footer
+        Powered by
+        %a{href: 'http://www.cru.org'} Cru
+        .pull-right
           CCCI © Copyright
           = Time.now.strftime('%Y')
     %script{:text => "text/javascript"}

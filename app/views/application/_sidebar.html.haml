@@ -1,5 +1,6 @@
 .sidebar
   .brand
+    = image_tag 'logo.png', class: 'logo', width: 30
     Staff Portal
   %ul.nav.nav-pills.nav-stacked
     %li{ class: ('active' if current_page? authenticated_root_path) }

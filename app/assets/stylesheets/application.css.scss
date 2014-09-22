@@ -1,6 +1,7 @@
 // Vendor
 @import 'bootstrap';
 @import 'formtastic-bootstrap';
+$nprogress-color: #85D2C4;
 @import 'nprogress';
 @import 'nprogress-bootstrap';
 @import 'font-awesome';
@@ -23,6 +24,15 @@ body.signed_out {
   background-size: cover;
 }
 
+// Links
+a{
+  color: #3EBFAC;
+  &:hover {
+    color:#85D2C4;
+    text-decoration: none;
+  }
+}
+
 // Sidebar
 .sidebar {
   position: fixed;
@@ -30,14 +40,14 @@ body.signed_out {
   top: 0;
   bottom: 0;
   width: 200px;
-  background: #4a5363;
+  background: #3EBFAC;
   .rank {
     position: absolute;
     bottom: 0;
     right: 0;
     left: 0;
     padding: 20px 20px 0;
-    background-color: #364051;
+    background-color: #85D2C4;
     color: #fff;
     img {
       width: 100%;
@@ -52,14 +62,18 @@ body.signed_out {
     }
   }
   .brand {
-    color: #29a6f7;
-    background: #364051;
-    border-bottom: 1px solid #5d6676;
+    color: #fff;
+    background: #85D2C4;
+    border-bottom: 1px solid #cefaf2;
     padding: 20px;
-    font-weight: bold;
-    font-size: 30px;
+    font-size: 15px;
+    text-transform: uppercase;
     height: 80px;
     line-height: 42px;
+    img.logo {
+      margin-right: 5px;
+      margin-top: -3px;
+    }
   }
   ul.nav {
     padding-top: 10px;
@@ -67,8 +81,7 @@ body.signed_out {
       a {
         @include transition-property(color);
         @include transition-duration(0.3s);
-
-        color: #a4acb7;
+        color: #cefaf2;
         font-weight: bold;
         .fa {
           margin-right: 10px;
@@ -87,7 +100,7 @@ body.signed_out {
       margin-left: 20px;
       margin-top: 0;
       padding-top: 0;
-      border-left: 3px solid #a4acb7;
+      border-left: 3px solid #cefaf2;
       li a {
         font-weight: normal;
         padding: 5px 15px;
@@ -142,13 +155,13 @@ nav.navbar-fixed-top {
         height: 80px;
         &:hover {
           background: transparent;
-          color: #29a6f7;
+          color: #85D2C4;
         }
       }
       &.open {
         a.dropdown-toggle {
           background: transparent;
-          color: #29a6f7;
+          color: #85D2C4;
         }
       }
     }
@@ -197,6 +210,8 @@ nav.navbar-fixed-top {
   background-color: #fff;
 }
 
+// Pagination
+
 // Main Content Area
 .content {
   position: fixed;
@@ -204,7 +219,7 @@ nav.navbar-fixed-top {
   right: 250px;
   top: 80px;
   bottom: 0;
-  padding: 20px 30px;
+  padding: 20px 20px;
   overflow: auto;
   &.no-stream {
     right: 0;
@@ -350,20 +365,20 @@ nav.navbar-fixed-top {
       }
     }
   }
-  .footer {
-    padding: 20px;
-    font-size: 13px;
-    color: #999;
-    a:link, a:visited {
-      color: #85D2C4;
-    }
-  }
 }
 
 // Footer
 footer {
   border-top: 1px solid #eee;
   margin-top: 10px;
+}
+.footer {
+  padding: 20px;
+  font-size: 13px;
+  color: #999;
+  a:link, a:visited {
+    color: #85D2C4;
+  }
 }
 
 // Panel
@@ -631,7 +646,7 @@ form.gma_staff_report {
   }
   .navbar-alternative {
     display: block;
-    background-color: #364051;
+    background-color: #3EBFAC;
     position: fixed;
     left: 0;
     top: 80px;
@@ -640,8 +655,52 @@ form.gma_staff_report {
     border-radius: 0;
     z-index: 100;
     .navbar-brand {
-      color: #29a6f7;
-      font-weight: bold;
+      color: #fff;
+      text-transform: uppercase;
+      img.logo {
+        margin-top: -5px;
+        margin-right: 10px;
+        float: left;
+      }
+    }
+    .navbar-toggle {
+      &:focus, &:hover {
+        background-color: #85D2C4;
+      }
+    }
+    .navbar-collapse {
+      border:0;
+      .nav.navbar-nav {
+        a:link, a:visited {
+          color: #cefaf2;
+          &:hover {
+            background-color: #85D2C4;
+            color: #fff;
+          }
+        }
+        > .open {
+          > a {
+            background-color: #6fc4b4;
+          }
+          > .dropdown-menu {
+            background-color: #3EBFAC;
+            border: 0;
+            > .divider {
+              background-color: #85D2C4;
+            }
+            > .active > a {
+              color: #fff;
+              background-color: #85D2C4;
+            }
+          }
+        }
+        > .active {
+          > a, a:hover {
+            color: #fff;
+            background-color: #85D2C4;
+          }
+        }
+      }
     }
     .container-fluid {
       padding-left: 30px;

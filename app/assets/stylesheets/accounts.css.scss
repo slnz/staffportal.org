@@ -50,15 +50,6 @@
       &:last-child {
         border-right:0;
       }
-      a:link {
-        color:#38678B;
-      }
-      a:visited {
-        color:#38678B;
-      }
-      a:hover {
-        text-decoration:underline;
-      }
       &.details.closed {
         width: 18px;
         background: image-url('row-arrow-down.gif') no-repeat center center;
