@@ -1,4 +1,6 @@
 ActiveAdmin.register Type do
+  permit_params :name, :code, :definintion
+
   menu parent: 'Finance', label: 'Transaction Types'
 
   action_item only: :index do

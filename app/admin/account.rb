@@ -1,5 +1,6 @@
 ActiveAdmin.register Account do
   menu parent: 'Finance', label: 'Accounts'
+  permit_params :name, :code
 
   action_item only: :index do
     link_to 'Import from CSV', action: 'upload_csv'
