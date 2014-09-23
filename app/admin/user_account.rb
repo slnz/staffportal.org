@@ -1,5 +1,6 @@
 ActiveAdmin.register UserAccount, as: 'Permission' do
   menu parent: 'Accounts'
+  permit_params :user_id, :account_id, :by_id
   index do
     selectable_column
     column :user
@@ -18,7 +19,7 @@ ActiveAdmin.register UserAccount, as: 'Permission' do
               label_method: :to_label
       f.input :by_id, as: :hidden, input_html: { value: current_user.id }
     end
-    f.buttons
+    f.actions
   end
 
   show do
