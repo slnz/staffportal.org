@@ -1,0 +1,86 @@
+.form-control {
+  box-shadow: none;
+  border-radius: 0;
+  border: 1px solid #ccc;
+  padding: 6px;
+  &:focus {
+    box-shadow: none;
+    border-color: #85D2C4;
+  }
+}
+.disabled-form {
+  .form-control {
+    border: 0;
+    border-bottom: 1px dashed #ccc;
+  }
+}
+.has-error .form-control {
+  box-shadow: none;
+  &:focus {
+    box-shadow: none;
+    border-color: #85D2C4;
+  }
+}
+.form-title {
+  text-transform: uppercase;
+  color: #777;
+  border-bottom: 1px solid #ccc;
+  margin: 10px 0;
+  font-size: 15px;
+}
+.form-actions {
+  padding: 20px;
+  text-align: right;
+  background-color: #eee;
+  .back {
+    color: #444;
+    margin-right: 10px;
+  }
+}
+.input-group-addon {
+  border-radius: 0;
+}
+.control-label {
+  font-weight: normal;
+  text-transform: uppercase;
+  font-size: 12px;
+  color: #777;
+}
+#contact_new_church_input {
+  margin-top: 30px;
+}
+#gmaps-canvas {
+  width: 100%;
+  height: 200px;
+  margin-bottom: 20px;
+}
+.empty-state {
+  color: #444;
+  text-align: center;
+  font-size: 20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.btn-primary {
+  color: #fff;
+  background-color: #3EBFAC;
+  border-color: #3EBFAC;
+  &:hover {
+    background-color: #85D2C4;
+    border-color: #85D2C4;
+  }
+}
+.ui-autocomplete {
+  border: 1px solid #85D2C4;
+  border-top: 0;
+}
+.ui-menu .ui-menu-item {
+  font-family: "proxima-nova",sans-serif;
+  font-size: 13px;
+  color: #777;
+  &.ui-state-focus {
+    background: #85D2C4;
+    border-color: #85D2C4;
+    color: #fff;
+  }
+}

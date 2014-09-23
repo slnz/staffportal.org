@@ -18,7 +18,6 @@ Staff::Application.routes.draw do
       resource :user, only: [:edit, :update]
       namespace :dmpd do
         root 'index#index'
-        get 'contacts' => 'index#contacts'
         get 'signup' => 'index#signup'
         resources :contacts
         resources :taskset

@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 ruby '2.1.2'
 # Rails
-gem 'rails', '4.1.1'
+gem 'rails', '4.1.6'
 
 # Postgres
 gem 'pg'
@@ -19,7 +19,6 @@ gem 'resque-retry'
 gem 'resque-status'
 gem 'hirefire-resource'
 
-
 # API
 gem 'feedjira'
 gem 'gravatarify'
@@ -32,6 +31,7 @@ gem 'paperclip'
 gem 'aws-sdk'
 gem 'fiscali'
 gem 'kaminari'
+gem 'ransack'
 
 # View
 gem 'breadcrumbs_on_rails'
@@ -40,6 +40,9 @@ gem 'formtastic-bootstrap'
 gem 'kaminari-bootstrap'
 gem 'haml'
 gem 'table_for_collection'
+
+# Model
+gem 'phony_rails'
 
 # Javascript
 gem 'highcharts-rails'
@@ -50,16 +53,15 @@ gem 'chosen-rails'
 gem 'activeadmin', github: 'gregbell/active_admin'
 gem 'airbrake'
 
-group :assets do
-  gem 'sass-rails',   '>= 3.2'
-  gem 'bootstrap-sass', '~> 3.1.1'
-  gem 'uglifier', '>= 1.0.3'
-  gem 'jquery-rails'
-  gem 'turbolinks'
-  gem 'jquery-turbolinks'
-  gem 'nprogress-rails'
-end
-
+gem 'sass-rails',   '>= 3.2'
+gem 'bootstrap-sass', '~> 3.1.1'
+gem 'uglifier', '>= 1.0.3'
+gem 'jquery-rails'
+gem 'jquery-ui-rails', '~> 5.0.0'
+gem 'gmaps-autocomplete-rails'
+gem 'turbolinks'
+gem 'jquery-turbolinks'
+gem 'nprogress-rails'
 gem 'font-awesome-rails'
 
 group :development, :production do

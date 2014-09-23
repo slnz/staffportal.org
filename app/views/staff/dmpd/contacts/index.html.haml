@@ -1,0 +1,61 @@
+.page-header.dmpd
+  %a.back{href: dmpd_root_path}
+    = fa_icon 'chevron-left'
+  = title "Contacts"
+- if @contacts.empty? && params[:q].blank?
+  .row
+    .empty-state.col-md-4.col-md-offset-4
+      %p
+        You haven't added any contacts yet.
+        %br/
+        Try it now!
+      %a.btn.btn-primary.btn-lg{href: new_dmpd_contact_path, data: {"no-turbolink" => true}}
+        = fa_icon 'plus'
+        New Contact
+- else
+  .row
+    .col-md-12
+      .form-actions
+        = search_form_for [:dmpd, @q] do |f|
+          %a.pull-right.btn.btn-primary{href: new_dmpd_contact_path, data: {"no-turbolink" => true} } Add Contact
+          .input-group.col-md-4
+            %span.input-group-addon= fa_icon 'search'
+            = f.search_field :first_name_or_last_name_or_email_or_primary_phone_cont, class: 'form-control', placeholder: 'Search'
+      - if @contacts.empty? && !params[:q].blank?
+        .row
+          .empty-state.col-md-4.col-md-offset-4
+            %p
+              Couldn't find anything.
+            %a.btn.btn-default{href: dmpd_contacts_path}
+              Back to Contacts
+      - else
+        %table#contacts.table.table-striped
+          %thead
+            %tr
+              %th.priority= sort_link(@q, :priority_code, 'Pr.')
+              %th= sort_link(@q, :first_name, 'Contact', default_order: :asc)
+              %th.col-md-2 Actions
+          %tbody
+            - @contacts.each do |contact|
+              %tr
+                %td.center.priority{class: "priority-#{contact.priority_code}"}
+                  = contact.initials
+                %td
+                  %h4
+                    %strong= contact.first_name
+                    = contact.last_name
+                  %small.text-muted
+                    = contact.primary_phone
+                    - unless contact.address.blank?
+                      = fa_icon 'map-marker'
+                    - unless contact.email.blank?
+                      = fa_icon 'envelope-o'
+                %td.center
+                  = link_to 'Show', dmpd_contact_path(contact), data: {"no-turbolink" => true}
+                  \|
+                  = link_to 'Edit', edit_dmpd_contact_path(contact), data: {"no-turbolink" => true}
+                  \|
+                  = link_to 'Delete', dmpd_contact_path(contact), :method => :delete
+      .paginated.text-right.clearfix
+        .page-entries= page_entries_info @contacts
+        = paginate @contacts

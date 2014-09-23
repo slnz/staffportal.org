@@ -1,4 +1,5 @@
 // Vendor
+@import 'jquery-ui';
 @import 'bootstrap';
 @import 'formtastic-bootstrap';
 @import 'nprogress';
@@ -10,6 +11,8 @@
 @import 'summernote';
 
 // Internal
+@import 'forms';
+@import 'tables';
 @import 'accounts';
 @import 'bootcamp';
 
@@ -355,13 +358,6 @@ nav.navbar-fixed-top {
     color: #fff;
     a.btn-primary {
       min-width: 150px;
-      color: #fff;
-      background-color: #3EBFAC;
-      border-color: #3EBFAC;
-      &:hover {
-        background-color: #85D2C4;
-        border-color: #85D2C4;
-      }
     }
   }
 }

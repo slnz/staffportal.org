@@ -1,0 +1,56 @@
+= semantic_form_for [:dmpd, @contact], builder: FormtasticBootstrap::FormBuilder do |f|
+  .form-title
+    Personal Information
+  .row
+    .col-sm-5
+      = f.input :first_name
+    .col-sm-5
+      = f.input :last_name
+    .col-sm-2
+      = f.input :priority_code, as: :select, collection: Contact.priority_codes.collect { |s| [s[0].humanize, s[0]] }, selected: @contact.priority_code, class: "form-control"
+  = f.input :email
+  .row
+    .col-sm-4
+      = f.input :primary_phone, label: 'Phone (Mobile Preferred)'
+    .col-sm-4
+      = f.input :home_phone
+    .col-sm-4
+      = f.input :office_phone
+  = f.input :address, input_html: { class: 'gmaps-address' }
+  #gmaps-canvas
+  - content_for :javascript do
+    :javascript
+      $(function () {
+        setTimeout(function() {
+          window.completer = new GmapsCompleter({
+            inputField: '.gmaps-address'
+          });
+          window.completer.autoCompleteInit({
+            country: "New Zealand"
+          });
+          completer.update = true;
+          completer.geocodeLookup('address', "#{@contact.address}", true);
+        }, 500);
+      });
+  .form-title
+    Additional Information
+  .row
+    .col-sm-6
+      = f.input :referer
+    .col-sm-6
+      = f.input :how_knows, label: 'How Referer Knows this Contact'
+  .row
+    .col-sm-6
+      = f.input :occupation
+    .col-sm-4
+      = f.input :church
+    .col-sm-2
+      = f.input :new_church
+  .row
+    .col-sm-6
+      = f.input :children
+    .col-sm-6
+      = f.input :anniversary, as: :string, input_html: {:class => 'datepicker', "data-date-format" => "yyyy-mm-dd", placeholder: "yyyy-mm-dd"}
+  = f.actions do
+    = link_to 'Cancel', :back, class: 'back'
+    = f.action :submit, button_html: { class: 'btn btn-primary' }

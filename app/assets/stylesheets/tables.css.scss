@@ -1,0 +1,84 @@
+table {
+  > tbody {
+    > tr {
+      > td.priority {
+        width: 60px;
+        font-size: 25px;
+        font-weight: lighter;
+        color: #444;
+        text-align: center;
+        &.priority-A {
+          background-color: #c6ffba;
+        }
+        &.priority-B {
+          background-color: #ffffb6;
+        }
+      }
+      > td.center {
+        vertical-align:middle;
+      }
+    }
+    > tr:nth-child(odd) {
+      td.priority {
+        &.priority-A {
+          background-color: #aef9a2;
+        }
+        &.priority-B {
+          background-color: #f9eaa2;
+        }
+      }
+    }
+  }
+}
+#contacts {
+  margin-bottom: 0;
+  h4 {
+    margin: 0;
+  }
+}
+.priority-A {
+  background-color: #aef9a2;
+}
+.priority-B {
+  background-color: #f9eaa2;
+}
+.pagination {
+  margin: 0;
+  li {
+    a {
+      text-transform: uppercase;
+      font-size: 12px;
+      color: #3EBFAC;
+      &:hover {
+        color: #3EBFAC;
+      }
+    }
+    &:first-child a, &:last-child a {
+      border-radius: 0;
+    }
+    &.active a {
+      background-color: #3EBFAC;
+      border-color: #3EBFAC;
+      &:hover {
+        background-color: #6fc4b4;
+        border-color: #6fc4b4;
+      }
+    }
+  }
+}
+.paginated {
+  border-top: 1px solid #ccc;
+  .pagination {
+    margin: 0;
+    li a {
+      border-top: 0;
+    }
+  }
+  .page-entries {
+    float: left;
+    line-height: 35px;
+    font-size: 12px;
+    color: #777;
+    text-transform: uppercase;
+  }
+}

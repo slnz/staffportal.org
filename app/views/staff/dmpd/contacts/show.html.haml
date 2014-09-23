@@ -1,0 +1,80 @@
+.page-header.dmpd
+  %a.back{href: dmpd_contacts_path}
+    = fa_icon 'chevron-left'
+  = title @contact.name
+.disabled-form
+  .form-title
+    Personal Information
+  .row
+    .col-sm-5.form-group
+      .control-label First Name
+      .form-control= @contact.first_name
+    .col-sm-5.form-group
+      .control-label Last Name
+      .form-control= @contact.last_name
+    .col-sm-2.form-group
+      .control-label Priority Code
+      .form-control{class: "priority-#{@contact.priority_code}"}= @contact.priority_code
+  .row
+    .col-md-12.form-group
+      .control-label Email
+      .form-control= @contact.email
+  .row
+    .col-sm-4.form-group
+      .control-label Primary Phone
+      .form-control= @contact.primary_phone
+    .col-sm-4.form-group
+      .control-label Home Phone
+      .form-control= @contact.home_phone
+    .col-sm-4.form-group
+      .control-label Office Phone
+      .form-control= @contact.office_phone
+  .row
+    .col-md-12.form-group
+      .control-label Address
+      .form-control= @contact.address
+      %input{type: 'hidden', class:'gmaps-address'}
+  #gmaps-canvas
+  - content_for :javascript do
+    :javascript
+      $(function () {
+        setTimeout(function() {
+          window.completer = new GmapsCompleter({
+            inputField: '.gmaps-address'
+          });
+          window.completer.autoCompleteInit({
+            country: "New Zealand"
+          });
+          completer.update = true;
+          completer.geocodeLookup('address', "#{@contact.address}", true);
+        }, 500);
+      });
+  .form-title
+    Additional Information
+  .row
+    .col-sm-6.form-group
+      .control-label Referer
+      .form-control= @contact.referer.try(:name)
+    .col-sm-6.form-group
+      .control-label How Knows
+      .form-control= @contact.how_knows
+  .row.form-group
+    .col-sm-6.form-group
+      .control-label Occupation
+      .form-control= @contact.occupation
+    .col-sm-4.form-group
+      .control-label Church
+      .form-control= @contact.church
+    .col-sm-2.form-group
+      .control-label New Church
+      .form-control= @contact.new_church
+  .row
+    .col-sm-6.form-group
+      .control-label Children
+      .form-control= @contact.children
+    .col-sm-6.form-group
+      .control-label Anniversary
+      .form-control= @contact.anniversary
+  .form-actions
+    = link_to 'Back', dmpd_contacts_path, class: 'back'
+    %a.btn.btn-primary{href: edit_dmpd_contact_path(@contact)} Edit Contact

@@ -1,6 +1,8 @@
 //= require jquery
 //= require jquery.turbolinks
 //= require jquery_ujs
+//= require jquery-ui
+//= require gmaps-auto-complete
 //= require nprogress
 //= require nprogress-turbolinks
 //= require highcharts
@@ -43,5 +45,4 @@ $(function() {
 	  ease: 'ease',
 	  speed: 500
 	});
-
 });

@@ -1,50 +1,90 @@
 module Staff
   module Dmpd
-    class ContactsController < InheritedResources::Base
+    class ContactsController < ApplicationController
       before_filter :authenticate_user!
-      respond_to :html, only: [:index, :show, :update, :create, :delete]
+      add_breadcrumb 'dmpd', :dmpd_root_path
+      add_breadcrumb 'contacts', :dmpd_contacts_path
 
-      def create
-        if params[:contact][:first_name].empty? ||
-           params[:contact][:last_name].empty? ||
-           params[:contact][:phone].empty?
-          flash[:notice] = 'Missing Contact Field Data'.html_safe
-          redirect_to dmpd_contacts_path
-        else
-          params[:contact][:first_name] =
-            params[:contact][:first_name].capitalize
-          params[:contact][:last_name] =
-            params[:contact][:last_name].capitalize
-          params[:contact][:phone] =
-            params[:contact][:phone].gsub(/[^0-9]/, '')
-          @exists =
-            Contact.where(first_name: params[:contact][:first_name],
-                          last_name: params[:contact][:last_name],
-                          phone: params[:contact][:phone]).first
-          if @exists.nil?
-            @exists = Contact.where(phone: params[:contact][:phone]).first
-          end
-          if @exists.nil?
-            super
-          else
-            flash[:notice] =
-              'Contact already claimed by ' +
-              "<a href=\"mailto:#{@exists.user.username}\">" +
-              "#{@exists.user.username}</a>".html_safe
-            redirect_to dmpd_contacts_path
-          end
-        end
+      def index
+        load_contacts
       end
 
       def show
-        flash[:notice] = 'Contact Created'
-        redirect_to dmpd_contacts_path
+        load_contact
+      end
+
+      def new
+        build_contact
+      end
+
+      def create
+        build_contact
+        save_contact || render('new')
+      end
+
+      def edit
+        load_contact
+        build_contact
+      end
+
+      def update
+        load_contact
+        build_contact
+        save_contact || render('edit')
       end
 
       def destroy
-        Contact.find(params[:id]).destroy
-        flash[:notice] = 'Contact Removed'
+        load_contact
+        @contact.destroy
         redirect_to dmpd_contacts_path
+      end
+
+      protected
+
+      def load_contacts
+        @q ||= contact_scope.search(params[:q])
+        @q.sorts = 'first_name asc' if @q.sorts.empty?
+        @contacts ||= @q.result(distinct: true).page params[:page]
+      end
+
+      def load_contact
+        @contact ||= contact_scope.find(params[:id])
+      end
+
+      def build_contact
+        @contact ||= contact_scope.build
+        @contact.attributes = contact_params
+      end
+
+      def save_contact
+        return unless @contact.save
+        redirect_to [:dmpd, @contact]
+      end
+
+      def contact_scope
+        current_user.contacts
+      end
+
+      def contact_params
+        contact_params = params[:contact]
+        return {} unless contact_params
+        contact_params.permit(
+            :first_name,
+            :last_name,
+            :priority_code,
+            :new_church,
+            :church,
+            :email,
+            :primary_phone,
+            :home_phone,
+            :office_phone,
+            :referer_id,
+            :how_knows,
+            :occupation,
+            :address,
+            :children,
+            :anniversary
+          )
       end
     end
   end
