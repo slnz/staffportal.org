@@ -43,6 +43,7 @@ gem 'table_for_collection'
 
 # Model
 gem 'phony_rails'
+gem 'currency_select', github: 'tanordheim/currency_select'
 
 # Javascript
 gem 'highcharts-rails'

@@ -8,12 +8,12 @@
       %tr
         %th Code
         %th.hidden-sm.hidden-xs Name
-        %th Balance
+        %th
+          .text-right Balance
         %th.hidden-sm.hidden-xs
-          Advances
+          .text-right Advances
         %th
           Updated
-          %span.hidden-sm.hidden-xs On
         %th
         - if current_user.accounts.count <= 15
           %th.visible-desktop
@@ -21,7 +21,9 @@
       - current_user.accounts.order(:code).all.each do |p|
         %tr.record.account{:class => "#{ if current_user.accounts.count <= 15 then 'expandable' else 'closed' end} #{'closed' unless p.code[0] == '1' or p.code[0] == '9'}" }
           %td= p.code
-          %td.hidden-sm.hidden-xs= p.name
+          %td.hidden-sm.hidden-xs
+            = p.name
+            .badge.badge-primary.pull-right= p.currency.upcase
           %td.text-right= number_to_currency p.get_balance current_user
           %td.text-right.hidden-sm.hidden-xs
             - unless @advances[p.id].nil?
@@ -39,10 +41,11 @@
           %tr{:style => ('display:none' unless p.code[0] == '1' or p.code[0] == '9')}
             %td{:colspan => 100}
               .bd{:id => @random, :style => ( (p.code[0] == '1' or p.code[0] == '9') ? 'display:block' : 'display:none' )}
-                %script{:type => 'text/javascript'}
-                  - if @salary.has_key?(p.id) and @goals.has_key?(p.id)
-                    = "insert_graph(\"#{@random}\",#{@months.keys.inspect.html_safe}, #{@graphs[p.code].to_a.map{|v| v[1].to_i} },\"Balance\", #{@goals[p.id]}, #{@salary[p.id]});".html_safe
-                  - elsif @goals.has_key?(p.id)
-                    = "insert_graph(\"#{@random}\",#{@months.keys.inspect.html_safe}, #{@graphs[p.code].to_a.map{|v| v[1].to_i} },\"Balance\", #{@goals[p.id]});".html_safe
-                  - else
-                    = "insert_graph(\"#{@random}\",#{@months.keys.inspect.html_safe}, #{@graphs[p.code].to_a.map{|v| v[1].to_i} },\"Balance\", 0);".html_safe
+                - content_for :javascript do
+                  %script{:type => 'text/javascript'}
+                    - if @salary.has_key?(p.id) and @goals.has_key?(p.id)
+                      = "insert_graph(\"#{@random}\",#{@months.keys.inspect.html_safe}, #{@graphs[p.code].to_a.map{|v| v[1].to_i} },\"Balance\", #{@goals[p.id]}, #{@salary[p.id]});".html_safe
+                    - elsif @goals.has_key?(p.id)
+                      = "insert_graph(\"#{@random}\",#{@months.keys.inspect.html_safe}, #{@graphs[p.code].to_a.map{|v| v[1].to_i} },\"Balance\", #{@goals[p.id]});".html_safe
+                    - else
+                      = "insert_graph(\"#{@random}\",#{@months.keys.inspect.html_safe}, #{@graphs[p.code].to_a.map{|v| v[1].to_i} },\"Balance\", 0);".html_safe

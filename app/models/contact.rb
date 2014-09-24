@@ -6,6 +6,7 @@ class Contact < ActiveRecord::Base
   validates :priority_code, presence: true
   has_one :referer, class_name: 'Contact', foreign_key: 'referer_id'
   belongs_to :user
+  before_save :update_search_field
 
   validates :primary_phone, phony_plausible: true
   validates :home_phone, phony_plausible: true
@@ -23,5 +24,13 @@ class Contact < ActiveRecord::Base
 
   def initials
     first_name[0, 1] + last_name[0, 1]
+  end
+
+  protected
+
+  def update_search_field
+    self.search =
+      "%%#{first_name}%%#{last_name}%%#{address}%%#{occupation}%%#{church}%%" +
+      "#{primary_phone}%%#{home_phone}%%#{office_phone}%%#{email}%%#{children}"
   end
 end

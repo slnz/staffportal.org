@@ -6,6 +6,8 @@ class Account < ActiveRecord::Base
   has_many :goals
   validates_uniqueness_of :code
   validates_presence_of :code
+  validates_presence_of :currency
+  validates_presence_of :name
 
   def code=(setter)
     write_attribute :code, setter.gsub(/~/, '')
@@ -42,9 +44,9 @@ class Account < ActiveRecord::Base
   def last_updated
     acct = records.order('date DESC, id desc').first
     if acct.nil?
-      Time.now.strftime('%d %b %Y')
+      Time.now.strftime('%b %Y')
     else
-      acct.date.strftime('%d %b %Y')
+      acct.date.strftime('%b %Y')
     end
   end
 end

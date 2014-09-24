@@ -22,13 +22,17 @@
   .row
     .col-sm-4.form-group
       .control-label Primary Phone
-      .form-control= @contact.primary_phone
+      .form-control= "+#{@contact.primary_phone}"
     .col-sm-4.form-group
       .control-label Home Phone
-      .form-control= @contact.home_phone
+      .form-control
+        - unless @contact.home_phone.blank?
+          = "+#{@contact.home_phone}"
     .col-sm-4.form-group
       .control-label Office Phone
-      .form-control= @contact.office_phone
+      .form-control
+        - unless @contact.office_phone.blank?
+          = "+#{@contact.office_phone}"
   .row
     .col-md-12.form-group
       .control-label Address
@@ -40,7 +44,8 @@
       $(function () {
         setTimeout(function() {
           window.completer = new GmapsCompleter({
-            inputField: '.gmaps-address'
+            inputField: '.gmaps-address',
+            debugOn: false
           });
           window.completer.autoCompleteInit({
             country: "New Zealand"

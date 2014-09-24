@@ -1,7 +1,7 @@
 //= require jquery
 //= require jquery.turbolinks
 //= require jquery_ujs
-//= require jquery-ui
+//= require jquery-ui/autocomplete
 //= require gmaps-auto-complete
 //= require nprogress
 //= require nprogress-turbolinks

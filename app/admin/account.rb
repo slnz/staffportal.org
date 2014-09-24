@@ -1,6 +1,6 @@
 ActiveAdmin.register Account, as: 'Responsibility Center' do
   menu parent: 'Accounts'
-  permit_params :name, :code
+  permit_params :name, :code, :currency
 
   action_item only: :index do
     link_to 'Import from CSV', action: 'upload_csv'
@@ -30,10 +30,22 @@ ActiveAdmin.register Account, as: 'Responsibility Center' do
   filter :code
   filter :name
 
+  form do |f|
+    f.inputs 'Details' do
+      f.input :name
+      f.input :code
+      f.input :currency, as: :select, collection: CurrencySelect.currencies_array
+    end
+    f.actions
+  end
+
   index do
     selectable_column
     column :code
     column :name
+    column('Currency') do |p|
+      p.currency.upcase
+    end
     column('Balance') do |p|
       acct = p.records.order('date DESC, id desc').first unless p.records.nil?
       if acct.nil?

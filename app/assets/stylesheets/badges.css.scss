@@ -1,0 +1,11 @@
+.badge {
+  background-color: transparent;
+  border: 1px #999 solid;
+  color: #999;
+  border-radius: 3px;
+  padding: 3px 5px;
+  &.badge-primary {
+    color: $primary-color;
+    border-color: $primary-color;
+  }
+}

@@ -5,7 +5,7 @@
   padding: 6px;
   &:focus {
     box-shadow: none;
-    border-color: #85D2C4;
+    border-color: $primary-light-color;
   }
 }
 .disabled-form {
@@ -18,7 +18,7 @@
   box-shadow: none;
   &:focus {
     box-shadow: none;
-    border-color: #85D2C4;
+    border-color: $primary-light-color;
   }
 }
 .form-title {
@@ -29,6 +29,7 @@
   font-size: 15px;
 }
 .form-actions {
+  margin-top: -20px;
   padding: 20px;
   text-align: right;
   background-color: #eee;
@@ -63,15 +64,15 @@
 }
 .btn-primary {
   color: #fff;
-  background-color: #3EBFAC;
-  border-color: #3EBFAC;
+  background-color: $primary-color;
+  border-color: $primary-color;
   &:hover {
-    background-color: #85D2C4;
-    border-color: #85D2C4;
+    background-color: $primary-light-color;
+    border-color: $primary-light-color;
   }
 }
 .ui-autocomplete {
-  border: 1px solid #85D2C4;
+  border: 1px solid $primary-light-color;
   border-top: 0;
 }
 .ui-menu .ui-menu-item {
@@ -79,8 +80,16 @@
   font-size: 13px;
   color: #777;
   &.ui-state-focus {
-    background: #85D2C4;
-    border-color: #85D2C4;
+    background: $primary-light-color;
+    border-color: $primary-light-color;
     color: #fff;
+  }
+}
+@media (max-width: 767px) {
+  .form-actions {
+    margin: -15px -15px 0  -15px;
+    .search {
+      margin-right: 120px;
+    }
   }
 }

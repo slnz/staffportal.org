@@ -7,6 +7,19 @@
     = stylesheet_link_tag "application", :media => "all"
     = csrf_meta_tags
     = render 'mobile'
+    %script{:src => "http://maps.googleapis.com/maps/api/js?sensor=false", :type => "text/javascript"}
+    / Start of Zopim Live Chat Script
+    :javascript
+      window.$zopim||(function(d,s){var z=$zopim=function(c){z._.push(c)},$=z.s=
+      d.createElement(s),e=d.getElementsByTagName(s)[0];z.set=function(o){z.set.
+      _.push(o)};z._=[];z.set._=[];$.async=!0;$.setAttribute('charset','utf-8');
+      $.src='//v2.zopim.com/?2ASMSpq9rMgNMsQBxXMtJyQqN4tj8Pf2';z.t=+new Date;$.
+      type='text/javascript';e.parentNode.insertBefore($,e)})(document,'script');
+    / End of Zopim Live Chat Script
+    %script{:src => "//use.typekit.net/oed2qww.js", :type => "text/javascript"}
+    :javascript
+      try{Typekit.load();}catch(e){}
+    = javascript_include_tag "application"
   %body
     = render 'sidebar'
     = render 'topbar'
@@ -24,17 +37,4 @@
     %script{:text => "text/javascript"}
       var controller = "#{params[:controller]}";
       var action = "#{params[:action]}";
-    / Start of Zopim Live Chat Script
-    :javascript
-      window.$zopim||(function(d,s){var z=$zopim=function(c){z._.push(c)},$=z.s=
-      d.createElement(s),e=d.getElementsByTagName(s)[0];z.set=function(o){z.set.
-      _.push(o)};z._=[];z.set._=[];$.async=!0;$.setAttribute('charset','utf-8');
-      $.src='//v2.zopim.com/?2ASMSpq9rMgNMsQBxXMtJyQqN4tj8Pf2';z.t=+new Date;$.
-      type='text/javascript';e.parentNode.insertBefore($,e)})(document,'script');
-    / End of Zopim Live Chat Script
-    %script{:src => "//use.typekit.net/oed2qww.js", :type => "text/javascript"}
-    :javascript
-      try{Typekit.load();}catch(e){}
-    %script{:src => "http://maps.googleapis.com/maps/api/js?sensor=false", :type => "text/javascript"}
-    = javascript_include_tag "application"
     = yield :javascript

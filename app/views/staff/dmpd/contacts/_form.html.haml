@@ -23,7 +23,8 @@
       $(function () {
         setTimeout(function() {
           window.completer = new GmapsCompleter({
-            inputField: '.gmaps-address'
+            inputField: '.gmaps-address',
+            debugOn: false
           });
           window.completer.autoCompleteInit({
             country: "New Zealand"

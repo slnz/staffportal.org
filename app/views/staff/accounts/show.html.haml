@@ -47,11 +47,12 @@
         %tr{:style => 'display:none'}
           %td{:colspan => 100}
             .bd{:id => @random, :style => 'display:none'}
-              %script{:type => 'text/javascript'}
-                - if @goals[key].nil?
-                  = "insert_graph(\"#{@random}\",#{@months.keys.inspect.html_safe}, #{@data}, \"#{key}\");".html_safe
-                - else
-                  = "insert_graph(\"#{@random}\",#{@months.keys.inspect.html_safe}, #{@data}, \"#{key}\", #{@goals[key]});".html_safe
+              - content_for :javascript do
+                %script{:type => 'text/javascript'}
+                  - if @goals[key].nil?
+                    = "insert_graph(\"#{@random}\",#{@months.keys.inspect.html_safe}, #{@data}, \"#{key}\");".html_safe
+                  - else
+                    = "insert_graph(\"#{@random}\",#{@months.keys.inspect.html_safe}, #{@data}, \"#{key}\", #{@goals[key]});".html_safe
         - @data = []
       -# INCOME SUM
       %tr.sum_totals.record.expandable.closed
@@ -70,8 +71,9 @@
       %tr{:style => 'display:none'}
         %td{:colspan => 100}
           .bd{:id => @random, :style => 'display:none'}
-            %script{:type => 'text/javascript'}
-              = "insert_graph(\"#{@random}\",#{@months.keys.inspect.html_safe}, #{@data}, \"TOTAL FUNDS RECEIVED\", #{@income_goal});".html_safe
+            - content_for :javascript do
+              %script{:type => 'text/javascript'}
+                = "insert_graph(\"#{@random}\",#{@months.keys.inspect.html_safe}, #{@data}, \"TOTAL FUNDS RECEIVED\", #{@income_goal});".html_safe
       -# EXPENSES
       %tr.record.hidden-print
         %td{:colspan => @months.length + 4}
@@ -98,11 +100,12 @@
         %tr{:style => 'display:none'}
           %td{:colspan => 100}
             .bd{:id => @random, :style => 'display:none'}
-              %script{:type => 'text/javascript'}
-                - if @goals[key].nil?
-                  = "insert_graph(\"#{@random}\",#{@months.keys.inspect.html_safe}, #{@data}, \"#{key}\");".html_safe
-                - else
-                  = "insert_graph(\"#{@random}\",#{@months.keys.inspect.html_safe}, #{@data}, \"#{key}\", #{@goals[key]});".html_safe
+              - content_for :javascript do
+                %script{:type => 'text/javascript'}
+                  - if @goals[key].nil?
+                    = "insert_graph(\"#{@random}\",#{@months.keys.inspect.html_safe}, #{@data}, \"#{key}\");".html_safe
+                  - else
+                    = "insert_graph(\"#{@random}\",#{@months.keys.inspect.html_safe}, #{@data}, \"#{key}\", #{@goals[key]});".html_safe
         - @data = []
       -# EXPENSES TOTAL
       %tr.sum_totals.record.expandable.closed
@@ -122,8 +125,9 @@
       %tr{:style => 'display:none'}
         %td{:colspan => 100}
           .bd{:id => @random, :style => 'display:none'}
-            %script{:type => 'text/javascript'}
-              = "insert_graph(\"#{@random}\",#{@months.keys.inspect.html_safe}, #{@data}, \"TOTAL OUTGOINGS\", #{@expense_goal});".html_safe
+            - content_for :javascript do
+              %script{:type => 'text/javascript'}
+                = "insert_graph(\"#{@random}\",#{@months.keys.inspect.html_safe}, #{@data}, \"TOTAL OUTGOINGS\", #{@expense_goal});".html_safe
       -# TOTALS
       %tr.sum_totals.record.hidden-print
         %td{:colspan => @months.length + 4}
@@ -192,11 +196,12 @@
       %tr.hidden-print
         %td{:colspan => 100}
           .bd{:id => @random, :style => 'display:block'}
-            %script{:type => 'text/javascript'}
-              - if @goals["Salary"].nil?
-                = "insert_graph(\"#{@random}\",#{@months.keys.inspect.html_safe}, #{@data},\"Balance\", #{@income_goal});".html_safe
-              - else
-                = "insert_graph(\"#{@random}\",#{@months.keys.inspect.html_safe}, #{@data},\"Balance\", #{@income_goal}, #{@goals["Salary"]});".html_safe
+            - content_for :javascript do
+              %script{:type => 'text/javascript'}
+                - if @goals["Salary"].nil?
+                  = "insert_graph(\"#{@random}\",#{@months.keys.inspect.html_safe}, #{@data},\"Balance\", #{@income_goal});".html_safe
+                - else
+                  = "insert_graph(\"#{@random}\",#{@months.keys.inspect.html_safe}, #{@data},\"Balance\", #{@income_goal}, #{@goals["Salary"]});".html_safe
       - unless @advances_row.blank?
         %tr.record.closed
           %td Advances
