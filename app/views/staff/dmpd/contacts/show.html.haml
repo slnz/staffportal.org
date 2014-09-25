@@ -8,17 +8,21 @@
   .row
     .col-sm-5.form-group
       .control-label First Name
-      .form-control= @contact.first_name
+      .form-control= @contact.first_name.titleize
     .col-sm-5.form-group
       .control-label Last Name
-      .form-control= @contact.last_name
+      .form-control= @contact.last_name.titleize
     .col-sm-2.form-group
       .control-label Priority Code
       .form-control{class: "priority-#{@contact.priority_code}"}= @contact.priority_code
   .row
-    .col-md-12.form-group
+    .col-md-10.form-group
       .control-label Email
       .form-control= @contact.email
+    .col-md-2.form-group
+      .control-label Status
+      .form-control
+        .label{class: "label-#{@contact.category}"}= @contact.status.titleize
   .row
     .col-sm-4.form-group
       .control-label Primary Phone

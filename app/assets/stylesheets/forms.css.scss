@@ -37,6 +37,45 @@
     color: #444;
     margin-right: 10px;
   }
+  .scopes {
+    background-color: #fafafa;
+    margin: 20px -20px -20px -20px;
+    padding: 10px 20px;
+    text-align: left;
+    border: 1px #eee solid;
+    font-size: 12px;
+    line-height: 24px;
+    color: #444;
+    text-transform: uppercase;
+    .btn-group {
+      text-transform: none;
+      border: 1px transparent solid;
+      .btn {
+        font-weight: bold;
+        &:active {
+          box-shadow: none;
+        }
+        &:hover{
+          color: $primary-light-color;
+        }
+      }
+      button.dropdown-toggle {
+        color: $primary-color;
+        background-color: transparent;
+        padding-left: 0;
+      }
+      &.open {
+        border: 1px $primary-light-color solid;
+        .btn {
+          box-shadow: none;
+          color: $primary-light-color;
+        }
+      }
+      &.btn-active {
+        border: 1px $primary-color solid;
+      }
+    }
+  }
 }
 .input-group-addon {
   border-radius: 0;
@@ -90,6 +129,18 @@
     margin: -15px -15px 0  -15px;
     .search {
       margin-right: 120px;
+    }
+    .scopes {
+      text-align: center;
+      .btn-group {
+        position: static;
+        .dropdown-menu {
+          top: 90px;
+          left: 0;
+          right: 0;
+          border-radius: 0;
+        }
+      }
     }
   }
 }

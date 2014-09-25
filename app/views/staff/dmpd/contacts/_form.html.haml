@@ -8,7 +8,11 @@
       = f.input :last_name
     .col-sm-2
       = f.input :priority_code, as: :select, collection: Contact.priority_codes.collect { |s| [s[0].humanize, s[0]] }, selected: @contact.priority_code, class: "form-control"
-  = f.input :email
+  .row
+    .col-sm-10
+      = f.input :email
+    .col-sm-2
+      = f.input :status, as: :select, collection: Contact.statuses.collect { |s| [s[0].titleize, s[0]] }
   .row
     .col-sm-4
       = f.input :primary_phone, label: 'Phone (Mobile Preferred)'

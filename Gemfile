@@ -32,6 +32,7 @@ gem 'aws-sdk'
 gem 'fiscali'
 gem 'kaminari'
 gem 'ransack'
+gem 'has_scope'
 
 # View
 gem 'breadcrumbs_on_rails'

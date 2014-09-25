@@ -7,7 +7,7 @@
     %a.back{href: dmpd_contacts_path}
       = fa_icon 'chevron-left'
     = title 'Search'
-- if @contacts.empty? && params[:q].blank?
+- if @contacts.empty? && params[:q].blank? && !params[:scoped]
   .row
     .empty-state.col-md-4.col-md-offset-4
       %p
@@ -26,6 +26,19 @@
           .input-group.col-md-4.search
             %span.input-group-addon= fa_icon 'search'
             = f.search_field :search_cont, class: 'form-control', placeholder: 'Search'
+        .scopes
+          - Contact.categories.keys.each do |category|
+            .btn-group{class: ('btn-active' if params[category.to_sym] )}
+              %a.btn.btn-xs{href: dmpd_contacts_path(category.to_sym => true, scoped: true)}= category
+              %button.btn.btn-xs.dropdown-toggle{"data-toggle" => "dropdown", :type => "button"}
+                = fa_icon 'chevron-down'
+                %span.sr-only Toggle Dropdown
+              %ul.dropdown-menu{:role => "menu"}
+                - Contact.statuses.keys.each do |status|
+                  - if status[0, category.length] == category
+                    %li
+                      %a{href: dmpd_contacts_path(status.to_sym => true, scoped: true)}= status.sub(category, '').titleize
+          .pull-right.hidden-xs= page_entries_info @contacts
       - if @contacts.empty? && !params[:q].blank?
         .row
           .empty-state.col-md-4.col-md-offset-4
@@ -41,12 +54,14 @@
         - @contacts.each do |contact|
           .contact_row
             %a.priority{href: dmpd_contact_path(contact), data: {"no-turbolink" => true}, class: "priority-#{contact.priority_code}"}
-              = contact.initials
+              = contact.initials.upcase
             %a.info{href: dmpd_contact_path(contact), data: {"no-turbolink" => true}}
               %h4
-                = contact.first_name
-                = contact.last_name
+                = contact.name.titleize
               %small.text-muted
+                %span.label.label-default{class: "label-#{contact.category}"}
+                  = contact.category
+                &nbsp;
                 = "+#{contact.primary_phone}"
                 - unless contact.address.blank?
                   = fa_icon 'map-marker'

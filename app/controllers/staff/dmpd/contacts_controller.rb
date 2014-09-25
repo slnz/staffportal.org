@@ -4,6 +4,12 @@ module Staff
       before_filter :authenticate_user!
       add_breadcrumb 'dmpd', :dmpd_root_path
       add_breadcrumb 'contacts', :dmpd_contacts_path
+      Contact.categories.keys.each do |category|
+        has_scope category.to_sym, type: :boolean
+      end
+      Contact.statuses.keys.each do |category|
+        has_scope category.to_sym, type: :boolean
+      end
 
       def index
         load_contacts
@@ -11,26 +17,32 @@ module Staff
 
       def show
         load_contact
+        add_breadcrumb @contact.initials.upcase, dmpd_contact_path(@contact)
       end
 
       def new
         build_contact
+        add_breadcrumb 'new', :new_dmpd_contact_path
       end
 
       def create
         build_contact
         save_contact || render('new')
+        add_breadcrumb 'new', :new_dmpd_contact_path
       end
 
       def edit
         load_contact
         build_contact
+        add_breadcrumb @contact.initials.upcase, dmpd_contact_path(@contact)
+        add_breadcrumb 'edit', edit_dmpd_contact_path(@contact)
       end
 
       def update
         load_contact
         build_contact
         save_contact || render('edit')
+        add_breadcrumb 'edit', edit_dmpd_contact_path(@contact)
       end
 
       def destroy
@@ -42,7 +54,7 @@ module Staff
       protected
 
       def load_contacts
-        @q ||= contact_scope.search(params[:q])
+        @q ||= apply_scopes(contact_scope).search(params[:q])
         @q.sorts = 'first_name asc' if @q.sorts.empty?
         @contacts ||= @q.result(distinct: true).page params[:page]
       end
@@ -75,6 +87,7 @@ module Staff
             :new_church,
             :church,
             :email,
+            :status,
             :primary_phone,
             :home_phone,
             :office_phone,

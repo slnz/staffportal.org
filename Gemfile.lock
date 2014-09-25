@@ -492,6 +492,7 @@ DEPENDENCIES
   guard-rubocop
   guard-spring
   haml
+  has_scope
   highcharts-rails
   hirefire-resource
   httparty
