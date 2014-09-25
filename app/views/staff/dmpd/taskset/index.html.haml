@@ -39,7 +39,7 @@
               .text
                 = pluralize(count, 'essay')
             .col-xs-4
-              - count = t.assignments.upload.count - t.user_assignments.where(user: current_user).where('answer_upload_file_name != ?', '').joins(:assignment).where('kind = ?', Assignment.kinds[:upload]).count
+              - count = t.assignments.upload.count - t.user_assignments.where(user: current_user).where('document_id IS NOT NULL').joins(:assignment).where('kind = ?', Assignment.kinds[:upload]).count
               .stat
                 - if !t.assignments.upload.exists?
                   %i.fa -

@@ -103,8 +103,14 @@
   color: #444;
   text-align: center;
   font-size: 20px;
-  margin-top: 20px;
-  margin-bottom: 20px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  min-height: 100px;
+  background-color: #fafafa;
+  .icon {
+    font-size: 50px;
+    margin-top: 20px;
+  }
 }
 .btn-primary {
   color: #fff;
@@ -129,6 +135,21 @@
     color: #fff;
   }
 }
+.chosen-container-single .chosen-single {
+  height: 30px;
+  line-height: 30px;
+  abbr {
+    top: 9px;
+  }
+  div {
+    top: 3px;
+  }
+}
+.new-appointment {
+  textarea.form-control {
+    height: 245px;
+  }
+}
 form.taskset {
   label {
     text-transform: none;
@@ -137,7 +158,10 @@ form.taskset {
 }
 @media (max-width: 767px) {
   .form-actions, .controller-actions {
-    margin: -15px -15px 0  -15px;
+    margin: 0 -15px 0  -15px;
+    &.controller-actions {
+      margin-top: -20px;
+    }
     .search {
       margin-right: 120px;
     }
@@ -152,6 +176,12 @@ form.taskset {
           border-radius: 0;
         }
       }
+    }
+  }
+
+  .new-appointment {
+    textarea.form-control {
+      height: 100px;
     }
   }
 }

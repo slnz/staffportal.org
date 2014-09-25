@@ -30,11 +30,12 @@
     = f.actions do
       = f.submit class: 'btn btn-primary'
   - if @taskset.assignments.upload.exists?
-    .form-title Upload Assignments
+    .form-title File Assignments
+    .alert.alert-info
+      Upload your files first at the
+      = link_to 'Document Centre', documents_path
     = f.semantic_fields_for :assignments, @taskset.assignments.upload.order(:id) do |assignment|
       = assignment.semantic_fields_for :user_assignments, assignment.object.user_assignments.where(user: current_user, taskset: @taskset).first_or_create do |user_assignment|
-        = user_assignment.input :answer_upload, label: assignment.object.name.strip
-        - if user_assignment.object.answer_upload.exists?
-          %small= link_to 'Your Uploaded File', user_assignment.object.answer_upload.url
+        = user_assignment.input :document, label: assignment.object.name.strip, collection: current_user.documents
     = f.actions do
       = f.submit class: 'btn btn-primary'

@@ -41,7 +41,7 @@
     Additional Information
   .row
     .col-sm-6
-      = f.input :referer
+      = f.input :referer, collection: current_user.contacts
     .col-sm-6
       = f.input :how_knows, label: 'How Referer Knows this Contact'
   .row

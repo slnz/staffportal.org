@@ -1,6 +1,7 @@
 require 'resque/server'
 
 Staff::Application.routes.draw do
+
   devise_for :users, ActiveAdmin::Devise.config
 
   authenticated :user do
@@ -12,6 +13,7 @@ Staff::Application.routes.draw do
     end
 
     scope module: :staff do
+      resources :documents
       root to: 'index#index', as: :authenticated_root
       get 'since-youve-been-gone' => 'index#roadblock'
       get 'leaderboard' => 'index#leaderboard'
@@ -20,6 +22,7 @@ Staff::Application.routes.draw do
         root 'index#index'
         get 'signup' => 'index#signup'
         resources :contacts
+        resources :appointment_set_records
         resources :taskset
         namespace :stats do
           root to: 'base#index'

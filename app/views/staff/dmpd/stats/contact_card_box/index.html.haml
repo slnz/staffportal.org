@@ -1,48 +1,112 @@
 .page-header.dmpd
-  %a.back{href: dmpd_stats_root_path}
+  %a.back{href: dmpd_root_path}
     = fa_icon 'chevron-left'
   = title "Contact Card Box"
-  .pull-right
-    %a.btn.btn-primary{href: dmpd_stats_root_path}
-      = fa_icon 'home'
-      WCS
-    %a.btn.btn-default{href: dmpd_stats_support_raising_development_index_path}
-      = fa_icon 'phone'
-      Weekly Calling Chart
-    %a.btn.btn-default{href: dmpd_stats_appointment_set_record_index_path}
-      = fa_icon 'calendar'
-      Appointment Set Record
-    - if @late > 0
-      %a.btn.btn-danger.disabled= "#{@late} Late Reports"
-    %a.btn.btn-info{href: new_dmpd_stats_contact_card_box_path}
-      = fa_icon 'plus'
-      Add Data
 
-- unless @contact_card_box.empty?
-  = table_for @contact_card_box, :html => {:class => "table table-striped"} do
-    - column :week, title: "Week Ending", :html => { :th => { :class => "gray" }, :td => { :class => "gray" }} do |week|
-      - week.end_name
-    - column :contact_cards
-    - column :not_back_until
-    - column :office_phone_only
-    - column :contact_total, :html => { :th => { :class => "orange" }, :td => { :class => "orange" }}
-    - column :call_back_for_appointment, title: "CB Appt"
-    - column :call_back_for_decision, title: "CB Decision"
-    - column :call_back_for_contacts, title: "CB Contacts"
-    - column :call_back_total, :html => { :th => { :class => "orange" }, :td => { :class => "orange" }}
-    - column :appointment_set, title: "Appt Set"
-    - column :called_no_appointment_set, title: "No Appt"
-    - column :appointment_no_support, title: "Appt No Sup"
-    - column :new_ministry_partner, title: "New MP"
-    - column :appointment_total, title: "Appt Total", :html => { :th => { :class => "orange" }, :td => { :class => "orange" }}
-    -# column :future_total, :html => { :th => { :class => "orange" }, :td => { :class => "orange" }}
-    -# column :mpm_total, :html => { :th => { :class => "orange" }, :td => { :class => "orange" }}
-    -# column :total, :html => { :th => { :class => "orange" }, :td => { :class => "orange" }}
-    - column :title => "Actions" do |ccb|
-      - link_to("Edit", edit_dmpd_stats_contact_card_box_path(ccb) )
-- else
-  .well.text-center
-    %p No Statistics Entered.
-    %a.btn.btn-primary{href: new_dmpd_stats_contact_card_box_path}
-      = fa_icon 'plus'
-      Add Data
+.dashboard.row
+  .col-sm-3
+    %a{href: dmpd_contacts_path(base: true, scoped: true)}
+      .box.dmpd.clearfix
+        .border
+        .title
+          Base
+          .text-muted Contacts
+        .stat
+          %div= fa_icon 'users'
+          = current_user.contacts.base.count
+        .go
+          View
+          = fa_icon 'chevron-right'
+    .list-group
+      - Contact.statuses.keys.each do |status|
+        - if status[0, 'base'.length] == 'base'
+          %a.list-group-item{href: dmpd_contacts_path(status.to_sym => true, scoped: true)}
+            %span.badge= current_user.contacts.try(status.to_sym).count
+            = status.sub('base', '').titleize
+  .col-sm-3
+    %a{href: dmpd_contacts_path(callback: true, scoped: true)}
+      .box.dmpd.clearfix
+        .border
+        .title
+          Callback
+          .text-muted Contacts
+        .stat
+          %div= fa_icon 'phone'
+          = current_user.contacts.callback.count
+        .go
+          View
+          = fa_icon 'chevron-right'
+    .list-group
+      - Contact.statuses.keys.each do |status|
+        - if status[0, 'callback'.length] == 'callback'
+          %a.list-group-item{href: dmpd_contacts_path(status.to_sym => true, scoped: true)}
+            %span.badge= current_user.contacts.try(status.to_sym).count
+            = status.sub('callback', '').titleize
+  .col-sm-3
+    %a{href: dmpd_contacts_path(appointment: true, scoped: true)}
+      .box.dmpd.clearfix
+        .border
+        .title
+          Appointment
+          .text-muted Contacts
+        .stat
+          %div= fa_icon 'calendar'
+          = current_user.contacts.appointment.count
+        .go
+          View
+          = fa_icon 'chevron-right'
+    .list-group
+      - Contact.statuses.keys.each do |status|
+        - if status[0, 'appointment'.length] == 'appointment'
+          %a.list-group-item{href: dmpd_contacts_path(status.to_sym => true, scoped: true)}
+            %span.badge= current_user.contacts.try(status.to_sym).count
+            = status.sub('appointment', '').titleize
+  .col-sm-3
+    %a{href: dmpd_contacts_path(maintain: true, scoped: true)}
+      .box.dmpd.clearfix
+        .border
+        .title
+          Maintainance
+          .text-muted Contacts
+        .stat
+          %div= fa_icon 'envelope'
+          = current_user.contacts.maintain.count
+        .go
+          View
+          = fa_icon 'chevron-right'
+    .list-group
+      - Contact.statuses.keys.each do |status|
+        - if status[0, 'maintain'.length] == 'maintain'
+          %a.list-group-item{href: dmpd_contacts_path(status.to_sym => true, scoped: true)}
+            %span.badge= current_user.contacts.try(status.to_sym).count
+            = status.sub('maintain', '').titleize
+
+-#
+  - unless @contact_card_box.empty?
+    = table_for @contact_card_box, :html => {:class => "table table-striped"} do
+      - column :week, title: "Week Ending", :html => { :th => { :class => "gray" }, :td => { :class => "gray" }} do |week|
+        - week.end_name
+      - column :contact_cards
+      - column :not_back_until
+      - column :office_phone_only
+      - column :contact_total, :html => { :th => { :class => "orange" }, :td => { :class => "orange" }}
+      - column :call_back_for_appointment, title: "CB Appt"
+      - column :call_back_for_decision, title: "CB Decision"
+      - column :call_back_for_contacts, title: "CB Contacts"
+      - column :call_back_total, :html => { :th => { :class => "orange" }, :td => { :class => "orange" }}
+      - column :appointment_set, title: "Appt Set"
+      - column :called_no_appointment_set, title: "No Appt"
+      - column :appointment_no_support, title: "Appt No Sup"
+      - column :new_ministry_partner, title: "New MP"
+      - column :appointment_total, title: "Appt Total", :html => { :th => { :class => "orange" }, :td => { :class => "orange" }}
+      -# column :future_total, :html => { :th => { :class => "orange" }, :td => { :class => "orange" }}
+      -# column :mpm_total, :html => { :th => { :class => "orange" }, :td => { :class => "orange" }}
+      -# column :total, :html => { :th => { :class => "orange" }, :td => { :class => "orange" }}
+      - column :title => "Actions" do |ccb|
+        - link_to("Edit", edit_dmpd_stats_contact_card_box_path(ccb) )
+  - else
+    .well.text-center
+      %p No Statistics Entered.
+      %a.btn.btn-primary{href: new_dmpd_stats_contact_card_box_path}
+        = fa_icon 'plus'
+        Add Data

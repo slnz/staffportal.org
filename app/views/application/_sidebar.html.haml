@@ -37,9 +37,13 @@
           %a{:href => leaderboard_path}
             = fa_icon 'signal'
             Leaderboard
+        %li{ class: ('active' if current_page? documents_path) }
+          %a{:href => documents_path}
+            = fa_icon 'file-o'
+            Document Centre
     %li
       %a{:href => auth_logout_path}
-        = fa_icon 'home'
+        = fa_icon 'sign-out'
         Sign Out
   .rank
     %h5= current_user.xp_level.name.capitalize

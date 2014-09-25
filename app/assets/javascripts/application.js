@@ -2,6 +2,8 @@
 //= require jquery.turbolinks
 //= require jquery_ujs
 //= require jquery-ui/autocomplete
+//= require s3_direct_upload
+//= require chosen-jquery
 //= require gmaps-auto-complete
 //= require nprogress
 //= require nprogress-turbolinks
@@ -14,8 +16,14 @@
 //= require accounts
 //= require gma
 //= require reviews
+//= require documents
 //= require turbolinks
 //= require_self
+this.chosenify = function(entry) {
+  return entry.chosen({
+    allow_single_deselect: true
+  });
+};
 
 $(function() {
 	var summer_note;
@@ -35,6 +43,8 @@ $(function() {
 		});
 		return true;
 	});
+
+	chosenify($(".chosen"));
 
 	$('.datepicker').datepicker();
 

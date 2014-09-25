@@ -37,7 +37,7 @@ module Staff
         params.permit(taskset:
           [assignments_attributes:
             [user_assignments_attributes:
-              [:answer_boolean, :answer_text, :id]
+              [:answer_boolean, :answer_text, :document_id, :id]
             ]
           ]
         )

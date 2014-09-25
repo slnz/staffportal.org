@@ -12,6 +12,8 @@
       %ul.dropdown-menu
         %li{ class: ('active' if current_page? leaderboard_path) }
           %a{:href => leaderboard_path} Leaderboard
+        %li{ class: ('active' if current_page? documents_path) }
+          %a{:href => documents_path} Document Centre
         %li
           %a{:href => edit_user_path} My Profile
         %li.divider

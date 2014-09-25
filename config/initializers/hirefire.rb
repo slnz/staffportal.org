@@ -9,4 +9,8 @@ HireFire::Resource.configure do |config|
     HireFire::Macro::Resque.queue(:balances)
   end
 
+  config.dyno(:statused) do
+    HireFire::Macro::Resque.queue(:statused)
+  end
+
 end

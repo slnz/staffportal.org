@@ -1,5 +1,5 @@
 .page-header.dmpd
-  %a.back{href: dmpd_contacts_path}
+  %a.back{href: dmpd_contact_path(@contact)}
     = fa_icon 'chevron-left'
   = title "Edit #{@contact.name}"
 = render partial: 'form'

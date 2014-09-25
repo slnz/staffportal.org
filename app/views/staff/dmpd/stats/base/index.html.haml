@@ -3,16 +3,16 @@
   %a.back{href: dmpd_root_path}
     = fa_icon 'chevron-left'
   = title "DMPD Statistics"
-  .pull-right
-    %a.btn.btn-default{href: dmpd_stats_contact_card_box_index_path}
-      = fa_icon 'user'
-      Contact Card Box
-    %a.btn.btn-default{href: dmpd_stats_support_raising_development_index_path}
-      = fa_icon 'phone'
-      Weekly Calling Chart
-    %a.btn.btn-default{href: dmpd_stats_appointment_set_record_index_path}
-      = fa_icon 'calendar'
-      Appointment Set Record
+.controller-actions
+  %a.btn.btn-default{href: dmpd_stats_contact_card_box_index_path}
+    = fa_icon 'user'
+    Contact Card Box
+  %a.btn.btn-default{href: dmpd_stats_support_raising_development_index_path}
+    = fa_icon 'phone'
+    Weekly Calling Chart
+  %a.btn.btn-default{href: dmpd_appointment_set_records_path}
+    = fa_icon 'calendar'
+    Appointment Set Record
 %ul.nav.nav-tabs
   %li.active
     %a{"data-toggle" => "tab", href: "#ss"} Statistics Summary
@@ -54,12 +54,12 @@
         - @weeks.each do |wk|
           - srd = current_user.support_raising_developments.find_by_week_id(wk.id)
           - ccb = current_user.contact_card_box.find_by_week_id(wk.id)
-          - contacts_received += current_user.appointment_set_record.where(date_set_week_id: wk.id).sum(:number_of_contacts_received)
-          - appointments_set = current_user.appointment_set_record.where(date_set_week_id: wk.id).count
-          - appointments_had = current_user.appointment_set_record.where(date_of_appointment_week_id: wk.id).count
-          - appointments_support = current_user.appointment_set_record.where("date_of_appointment_week_id = ? and frequency > 0", wk.id).count
-          - monthly = current_user.appointment_set_record.where("date_of_appointment_week_id = ? and frequency > 0", wk.id).sum(:monthly)
-          - special = current_user.appointment_set_record.where("date_of_appointment_week_id = ? and frequency = 0", wk.id).sum(:amount)
+          - contacts_received += current_user.appointment_set_records.where(date_set_week_id: wk.id).sum(:number_of_contacts_received)
+          - appointments_set = current_user.appointment_set_records.where(date_set_week_id: wk.id).count
+          - appointments_had = current_user.appointment_set_records.where(date_of_appointment_week_id: wk.id).count
+          - appointments_support = current_user.appointment_set_records.where("date_of_appointment_week_id = ? and frequency > 0", wk.id).count
+          - monthly = current_user.appointment_set_records.where("date_of_appointment_week_id = ? and frequency > 0", wk.id).sum(:monthly)
+          - special = current_user.appointment_set_records.where("date_of_appointment_week_id = ? and frequency = 0", wk.id).sum(:amount)
           - @graph_data[:months] << wk.end_name
           %tr
             - if ccb.nil? or srd.nil?
@@ -155,7 +155,7 @@
         - contacts_received = 0
         - @weeks.each do |wk|
           - ccb = current_user.contact_card_box.find_by_week_id(wk.id)
-          - contacts_received += current_user.appointment_set_record.where(date_set_week_id: wk.id).sum(:number_of_contacts_received)
+          - contacts_received += current_user.appointment_set_records.where(date_set_week_id: wk.id).sum(:number_of_contacts_received)
           %tr
             - if ccb.nil?
               %td.gray= wk.end_name

@@ -11,7 +11,7 @@ $brand-primary: #3EBFAC;
 @import 'datepicker';
 @import 'simple-slider';
 @import 'summernote';
-
+@import 'chosen';
 
 $primary-color: $brand-primary;
 $primary-light-color: #85D2C4;
@@ -22,6 +22,7 @@ $primary-light-color: #85D2C4;
 @import 'badges';
 @import 'labels';
 @import 'accounts';
+@import 'documents';
 
 body {
   background: #fff;

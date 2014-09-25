@@ -1,0 +1,46 @@
+.page-header
+  %a.back{href: authenticated_root_path}
+    = fa_icon 'chevron-left'
+  = title 'Document Centre'
+.row
+  .col-md-8.documents
+    - if @documents.empty?
+      .empty-state
+        You haven't added any documents
+        .icon= fa_stacked_icon 'file-o inverse', base: 'circle', class: 'text-muted'
+    - else
+      .form-title Documents
+      .row
+        - @documents.each do |document|
+          .col-md-3
+            .document{style: "background-image: url(#{document.upload.expiring_url});"}
+              .content
+                = document.upload_file_name
+                - if document.processed?
+                  %br/
+                  %br/
+                  %a.btn.btn-primary{href: document.upload.expiring_url, target: '_blank'}
+                    = fa_icon 'search'
+                  &nbsp;
+                  %a.btn.btn-danger{href: document_path(document), data: { method: :delete }}
+                    = fa_icon 'trash-o'
+                - else
+                  %div
+                    .label.label-primary processing
+
+  .col-md-4
+    .form-title Upload a Document
+    = s3_uploader_form callback_url: documents_url,  |
+      id: "s3_uploader",                             |
+      callback_param: "document[direct_upload_url]", |
+      expiration: 24.hours.from_now.utc.iso8601,     |
+      max_file_size: 100.megabytes do                |
+      = file_field_tag :file, multiple: true
+    #uploads_container
+    %script#template-upload{:type => "text/x-tmpl"}
+      <div id="upload_{%=o.unique_id%}" class="upload">
+      <h5>{%=o.name%}</h5>
+      <div class="progress">
+      <div class="progress-bar progress-bar-striped active bar"  role="progressbar"aria-valuemin="0" aria-valuemax="100" style="width: 0%">
+      </div>
+      </div>

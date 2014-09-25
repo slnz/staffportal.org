@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140924022630) do
+ActiveRecord::Schema.define(version: 20140925101048) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -50,9 +50,6 @@ ActiveRecord::Schema.define(version: 20140924022630) do
   add_index "active_admin_comments", ["resource_type", "resource_id"], name: "index_admin_notes_on_resource_type_and_resource_id", using: :btree
 
   create_table "appointment_set_records", force: true do |t|
-    t.string   "first_name"
-    t.string   "last_name"
-    t.date     "date_set"
     t.date     "date_of_appointment"
     t.boolean  "support"
     t.decimal  "amount"
@@ -70,6 +67,9 @@ ActiveRecord::Schema.define(version: 20140924022630) do
     t.integer  "gift_confirmed_date_week_id"
     t.decimal  "frequency"
     t.decimal  "monthly"
+    t.integer  "contact_id"
+    t.string   "address"
+    t.text     "notes"
   end
 
   create_table "assignments", force: true do |t|
@@ -142,6 +142,21 @@ ActiveRecord::Schema.define(version: 20140924022630) do
     t.datetime "updated_at",  null: false
     t.integer  "currency_id"
   end
+
+  create_table "documents", force: true do |t|
+    t.integer  "user_id",                             null: false
+    t.string   "direct_upload_url",                   null: false
+    t.string   "upload_file_name"
+    t.string   "upload_content_type"
+    t.integer  "upload_file_size"
+    t.datetime "upload_updated_at"
+    t.boolean  "processed",           default: false, null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "documents", ["processed"], name: "index_documents_on_processed", using: :btree
+  add_index "documents", ["user_id"], name: "index_documents_on_user_id", using: :btree
 
   create_table "gma_measurements", force: true do |t|
     t.integer  "gma_organization_id"
@@ -295,11 +310,8 @@ ActiveRecord::Schema.define(version: 20140924022630) do
     t.boolean  "answer_boolean"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "answer_upload_file_name"
-    t.string   "answer_upload_content_type"
-    t.integer  "answer_upload_file_size"
-    t.datetime "answer_upload_updated_at"
     t.integer  "taskset_id"
+    t.integer  "document_id"
   end
 
   add_index "user_assignments", ["taskset_id"], name: "index_user_assignments_on_taskset_id", using: :btree

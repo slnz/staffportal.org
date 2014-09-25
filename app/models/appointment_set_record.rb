@@ -8,7 +8,9 @@ class AppointmentSetRecord < ActiveRecord::Base
   belongs_to :date_of_appointment_week, class_name: Week
   belongs_to :gift_date_week, class_name: Week
   belongs_to :gift_confirmed_date_week, class_name: Week
-  validates_presence_of :first_name, :last_name, :date_set, :date_of_appointment
+  belongs_to :contact
+  validates_presence_of :date_of_appointment, :contact
+  after_create :update_contact_status
 
   def self.pledge_frequencies
     {
@@ -81,6 +83,10 @@ class AppointmentSetRecord < ActiveRecord::Base
   end
 
   protected
+
+  def update_contact_status
+    contact.appointment_set!
+  end
 
   def get_week(date)
     Week.where('date_start <= ? and date_finished >= ?',

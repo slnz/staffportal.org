@@ -1,0 +1,29 @@
+.page-header.statistics
+  %a.back{href: authenticated_root_path}
+    = fa_icon 'chevron-left'
+  = title 'statistics'
+.row
+  .col-md-4
+    %h5
+      %span.text-muted 1
+      Select an Endpoint
+    .list-group#gma_organizations{ "data-mobile" => 'true' }
+      - @gma_organizations.each do |gma_org|
+        %a.list-group-item{href: gma_organization_gma_staff_reports_path(gma_org, mobile: true)}
+          - if GmaMembership.find_by(gma_organization_id: gma_org.id, user_id: current_user.id).director?
+            .pull-right
+              %span.label.label-default
+                = fa_icon 'gavel', text: 'Director'
+          %h4.list-group-item-heading= gma_org.name
+      - if @gma_organizations.blank?
+        .panel.panel-default
+          .panel-body
+            .text-center
+              %h1.text-muted
+                = fa_icon "code-fork"
+              %h3 Endpoints
+        .text-center.alert.alert-danger
+          %h5 No Endpoints
+          Talk to your Director about setting up your statistics or
+          %br
+          = "try updating your Key Password on #{link_to "your profile", edit_user_path}".html_safe

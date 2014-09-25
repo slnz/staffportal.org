@@ -5,6 +5,7 @@ class User < ActiveRecord::Base
   validates_presence_of :username, :email
   belongs_to :bootcamp_coach, class_name: 'User'
   has_many :trainees, class_name: 'User', foreign_key: 'bootcamp_coach_id'
+  has_many :documents
   has_many :contacts
   has_many :user_accounts
   has_many :accounts, through: :user_accounts
@@ -13,7 +14,7 @@ class User < ActiveRecord::Base
   has_many :reviews, through: :user_reviews
   has_many :support_raising_developments
   has_many :contact_card_box
-  has_many :appointment_set_record
+  has_many :appointment_set_records
   has_many :user_achievements
   has_many :achievements, through: :user_achievements
   has_many :user_assignments

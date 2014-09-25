@@ -1,0 +1,31 @@
+.page-header.dmpd
+  %a.back{href: dmpd_root_path}
+    = fa_icon 'chevron-left'
+  = title 'Appointment Set Record'
+.controller-actions
+  %a.btn.btn-primary{href: new_dmpd_appointment_set_record_path}
+    = fa_icon 'plus'
+    &nbsp;
+    Add Appointment
+- unless @appointment_set_records.empty?
+  = table_for @appointment_set_records, :html => {:class => "table table-striped"} do
+    - column :contact do |contact|
+      - unless contact.nil?
+        - contact.name
+    - column :date_of_appointment, title: "Appt Date"
+    - column :gift_date
+    - column :gift_confirmed_date, title: "Confirmed"
+    - column :pretty_amount, title: "Amount"
+    - column :number_of_contacts_received, title: "# Contacts"
+    - column :asked_for_contacts, title: "Asked for Contacts" do |asr|
+      - if asr then "Yes" else "No" end
+    - column :thank_you_posted, title: "TY Posted" do |asr|
+      - if asr then "Yes" else "No" end
+    - column :title => "Actions" do |asr|
+      - link_to("Edit", edit_dmpd_appointment_set_record_path(asr) )
+- else
+  .well.text-center
+    %p No Statistics Entered.
+    %a.btn.btn-primary{href: new_dmpd_stats_appointment_set_record_path}
+      = fa_icon 'plus'
+      Add Data

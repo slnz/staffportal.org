@@ -1,6 +1,7 @@
 class Contact < ActiveRecord::Base
   paginates_per 25
   has_one :referer, class_name: 'Contact', foreign_key: 'referer_id'
+  has_many :appointment_set_records, dependent: :destroy
   belongs_to :user
   before_save :update_search_field
 
@@ -37,14 +38,15 @@ class Contact < ActiveRecord::Base
 
   def status=(status)
     super(status)
-    self.callback! if status.include? 'callback'
-    self.appointment! if status.include? 'appointment'
-    self.maintain! if status.include? 'maintain'
-    self.base! if status.include? 'base'
+    return unless valid?
+    self.callback! if status.to_s.include? 'callback'
+    self.appointment! if status.to_s.include? 'appointment'
+    self.maintain! if status.to_s.include? 'maintain'
+    self.base! if status.to_s.include? 'base'
   end
 
   def name
-    "#{first_name} #{last_name}"
+    "#{first_name} #{last_name}".titleize
   end
 
   def initials

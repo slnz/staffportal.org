@@ -8,12 +8,12 @@
       .box.dmpd.clearfix{class: ("success" if current_user.contacts.count >= 30)}
         .border
         .title
-          DMPD Statistics
+          Reports
         .stat
-          = fa_icon 'bar-chart-o'
-        .text Access your personal statistics including appointment set record, contact ratios and summaries.
+          = fa_icon 'copy'
+        .text Access your personal reports including appointment set record, contact ratios and summaries.
         .go
-          DMPD Statistics
+          Reports
           = fa_icon 'chevron-right'
   .col-sm-4
     %a{href: dmpd_contacts_path}
@@ -38,5 +38,42 @@
         .text Complete all your Pre-DMPD activities here. These will help you prepare for effective DMPD.
         .go
           Tasksets
+          = fa_icon 'chevron-right'
+.dashboard.row
+  .col-sm-4
+    %a{href: dmpd_stats_contact_card_box_index_path}
+      .box.dmpd.clearfix
+        .border
+        .title
+          Contact Card Box
+        .stat
+          = fa_icon 'users'
+        .text Complete all your Pre-DMPD activities here. These will help you prepare for effective DMPD.
+        .go
+          Contact Card Box
+          = fa_icon 'chevron-right'
+  .col-sm-4
+    %a{href: dmpd_appointment_set_records_path}
+      .box.dmpd.clearfix
+        .border
+        .title
+          Appointment Set Record
+        .stat
+          = fa_icon 'suitcase'
+        .text Complete all your Pre-DMPD activities here. These will help you prepare for effective DMPD.
+        .go
+          Appointment Set Record
+          = fa_icon 'chevron-right'
+  .col-sm-4
+    %a{href: dmpd_taskset_index_path}
+      .box.dmpd.clearfix
+        .border
+        .title
+          Calling Chart
+        .stat
+          = fa_icon 'phone'
+        .text Complete all your Pre-DMPD activities here. These will help you prepare for effective DMPD.
+        .go
+          Calling Chart
           = fa_icon 'chevron-right'
 
