@@ -1,4 +1,6 @@
 // Vendor
+$brand-primary: #3EBFAC;
+
 @import 'jquery-ui/autocomplete';
 @import 'bootstrap';
 @import 'formtastic-bootstrap';
@@ -11,7 +13,7 @@
 @import 'summernote';
 
 
-$primary-color: #3EBFAC;
+$primary-color: $brand-primary;
 $primary-light-color: #85D2C4;
 
 // Internal

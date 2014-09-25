@@ -2,6 +2,18 @@
   %a.back{href: dmpd_taskset_index_path}
     = fa_icon 'chevron-left'
   = title "Taskset #{@taskset.name}"
+.controller-actions
+  .btn-group
+    %button.btn.btn-primary.dropdown-toggle{"data-toggle" => "dropdown", :type => "button"}
+      Change Taskset
+      = fa_icon 'angle-down'
+    %ul.dropdown-menu{:role => "menu"}
+      - Taskset.order(:due_week).each do |taskset|
+        - unless taskset == @taskset
+          %li
+            %a{href: edit_dmpd_taskset_path(taskset)}= "Taskset #{taskset.name}"
+        - else
+          %li.divider
 = semantic_form_for @taskset, url: dmpd_taskset_path, builder: FormtasticBootstrap::FormBuilder, :html => { :multipart => true } do |f|
   - if @taskset.assignments.boolean.exists?
     %h3 Tasks
