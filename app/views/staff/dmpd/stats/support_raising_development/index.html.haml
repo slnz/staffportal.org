@@ -1,23 +1,13 @@
 .page-header.dmpd
-  %a.back{href: dmpd_stats_root_path}
+  %a.back{href: dmpd_root_path}
     = fa_icon 'chevron-left'
   = title "Weekly Calling Chart"
-  .pull-right
-    %a.btn.btn-primary{href: dmpd_stats_root_path}
-      = fa_icon 'home'
-      WCS
-    %a.btn.btn-default{href: dmpd_stats_contact_card_box_index_path}
-      = fa_icon 'user'
-      Contact Card Box
-    %a.btn.btn-default{href: dmpd_stats_appointment_set_record_index_path}
-      = fa_icon 'calendar'
-      Appointment Set Record
-    - if @late > 0
-      %a.btn.btn-danger.disabled= "#{@late} Late Reports"
-    %a.btn.btn-info{href: new_dmpd_stats_support_raising_development_path}
-      = fa_icon 'plus'
-      Add Data
-
+.controller-actions
+  - if @late > 0
+    %a.btn.btn-danger.disabled= "#{@late} Late Reports"
+  %a.btn.btn-info{href: new_dmpd_stats_support_raising_development_path}
+    = fa_icon 'plus'
+    Add Data
 - unless @support_raising_development.empty?
   = table_for @support_raising_development, :html => {:class => "table table-striped"} do
     - column :week, title: "Week Ending", :html => { :th => { :class => "gray" }, :td => { :class => "gray" }} do |week|
