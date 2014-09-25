@@ -10,18 +10,17 @@
             %small Admin made simple
         .col-sm-6.text-right
           %a.btn.btn-primary.btn-lg{href: "/auth/key", "data-no-turbolink" => true}
+            = fa_icon 'sign-in'
+            &nbsp;
             Sign in with The Key
   .hero
     .container
       %h1 Spend less time administrating.
       %h4 And more time on the mission field.
-      %a.btn.btn-primary.btn-lg.hidden-xs{href: "/auth/key", "data-no-turbolink" => true}
-        Get Started
-        = fa_icon 'chevron-right'
-      %br/
-      %a.btn.btn-primary.btn-lg.visible-xs-inline-block{href: "/auth/key", "data-no-turbolink" => true}
+      %a.btn.btn-primary.btn-lg{href: "/auth/key", "data-no-turbolink" => true}
+        = fa_icon 'sign-in'
+        &nbsp;
         Sign in with The Key
-        = fa_icon 'chevron-right'
   .footer
     .container
       Powered by

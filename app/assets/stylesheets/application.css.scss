@@ -18,6 +18,7 @@ $primary-light-color: #85D2C4;
 @import 'forms';
 @import 'tables';
 @import 'badges';
+@import 'labels';
 @import 'accounts';
 
 body {
@@ -46,14 +47,14 @@ a{
   top: 0;
   bottom: 0;
   width: 200px;
-  background: $primary-color;
+  background: #1C2B36;
   .rank {
     position: absolute;
     bottom: 0;
     right: 0;
     left: 0;
     padding: 20px 20px 0;
-    background-color: $primary-light-color;
+    background-color: #1C2B36;
     color: #fff;
     img {
       width: 100%;
@@ -69,8 +70,7 @@ a{
   }
   .brand {
     color: #fff;
-    background: $primary-light-color;
-    border-bottom: 1px solid #cefaf2;
+    background: #0F1922;
     padding: 20px;
     font-size: 15px;
     text-transform: uppercase;
@@ -82,13 +82,12 @@ a{
     }
   }
   ul.nav {
-    padding-top: 10px;
     li {
       a {
         @include transition-property(color);
         @include transition-duration(0.3s);
-        color: #cefaf2;
-        font-weight: bold;
+        color: #A9B6BD;
+        font-weight: lighter;
         .fa {
           margin-right: 10px;
         }
@@ -103,12 +102,12 @@ a{
       }
     }
     ul.sub {
-      margin-left: 20px;
-      margin-top: 0;
-      padding-top: 0;
-      border-left: 3px solid #cefaf2;
+      margin: 0;
+      padding: 10px 0;
+      background-color: #0F1922;
+      border-left: 2px #41D8D9 solid;
       li a {
-        font-weight: normal;
+        font-weight: lighter;
         padding: 5px 15px;
       }
     }
@@ -319,7 +318,7 @@ nav.navbar-fixed-top {
 #sign_in {
   font-size: 20px;
   .header {
-    background-color: $primary-color;
+    background-color: #1C2B36;
     min-height: 125px;
     padding-top: 30px;
     h3 {
@@ -345,11 +344,11 @@ nav.navbar-fixed-top {
         width: 20px;
       }
       color: #fff;
-      background-color: $primary-light-color;
-      border-color: $primary-light-color;
+      background-color: #0F1922;
+      border-color: #0F1922;
       &:hover {
-        background-color: $primary-light-color;
-        border-color: $primary-light-color;
+        background-color: #0F1922;
+        border-color: #0F1922;
       }
     }
   }
@@ -361,7 +360,13 @@ nav.navbar-fixed-top {
     text-align: center;
     color: #fff;
     a.btn-primary {
+      background-color: #0F1922;
+      border-color: #0F1922;
       min-width: 150px;
+      &:hover {
+        background-color: #1C2B36;
+        border-color: #1C2B36;
+      }
     }
   }
 }
@@ -645,7 +650,7 @@ form.gma_staff_report {
   }
   .navbar-alternative {
     display: block;
-    background-color: $primary-color;
+    background-color: #1C2B36;
     position: fixed;
     left: 0;
     top: 80px;
@@ -664,39 +669,43 @@ form.gma_staff_report {
     }
     .navbar-toggle {
       &:focus, &:hover {
-        background-color: $primary-light-color;
+        background-color: #0F1922;
       }
     }
     .navbar-collapse {
       border:0;
       .nav.navbar-nav {
         a:link, a:visited {
-          color: #cefaf2;
+          @include transition-property(color);
+          @include transition-property(background-color);
+          @include transition-duration(0.3s);
+          color: #A9B6BD;
+          font-weight: normal;
           &:hover {
-            background-color: $primary-light-color;
+            background-color: #0F1922;
             color: #fff;
           }
         }
         > .open {
           > a {
-            background-color: #6fc4b4;
+            background-color: #0F1922;
           }
           > .dropdown-menu {
-            background-color: $primary-color;
+            background-color: #1C2B36;
             border: 0;
             > .divider {
-              background-color: $primary-light-color;
+              background-color: #0F1922;
             }
             > .active > a {
               color: #fff;
-              background-color: $primary-light-color;
+              background-color: #0F1922;
             }
           }
         }
         > .active {
           > a, a:hover {
             color: #fff;
-            background-color: $primary-light-color;
+            background-color: #0F1922;
           }
         }
       }
@@ -706,9 +715,9 @@ form.gma_staff_report {
       padding-right: 30px;
     }
     .navbar-nav > .active > a, .navbar-nav > .open > a {
-      background-color: #4a5363;
+      background-color: #0F1922;
       &:hover {
-        background-color: #4a5363;
+        background-color: #0F1922;
       }
     }
     .navbar-nav > li > a {

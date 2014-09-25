@@ -7,7 +7,7 @@
           .border
           .title
             = account.name
-            .text-muted Balance
+            .text-muted= "#{account.code} Balance"
           .stat
             %div= fa_icon 'money'
             = number_to_currency account.get_balance current_user

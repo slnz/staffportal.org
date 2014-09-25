@@ -1,0 +1,15 @@
+.contact_row {
+  .label {
+    margin-top: 3px;
+    font-weight: normal;
+    display: block;
+    float: left;
+    text-transform: lowercase;
+  }
+}
+.label-base {
+  background-color: $primary-color;
+}
+.label-appointment {
+  background-color: #0cf;
+}
