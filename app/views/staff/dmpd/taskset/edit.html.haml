@@ -19,21 +19,21 @@
     .form-title Tasks
     = f.semantic_fields_for :assignments, @taskset.assignments.boolean.order(:id) do |assignment|
       = assignment.semantic_fields_for :user_assignments, assignment.object.user_assignments.where(user: current_user, taskset: @taskset).first_or_create do |user_assignment|
-        = user_assignment.input :answer_boolean, label: assignment.object.name.html_safe, as: :boolean
+        = user_assignment.input :answer_boolean, label: assignment.object.name.strip, as: :boolean
     = f.actions do
       = f.submit class: 'btn btn-primary'
   - if @taskset.assignments.text.exists?
     .form-title Written Assignments
     = f.semantic_fields_for :assignments, @taskset.assignments.text.order(:id) do |assignment|
       = assignment.semantic_fields_for :user_assignments, assignment.object.user_assignments.where(user: current_user, taskset: @taskset).first_or_create do |user_assignment|
-        = user_assignment.input :answer_text, label: assignment.object.name.html_safe, as: :text, input_html: {class:'summernote'}
+        = user_assignment.input :answer_text, label: assignment.object.name.strip, as: :text, input_html: {class:'summernote'}
     = f.actions do
       = f.submit class: 'btn btn-primary'
   - if @taskset.assignments.upload.exists?
     .form-title Upload Assignments
     = f.semantic_fields_for :assignments, @taskset.assignments.upload.order(:id) do |assignment|
       = assignment.semantic_fields_for :user_assignments, assignment.object.user_assignments.where(user: current_user, taskset: @taskset).first_or_create do |user_assignment|
-        = user_assignment.input :answer_upload, label: assignment.object.name.html_safe
+        = user_assignment.input :answer_upload, label: assignment.object.name.strip
         - if user_assignment.object.answer_upload.exists?
           %small= link_to 'Your Uploaded File', user_assignment.object.answer_upload.url
     = f.actions do

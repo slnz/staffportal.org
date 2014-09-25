@@ -129,6 +129,12 @@
     color: #fff;
   }
 }
+form.taskset {
+  label {
+    text-transform: none;
+    font-size: 15px;
+  }
+}
 @media (max-width: 767px) {
   .form-actions, .controller-actions {
     margin: -15px -15px 0  -15px;
