@@ -17,14 +17,14 @@
 = semantic_form_for @taskset, url: dmpd_taskset_path, builder: FormtasticBootstrap::FormBuilder, :html => { :multipart => true } do |f|
   - if @taskset.assignments.boolean.exists?
     %h3 Tasks
-    = f.semantic_fields_for :assignments, @taskset.assignments.boolean do |assignment|
+    = f.semantic_fields_for :assignments, @taskset.assignments.boolean.order(:id) do |assignment|
       = assignment.semantic_fields_for :user_assignments, assignment.object.user_assignments.where(user: current_user, taskset: @taskset).first_or_create do |user_assignment|
         = user_assignment.input "answer_#{assignment.object.kind}".to_sym, label: assignment.object.name.html_safe, as: :boolean
     = f.submit class: 'btn btn-primary'
   - if @taskset.assignments.text.exists?
     %hr/
     %h3 Written Assignments
-    = f.semantic_fields_for :assignments, @taskset.assignments.text do |assignment|
+    = f.semantic_fields_for :assignments, @taskset.assignments.text.order(:id) do |assignment|
       = assignment.semantic_fields_for :user_assignments, assignment.object.user_assignments.where(user: current_user, taskset: @taskset).first_or_create do |user_assignment|
         = user_assignment.input "answer_#{assignment.object.kind}".to_sym, label: assignment.object.name.html_safe, as: :text, input_html: {class:'summernote'}
     = f.submit class: 'btn btn-primary'
