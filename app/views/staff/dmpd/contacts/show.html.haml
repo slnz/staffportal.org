@@ -2,6 +2,15 @@
   %a.back{href: dmpd_contacts_path}
     = fa_icon 'chevron-left'
   = title @contact.name
+.controller-actions
+  %a.btn.btn-danger{href: dmpd_contact_path(@contact), data: {method: :delete}}
+    = fa_icon 'trash-o'
+    &nbsp;
+    Delete
+  %a.btn.btn-primary{href: edit_dmpd_contact_path(@contact)}
+    = fa_icon 'pencil'
+    &nbsp;
+    Edit
 .disabled-form
   .form-title
     Personal Information
@@ -85,5 +94,11 @@
       .control-label Anniversary
       .form-control= @contact.anniversary
   .form-actions
-    = link_to 'Back', dmpd_contacts_path, class: 'back'
-    %a.btn.btn-primary{href: edit_dmpd_contact_path(@contact)} Edit Contact
+    %a.btn.btn-danger{href: dmpd_contact_path(@contact), data: {method: :delete}}
+      = fa_icon 'trash-o'
+      &nbsp;
+      Delete
+    %a.btn.btn-primary{href: edit_dmpd_contact_path(@contact)}
+      = fa_icon 'pencil'
+      &nbsp;
+      Edit

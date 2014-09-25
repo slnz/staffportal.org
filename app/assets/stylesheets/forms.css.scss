@@ -28,14 +28,19 @@
   margin: 10px 0;
   font-size: 15px;
 }
-.form-actions {
-  margin-top: -20px;
+.form-actions, .controller-actions {
   padding: 20px;
   text-align: right;
   background-color: #eee;
+  &.controller-actions {
+    margin-top: -20px;
+  }
   .back {
     color: #444;
     margin-right: 10px;
+  }
+  > a.btn {
+    margin-left: 10px;
   }
   .scopes {
     background-color: #fafafa;
@@ -125,7 +130,7 @@
   }
 }
 @media (max-width: 767px) {
-  .form-actions {
+  .form-actions, .controller-actions {
     margin: -15px -15px 0  -15px;
     .search {
       margin-right: 120px;
