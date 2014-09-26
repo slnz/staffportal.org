@@ -11,11 +11,12 @@
       %a{:href => accounts_path}
         = fa_icon 'money'
         My Accounts
-      %ul.nav.sub
-        - current_user.accounts.limit(3).all.each do |account|
-          %li{ class: ('active' if current_page? account_path(account.id)) }
-            %a{:href => account_path(account.id)}
-              = account.name
+      - unless current_user.accounts.empty?
+        %ul.nav.sub
+          - current_user.accounts.limit(3).all.each do |account|
+            %li{ class: ('active' if current_page? account_path(account.id)) }
+              %a{:href => account_path(account.id)}
+                = account.name
     %li{ class: ('active' if current_page? edit_user_path) }
       %a{href: edit_user_path}
         = fa_icon 'user'
