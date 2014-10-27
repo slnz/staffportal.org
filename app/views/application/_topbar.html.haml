@@ -22,9 +22,9 @@
             %a{:href => "/resque", "data-no-turbolink" => true} Resque
           %li
             %a{:href => "/admin", "data-no-turbolink" => true} Admin
-        - if current_user.admin == "coach"
+        - if current_user.trainees.count > 0
           %li
-            %a{:href => "/coach"} Admin
+            %a{:href => "/coach", "data-no-turbolink" => true} DMPD Coaches
         - if current_user.admin == "hr"
           %li
             %a{:href => "/hr", "data-no-turbolink" => true} Admin

@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
   def authenticate_coach_user!
     authenticate_user!
     redirect_to root_path,
-                notice: admin_message unless current_user.role?('coach')
+                notice: admin_message unless current_user.trainees.count > 0
   end
 
   def authenticate_hr_user!
@@ -27,7 +27,7 @@ class ApplicationController < ActionController::Base
   end
 
   def current_coach_user
-    return nil if user_signed_in? && !current_user.role?('coach')
+    return nil if user_signed_in? && current_user.trainees.count == 0
     current_user
   end
 

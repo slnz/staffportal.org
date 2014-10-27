@@ -1,107 +1,74 @@
 ActiveAdmin.register User, namespace: :coach do
-  scope_to :current_user, association_method: :trainees
   actions :index, :show
   config.filters = false
   index do
     column ('Name') { |user| user.name }
-    column ('Latest CCB') do |user|
-      unless user.contact_card_box.last.nil?
-        user.contact_card_box.last.created_at_print
-      end
+    column :username
+    column :contacts, sortable: :contacts_count do |user|
+      user.contacts.size
     end
-    column ('Latest WCC') do |user|
-      unless user.support_raising_developments.last.nil?
-        user.support_raising_developments.last.created_at_print
-      end
+    column ('Tasks') do |user|
+      complete = user.user_assignments.
+                      where(answer_boolean: true).
+                      joins(:assignment).
+                      where('assignments.kind = ?', Assignment.kinds[:boolean]).
+                      count
+      total = Assignment.boolean.count
+      tag = :error
+      tag = :warn unless complete == 0
+      tag = :ok if complete == total
+      status_tag("#{complete} / #{total}", tag)
     end
-    column ('Latest ASR') do |user|
-      unless user.appointment_set_record.last.nil?
-        user.appointment_set_record.last.created_at_print
-      end
+    column ('Essays') do |user|
+      complete = user.user_assignments.
+                      where('answer_text != \'\'').
+                      joins(:assignment).
+                      where('assignments.kind = ?', Assignment.kinds[:text]).
+                      count
+      total = Assignment.text.count
+      tag = :error
+      tag = :warn unless complete == 0
+      tag = :ok if complete == total
+      status_tag("#{complete} / #{total}", tag)
     end
-    default_actions
+    column ('Uploads') do |user|
+      complete = user.user_assignments.
+                      where('document_id IS NOT NULL').
+                      joins(:assignment).
+                      where('assignments.kind = ?', Assignment.kinds[:upload]).
+                      count
+      total = Assignment.upload.count
+      tag = :error
+      tag = :warn unless complete == 0
+      tag = :ok if complete == total
+      status_tag("#{complete} / #{total}", tag)
+    end
+    actions
   end
 
-  show title: :name do
+  form do |f|
+    f.inputs 'Details' do
+      f.input :bootcamp_coach,
+              input_html: { class: 'chosen' },
+              include_blank: true,
+              label_method: :to_label
+    end
+    f.actions
+  end
+
+  show do |user|
     attributes_table do
       row :name
-      row :username
-      row('admin') { |user| status_tag(user.admin, 'orange') }
+      row :bootcamp_coach
+      row :contacts_count
     end
+    render 'tasks'
+  end
 
-    panel 'Statistics Summary' do
-      @weeks = Week.where('date_finished < ?', Time.now.to_date + 1.week)
-      render partial: 'stats', locals: { @weeks => @weeks, user: user }
-    end
-
-    panel 'Contact Card Box' do
-      table_for(user.contact_card_box, class: 'ccbs') do
-        column :week,
-               title: 'Week Ending',
-               html: { th: { class: 'gray' },
-                       td: { class: 'gray' } } do |ccb|
-          ccb.week.end_name
-        end
-        column :contact_cards
-        column :not_back_until
-        column :office_phone_only
-        column :contact_total, class: 'orange'
-        column 'CB Appt', :call_back_for_appointment
-        column 'CB Decision', :call_back_for_decision
-        column 'CB Contacts', :call_back_for_contacts
-        column :call_back_total, class: 'orange'
-        column 'Appt Set', :appointment_set
-        column 'No Appt', :called_no_appointment_set
-        column 'Appt No Sup', :appointment_no_support
-        column 'New MP', :new_ministry_partner
-        column 'Appt Total', appointment_total, class: 'orange'
-        column 'CBY', :call_back_in_a_year
-        column :would_have_met
-        column 'OL', :on_list
-        column :future_total, class: 'orange'
-        column 'mpm', :maintainance
-        column 'mpm done', :maintainance_done
-        column :mpm_total, class: 'orange'
-        column :total, class: 'orange'
-      end
-    end
-
-    panel 'Weekly Calling Chart' do
-      table_for(user.support_raising_developments) do
-        column :week,
-               title: 'Week Ending',
-               html: { th: { class: 'gray' },
-                       td: { class: 'gray' } } do |wcc|
-          wcc.week.end_name
-        end
-        column :appointments_asked_for
-        column :contacts_asked_for
-        column :number_of_calls_made
-        column :hours_calling
-      end
-    end
-
-    panel 'Appointment Set Record' do
-      table_for(user.appointment_set_record.order(:date_set)) do
-        column :name, class: 'week'
-        column :date_set
-        column 'Appt Date', :date_of_appointment
-        column :gift_date
-        column 'Confirmed', :gift_confirmed_date
-        column 'Amount', :pretty_amount
-        column '# Contacts', :number_of_contacts_received
-        column 'Asked for Contacts', :asked_for_contacts do |asr|
-          if asr.asked_for_contacts then 'Yes' else 'No' end
-        end
-        column :thank_you_posted, title: 'TY Posted' do |asr|
-          if asr.thank_you_posted then 'Yes' else 'No' end
-        end
-      end
-    end
-
-    panel 'Contact Ratio' do
-      @weeks = Week.where('date_finished < ?', Time.now.to_date + 1.week)
-      render partial: 'contacts', locals: { @weeks => @weeks, user: user }
+  controller do
+    def scoped_collection
+      current_user.trainees
     end
   end
+
 end
