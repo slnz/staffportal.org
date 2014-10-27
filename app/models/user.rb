@@ -40,6 +40,8 @@ class User < ActiveRecord::Base
   phony_normalize :home_phone, default_country_code: 'NZ'
   phony_normalize :office_phone, default_country_code: 'NZ'
 
+  scope :dmpd, -> { where(dmpd: true) }
+
   before_save do
     username.downcase! if username
   end

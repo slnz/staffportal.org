@@ -2,7 +2,7 @@ class Contact < ActiveRecord::Base
   paginates_per 25
   has_one :referer, class_name: 'Contact', foreign_key: 'referer_id'
   has_many :appointment_set_records, dependent: :destroy
-  belongs_to :user
+  belongs_to :user, counter_cache: true
   before_save :update_search_field
 
   validates :first_name, presence: true

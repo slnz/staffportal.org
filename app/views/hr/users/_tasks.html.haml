@@ -1,0 +1,25 @@
+- Taskset.all.each do |t|
+  .panel
+    %h3= "Taskset #{t.name}"
+  .panel
+    - query = t.user_assignments.where(user: @user, answer_boolean: true).joins(:assignment).where('kind = ?', Assignment.kinds[:boolean])
+    %h3= "#{pluralize(query.count, 'task')} completed"
+    .panel_contents
+      %ul
+        - query.each do |user_assignment|
+          %li= user_assignment.assignment.name
+  .panel
+    - query = t.user_assignments.where(user: @user).where('answer_text != ?', '').joins(:assignment).where('kind = ?', Assignment.kinds[:text])
+    %h3= "#{pluralize(query.count, 'essay')} completed"
+    .panel_contents
+      - query.each do |user_assignment|
+        %h4= user_assignment.assignment.name
+        = user_assignment.answer_text.html_safe
+  .panel
+    - query = t.user_assignments.where(user: @user).where('document_id IS NOT NULL').joins(:assignment).where('kind = ?', Assignment.kinds[:upload])
+    %h3= "#{pluralize(query.count, 'upload')} completed"
+    .panel_contents
+      %ul
+        - query.each do |user_assignment|
+          %li
+            %a{href: user_assignment.document.upload.url}= user_assignment.assignment.name
