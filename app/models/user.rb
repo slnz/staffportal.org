@@ -31,7 +31,6 @@ class User < ActiveRecord::Base
             unless: -> { encrypted_password.blank? }
   validate :key_password
 
-  validates :primary_phone, presence: true
   validates :primary_phone, phony_plausible: true
   validates :home_phone, phony_plausible: true
   validates :office_phone, phony_plausible: true
