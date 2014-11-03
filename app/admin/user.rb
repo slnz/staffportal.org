@@ -1,19 +1,14 @@
 ActiveAdmin.register User do
-
   filter :username
   filter :created_at
   filter :updated_at
   index do
     selectable_column
-    column ('Name') { |user| user.name }
+    column('Name') { |user| user.name }
     column :username
     column :bootcamp_coach
-    column ('Role') do |user|
-      if user.admin.blank?
-        status_tag('None')
-      else
-        status_tag(user.admin, 'orange')
-      end
+    column('Role') do |user|
+      user.admin.blank? ? status_tag('None') : status_tag(user.admin, 'orange')
     end
     actions
   end

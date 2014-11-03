@@ -11,6 +11,7 @@ gem 'devise'
 gem 'devise_cas_authenticatable'
 gem 'symmetric-encryption'
 gem 'cancancan'
+gem 'role_model'
 
 # Queue
 gem 'redis'
@@ -34,6 +35,7 @@ gem 'fiscali'
 gem 'kaminari'
 gem 'ransack'
 gem 'has_scope'
+gem 'draper'
 
 # View
 gem 'breadcrumbs_on_rails'
@@ -42,10 +44,12 @@ gem 'formtastic-bootstrap'
 gem 'kaminari-bootstrap'
 gem 'haml'
 gem 'table_for_collection'
+gem 'high_voltage'
 
 # Model
 gem 'phony_rails'
 gem 'currency_select', github: 'tanordheim/currency_select'
+gem 'active_type'
 
 # Javascript
 gem 'highcharts-rails'
@@ -54,7 +58,6 @@ gem 'chosen-rails'
 
 # Administration
 gem 'activeadmin', github: 'gregbell/active_admin'
-gem 'airbrake'
 
 gem 'sass-rails',   '>= 3.2'
 gem 'bootstrap-sass', '~> 3.1.1'
@@ -67,42 +70,57 @@ gem 'jquery-turbolinks'
 gem 'nprogress-rails'
 gem 'font-awesome-rails'
 
+group :test do
+  gem 'database_cleaner'
+  gem 'codeclimate-test-reporter', require: nil
+  gem 'shoulda-matchers', require: false
+  gem 'simplecov'
+  gem 'faker'
+  gem 'capybara'
+  gem 'capybara-webkit'
+  gem 'launchy'
+  gem 'vcr'
+end
+
+group :test, :development do
+  gem 'rspec'
+  gem 'rspec-rails'
+  gem 'factory_girl_rails'
+  gem 'assert_difference'
+  gem 'byebug'
+  gem 'pry'
+  gem 'pry-byebug'
+  gem 'pry-remote'
+  gem 'dotenv-rails'
+  gem 'fuubar'
+  gem 'rubocop'
+end
+
+group :development do
+  gem 'rails-footnotes', '>= 3.7.9'
+  gem 'quiet_assets'
+  gem 'guard'
+  gem 'guard-rspec', require: false
+  gem 'guard-rubocop'
+  gem 'guard-rails'
+  gem 'guard-bundler'
+  gem 'guard-cucumber'
+  gem 'guard-puma'
+  gem 'spring'
+  gem 'spring-commands-rspec'
+  gem 'rb-fsevent', require: false
+  gem 'better_errors'
+  gem 'binding_of_caller'
+end
+
 group :development, :production do
   gem 'puma'
 end
 
-group :development, :test do
-  gem 'spring-commands-rspec'
-  gem 'rspec-rails'
-  gem 'dotenv-rails'
-end
-
-group :development do
-  gem 'pry-rails'
-  gem 'foreman'
-  gem 'travis'
-  gem 'rails-erd'
-  gem 'better_errors'
-  gem 'binding_of_caller'
-  gem 'spring'
-  gem 'guard'
-  gem 'guard-bundler'
-  gem 'guard-rspec'
-  gem 'guard-spring'
-  gem 'guard-rubocop'
-end
-
-group :test do
-  gem 'rake'
-  gem 'database_cleaner'
-  gem 'shoulda-matchers'
-  gem 'oauth2'
-  gem 'fuubar'
-  gem 'factory_girl_rails'
-  gem "codeclimate-test-reporter", require: nil
-  gem 'simplecov', :require => false
-end
-
 group :production do
   gem 'rails_12factor'
+  gem 'rails_serve_static_assets'
+  gem 'airbrake'
+  gem 'newrelic_rpm'
 end
+

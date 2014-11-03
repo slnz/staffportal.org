@@ -11,12 +11,13 @@
       %a{:href => accounts_path}
         = fa_icon 'money'
         My Accounts
-      - unless current_user.accounts.empty?
-        %ul.nav.sub
-          - current_user.accounts.limit(3).all.each do |account|
-            %li{ class: ('active' if current_page? account_path(account.id)) }
-              %a{:href => account_path(account.id)}
-                = account.name
+      -#
+        - unless current_user.accounts.empty?
+          %ul.nav.sub
+            - current_user.accounts.limit(3).all.each do |account|
+              %li{ class: ('active' if current_page? account_path(account.id)) }
+                %a{:href => account_path(account.id)}
+                  = account.name
     %li{ class: ('active' if current_page? edit_user_path) }
       %a{href: edit_user_path}
         = fa_icon 'user'
@@ -46,10 +47,11 @@
       %a{:href => auth_logout_path}
         = fa_icon 'sign-out'
         Sign Out
-  .rank
-    %h5= current_user.xp_level.name.capitalize
-    = image_tag "badge_#{current_user.xp_level.name}.gif", style: "border-radius: 5px"
-    %small.muted= "XP #{current_user.XP} / #{current_user.xp_level.xp_max}"
-    %small= "(#{current_user.xp_level.xp_max - current_user.XP} Till #{current_user.xp_level.next.name.capitalize})"
-    .progress.progress-striped
-      .progress-bar.progress-bar-success{style: "width:#{( (current_user.XP.to_f - current_user.xp_level.xp_min.to_f) / (current_user.xp_level.xp_max.to_f - current_user.xp_level.xp_min.to_f) ) * 100}%"}
+  -#
+    .rank
+      %h5= current_user.xp_level.name.capitalize
+      = image_tag "badge_#{current_user.xp_level.name}.gif", style: "border-radius: 5px"
+      %small.muted= "XP #{current_user.XP} / #{current_user.xp_level.xp_max}"
+      %small= "(#{current_user.xp_level.xp_max - current_user.XP} Till #{current_user.xp_level.next.name.capitalize})"
+      .progress.progress-striped
+        .progress-bar.progress-bar-success{style: "width:#{( (current_user.XP.to_f - current_user.xp_level.xp_min.to_f) / (current_user.xp_level.xp_max.to_f - current_user.xp_level.xp_min.to_f) ) * 100}%"}

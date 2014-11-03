@@ -46,19 +46,20 @@
       %ul.nav.navbar-nav
         %li{ class: ('active' if current_page? authenticated_root_path) }
           %a{:href => authenticated_root_path} Home
-        %li.dropdown
-          %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
-            = fa_icon 'money'
-            Accounts
-            %span.caret
-          %ul.dropdown-menu{:role => "menu"}
-            - current_user.accounts.limit(3).all.each do |account|
-              %li{ class: ('active' if current_page? account_path(account.id)) }
-                %a{:href => account_path(account.id)}
-                  = account.name
-            %li.divider
-            %li
-              %a{:href => accounts_path} List All Accounts
+        -#
+          %li.dropdown
+            %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
+              = fa_icon 'money'
+              Accounts
+              %span.caret
+            %ul.dropdown-menu{:role => "menu"}
+              - current_user.accounts.limit(3).all.each do |account|
+                %li{ class: ('active' if current_page? account_path(account.id)) }
+                  %a{:href => account_path(account.id)}
+                    = account.name
+              %li.divider
+              %li
+                %a{:href => accounts_path} List All Accounts
         %li{ class: ('active' if request.path.match(/dmpd/)) }
           %a{:href => dmpd_root_path}
             = fa_icon 'tasks'

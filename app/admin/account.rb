@@ -5,9 +5,11 @@ ActiveAdmin.register Account, as: 'Responsibility Center' do
   action_item only: :index do
     link_to 'Import from CSV', action: 'upload_csv'
   end
+
   collection_action :upload_csv do
     render 'accounts/import_accounts'
   end
+
   collection_action :import_csv, method: :post do
     CsvDb.convert_save('account', params[:dump][:file])
     flash[:notice] = 'CSV importing in background!'
@@ -34,7 +36,9 @@ ActiveAdmin.register Account, as: 'Responsibility Center' do
     f.inputs 'Details' do
       f.input :name
       f.input :code
-      f.input :currency, as: :select, collection: CurrencySelect.currencies_array
+      f.input :currency,
+              as: :select,
+              collection: CurrencySelect.currencies_array
     end
     f.actions
   end
@@ -51,15 +55,15 @@ ActiveAdmin.register Account, as: 'Responsibility Center' do
       if acct.nil?
         number_to_currency 0
       else
-        @vehicle_advance = p.records.
-                             joins(:type).
-                             where('types.code' => '1225').
-                             sum(:amount)
-        @stock = p.records.
-                   joins(:type).
-                   where('types.code' => '1350').
-                   sum(:amount)
-        number_to_currency (acct.balance - @stock - @vehicle_advance)
+        @vehicle_advance = p.records
+                             .joins(:category)
+                             .where('categories.code' => '1225')
+                             .sum(:amount)
+        @stock = p.records
+                   .joins(:category)
+                   .where('categories.code' => '1350')
+                   .sum(:amount)
+        number_to_currency(acct.balance - @stock - @vehicle_advance)
       end
     end
     actions

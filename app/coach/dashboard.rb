@@ -9,5 +9,5 @@ ActiveAdmin.register_page 'Dashboard', namespace: :coach do
         small 'To get started click on the Bootcamp menu above.'
       end
     end
-  end # content
+  end
 end

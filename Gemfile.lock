@@ -38,6 +38,8 @@ GEM
       activesupport (= 4.1.6)
       builder (~> 3.1)
       erubis (~> 2.7.0)
+    active_type (0.2.1)
+      activerecord (>= 3.2)
     activemodel (4.1.6)
       activesupport (= 4.1.6)
       builder (~> 3.1)
@@ -58,11 +60,11 @@ GEM
     arbre (1.0.2)
       activesupport (>= 3.0.0)
     arel (5.0.1.20140414130214)
+    assert_difference (0.5.0)
     ast (2.0.0)
     aws-sdk (1.41.0)
       json (~> 1.4)
       nokogiri (>= 1.4.4)
-    backports (3.6.0)
     bcrypt (3.1.7)
     better_errors (1.1.0)
       coderay (>= 1.0.0)
@@ -76,10 +78,21 @@ GEM
       thor
     breadcrumbs_on_rails (2.3.0)
     builder (3.2.2)
+    byebug (2.7.0)
+      columnize (~> 0.3)
+      debugger-linecache (~> 1.2)
     cancancan (1.8.0)
+    capybara (2.4.1)
+      mime-types (>= 1.16)
+      nokogiri (>= 1.3.3)
+      rack (>= 1.0.0)
+      rack-test (>= 0.5.4)
+      xpath (~> 2.0)
+    capybara-webkit (1.3.0)
+      capybara (>= 2.0.2, < 2.5.0)
+      json
     celluloid (0.15.2)
       timers (~> 1.1.0)
-    choice (0.1.6)
     chosen-rails (1.1.0)
       coffee-rails (>= 3.2)
       compass-rails (>= 1.1.2)
@@ -102,6 +115,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.8.0)
+    columnize (0.8.9)
     compass (0.12.6)
       chunky_png (~> 1.2)
       fssm (>= 0.2.7)
@@ -111,10 +125,17 @@ GEM
       sprockets (<= 2.11.0)
     countries (0.9.3)
       currencies (~> 0.4.2)
+    cucumber (1.3.17)
+      builder (>= 2.1.2)
+      diff-lcs (>= 1.1.3)
+      gherkin (~> 2.12)
+      multi_json (>= 1.7.5, < 2.0)
+      multi_test (>= 0.1.1)
     curb (0.8.5)
     currencies (0.4.2)
     database_cleaner (1.3.0)
     debug_inspector (0.0.2)
+    debugger-linecache (1.2.0)
     descendants_tracker (0.0.4)
       thread_safe (~> 0.3, >= 0.3.1)
     devise (3.2.4)
@@ -135,19 +156,20 @@ GEM
     dotenv-deployment (0.0.2)
     dotenv-rails (0.11.1)
       dotenv (= 0.11.1)
+    draper (1.4.0)
+      actionpack (>= 3.0)
+      activemodel (>= 3.0)
+      activesupport (>= 3.0)
+      request_store (~> 1.0)
     erubis (2.7.0)
-    ethon (0.7.0)
-      ffi (>= 1.3.0)
     execjs (2.2.1)
     factory_girl (4.4.0)
       activesupport (>= 3.0.0)
     factory_girl_rails (4.4.1)
       factory_girl (~> 4.4.0)
       railties (>= 3.0.0)
-    faraday (0.9.0)
-      multipart-post (>= 1.2, < 3)
-    faraday_middleware (0.9.1)
-      faraday (>= 0.7.4, < 0.10)
+    faker (1.4.3)
+      i18n (~> 0.5)
     feedjira (1.3.0)
       curb (~> 0.8.1)
       loofah (~> 2.0.0)
@@ -157,9 +179,6 @@ GEM
       activesupport
     font-awesome-rails (4.1.0.0)
       railties (>= 3.2, < 5.0)
-    foreman (0.63.0)
-      dotenv (>= 0.7)
-      thor (>= 0.13.6)
     formatador (0.2.5)
     formtastic (2.3.1)
       actionpack (>= 3.0)
@@ -169,13 +188,8 @@ GEM
     fuubar (1.3.3)
       rspec (>= 2.14.0, < 3.1.0)
       ruby-progressbar (~> 1.4)
-    gh (0.13.2)
-      addressable
-      backports
-      faraday (~> 0.8)
-      multi_json (~> 1.0)
-      net-http-persistent (>= 2.7)
-      net-http-pipeline
+    gherkin (2.12.2)
+      multi_json (~> 1.3)
     gmaps-autocomplete-rails (0.1.4)
       rails (>= 3.1.0)
     gravatarify (3.1.1)
@@ -188,23 +202,28 @@ GEM
     guard-bundler (2.0.0)
       bundler (~> 1.0)
       guard (~> 2.2)
+    guard-cucumber (1.4.1)
+      cucumber (>= 1.2.0)
+      guard (>= 1.1.0)
+    guard-puma (0.2.5)
+      guard (>= 1.0.1)
+      puma
+    guard-rails (0.6.0)
+      guard (~> 2.0)
     guard-rspec (4.2.9)
       guard (~> 2.1)
       rspec (>= 2.14, < 4.0)
     guard-rubocop (1.1.0)
       guard (~> 2.0)
       rubocop (~> 0.20)
-    guard-spring (0.0.4)
-      guard
-      spring
     haml (4.0.5)
       tilt
     has_scope (0.6.0.rc)
       actionpack (>= 3.2, < 5)
       activesupport (>= 3.2, < 5)
+    high_voltage (2.2.1)
     highcharts-rails (4.0.1)
       railties (>= 3.1)
-    highline (1.6.21)
     hike (1.2.3)
     hirefire-resource (0.3.2)
     http-cookie (1.0.2)
@@ -231,7 +250,6 @@ GEM
     jquery-ui-rails (5.0.0)
       railties (>= 3.2.16)
     json (1.8.1)
-    jwt (1.0.0)
     kaminari (0.16.1)
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
@@ -257,19 +275,12 @@ GEM
       i18n (~> 0.6.0)
     mono_logger (1.1.0)
     multi_json (1.10.1)
+    multi_test (0.1.1)
     multi_xml (0.5.5)
-    multipart-post (2.0.0)
-    net-http-persistent (2.9.4)
-    net-http-pipeline (1.0.1)
-    nokogiri (1.6.2.1)
+    newrelic_rpm (3.9.4.245)
+    nokogiri (1.6.3.1)
       mini_portile (= 0.6.0)
     nprogress-rails (0.1.6.1)
-    oauth2 (0.9.4)
-      faraday (>= 0.8, < 0.10)
-      jwt (~> 1.0)
-      multi_json (~> 1.3)
-      multi_xml (~> 0.5)
-      rack (~> 1.2)
     orm_adapter (0.5.0)
     paperclip (4.2.0)
       activemodel (>= 3.0.0)
@@ -292,13 +303,16 @@ GEM
       coderay (~> 1.0)
       method_source (~> 0.8)
       slop (~> 3.4)
-    pry-rails (0.3.2)
-      pry (>= 0.9.10)
+    pry-byebug (1.3.2)
+      byebug (~> 2.7)
+      pry (~> 0.9.12)
+    pry-remote (0.1.8)
+      pry (~> 0.9)
+      slop (~> 3.0)
     puma (2.8.2)
       rack (>= 1.1, < 2.0)
-    pusher-client (0.6.0)
-      json
-      websocket (~> 1.0)
+    quiet_assets (1.0.3)
+      railties (>= 3.1, < 5.0)
     rack (1.5.2)
     rack-protection (1.5.3)
       rack
@@ -314,11 +328,8 @@ GEM
       bundler (>= 1.3.0, < 2.0)
       railties (= 4.1.6)
       sprockets-rails (~> 2.0)
-    rails-erd (1.1.0)
-      activerecord (>= 3.0)
-      activesupport (>= 3.0)
-      choice (~> 0.1.6)
-      ruby-graphviz (~> 1.0.4)
+    rails-footnotes (4.1.1)
+      rails (>= 3.2)
     rails_12factor (0.0.2)
       rails_serve_static_assets
       rails_stdout_logging
@@ -343,6 +354,7 @@ GEM
     redis (3.0.7)
     redis-namespace (1.4.1)
       redis (~> 3.0.4)
+    request_store (1.1.0)
     responders (1.0.0)
       railties (>= 3.2, < 5)
     resque (1.25.2)
@@ -361,6 +373,7 @@ GEM
       rufus-scheduler (~> 2.0.24)
     resque-status (0.4.3)
       resque (~> 1.19)
+    role_model (0.8.1)
     rspec (2.14.1)
       rspec-core (~> 2.14.0)
       rspec-expectations (~> 2.14.0)
@@ -383,7 +396,6 @@ GEM
       powerpack (~> 0.0.6)
       rainbow (>= 1.99.1, < 3.0)
       ruby-progressbar (~> 1.4)
-    ruby-graphviz (1.0.9)
     ruby-progressbar (1.5.1)
     rubycas-client (2.3.9)
       activesupport
@@ -436,21 +448,8 @@ GEM
     thread_safe (0.3.4)
     tilt (1.4.1)
     timers (1.1.0)
-    travis (1.6.11)
-      addressable (~> 2.3)
-      backports
-      faraday (~> 0.9)
-      faraday_middleware (~> 0.9)
-      gh (~> 0.13)
-      highline (~> 1.6)
-      launchy (~> 2.1)
-      pry (~> 0.9)
-      pusher-client (~> 0.4)
-      typhoeus (~> 0.6, >= 0.6.8)
     turbolinks (2.3.0)
       coffee-rails
-    typhoeus (0.6.8)
-      ethon (>= 0.7.0)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
     uglifier (2.5.0)
@@ -459,24 +458,31 @@ GEM
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.6)
+    vcr (2.9.3)
     vegas (0.1.11)
       rack (>= 1.0.0)
     warden (1.2.3)
       rack (>= 1.0)
-    websocket (1.1.4)
+    xpath (2.0.0)
+      nokogiri (~> 1.3)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
+  active_type
   activeadmin!
   airbrake
+  assert_difference
   aws-sdk
   better_errors
   binding_of_caller
   bootstrap-sass (~> 3.1.1)
   breadcrumbs_on_rails
+  byebug
   cancancan
+  capybara
+  capybara-webkit
   chosen-rails
   codeclimate-test-reporter
   currency_select!
@@ -484,11 +490,12 @@ DEPENDENCIES
   devise
   devise_cas_authenticatable
   dotenv-rails
+  draper
   factory_girl_rails
+  faker
   feedjira
   fiscali
   font-awesome-rails
-  foreman
   formtastic
   formtastic-bootstrap
   fuubar
@@ -496,11 +503,14 @@ DEPENDENCIES
   gravatarify
   guard
   guard-bundler
+  guard-cucumber
+  guard-puma
+  guard-rails
   guard-rspec
   guard-rubocop
-  guard-spring
   haml
   has_scope
+  high_voltage
   highcharts-rails
   hirefire-resource
   httparty
@@ -511,23 +521,31 @@ DEPENDENCIES
   jquery-ui-rails (~> 5.0.0)
   kaminari
   kaminari-bootstrap
+  launchy
+  newrelic_rpm
   nprogress-rails
-  oauth2
   paperclip
   pg
   phony_rails
-  pry-rails
+  pry
+  pry-byebug
+  pry-remote
   puma
+  quiet_assets
   rails (= 4.1.6)
-  rails-erd
+  rails-footnotes (>= 3.7.9)
   rails_12factor
-  rake
+  rails_serve_static_assets
   ransack
+  rb-fsevent
   redis
   resque
   resque-retry
   resque-status
+  role_model
+  rspec
   rspec-rails
+  rubocop
   s3_direct_upload
   sass-rails (>= 3.2)
   shoulda-matchers
@@ -537,6 +555,6 @@ DEPENDENCIES
   summernote-rails
   symmetric-encryption
   table_for_collection
-  travis
   turbolinks
   uglifier (>= 1.0.3)
+  vcr

@@ -3,18 +3,18 @@ ActiveAdmin.register User, namespace: :coach do
   actions :index, :show
   config.filters = false
   index do
-    column ('Name') { |user| user.name }
-    column ('Latest CCB') do |user|
+    column('Name') { |user| user.name }
+    column('Latest CCB') do |user|
       unless user.contact_card_box.last.nil?
         user.contact_card_box.last.created_at_print
       end
     end
-    column ('Latest WCC') do |user|
+    column('Latest WCC') do |user|
       unless user.support_raising_developments.last.nil?
         user.support_raising_developments.last.created_at_print
       end
     end
-    column ('Latest ASR') do |user|
+    column('Latest ASR') do |user|
       unless user.appointment_set_record.last.nil?
         user.appointment_set_record.last.created_at_print
       end
@@ -91,10 +91,10 @@ ActiveAdmin.register User, namespace: :coach do
         column 'Amount', :pretty_amount
         column '# Contacts', :number_of_contacts_received
         column 'Asked for Contacts', :asked_for_contacts do |asr|
-          if asr.asked_for_contacts then 'Yes' else 'No' end
+          asr.asked_for_contacts ? 'Yes' : 'No'
         end
         column :thank_you_posted, title: 'TY Posted' do |asr|
-          if asr.thank_you_posted then 'Yes' else 'No' end
+          asr.thank_you_posted ? 'Yes' : 'No'
         end
       end
     end

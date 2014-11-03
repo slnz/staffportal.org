@@ -1,3 +1,4 @@
 class Roadblock < ActiveRecord::Base
-  validates_presence_of :title, :message
+  validates :title, presence: true
+  validates :message, presence: true
 end

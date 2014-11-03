@@ -1,0 +1,25 @@
+- if data = @account.list_category(category)
+  %tr.record.hidden-print
+    %td{colspan: @account.months.length + 4}
+      %strong= data[:name]
+  - data[:monthly].each do |key, category|
+    %tr.record.expandable.closed.text-right
+      %td.text-left= category[:name]
+      - category[:data].each do |_key, amount|
+        %td= amount
+      %td= number_to_currency category[:current], precision: 0
+      %td= number_to_currency category[:goal], precision: 0
+      %td.details
+        %i.fa
+    = render partial: 'graph', locals: { graph: category }
+  %tr.sum_totals.record.expandable.closed.text-right
+    %td.text-left
+      %span.hidden-sm.hidden-xs TOTAL
+      = data[:name].upcase
+    - data[:totals][:data].each do |_key, value|
+      %td= value
+    %td= number_to_currency data[:totals][:current], precision: 0
+    %td= number_to_currency data[:totals][:goal], precision: 0
+    %td.details
+      %i.fa
+  = render partial: 'graph', locals: { graph: data[:totals] }

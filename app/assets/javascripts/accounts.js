@@ -10,7 +10,7 @@ $(document).ready(function() {
       if (!reload) {
         $(this).toggleClass('closed');
         var bd = $(this).next().show().find('td div.bd');
-        if (graphs[bd.attr('id')] != undefined) graphs[bd.attr('id')].setSize($('.container').width(), 200, false);
+        if (graphs[bd.attr('id')] != undefined) graphs[bd.attr('id')].setSize($('.page-header').width() - 14, 200, false);
         bd.slideToggle(200, function () {
           if ( !$(this).is(':visible') ) {
             $(this).closest('tr').hide();
@@ -25,7 +25,7 @@ $(window).resize(function()
 {
     $.each(graphs, function(index, value) {
       value.setSize(
-        $('.container').width(),
+        $('.page-header').width() - 14,
         200,
         false
       );

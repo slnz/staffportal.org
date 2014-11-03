@@ -56,7 +56,7 @@ Staff::Application.routes.draw do
   end
 
   get 'auth/key' => 'auth#key'
-  root to: 'auth#home'
+  root to: 'auth#index'
   get '*path' => redirect('/')
 
 end

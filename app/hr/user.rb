@@ -2,32 +2,32 @@ ActiveAdmin.register User, namespace: :hr do
 
   controller do
     def resource
-      @user ||= end_of_association_chain.where('bootcamp_coach_id IS NOT NULL' +
+      @user ||= end_of_association_chain.where('bootcamp_coach_id IS NOT NULL' \
                                                'and id = ?', params[:id]).first!
     end
 
     def collection
       @users ||=
-        end_of_association_chain.where('bootcamp_coach_id IS NOT NULL').
-        page(params[:page]).per(10)
+        end_of_association_chain.where('bootcamp_coach_id IS NOT NULL')
+        .page(params[:page]).per(10)
     end
   end
 
   actions :index, :show
   config.filters = false
   index do
-    column ('Name') { |user| user.name }
-    column ('Latest CCB') do |user|
+    column('Name') { |user| user.name }
+    column('Latest CCB') do |user|
       unless user.contact_card_box.last.nil?
         user.contact_card_box.last.created_at_print
       end
     end
-    column ('Latest WCC') do |user|
+    column('Latest WCC') do |user|
       unless user.support_raising_developments.last.nil?
         user.support_raising_developments.last.created_at_print
       end
     end
-    column ('Latest ASR') do |user|
+    column('Latest ASR') do |user|
       unless user.appointment_set_record.last.nil?
         user.appointment_set_record.last.created_at_print
       end
@@ -105,10 +105,10 @@ ActiveAdmin.register User, namespace: :hr do
         column 'Amount', :pretty_amount
         column '# Contacts', :number_of_contacts_received
         column 'Asked for Contacts', :asked_for_contacts do |bool|
-          if bool then 'Yes' else 'No' end
+          bool ? 'Yes' : 'No'
         end
         column :thank_you_posted, title: 'TY Posted' do |bool|
-          if bool then 'Yes' else 'No' end
+          bool ? 'Yes' : 'No'
         end
       end
     end
