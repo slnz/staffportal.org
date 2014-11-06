@@ -12,6 +12,7 @@ class Contact < ActiveRecord::Base
   validates :primary_phone, phony_plausible: true
   validates :home_phone, phony_plausible: true
   validates :office_phone, phony_plausible: true
+  validates :status, presence: true
 
   phony_normalize :primary_phone, default_country_code: 'NZ'
   phony_normalize :home_phone, default_country_code: 'NZ'

@@ -60,7 +60,7 @@
                 = contact.name.titleize
               %small.text-muted
                 %span.label.label-default{class: "label-#{contact.category}"}
-                  = contact.status.humanize
+                  = contact.status.try(:humanize)
                 &nbsp;
                 = "+#{contact.primary_phone}"
                 - unless contact.address.blank?
