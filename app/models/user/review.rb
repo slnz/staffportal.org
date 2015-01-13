@@ -1,7 +1,10 @@
-class User::Review < ActiveRecord::Base
-  # attr_accessible :review_id, :user_id
-  belongs_to :user
-  belongs_to :review
-  has_many :user_review_answers
-  has_many :review_questions, through: :user_review_answers
+class User
+  class Review < ActiveRecord::Base
+    belongs_to :user
+    belongs_to :review
+    has_many :answers, class_name: 'User::Review::Answer', foreign_key: :user_review_id
+    accepts_nested_attributes_for :answers
+    validates :user, presence: true
+    validates :review, presence: true
+  end
 end

@@ -17,7 +17,6 @@
       }
       &:first-child {
         background:#E5E5E5 image-url('column-sort-desc.gif') no-repeat right center;
-        width: 100px;
       }
       &.details {
         width: 18px;
@@ -57,6 +56,7 @@
         background: #fafafa;
       }
       td.details {
+        color: #777;
         cursor: pointer;
         i.fa:before {
           content: "\f077";

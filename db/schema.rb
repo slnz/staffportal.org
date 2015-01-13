@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141006215040) do
+ActiveRecord::Schema.define(version: 20150113005507) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -75,6 +75,86 @@ ActiveRecord::Schema.define(version: 20141006215040) do
   add_index "active_admin_comments", ["namespace"], name: "index_active_admin_comments_on_namespace", using: :btree
   add_index "active_admin_comments", ["resource_type", "resource_id"], name: "index_admin_notes_on_resource_type_and_resource_id", using: :btree
 
+  create_table "badges_sashes", force: true do |t|
+    t.integer  "badge_id"
+    t.integer  "sash_id"
+    t.boolean  "notified_user", default: false
+    t.datetime "created_at"
+  end
+
+  add_index "badges_sashes", ["badge_id", "sash_id"], name: "index_badges_sashes_on_badge_id_and_sash_id", using: :btree
+  add_index "badges_sashes", ["badge_id"], name: "index_badges_sashes_on_badge_id", using: :btree
+  add_index "badges_sashes", ["sash_id"], name: "index_badges_sashes_on_sash_id", using: :btree
+
+  create_table "call_sessions", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "partner_id"
+    t.datetime "end_time"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "contact_appointments", force: true do |t|
+    t.datetime "time"
+    t.boolean  "support"
+    t.decimal  "amount"
+    t.integer  "contact_id"
+    t.boolean  "reccuring"
+    t.decimal  "frequency"
+    t.text     "notes"
+    t.string   "address"
+    t.date     "gift_date"
+    t.date     "gift_confirmed_date"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "result",              default: 0
+  end
+
+  create_table "contact_call_events", force: true do |t|
+    t.integer  "state",      default: 0
+    t.integer  "step",       default: 0
+    t.integer  "call_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "message"
+    t.integer  "transition"
+  end
+
+  create_table "contact_calls", force: true do |t|
+    t.integer  "state",      default: 0
+    t.integer  "step",       default: 0
+    t.integer  "contact_id"
+    t.datetime "end_time"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "reason"
+  end
+
+  create_table "contact_return_calls", force: true do |t|
+    t.integer  "contact_id"
+    t.datetime "time"
+    t.text     "notes"
+    t.integer  "state"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "delayed_jobs", force: true do |t|
+    t.integer  "priority",   default: 0, null: false
+    t.integer  "attempts",   default: 0, null: false
+    t.text     "handler",                null: false
+    t.text     "last_error"
+    t.datetime "run_at"
+    t.datetime "locked_at"
+    t.datetime "failed_at"
+    t.string   "locked_by"
+    t.string   "queue"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
+
   create_table "dmpd_appointments", force: true do |t|
     t.date     "date_of_appointment"
     t.boolean  "support"
@@ -134,8 +214,8 @@ ActiveRecord::Schema.define(version: 20141006215040) do
     t.string   "first_name"
     t.string   "last_name"
     t.integer  "user_id"
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
     t.integer  "priority_code"
     t.boolean  "new_church"
     t.string   "email"
@@ -152,6 +232,11 @@ ActiveRecord::Schema.define(version: 20141006215040) do
     t.text     "search"
     t.integer  "status",        default: 0
     t.integer  "category",      default: 0
+    t.text     "notes"
+    t.decimal  "amount"
+    t.decimal  "frequency"
+    t.date     "gift_date"
+    t.boolean  "thanks",        default: false
   end
 
   create_table "dmpd_tasksets", force: true do |t|
@@ -225,6 +310,45 @@ ActiveRecord::Schema.define(version: 20141006215040) do
     t.string   "gma_update"
   end
 
+  create_table "merit_actions", force: true do |t|
+    t.integer  "user_id"
+    t.string   "action_method"
+    t.integer  "action_value"
+    t.boolean  "had_errors",    default: false
+    t.string   "target_model"
+    t.integer  "target_id"
+    t.text     "target_data"
+    t.boolean  "processed",     default: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "merit_activity_logs", force: true do |t|
+    t.integer  "action_id"
+    t.string   "related_change_type"
+    t.integer  "related_change_id"
+    t.string   "description"
+    t.datetime "created_at"
+  end
+
+  create_table "merit_score_points", force: true do |t|
+    t.integer  "score_id"
+    t.integer  "num_points", default: 0
+    t.string   "log"
+    t.datetime "created_at"
+  end
+
+  create_table "merit_scores", force: true do |t|
+    t.integer "sash_id"
+    t.string  "category", default: "default"
+  end
+
+  create_table "ministries", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "review_questions", force: true do |t|
     t.string   "text"
     t.datetime "created_at"
@@ -241,6 +365,11 @@ ActiveRecord::Schema.define(version: 20141006215040) do
   create_table "roadblocks", force: true do |t|
     t.string   "title"
     t.text     "message"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "sashes", force: true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -287,6 +416,23 @@ ActiveRecord::Schema.define(version: 20141006215040) do
 
   add_index "user_assignments", ["taskset_id"], name: "index_user_assignments_on_taskset_id", using: :btree
 
+  create_table "user_children", force: true do |t|
+    t.string   "first_name"
+    t.string   "last_name"
+    t.text     "dietary_requirements"
+    t.text     "medical_requirements"
+    t.boolean  "media_waiver"
+    t.text     "comments"
+    t.integer  "swimming_capability"
+    t.boolean  "outings"
+    t.text     "activity_limitations"
+    t.text     "toileting_assistance"
+    t.date     "date_of_birth"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "user_documents", force: true do |t|
     t.integer  "user_id",                             null: false
     t.string   "direct_upload_url",                   null: false
@@ -326,16 +472,16 @@ ActiveRecord::Schema.define(version: 20141006215040) do
   create_table "users", force: true do |t|
     t.string   "username"
     t.string   "admin"
-    t.datetime "created_at",                         null: false
-    t.datetime "updated_at",                         null: false
-    t.string   "email",              default: "",    null: false
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
+    t.string   "email",                default: "",    null: false
     t.string   "first_name"
     t.string   "last_name"
     t.integer  "bootcamp_coach_id"
     t.integer  "currency_id"
     t.decimal  "mpd_goal"
-    t.integer  "XP",                 default: 0
-    t.integer  "sign_in_count",      default: 0
+    t.integer  "XP",                   default: 0
+    t.integer  "sign_in_count",        default: 0
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
@@ -343,15 +489,22 @@ ActiveRecord::Schema.define(version: 20141006215040) do
     t.string   "encrypted_password"
     t.integer  "gma_id"
     t.string   "gma_update"
-    t.boolean  "dmpd",               default: false
-    t.boolean  "stats",              default: false
-    t.boolean  "pac",                default: false
+    t.boolean  "dmpd",                 default: false
+    t.boolean  "stats",                default: false
+    t.boolean  "pac",                  default: false
     t.string   "primary_phone"
     t.string   "home_phone"
     t.string   "office_phone"
     t.string   "address"
+    t.integer  "contacts_count",       default: 0
     t.boolean  "ready"
-    t.integer  "roles_mask",         default: 0
+    t.integer  "roles_mask",           default: 0
+    t.string   "search"
+    t.integer  "sash_id"
+    t.integer  "level",                default: 0
+    t.integer  "ministry_id"
+    t.text     "dietary_requirements"
+    t.text     "medical_requirements"
   end
 
   add_index "users", ["username"], name: "index_users_on_username", unique: true, using: :btree

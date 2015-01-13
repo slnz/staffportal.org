@@ -1,3 +1,4 @@
-class Review::Question < ActiveRecord::Base
-  # attr_accessible :text
+class Review
+  class Question < ActiveRecord::Base
+  end
 end

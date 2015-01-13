@@ -1,0 +1,7 @@
+Ministry.create(name: 'Student Life')
+Ministry.create(name: 'Work Life')
+Ministry.create(name: 'Family Life')
+Ministry.create(name: 'Military Life')
+Ministry.create(name: 'National Office')
+Ministry.create(name: 'Athletes in Action')
+Ministry.create(name: 'Love Your Neighbour')

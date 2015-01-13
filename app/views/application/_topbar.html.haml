@@ -10,12 +10,12 @@
         = current_user.first_name
         %b.caret
       %ul.dropdown-menu
-        %li{ class: ('active' if current_page? leaderboard_path) }
-          %a{:href => leaderboard_path} Leaderboard
+        %li{ class: ('active' if current_page? players_path) }
+          %a{:href => players_path} Leaderboard
         %li{ class: ('active' if current_page? documents_path) }
           %a{:href => documents_path} Document Centre
         %li
-          %a{:href => edit_user_path} My Profile
+          %a{:href => edit_user_path(current_user)} My Profile
         %li.divider
         - if current_user.admin == "admin"
           %li
@@ -61,7 +61,7 @@
               %li
                 %a{:href => accounts_path} List All Accounts
         %li{ class: ('active' if request.path.match(/dmpd/)) }
-          %a{:href => dmpd_root_path}
+          %a{:href => dmpd_path}
             = fa_icon 'tasks'
             DMPD
         %li{ class: ('active' if current_page? reviews_path) }
@@ -78,11 +78,11 @@
             = current_user.first_name
             %span.caret
           %ul.dropdown-menu{:role => "menu"}
-            %li{ class: ('active' if current_page? leaderboard_path) }
-              %a{:href => leaderboard_path}
+            %li{ class: ('active' if current_page? players_path) }
+              %a{:href => players_path}
                 = fa_icon 'signal'
                 Leaderboard
             %li
-              %a{:href => edit_user_path} My Profile
+              %a{:href => edit_user_path(current_user)} My Profile
             %li
               %a{:href => auth_logout_path} Sign Out

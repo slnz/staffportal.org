@@ -1,6 +1,7 @@
 //= require jquery
 //= require jquery.turbolinks
 //= require jquery_ujs
+//= require cocoon
 //= require jquery-ui/autocomplete
 //= require s3_direct_upload
 //= require chosen-jquery

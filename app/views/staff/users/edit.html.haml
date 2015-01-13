@@ -4,9 +4,9 @@
   - title 'My Profile'
   %h1
     %span.avatar
-      = gravatar_tag current_user.email, size: 50
-    = current_user.name
-= semantic_form_for current_user, builder: FormtasticBootstrap::FormBuilder do |f|
+      = gravatar_tag @user.email, size: 50
+    = @user.name
+= semantic_form_for @user, url: '/user', builder: FormtasticBootstrap::FormBuilder do |f|
   .row
     .col-md-4
       .form-title My Profile
@@ -14,6 +14,9 @@
         = f.input :first_name
         = f.input :last_name
         = f.input :email
+        Your profile picture is fetched from
+        %a{href: 'http://www.gravatar.com', target: '_blank'} Gravatar
+
       .form-title The Key Credentials
       = f.inputs do
         = f.input :password
@@ -46,5 +49,20 @@
                 completer.geocodeLookup('address', "#{@user.address}", true);
               }, 500);
             });
+        = f.input :ministry_id, as: :select, collection: Ministry.all
+  .row
+    .col-md-6
+      .form-title Event Registration Details
+      = f.inputs do
+        = f.input :dietary_requirements, input_html: { rows: 10 }
+        = f.input :medical_requirements, input_html: { rows: 10 }
+    .col-md-6
+      .form-title Children
+      = f.semantic_fields_for :chlidren do |child|
+        = render 'child_fields', f: child
+      .links
+        = link_to_add_association 'add child', f, :children
+
+    .col-md-6
   = f.actions do
     = f.action :submit, label: 'Update My Profile', button_html: { class: 'btn btn-primary' }

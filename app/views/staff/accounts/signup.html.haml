@@ -1,0 +1,30 @@
+.page-header.account
+  %a.back{href: authenticated_root_path}
+    = fa_icon 'chevron-left'
+  = title 'Accounts'
+.row
+  .col-md-4
+    .panel.panel-default
+      .panel-body
+        %h1.text-muted= fa_icon 'users'
+        %h3 Add Your Contacts
+        A key part of DMPD is making calls. But making sure your not ringing the same person can be tricky. Use this DMPD component to sync with all your collegues to make sure this doesn't happen.
+  .col-md-4
+    .panel.panel-default
+      .panel-body
+        %h1.text-muted= fa_icon 'star-half-empty'
+        %h3 Pre-Bootcamp Tasksets
+        Before Bootcamp there's a few things your going to need to get done to make sure your ready to hit the ground running. We've divided out the important things into six tasksets to help you stay organised.
+  .col-md-4
+    .panel.panel-default
+      .panel-body
+        %h1.text-muted= fa_icon 'cloud-upload'
+        %h3 Upload Your Weekly Stats
+        DMPD promotes a healthy view on accountability. Doing this well means keeping accurate stats. This DMPD component will help you submit your stats to your coaches so the can help you through DMPD.
+.row
+  .col-md-12.text-center
+    %h2
+      All Ready?
+      .text-muted
+        %small Well, what are you waiting for?
+    %a.btn.btn-primary.btn-lg{href: signup_accounts_path(activate: true)} Activate Accounts

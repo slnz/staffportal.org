@@ -1,30 +1,28 @@
-class Staff::GmaOrganizationsController < StaffController
-  inherit_resources
+module Staff
+  class GmaOrganizationsController < StaffController
+    add_breadcrumb 'my statistics', :gma_organizations_path
 
-  add_breadcrumb 'my statistics', :gma_organizations_path
-
-  def index
-    if current_user.stats?
+    def index
       if current_user.gma_update?
         @status = current_user.status
         render 'busy'
       else
-        super
+        load_gma_organizations
       end
-    else
-      render 'signup'
     end
-  end
 
-  def signup
-    current_user.stats = true
-    current_user.save!
-    redirect_to action: :index
-  end
+    protected
 
-  protected
+    def load_gma_organizations
+      @gma_organizations ||= gma_organizations_scope
+    end
 
-  def begin_of_association_chain
-    current_user
+    def gma_organizations_scope
+      current_user.gma_organizations
+    end
+
+    def user_type
+      :statistician
+    end
   end
 end

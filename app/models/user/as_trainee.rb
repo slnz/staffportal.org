@@ -1,7 +1,6 @@
-class User::AsDmpd < ActiveType::Record[User]
-  has_many :support_raising_developments
-  has_many :contact_card_box
-  has_many :appointment_set_records
-  has_many :contacts
-  has_many :user_assignments
+class User
+  class AsTrainee < ActiveType::Record[User]
+    has_many :contacts, class_name: 'Dmpd::Contact', foreign_key: 'user_id'
+    has_many :user_assignments, class_name: 'User::Assignment', foreign_key: 'user_id'
+  end
 end

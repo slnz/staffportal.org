@@ -7,10 +7,6 @@
     = fa_icon 'trash-o'
     &nbsp;
     Delete
-  %a.btn.btn-primary{href: new_dmpd_appointment_set_record_path(contact_id: @contact)}
-    = fa_icon 'calendar'
-    &nbsp;
-    Add Appointment
   %a.btn.btn-primary{href: edit_dmpd_contact_path(@contact)}
     = fa_icon 'pencil'
     &nbsp;
@@ -97,14 +93,6 @@
     .col-sm-6.form-group
       .control-label Anniversary
       .form-control= @contact.anniversary
-  - unless @contact.appointment_set_records.empty?
-    .form-title
-      Appointments
-    - @contact.appointment_set_records.each do |appointment|
-      .row
-        .col-sm-6.form-group
-          = appointment
-
   .form-actions
     %a.btn.btn-danger{href: dmpd_contact_path(@contact), data: {method: :delete}}
       = fa_icon 'trash-o'

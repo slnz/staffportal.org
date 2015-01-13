@@ -5,6 +5,7 @@
   - data[:monthly].each do |key, category|
     %tr.record.expandable.closed.text-right
       %td.text-left= category[:name]
+      - raise category.inspect
       - category[:data].each do |_key, amount|
         %td= amount
       %td= number_to_currency category[:current], precision: 0

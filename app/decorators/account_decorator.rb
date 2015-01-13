@@ -1,4 +1,4 @@
-class AccountDecorator < Draper::Decorator
+class AccountDecorator < ApplicationDecorator
   delegate_all
 
   def label

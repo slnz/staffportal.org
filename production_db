@@ -17,4 +17,4 @@ curl `heroku pgbackups:url --app staff-portal` > $file_path
 #
 # LOAD
 #
-pg_restore --verbose --clean --no-acl --no-owner -h localhost -U macuser -d tandem_staff $file_path
+pg_restore --verbose --clean --no-acl --no-owner -h localhost -U macuser -d staff_portal $file_path

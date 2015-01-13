@@ -50,11 +50,13 @@ gem 'high_voltage'
 gem 'phony_rails'
 gem 'currency_select', github: 'tanordheim/currency_select'
 gem 'active_type'
+gem 'merit'
 
 # Javascript
 gem 'highcharts-rails'
 gem 'summernote-rails'
 gem 'chosen-rails'
+gem 'cocoon'
 
 # Administration
 gem 'activeadmin', github: 'gregbell/active_admin'

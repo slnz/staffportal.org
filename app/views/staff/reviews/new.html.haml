@@ -2,31 +2,31 @@
   %a.back{href: reviews_path}
     = fa_icon 'chevron-left'
   = title "My People and Culture Review"
-= form_tag(reviews_path, method: "POST") do
+= semantic_form_for @user_review, url: reviews_path do |f|
   .row
-    .col-md-4.col-md-offset-4
+    .col-md-6.col-md-offset-3
       .panel.panel-default
         .panel-heading
           %h5.panel-title Welcome
         .panel-body
-          This review will help with your personal growth and development, and will be used as a conversation tool with your team leader. It should take approximately 10 minutes. Please answer honestly.
+          This review will help with your personal growth and development and will be used as a conversation tool with your team leader. It should take approximately 10 minutes. Please answer honestly.
         .panel-footer.text-right
           %a.btn.btn-primary.btn-sm.next
             Next
             = fa_icon 'chevron-right'
-      - @review_questions.each_with_index do |question, index|
+      - @questions.each_with_index do |question, index|
         .panel.panel-default
           .panel-heading
             .pull-right.text-muted
-              = "#{index + 1} of #{@review_questions.count}"
+              = "#{index + 1} of #{Review::Question.count}"
             %h5.panel-title= question.text
           .panel-body.text-center
-            =text_field_tag "answer[#{question.id}]", "0", type: "text", "data-slider" => "true", "data-slider-range" => "0, 10", "data-slider-snap" => "true"
-            %span.muted{style:"vertical-align: top"} 5
-            %script
-              $("[data-slider]").bind("slider:ready slider:changed", function (event, data) {
-              $(this).nextAll("span").html(data.value.toFixed(0) + " / 10");
-              });
+            = f.inputs class: 'question' do
+              = f.semantic_fields_for 'answers_attributes[]', @user_review.answers.build do |a|
+                = a.inputs do
+                  = a.input :review_question_id, as: :hidden, value: question.id
+                  = a.input :value, input_html: { data: { slider: "true", "slider-range" => "0, 10", "slider-snap" => "true" } }, label: false
+                  %span.muted{style:"vertical-align: top"} 5
           .panel-footer.text-right
             .btn-group
               %a.btn.btn-default.btn-sm.back
@@ -49,5 +49,8 @@
             %a.btn.btn-default.btn-sm.back
               = fa_icon 'chevron-left'
               Back
-            %input.btn.btn-primary.btn-sm{type: "submit"}
-
+            = f.submit class: 'btn btn-primary btn-sm'
+%script{ type: 'text/javascript' }
+  $("[data-slider]").bind("slider:ready slider:changed", function (event, data) {
+  $(this).parent().nextAll("span").html(data.value.toFixed(0) + " / 10");
+  });

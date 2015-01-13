@@ -49,8 +49,43 @@ a{
   left: 0;
   top: 0;
   bottom: 0;
-  width: 200px;
+  width: 50px;
   background: #1C2B36;
+  transition: width 0.1s;
+  transition-delay:0.1s;
+  z-index: 9999;
+  .text {
+    text-align: right;
+    float: right;
+    font-size: 15px;
+    line-height: 20px;
+    display: block;
+    visibility:hidden;
+    opacity:0;
+    height: 0;
+    width: 0;
+    overflow: hidden;
+    transition: visibility 0s, width 0s, height 0s linear 0.2s, opacity 0.1s;
+  }
+  &:hover {
+    transition-delay:0s;
+    width: 200px;
+    .text {
+      visibility:visible;
+      opacity:1;
+      transition-delay:0.1s;
+      width: 130px;
+      height: 20px;
+    }
+    .brand .text {
+      height: 42px;
+      line-height: 42px;
+      padding-right: 5px;
+    }
+    ul.bottom {
+      width: 200px;
+    }
+  }
   .rank {
     position: absolute;
     bottom: 0;
@@ -74,7 +109,7 @@ a{
   .brand {
     color: #fff;
     background: #0F1922;
-    padding: 20px;
+    padding: 20px 8px;
     font-size: 15px;
     text-transform: uppercase;
     height: 80px;
@@ -87,12 +122,16 @@ a{
   ul.nav {
     li {
       a {
+        border-radius: 0;
         @include transition-property(color);
         @include transition-duration(0.3s);
-        color: #A9B6BD;
-        font-weight: lighter;
+        @extend .clearfix;
+        color: darken(#A9B6BD, 10%);
+        font-size: 20px;
+        padding: 15px;
         .fa {
           margin-right: 10px;
+          float: left;
         }
         &:hover {
           color: #fff;
@@ -100,8 +139,8 @@ a{
         }
       }
       &.active > a {
-        color: #fff;
-        background: transparent;
+        color: #444;
+        background: #fff;
       }
     }
     ul.sub {
@@ -113,6 +152,11 @@ a{
         font-weight: lighter;
         padding: 5px 15px;
       }
+    }
+    &.bottom {
+      position: fixed;
+      bottom: 0;
+      left: 0;
     }
   }
 }
@@ -130,7 +174,7 @@ a{
 // Topbar
 nav.navbar-fixed-top {
   height: 80px;
-  left: 200px;
+  left: 50px;
   box-sizing: border-box;
   border-bottom: 1px solid #cccccc;
   background: #f3f3f3;
@@ -180,7 +224,6 @@ nav.navbar-fixed-top {
 // Avatar
 .avatar img {
   border-radius: 100%;
-  border: 1px solid #777;
   margin-right: 10px;
 }
 
@@ -223,7 +266,7 @@ nav.navbar-fixed-top {
 // Main Content Area
 .content {
   position: fixed;
-  left: 200px;
+  left: 50px;
   right: 250px;
   top: 80px;
   bottom: 0;
@@ -391,6 +434,12 @@ footer {
 // Panel
 .panel {
   border-radius: 0;
+  .question {
+    ol {
+      list-style: none;
+      padding: 0;
+    }
+  }
 }
 
 // GMA
@@ -856,4 +905,13 @@ form.gma_staff_report {
       }
     }
   }
+}
+.content > .alert {
+  margin-top: -20px;
+  margin-left: -20px;
+  margin-right: -20px;
+  border: 0;
+  border-radius: 0;
+  line-height: 18px;
+  padding: 20px 30px;
 }

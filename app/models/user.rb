@@ -1,10 +1,12 @@
 class User < ActiveRecord::Base
+  has_merit
+
   include RoleModel
+  paginates_per 25
   devise :trackable, :cas_authenticatable
   validates :email, presence: true
   has_many :documents
-  roles :account_holder, :contact, :reviewer, :statistician, :trainee
-
+  roles :account_holder, :contact, :reviewer, :statistician, :trainee, :player
   attr_encrypted :password
 
   validates :encrypted_password,
@@ -19,6 +21,9 @@ class User < ActiveRecord::Base
                                      password: password })
     return if response.code == 201
     errors.add(:password, 'Incorrect Password')
+  rescue OpenSSL::Cipher::CipherError
+    self.password = nil
+    save
   end
 
   def cas_extra_attributes=(extra_attributes)

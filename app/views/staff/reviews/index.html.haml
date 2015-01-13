@@ -2,26 +2,29 @@
   %a.back{href: authenticated_root_path}
     = fa_icon 'chevron-left'
   = title 'People and Culture'
-  .pull-right
-    - unless @review.blank?
-      %a.btn.btn-primary{href: new_review_path}
-        = fa_icon 'bolt'
-        Submit Open Review
-    - else
-      %a.btn.btn-disabled
-        No Reviews Currently Due
-- if @graph.empty?
+
+.row
+  .col-md-12.clearfix
+    .controller-actions.text-right
+      - unless @review.blank?
+        %a.btn.btn-primary{href: new_review_path}
+          = fa_icon 'bolt'
+          Submit Open Review
+      - else
+        %a.btn.btn-default.btn-disabled
+          No Reviews Currently Due
+- if @graph[:categories].empty?
   .panel.panel-default
     .panel-body
       .text-center
         %h1.text-muted
-          = fa_icon "university"
+          = fa_icon 'university'
         %h3 Reviews
   .text-center.alert.alert-info
     %h5 No Completed Reviews
     Talk to your Director about completing a Review.
 - else
   %script{:text => "text/javascript"}
-    var series = #{@series.to_json.html_safe};
-    var categories = #{@categories.to_json.html_safe};
+    var series = #{@graph[:series].to_json.html_safe};
+    var categories = #{@graph[:categories].to_json.html_safe};
   #reviews_graph{style: 'height: 850px;'}

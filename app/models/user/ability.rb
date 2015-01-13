@@ -1,6 +1,8 @@
-class User::Ability
-  include CanCan::Ability
+class User
+  class Ability
+    include CanCan::Ability
 
-  def initialize(_user)
+    def initialize(_user)
+    end
   end
 end

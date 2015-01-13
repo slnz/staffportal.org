@@ -1,5 +1,5 @@
 .page-header.dmpd
-  %a.back{href: dmpd_root_path}
+  %a.back{href: dmpd_path}
     = fa_icon 'chevron-left'
   = title 'Tasksets'
 .dashboard.row
@@ -17,7 +17,7 @@
               = "Taskset #{t.name}"
           .row
             .col-xs-4
-              - count = t.assignments.boolean.count - t.user_assignments.where(user: current_user, answer_boolean: true).joins(:assignment).where('kind = ?', Assignment.kinds[:boolean]).count
+              - count = t.assignments.boolean.count - t.user_assignments.where(user: current_user, answer_boolean: true).joins(:assignment).where('kind = ?', ::Dmpd::Assignment.kinds[:boolean]).count
               .stat
                 - if !t.assignments.boolean.exists?
                   %i.fa -
@@ -28,7 +28,7 @@
               .text
                 = pluralize(count, 'task')
             .col-xs-4
-              - count = t.assignments.text.count - t.user_assignments.where(user: current_user).where('answer_text != ?', '').joins(:assignment).where('kind = ?', Assignment.kinds[:text]).count
+              - count = t.assignments.text.count - t.user_assignments.where(user: current_user).where('answer_text != ?', '').joins(:assignment).where('kind = ?', ::Dmpd::Assignment.kinds[:text]).count
               .stat
                 - if !t.assignments.text.exists?
                   %i.fa -
@@ -39,7 +39,7 @@
               .text
                 = pluralize(count, 'essay')
             .col-xs-4
-              - count = t.assignments.upload.count - t.user_assignments.where(user: current_user).where('document_id IS NOT NULL').joins(:assignment).where('kind = ?', Assignment.kinds[:upload]).count
+              - count = t.assignments.upload.count - t.user_assignments.where(user: current_user).where('document_id IS NOT NULL').joins(:assignment).where('kind = ?', ::Dmpd::Assignment.kinds[:upload]).count
               .stat
                 - if !t.assignments.upload.exists?
                   %i.fa -
