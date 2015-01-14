@@ -4,10 +4,9 @@
       %strong= data[:name]
   - data[:monthly].each do |key, category|
     %tr.record.expandable.closed.text-right
-      %td.text-left= category[:name]
-      - raise category.inspect
-      - category[:data].each do |_key, amount|
-        %td= amount
+      %td.text-left= link_to category[:name], controller: "accounts", action: :transactions, id: params[:id], category: category[:category_id]
+      - category[:data].each do |key, amount|
+        %td= link_to amount, controller: "accounts", action: :transactions, id: params[:id], month: key, category: category[:category_id]
       %td= number_to_currency category[:current], precision: 0
       %td= number_to_currency category[:goal], precision: 0
       %td.details
@@ -19,6 +18,7 @@
       = data[:name].upcase
     - data[:totals][:data].each do |_key, value|
       %td= value
+    - @totals[category] = data[:totals][:data]
     %td= number_to_currency data[:totals][:current], precision: 0
     %td= number_to_currency data[:totals][:goal], precision: 0
     %td.details

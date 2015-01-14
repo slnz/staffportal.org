@@ -2,7 +2,7 @@
   table {
     width:100%;
     border-collapse: collapse;
-    font-size: 14px;
+    font-size: 12px;
     th {
       font-weight: bold;
       color: #000;
@@ -22,7 +22,7 @@
         width: 18px;
       }
       &.date {
-        width:50px;
+        width:55px;
       }
     }
     td {
@@ -40,14 +40,18 @@
       &.subdetails {
         background-color:#F9F9F9;
         padding:0;
-        dt{
-          width:135px;
-          overflow:visible;
-          padding-bottom:11px;
-          float:left;
-        }
-        dd{
-          padding-bottom:11px;
+        .bd dl{
+          margin: 0;
+          padding: 10px 10px 0 10px;
+          dt{
+            width:135px;
+            overflow:visible;
+            padding-bottom:11px;
+            float:left;
+          }
+          dd{
+            padding-bottom:11px;
+          }
         }
       }
     }

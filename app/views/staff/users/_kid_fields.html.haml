@@ -1,0 +1,30 @@
+.nested-fields
+  = f.inputs class: 'clearfix' do
+    .row
+      .col-md-6
+        = f.input :first_name
+      .col-md-6
+        = f.input :last_name
+    .row
+      .col-md-12
+        = f.input :dietary_requirements, input_html: { rows: 5 }
+        = f.input :medical_requirements, input_html: { rows: 5 }
+        = f.input :comments, input_html: { rows: 5 }
+    .row
+      .col-md-6
+        = f.input :toileting_assistance, input_html: { rows: 5 }
+      .col-md-6
+        = f.input :activity_limitations, input_html: { rows: 5 }
+    .row
+      .col-md-6
+        = f.input :date_of_birth, as: :date, start_year: Date.today.year - 20, end_year: Date.today.year
+      .col-md-6
+        = f.input :swimming_capability, as: :select, collection: User::Kid.swimming_capabilities.keys
+    .row
+      .col-md-6
+        = f.input :outings, label: 'Do you consent to your child being taken off site for outings?  You will be given specific details in advance of the outing.'
+      .col-md-6
+        = f.input :media_waiver, label: 'Do you consent to appropriate use of photos and video taken during events that includes your child, e.g. In a  newsletter, website, brochure or slideshow?'
+    .text-right
+      = link_to_remove_association "#{fa_icon 'trash-o'} Remove Child".html_safe, f, class: 'btn btn-danger btn-xs'
+    %hr

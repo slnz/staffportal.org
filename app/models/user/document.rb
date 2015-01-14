@@ -70,7 +70,7 @@ class User
       s3 = AWS::S3.new
       direct_upload_head =
         s3.buckets[Rails.configuration.aws[:bucket]]
-          .objects[direct_upload_url_data[:path]].head
+        .objects[direct_upload_url_data[:path]].head
 
       self.upload_file_name     = direct_upload_url_data[:filename]
       self.upload_file_size     = direct_upload_head.content_length

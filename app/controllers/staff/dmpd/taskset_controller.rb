@@ -20,14 +20,14 @@ module Staff
           .try(:each) do |_id, new_assignment|
           update_assignment = new_assignment[:user_assignments_attributes]['0']
           current_user_assignment = current_user.user_assignments
-                                                 .find(update_assignment[:id])
+                                    .find(update_assignment[:id])
           answer_key = update_assignment.keys[0]
           current_user_assignment.update_attributes(
             answer_key => update_assignment[answer_key]
           )
         end
         redirect_to dmpd_taskset_index_path
-        flash[:notice] = 'Taskset Updated'
+        flash[:success] = 'Taskset Updated'
       end
 
       private

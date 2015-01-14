@@ -23,10 +23,11 @@ module Staff
     def update
       load_current_user
       build_user
-      return redirect_to action: :edit if save_user
+      return flash[:success] = 'Successfully updated your profile' if save_user
       decorate_user
-      render :edit
+      flash.now[:error] = 'There was a problem updating your profile'
       add_breadcrumb 'my profile', :edit_user_path
+      render action: :edit
     end
 
     protected
@@ -59,7 +60,7 @@ module Staff
     end
 
     def save_user
-      @user.save
+      redirect_to action: :edit if @user.save
     end
 
     def user_scope
@@ -85,7 +86,21 @@ module Staff
                          :address,
                          :ministry_id,
                          :dietary_requirements,
-                         :medical_requirements)
+                         :medical_requirements,
+                         kids_attributes: [
+                           :id,
+                           :first_name,
+                           :last_name,
+                           :dietary_requirements,
+                           :medical_requirements,
+                           :comments,
+                           :toileting_assistance,
+                           :activity_limitations,
+                           :swimming_capability,
+                           :date_of_birth,
+                           :outings,
+                           :media_waiver,
+                           :_destroy])
     end
   end
 end

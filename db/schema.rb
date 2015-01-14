@@ -416,7 +416,22 @@ ActiveRecord::Schema.define(version: 20150113005507) do
 
   add_index "user_assignments", ["taskset_id"], name: "index_user_assignments_on_taskset_id", using: :btree
 
-  create_table "user_children", force: true do |t|
+  create_table "user_documents", force: true do |t|
+    t.integer  "user_id",                             null: false
+    t.string   "direct_upload_url",                   null: false
+    t.string   "upload_file_name"
+    t.string   "upload_content_type"
+    t.integer  "upload_file_size"
+    t.datetime "upload_updated_at"
+    t.boolean  "processed",           default: false, null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "user_documents", ["processed"], name: "index_user_documents_on_processed", using: :btree
+  add_index "user_documents", ["user_id"], name: "index_user_documents_on_user_id", using: :btree
+
+  create_table "user_kids", force: true do |t|
     t.string   "first_name"
     t.string   "last_name"
     t.text     "dietary_requirements"
@@ -432,21 +447,6 @@ ActiveRecord::Schema.define(version: 20150113005507) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
-  create_table "user_documents", force: true do |t|
-    t.integer  "user_id",                             null: false
-    t.string   "direct_upload_url",                   null: false
-    t.string   "upload_file_name"
-    t.string   "upload_content_type"
-    t.integer  "upload_file_size"
-    t.datetime "upload_updated_at"
-    t.boolean  "processed",           default: false, null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "user_documents", ["processed"], name: "index_user_documents_on_processed", using: :btree
-  add_index "user_documents", ["user_id"], name: "index_user_documents_on_user_id", using: :btree
 
   create_table "user_review_answers", force: true do |t|
     t.integer  "user_review_id"

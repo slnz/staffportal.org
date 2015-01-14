@@ -21,9 +21,9 @@ module Merit
     include Merit::BadgeRulesMethods
 
     def initialize
-      grant_on 'staff/reviews#create', badge: :paperwork_hero, multiple: true do |review|
-        raise test.inspect
-      end
+      # grant_on 'staff/reviews#create', badge: :paperwork_hero, multiple: true do |review|
+      #   raise test.inspect
+      # end
       # If it creates user, grant badge
       # Should be "current_user" after registration for badge to be granted.
       # Find badge by badge_id, badge_id takes presidence over badge

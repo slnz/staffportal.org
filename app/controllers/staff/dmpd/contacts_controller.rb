@@ -27,8 +27,10 @@ module Staff
 
       def create
         build_contact
-        save_contact || render('new')
+        return flash[:success] = 'Successfully added your contact' if save_contact
+        flash.now[:error] = 'There was a problem adding your contact'
         add_breadcrumb 'new', :new_dmpd_contact_path
+        render action: :new
       end
 
       def edit
@@ -41,13 +43,16 @@ module Staff
       def update
         load_contact
         build_contact
-        save_contact || render('edit')
+        return flash[:success] = 'Successfully updated your contact' if save_contact
+        flash.now[:error] = 'There was a problem updating your contact'
         add_breadcrumb 'edit', edit_dmpd_contact_path(@contact)
+        render action: :edit
       end
 
       def destroy
         load_contact
         @contact.destroy
+        flash[:success] = 'Successfully deleted your contact'
         redirect_to dmpd_contacts_path
       end
 
@@ -69,8 +74,7 @@ module Staff
       end
 
       def save_contact
-        return unless @contact.save
-        redirect_to @contact
+        redirect_to @contact if @contact.save
       end
 
       def contact_scope
@@ -82,7 +86,7 @@ module Staff
       end
 
       def contact_params
-        contact_params = params[:contact]
+        contact_params = params[:dmpd_contact]
         return {} unless contact_params
         contact_params.permit(
             :first_name,

@@ -56,7 +56,7 @@ module Staff
     class Params
       def self.permit(params)
         params.require(:gma_staff_report)
-              .permit(gma_measurements_attributes: [:value, :id])
+          .permit(gma_measurements_attributes: [:value, :id])
       end
     end
   end

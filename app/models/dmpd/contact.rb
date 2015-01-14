@@ -3,7 +3,6 @@ module Dmpd
     self.table_name = 'dmpd_contacts'
     paginates_per 25
     has_one :referer, class_name: 'Contact', foreign_key: 'referer_id'
-    has_many :appointment_set_records, dependent: :destroy
     belongs_to :user
     before_save :update_search_field
 

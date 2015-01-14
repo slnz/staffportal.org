@@ -56,13 +56,13 @@ ActiveAdmin.register Account, as: 'Responsibility Center' do
         number_to_currency 0
       else
         @vehicle_advance = p.records
-                             .joins(:category)
-                             .where('categories.code' => '1225')
-                             .sum(:amount)
+                           .joins(:category)
+                           .where('categories.code' => '1225')
+                           .sum(:amount)
         @stock = p.records
-                   .joins(:category)
-                   .where('categories.code' => '1350')
-                   .sum(:amount)
+                 .joins(:category)
+                 .where('categories.code' => '1350')
+                 .sum(:amount)
         number_to_currency(acct.balance - @stock - @vehicle_advance)
       end
     end

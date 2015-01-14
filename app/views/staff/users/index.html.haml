@@ -33,6 +33,7 @@
           %a.info{href: user_path(user)}
             %h4
               = user.name
+            = user.ministry.try(:name)
             %small.text-muted
               &nbsp;
               = "+#{user.primary_phone}"

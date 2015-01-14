@@ -1,6 +1,6 @@
-class CreateUserChildren < ActiveRecord::Migration
+class CreateUserKids < ActiveRecord::Migration
   def change
-    create_table :user_children do |t|
+    create_table :user_kids do |t|
       t.string :first_name
       t.string :last_name
       t.text :dietary_requirements

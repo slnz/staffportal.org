@@ -108,7 +108,7 @@ class Job
              ' Staff Reports Imported!')
           db_gma_org =
             GmaOrganization.where(gma_id: gma_report['node']['nodeId'])
-              .first_or_create
+            .first_or_create
           db_gma_org.update_attribute :name, gma_report['node']['shortName']
 
           db_gma_report = GmaStaffReport.where(gma_id: gma_report['staffReportId'],

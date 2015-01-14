@@ -5,11 +5,9 @@ class User
     validates :primary_phone, phony_plausible: true
     validates :home_phone, phony_plausible: true
     validates :office_phone, phony_plausible: true
+    has_many :kids, foreign_key: :user_id
 
-    belongs_to :ministry
-    has_many :children, class_name: 'User::Child', foreign_key: :user_id
-
-    accepts_nested_attributes_for :children,
+    accepts_nested_attributes_for :kids,
                                   reject_if: :all_blank,
                                   allow_destroy: true
 
@@ -19,8 +17,8 @@ class User
 
     before_save :update_search_field
 
-    def build_children
-      children.build
+    def build_kid
+      kids.build
     end
 
     protected

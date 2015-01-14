@@ -8,6 +8,7 @@ class User < ActiveRecord::Base
   has_many :documents
   roles :account_holder, :contact, :reviewer, :statistician, :trainee, :player
   attr_encrypted :password
+  belongs_to :ministry
 
   validates :encrypted_password,
             symmetric_encryption: true,

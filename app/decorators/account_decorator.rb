@@ -31,12 +31,12 @@ class AccountDecorator < ApplicationDecorator
 
   def summary
     records.unscoped
-           .from("(#{Account::Record.where(account_id: id).to_sql}) as r")
-           .group(:month)
-           .where('r.date >= ?',
-                  last_updated - 11.months)
-           .order('last(date)')
-           .pluck('last(CAST(balance AS integer))').to_json
+      .from("(#{Account::Record.where(account_id: id).to_sql}) as r")
+      .group(:month)
+      .where('r.date >= ?',
+             last_updated - 11.months)
+      .order('last(date)')
+      .pluck('last(CAST(balance AS integer))').to_json
   end
 
   def list_category(category)
@@ -91,6 +91,7 @@ class AccountDecorator < ApplicationDecorator
 
   def create_category_stub(category_id, goal)
     {
+      category_id: category_id,
       data: months,
       name: Account::Category.find(category_id).name,
       current: 0,

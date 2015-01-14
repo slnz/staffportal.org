@@ -17,8 +17,10 @@ module Staff
     def create
       load_review
       build_user_review
-      save_user_review
-      redirect_to reviews_path
+      return flash[:success] = 'Successfully submitted your review' if save_user_review
+      load_questions
+      flash.now[:error] = 'There was a problem submitting your review'
+      render action: :new
     end
 
     protected
@@ -48,7 +50,7 @@ module Staff
     end
 
     def save_user_review
-      @user_review.save!
+      redirect_to reviews_path if @user_review.save
     end
 
     def user_review_scope

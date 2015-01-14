@@ -5,8 +5,6 @@
   %ul.nav.navbar-nav.navbar-right.hidden-xs
     %li.dropdown
       %a.dropdown-toggle{"data-toggle" => "dropdown", href: "#"}
-        %span.avatar
-          = gravatar_tag current_user.email, size: 40
         = current_user.first_name
         %b.caret
       %ul.dropdown-menu
@@ -30,6 +28,9 @@
             %a{:href => "/hr", "data-no-turbolink" => true} Admin
         %li
           %a.last{:href => "/auth/logout"} Sign Out
+    %li
+      %span.avatar
+        = gravatar_tag current_user.email, size: 40
 %nav.navbar.navbar-default.navbar-inverse.navbar-alternative{:role => "navigation"}
   .container-fluid
     / Brand and toggle get grouped for better mobile display

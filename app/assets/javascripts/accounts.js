@@ -1,22 +1,15 @@
-var reload = false;
 var graphs = {};
 $(document).ready(function() {
   if ( controller == "staff/accounts" ) {
-    $('div.content').addClass('no-stream');
-    $('tr.expandable > td > a').click(function() {
-      reload = true;
-    });
     $('tr.expandable').click(function() {
-      if (!reload) {
-        $(this).toggleClass('closed');
-        var bd = $(this).next().show().find('td div.bd');
-        if (graphs[bd.attr('id')] != undefined) graphs[bd.attr('id')].setSize($('.page-header').width() - 14, 200, false);
-        bd.slideToggle(200, function () {
-          if ( !$(this).is(':visible') ) {
-            $(this).closest('tr').hide();
-          }
-        });
-      }
+      $(this).toggleClass('closed');
+      var bd = $(this).next().show().find('td div.bd');
+      if (graphs[bd.attr('id')] != undefined) graphs[bd.attr('id')].setSize($('.page-header').width() - 14, 200, false);
+      bd.slideToggle(200, function () {
+        if ( !$(this).is(':visible') ) {
+          $(this).closest('tr').hide();
+        }
+      });
     });
   }
 });

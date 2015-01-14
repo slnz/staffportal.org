@@ -16,7 +16,7 @@
             = "#{@account.code} #{@account.name}"
         - @account.months.each_with_index do |key, index|
           %th.date{class: (if index < 5 then "hidden-sm hidden-xs" elsif index < 10 then "hidden-sm hidden-xs" end)}
-            %small= link_to key[0], :controller => "accounts", :action => :transactions, :id => params[:id], :month => key[0]
+            = link_to key[0], controller: 'accounts', action: :transactions, id: params[:id], month: key[0]
         %th Current
         %th Budget
         %th.hidden-sm.hidden-xs
@@ -25,6 +25,23 @@
       = render partial: 'records', locals: { category: :income }
       = render partial: 'records', locals: { category: :expense }
       = render partial: 'records', locals: { category: :current_asset }
+      %tr
+        %td.text-left Surplus/Deficit
+        - @totals[:income].each do |key, value|
+          %td.text-right= value - @totals[:expense][key]
+        %td
+        %td
+        %td
+      %tr.sum_totals.record.expandable.closed.text-right
+        %td.text-left
+          %span.hidden-sm.hidden-xs BALANCE
+        - @balance = 0
+        - @totals[:income].each do |key, value|
+          - @balance += value - @totals[:expense][key]
+          %td.text-right= link_to @balance, controller: "accounts", action: :transactions, id: params[:id], month: key
+        %td
+        %td
+        %td
 -#
   #records
     %table

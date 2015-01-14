@@ -9,5 +9,4 @@ class UserDecorator < ApplicationDecorator
   def initials
     first_name[0, 1] + last_name[0, 1]
   end
-
 end

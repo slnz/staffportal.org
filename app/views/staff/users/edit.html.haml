@@ -19,12 +19,15 @@
 
       .form-title The Key Credentials
       = f.inputs do
-        = f.input :password
-      .text-right
-        = image_tag 'key_logo.png'
+        .row
+          .col-md-2
+            = image_tag 'key_logo.png', style: 'width: 100%'
+          .col-md-10
+            = f.input :password
     .col-md-8
       .form-title Staff Directory
       = f.inputs do
+        = f.input :ministry_id, as: :select, collection: Ministry.all
         .row
           .col-md-4
             = f.input :primary_phone
@@ -49,7 +52,6 @@
                 completer.geocodeLookup('address', "#{@user.address}", true);
               }, 500);
             });
-        = f.input :ministry_id, as: :select, collection: Ministry.all
   .row
     .col-md-6
       .form-title Event Registration Details
@@ -58,10 +60,12 @@
         = f.input :medical_requirements, input_html: { rows: 10 }
     .col-md-6
       .form-title Children
-      = f.semantic_fields_for :chlidren do |child|
-        = render 'child_fields', f: child
-      .links
-        = link_to_add_association 'add child', f, :children
+      #kids
+        = f.semantic_fields_for :kids do |kid|
+          = render 'kid_fields', f: kid
+        .links
+          = link_to_add_association "#{fa_icon 'plus'} Add Child".html_safe, f, :kids, class: 'btn btn-primary'
+        %br
 
     .col-md-6
   = f.actions do
