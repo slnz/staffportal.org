@@ -3,8 +3,7 @@ class User
     # Environment-specific direct upload url verifier screens
     # for malicious posted upload locations.
     DIRECT_UPLOAD_URL_FORMAT =
-      %r{\A#{Regexp.escape Rails.configuration.aws[:url]}
-        (?<path>uploads\/.+\/(?<filename>.+))\z}.freeze
+      %r{\A#{Regexp.escape Rails.configuration.aws[:url]}(?<path>uploads\/.+\/(?<filename>.+))\z}.freeze
 
     belongs_to :user
     has_many :user_assignments, dependent: :nullify, class_name: 'User::Assignment'
