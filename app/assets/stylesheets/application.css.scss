@@ -54,6 +54,7 @@ a{
   transition: width 0.1s;
   transition-delay:0.1s;
   z-index: 9999;
+  overflow: auto;
   .text {
     text-align: right;
     float: right;
@@ -680,6 +681,17 @@ form.gma_staff_report {
     border: 0;
   }
 }
+
+.content > .alert {
+  margin-top: -20px;
+  margin-left: -20px;
+  margin-right: -20px;
+  border: 0;
+  border-radius: 0;
+  line-height: 18px;
+  padding: 20px 30px;
+}
+
 @media (max-width: 1280px) {
   .sidebar, .stream {
     display: none;
@@ -898,12 +910,9 @@ form.gma_staff_report {
     }
   }
 }
-.content > .alert {
-  margin-top: -20px;
-  margin-left: -20px;
-  margin-right: -20px;
-  border: 0;
-  border-radius: 0;
-  line-height: 18px;
-  padding: 20px 30px;
+
+@media (max-height: 555px) {
+  .nav.nav-pills.nav-stacked.bottom {
+    position: static;
+  }
 }

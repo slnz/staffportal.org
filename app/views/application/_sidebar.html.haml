@@ -7,43 +7,36 @@
       %a{:href => authenticated_root_path}
         = fa_icon 'home'
         .text Home
-    %li{ class: ('active' if current_page? accounts_path) }
+    %li{ class: ('active' if request.path.match(accounts_path)) }
       %a{:href => accounts_path}
         = fa_icon 'money'
         .text Accounts
-      -#
-        - unless current_user.accounts.empty?
-          %ul.nav.sub
-            - current_user.accounts.limit(3).all.each do |account|
-              %li{ class: ('active' if current_page? account_path(account.id)) }
-                %a{:href => account_path(account.id)}
-                  = account.name
-    %li{ class: ('active' if request.path.match(/dmpd/)) }
+    %li{ class: ('active' if request.path.match(dmpd_path)) }
       %a{:href => dmpd_path}
         = fa_icon 'tasks'
         .text DMPD
-    %li{ class: ('active' if request.path.match(/reviews/)) }
+    %li{ class: ('active' if request.path.match(reviews_path)) }
       %a{:href => reviews_path}
         = fa_icon 'university'
         .text People & Culture
-    %li{ class: ('active' if request.path.match(/gma_organizations/)) }
+    %li{ class: ('active' if request.path.match(gma_organizations_path)) }
       %a{:href => gma_organizations_path}
         = fa_icon 'bar-chart-o'
         .text Statistics
-    %li{ class: ('active' if current_page? players_path) }
+    %li{ class: ('active' if request.path.match(players_path)) }
       %a{:href => players_path}
         = fa_icon 'signal'
         .text Leaderboard
-    %li{ class: ('active' if current_page? documents_path) }
+    %li{ class: ('active' if request.path.match(documents_path)) }
       %a{:href => documents_path}
         = fa_icon 'file-o'
         .text Document Centre
   %ul.nav.nav-pills.nav-stacked.bottom
-    %li{ class: ('active' if current_page? users_path) }
+    %li{ class: ('active' if request.path.match(users_path)) }
       %a{href: users_path }
         = fa_icon 'book'
         .text Directory
-    %li{ class: ('active' if current_page? edit_user_path) }
+    %li{ class: ('active' if request.path.match(edit_user_path)) }
       %a{href: edit_user_path}
         = fa_icon 'user'
         .text My Profile
