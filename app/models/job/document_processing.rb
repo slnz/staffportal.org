@@ -4,8 +4,9 @@ class Job
     @queue = :statused
 
     def perform
-      load_s3_bucket
       load_document
+      return if @document.processed?
+      load_s3_bucket
       load_url_data
       transfer_document
       cleanup_s3
@@ -27,17 +28,15 @@ class Job
     end
 
     def transfer_document
-      return if @document.processed?
       if post_process_required?
         return @document.upload =
-          URI.parse(URI.escape(document.direct_upload_url))
+          URI.parse(URI.escape(@document.direct_upload_url))
       end
       @document.paperclip_file_path =
         "documents/uploads/#{id}/original/#{@url_data[:filename]}"
     end
 
     def cleanup_s3
-      return if @document.processed?
       @s3_bucket.objects[@document.paperclip_file_path]
         .copy_from(@url_data[:path])
       @s3_bucket.objects[@url_data[:path]].delete
