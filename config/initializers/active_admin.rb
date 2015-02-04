@@ -1,5 +1,4 @@
 ActiveAdmin.setup do |config|
-
   # == Site Title
   #
   # Set the title that is displayed on the main layout
@@ -64,7 +63,7 @@ ActiveAdmin.setup do |config|
   #
   # This setting changes the method which Active Admin calls
   # to return the currently logged in user.
-  config.current_user_method = :current_admin_user
+  config.current_user_method = :current_user
 
   # == Logging Out
   #
@@ -147,11 +146,11 @@ ActiveAdmin.setup do |config|
                        File.expand_path('app/hr', Rails.root)]
 
   config.show_comments_in_menu = false
-  config.allow_comments = false
+  config.comments = false
 
   config.namespace :admin do |admin|
     admin.build_menu :utility_navigation do |menu|
-      menu.add :label => 'Resque', :url => '/resque'
+      menu.add label: 'Resque', url: '/resque'
       admin.add_logout_button_to_menu menu
     end
   end

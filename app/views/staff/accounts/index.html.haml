@@ -8,44 +8,35 @@
       %tr
         %th Code
         %th.hidden-sm.hidden-xs Name
-        %th
-          .text-right Balance
-        %th.hidden-sm.hidden-xs
-          .text-right Advances
-        %th
-          Updated
-        %th
-        - if current_user.accounts.count <= 15
-          %th.visible-desktop
+        %th.text-right Balance
+        %th.hidden-sm.hidden-xs.text-right Advances
+        %th Updated
+        %th Actions
+        - if @accounts.count <= 15
+          %th.hidden-sm.hidden-xs
     %tbody
-      - current_user.accounts.order(:code).all.each do |p|
-        %tr.record.account{:class => "#{ if current_user.accounts.count <= 15 then 'expandable' else 'closed' end} #{'closed' unless p.code[0] == '1' or p.code[0] == '9'}" }
-          %td= p.code
+      - @accounts.each do |account|
+        %tr.expandable
+          %td= account.code
           %td.hidden-sm.hidden-xs
-            = p.name
-            .badge.badge-primary.pull-right= p.currency.upcase
-          %td.text-right= number_to_currency p.get_balance current_user
-          %td.text-right.hidden-sm.hidden-xs
-            - unless @advances[p.id].nil?
-              = number_to_currency(@advances[p.id].to_d) if @advances[p.id].to_i > 0
-          %td= p.last_updated
+            = account.name
+            .badge.badge-primary.pull-right= account.currency.upcase
+          %td.text-right= number_to_currency account.balance
+          %td.hidden-sm.hidden-xs.text-right= number_to_currency account.advance_balance
+          %td= account.last_updated_string
           %td.text-right
-            %a{:href => account_path(p.id)} Summary
+            %a{:href => account_path(account)} Summary
             \ 
-            %a{:href => transactions_account_path(p.id)} History
+            %a{:href => transactions_account_path(account)} History
             \
-          - if current_user.accounts.count <= 15
-            %td.visible-desktop.details
-        - if current_user.accounts.count <= 15
+          %td.hidden-sm.hidden-xs.details
+            %i.fa
+        - if @accounts.count <= 15
           - @random = SecureRandom::uuid
-          %tr{:style => ('display:none' unless p.code[0] == '1' or p.code[0] == '9')}
-            %td{:colspan => 100}
-              .bd{:id => @random, :style => ( (p.code[0] == '1' or p.code[0] == '9') ? 'display:block' : 'display:none' )}
-                - content_for :javascript do
-                  %script{:type => 'text/javascript'}
-                    - if @salary.has_key?(p.id) and @goals.has_key?(p.id)
-                      = "insert_graph(\"#{@random}\",#{@months.keys.inspect.html_safe}, #{@graphs[p.code].to_a.map{|v| v[1].to_i} },\"Balance\", #{@goals[p.id]}, #{@salary[p.id]});".html_safe
-                    - elsif @goals.has_key?(p.id)
-                      = "insert_graph(\"#{@random}\",#{@months.keys.inspect.html_safe}, #{@graphs[p.code].to_a.map{|v| v[1].to_i} },\"Balance\", #{@goals[p.id]});".html_safe
-                    - else
-                      = "insert_graph(\"#{@random}\",#{@months.keys.inspect.html_safe}, #{@graphs[p.code].to_a.map{|v| v[1].to_i} },\"Balance\", 0);".html_safe
+          %tr
+            %td{colspan: 100}
+              .bd{id: @random}
+          - content_for :javascript do
+            %script{:type => 'text/javascript'}
+              - if
+                = "insert_graph(\"#{@random}\",#{account.months.keys.inspect.html_safe}, #{account.summary},\"Balance\", #{account.goal}, #{account.salary});".html_safe

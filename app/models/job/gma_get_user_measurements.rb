@@ -1,5 +1,5 @@
-module Job
-  class GmaGetUserMeasurements < Job::Base
+class Job
+  class GmaGetUserMeasurements < Job
     include Resque::Plugins::Status
     include Job::Concerns::GmaApi
 

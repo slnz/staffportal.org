@@ -100,7 +100,7 @@ $(document).ready(function() {
 });
 
 function resize_iframe(iframe) {
-  var height = $('.content').height() - 160;
+  var height = $('.content').height() - 210;
   $(iframe).css('height', height + 'px');
 }
 

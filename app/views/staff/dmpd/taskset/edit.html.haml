@@ -8,7 +8,7 @@
       Change Taskset
       = fa_icon 'angle-down'
     %ul.dropdown-menu{:role => "menu"}
-      - Taskset.order(:due_week).each do |taskset|
+      - ::Dmpd::Taskset.order(:due_week).each do |taskset|
         - unless taskset == @taskset
           %li
             %a{href: edit_dmpd_taskset_path(taskset)}= "Taskset #{taskset.name}"

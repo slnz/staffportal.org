@@ -1,0 +1,6 @@
+%tr{style: 'display:none'}
+  %td{colspan: 100}
+    .bd{id: graph[:graph_id], style: 'display:none'}
+      - content_for :javascript do
+        %script{:type => 'text/javascript'}
+          = "insert_graph(\"#{graph[:graph_id]}\",#{graph[:data].keys}, #{graph[:data].values}, \"#{graph[:name]}\", #{graph[:goal] || 0});".html_safe

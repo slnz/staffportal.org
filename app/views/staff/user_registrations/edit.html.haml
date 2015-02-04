@@ -1,0 +1,24 @@
+.page-header
+  %a.back{href: event_user_registrations_path}
+    = fa_icon 'chevron-left'
+  = title 'Edit My Registration'
+%br
+.dashboard.row
+  .col-md-4
+    %a
+      .box.clearfix
+        .border
+        %br
+        = image_tag @event.logo.upload.expiring_url, class: 'img-responsive'
+        %br
+        .text= @event.description
+        .go
+          = @event.start_date.strftime('%e %b')
+          \-
+          = @event.finish_date.strftime('%e %b %Y')
+    .embed-responsive.embed-responsive-16by9
+      %iframe.embed-responsive-item{frameborder: 0, src: "https://www.google.com/maps/embed/v1/place?key=AIzaSyCW8lWJ3XTRDqfqjt8rOA4QM46vZuqWGCM&q=#{URI.encode @event.address}"}
+    %small.text-muted= @event.address
+    %br
+  .col-md-8
+    = render 'form'

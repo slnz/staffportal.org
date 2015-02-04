@@ -1,6 +1,6 @@
 class AuthController < ApplicationController
-  before_filter :authenticate_user!, except: [:home]
-  def home
+  before_action :authenticate_user!, except: [:index]
+  def index
     render layout: 'signed_out'
   end
 

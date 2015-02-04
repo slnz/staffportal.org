@@ -1,9 +1,0 @@
-.page-header.dmpd
-  - if params[:contact_id]
-    %a.back{href: dmpd_contact_path(params[:contact_id])}
-      = fa_icon 'chevron-left'
-  - else
-    %a.back{href: dmpd_appointment_set_records_path}
-      = fa_icon 'chevron-left'
-  = title 'Add Appointment'
-= render 'form'

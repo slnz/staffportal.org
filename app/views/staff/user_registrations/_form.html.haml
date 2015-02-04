@@ -1,0 +1,18 @@
+- if @user
+  = render 'profile'
+  = semantic_form_for [@event, @registration], builder: FormtasticBootstrap::FormBuilder, url: event_user_registrations_path do |f|
+    = @event.registration_information
+    = f.input :comments, input_html: { rows: 10 }
+    .form-actions
+      %a{href: edit_user_path, class: 'btn btn-default'}
+        = fa_icon 'pencil'
+        Update My Profile
+      &nbsp;
+      = f.submit class: 'btn btn-primary', value: 'Submit My Registration'
+- else
+  .empty-state
+    %p
+      Before you can register for events you need to activate the directory and update your profile.
+    %a.btn.btn-primary.btn-lg{href: users_path, data: {"no-turbolink" => true}}
+      = fa_icon 'plus'
+      Directory

@@ -1,6 +1,5 @@
 module Staff
-  class DocumentsController < ApplicationController
-    before_filter :authenticate_user!
+  class DocumentsController < StaffController
     add_breadcrumb 'document centre', :documents_path
 
     def index

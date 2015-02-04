@@ -1,0 +1,29 @@
+.page-header.dmpd
+  %a.back{href: authenticated_root_path}
+    = fa_icon 'chevron-left'
+  = title 'DMPD'
+.dashboard.row
+  .col-sm-4
+    %a{href: dmpd_taskset_index_path}
+      .box.dmpd.clearfix
+        .border
+        .title
+          Tasksets
+        .stat
+          = fa_icon 'check-circle-o'
+        .text Complete all your Pre-DMPD activities here.
+        .go
+          Tasksets
+          = fa_icon 'chevron-right'
+  .col-sm-8
+    %a{ href: 'http://dmpd.staffportal.org', target: '_blank' }
+      .box.dmpd.clearfix
+        .border
+        .title
+          DMPD Portal
+        .stat
+          = fa_icon 'bookmark'
+        .text Manage the Entire DMPD process from calling through to maintainance.
+        .go
+          DMPD Portal
+          = fa_icon 'chevron-right'

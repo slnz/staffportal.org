@@ -1,0 +1,35 @@
+%table.table.table-hover.table-attributes
+  %tbody
+    %tr
+      %th.text-right Name
+      %td= @user.name
+    %tr
+      %th.text-right Email
+      %td= @user.email
+    %tr
+      %th.text-right Ministry
+      %td= @user.ministry.try(:name)
+    %tr
+      %th.text-right Dietary Requirements
+      - if @user.dietary_requirements.blank?
+        %td N/A
+      - else
+        %td= simple_format @user.dietary_requirements
+    %tr
+      %th.text-right Medical Requirements
+      - if @user.medical_requirements.blank?
+        %td N/A
+      - else
+        %td= simple_format @user.medical_requirements
+    %tr
+      %th.text-right Comments
+      - if @registration.comments.blank?
+        %td N/A
+      - else
+        %td= simple_format @registration.comments
+    %tr
+      %th.text-right Children
+      - if @user.kids.empty?
+        %td N/A
+      - else
+        %td= @user.kids.map {|kid| "#{kid.first_name} #{kid.last_name}".strip}.join(', ')

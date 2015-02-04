@@ -1,7 +1,6 @@
 require 'resque/server'
 
 Staff::Application.routes.draw do
-
   devise_for :users, ActiveAdmin::Devise.config
 
   authenticated :user do
@@ -14,24 +13,30 @@ Staff::Application.routes.draw do
 
     scope module: :staff do
       resources :documents
+      resources :events, only: [:index, :show] do
+        collection do
+          get 'signup'
+        end
+        resource :user_registrations
+      end
       root to: 'index#index', as: :authenticated_root
       get 'since-youve-been-gone' => 'index#roadblock'
-      get 'leaderboard' => 'index#leaderboard'
-      resource :user, only: [:edit, :update]
-      namespace :dmpd do
-        root 'index#index'
-        get 'signup' => 'index#signup'
-        resources :contacts
-        resources :appointment_set_records
-        resources :taskset
-        namespace :stats do
-          root to: 'base#index'
-          resources :appointment_set_record
-          resources :support_raising_development
-          resources :contact_card_box
+      resources :players, only: [:index] do
+        collection do
+          get 'signup'
         end
       end
-      resources :reports
+      resources :users, only: [:index, :show] do
+        collection do
+          get 'signup'
+        end
+      end
+      resource :user, only: [:edit, :update]
+      get 'dmpd', to: 'dmpd#index'
+      get 'dmpd/signup' => 'dmpd#signup'
+      namespace :dmpd do
+        resources :taskset
+      end
       resources :reviews do
         collection do
           get 'signup'
@@ -48,15 +53,13 @@ Staff::Application.routes.draw do
           get 'transactions'
         end
         collection do
-          get 'change_default_currency/:code' =>
-            'accounts#change_default_currency'
+          get 'signup'
         end
       end
     end
   end
 
   get 'auth/key' => 'auth#key'
-  root to: 'auth#home'
+  root to: 'auth#index'
   get '*path' => redirect('/')
-
 end

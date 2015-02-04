@@ -1,0 +1,30 @@
+.page-header
+  %a.back{href: authenticated_root_path}
+    = fa_icon 'chevron-left'
+  = title 'Leaderboard'
+.row
+  .col-md-4
+    .panel.panel-default
+      .panel-body
+        %h1.text-muted= fa_icon 'shield'
+        %h3 Get Badges
+        By doing unique tasks on the staff portal you can gain specialized badges to help you get full mastery of the staff portal.
+  .col-md-4
+    .panel.panel-default
+      .panel-body
+        %h1.text-muted= fa_icon 'star-half-empty'
+        %h3 Get Points
+        Like free prizes? By doing various tasks you can gain points in the Championship League and trade them for real prizes.
+  .col-md-4
+    .panel.panel-default
+      .panel-body
+        %h1.text-muted= fa_icon 'trophy'
+        %h3 Get Rank
+        Rank shows your overall rank made up of your points &amp; badges. Your rank determines your competition pool in the Championship league.
+.row
+  .col-md-12.text-center
+    %h2
+      All Ready?
+      .text-muted
+        %small Well, what are you waiting for?
+    %a.btn.btn-primary.btn-lg{href: signup_players_path(activate: true)} Activate Leaderboard

@@ -1,4 +1,4 @@
-= semantic_form_for [@gma_organization, @gma_staff_report], builder: FormtasticBootstrap::FormBuilder do |f|
+= semantic_form_for [@gma_staff_report.gma_organization, @gma_staff_report], builder: FormtasticBootstrap::FormBuilder do |f|
   = f.inputs do
     .list-group#gma_measurements
       = f.semantic_fields_for :gma_measurements do |h|

@@ -1,55 +1,58 @@
 .sidebar
   .brand
     = image_tag 'logo.png', class: 'logo', width: 30
-    Staff Portal
+    .text Staff Portal
   %ul.nav.nav-pills.nav-stacked
     %li{ class: ('active' if current_page? authenticated_root_path) }
       %a{:href => authenticated_root_path}
         = fa_icon 'home'
-        Home
-    %li{ class: ('active' if current_page? accounts_path) }
+        .text Home
+    %li{ class: ('active' if request.path.match(accounts_path)) }
       %a{:href => accounts_path}
         = fa_icon 'money'
-        My Accounts
-      - unless current_user.accounts.empty?
-        %ul.nav.sub
-          - current_user.accounts.limit(3).all.each do |account|
-            %li{ class: ('active' if current_page? account_path(account.id)) }
-              %a{:href => account_path(account.id)}
-                = account.name
-    %li{ class: ('active' if current_page? edit_user_path) }
+        .text Accounts
+    %li{ class: ('active' if request.path.match(dmpd_path)) }
+      %a{:href => dmpd_path}
+        = fa_icon 'tasks'
+        .text DMPD
+    %li{ class: ('active' if request.path.match(reviews_path)) }
+      %a{:href => reviews_path}
+        = fa_icon 'university'
+        .text People & Culture
+    %li{ class: ('active' if request.path.match(gma_organizations_path)) }
+      %a{:href => gma_organizations_path}
+        = fa_icon 'bar-chart-o'
+        .text Statistics
+    %li{ class: ('active' if request.path.match(events_path)) }
+      %a{:href => events_path}
+        = fa_icon 'calendar'
+        .text Events
+    %li{ class: ('active' if request.path.match(players_path)) }
+      %a{:href => players_path}
+        = fa_icon 'signal'
+        .text Leaderboard
+    %li{ class: ('active' if request.path.match(documents_path)) }
+      %a{:href => documents_path}
+        = fa_icon 'file-o'
+        .text Document Centre
+  %ul.nav.nav-pills.nav-stacked.bottom
+    %li{ class: ('active' if request.path.match(users_path)) }
+      %a{href: users_path }
+        = fa_icon 'book'
+        .text Directory
+    %li{ class: ('active' if request.path.match(edit_user_path)) }
       %a{href: edit_user_path}
         = fa_icon 'user'
-        My Profile
-      %ul.nav.sub
-        %li{ class: ('active' if request.path.match(/dmpd/)) }
-          %a{:href => dmpd_root_path}
-            = fa_icon 'tasks'
-            DMPD
-        %li{ class: ('active' if current_page? reviews_path) }
-          %a{:href => reviews_path}
-            = fa_icon 'university'
-            People & Culture
-        %li{ class: ('active' if current_page? gma_organizations_path) }
-          %a{:href => gma_organizations_path}
-            = fa_icon 'bar-chart-o'
-            Statistics
-        %li{ class: ('active' if current_page? leaderboard_path) }
-          %a{:href => leaderboard_path}
-            = fa_icon 'signal'
-            Leaderboard
-        %li{ class: ('active' if current_page? documents_path) }
-          %a{:href => documents_path}
-            = fa_icon 'file-o'
-            Document Centre
+        .text My Profile
     %li
       %a{:href => auth_logout_path}
         = fa_icon 'sign-out'
-        Sign Out
-  .rank
-    %h5= current_user.xp_level.name.capitalize
-    = image_tag "badge_#{current_user.xp_level.name}.gif", style: "border-radius: 5px"
-    %small.muted= "XP #{current_user.XP} / #{current_user.xp_level.xp_max}"
-    %small= "(#{current_user.xp_level.xp_max - current_user.XP} Till #{current_user.xp_level.next.name.capitalize})"
-    .progress.progress-striped
-      .progress-bar.progress-bar-success{style: "width:#{( (current_user.XP.to_f - current_user.xp_level.xp_min.to_f) / (current_user.xp_level.xp_max.to_f - current_user.xp_level.xp_min.to_f) ) * 100}%"}
+        .text Sign Out
+  -#
+    .rank
+      %h5= current_user.xp_level.name.capitalize
+      = image_tag "badge_#{current_user.xp_level.name}.gif", style: "border-radius: 5px"
+      %small.muted= "XP #{current_user.XP} / #{current_user.xp_level.xp_max}"
+      %small= "(#{current_user.xp_level.xp_max - current_user.XP} Till #{current_user.xp_level.next.name.capitalize})"
+      .progress.progress-striped
+        .progress-bar.progress-bar-success{style: "width:#{( (current_user.XP.to_f - current_user.xp_level.xp_min.to_f) / (current_user.xp_level.xp_max.to_f - current_user.xp_level.xp_min.to_f) ) * 100}%"}

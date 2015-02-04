@@ -1,7 +1,8 @@
 source 'https://rubygems.org'
-ruby '2.1.2'
+ruby '2.1.5'
 # Rails
 gem 'rails', '4.1.6'
+gem 'rails-observers'
 
 # Postgres
 gem 'pg'
@@ -11,6 +12,7 @@ gem 'devise'
 gem 'devise_cas_authenticatable'
 gem 'symmetric-encryption'
 gem 'cancancan'
+gem 'role_model'
 
 # Queue
 gem 'redis'
@@ -34,6 +36,7 @@ gem 'fiscali'
 gem 'kaminari'
 gem 'ransack'
 gem 'has_scope'
+gem 'draper'
 
 # View
 gem 'breadcrumbs_on_rails'
@@ -42,67 +45,89 @@ gem 'formtastic-bootstrap'
 gem 'kaminari-bootstrap'
 gem 'haml'
 gem 'table_for_collection'
+gem 'high_voltage'
 
 # Model
 gem 'phony_rails'
-gem 'currency_select', github: 'tanordheim/currency_select'
+gem 'active_type'
+gem 'merit'
 
 # Javascript
 gem 'highcharts-rails'
 gem 'summernote-rails'
 gem 'chosen-rails'
+gem 'cocoon'
 
 # Administration
 gem 'activeadmin', github: 'gregbell/active_admin'
-gem 'airbrake'
 
-gem 'sass-rails',   '>= 3.2'
-gem 'bootstrap-sass', '~> 3.1.1'
-gem 'uglifier', '>= 1.0.3'
+gem 'sass-rails'
+gem 'bootstrap-sass'
+gem 'uglifier'
 gem 'jquery-rails'
-gem 'jquery-ui-rails', '~> 5.0.0'
+gem 'jquery-ui-rails'
 gem 'gmaps-autocomplete-rails'
 gem 'turbolinks'
 gem 'jquery-turbolinks'
 gem 'nprogress-rails'
 gem 'font-awesome-rails'
 
+group :test do
+  gem 'capybara-webkit'
+  gem 'database_cleaner'
+  gem 'formulaic'
+  gem 'launchy'
+  gem 'shoulda-matchers', require: false
+  gem 'codeclimate-test-reporter', require: nil
+  gem 'simplecov'
+  gem 'timecop'
+  gem 'webmock'
+  gem 'vcr'
+  gem 'faker'
+end
+
+group :development, :test do
+  gem 'awesome_print'
+  gem 'byebug'
+  gem 'dotenv-rails'
+  gem 'factory_girl_rails'
+  gem 'pry-rails'
+  gem 'rspec-rails'
+  gem 'assert_difference'
+  gem 'pry'
+  gem 'pry-byebug'
+  gem 'pry-remote'
+  gem 'fuubar'
+  gem 'rubocop'
+  gem 'rubocop-rspec'
+end
+
+group :development do
+  gem 'spring'
+  gem 'spring-commands-rspec'
+  gem 'quiet_assets'
+  gem 'guard'
+  gem 'guard-rspec', require: false
+  gem 'guard-rubocop'
+  gem 'guard-rails'
+  gem 'guard-bundler'
+  gem 'guard-puma'
+  gem 'guard-brakeman'
+  gem 'rb-fsevent', require: false
+  gem 'better_errors'
+  gem 'binding_of_caller'
+  gem 'bullet'
+  gem 'rack-mini-profiler'
+end
+
 group :development, :production do
   gem 'puma'
 end
 
-group :development, :test do
-  gem 'spring-commands-rspec'
-  gem 'rspec-rails'
-  gem 'dotenv-rails'
-end
-
-group :development do
-  gem 'pry-rails'
-  gem 'foreman'
-  gem 'travis'
-  gem 'rails-erd'
-  gem 'better_errors'
-  gem 'binding_of_caller'
-  gem 'spring'
-  gem 'guard'
-  gem 'guard-bundler'
-  gem 'guard-rspec'
-  gem 'guard-spring'
-  gem 'guard-rubocop'
-end
-
-group :test do
-  gem 'rake'
-  gem 'database_cleaner'
-  gem 'shoulda-matchers'
-  gem 'oauth2'
-  gem 'fuubar'
-  gem 'factory_girl_rails'
-  gem "codeclimate-test-reporter", require: nil
-  gem 'simplecov', :require => false
-end
-
 group :production do
   gem 'rails_12factor'
+  gem 'rails_serve_static_assets'
+  gem 'airbrake'
+  gem 'newrelic_rpm'
 end
+

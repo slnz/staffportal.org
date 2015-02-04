@@ -8,7 +8,6 @@ class CreateGmaMemberships < ActiveRecord::Migration
       t.timestamps
     end
 
-
     add_index :gma_memberships, [:user_id, :gma_organization_id], unique: true
   end
 end

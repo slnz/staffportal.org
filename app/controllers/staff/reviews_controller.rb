@@ -1,108 +1,76 @@
 module Staff
-  class ReviewsController < InheritedResources::Base
-    defaults resource_class: UserReview
-
+  class ReviewsController < StaffController
     add_breadcrumb 'people and culture', :reviews_path
     def index
-      if current_user.pac?
-
-        @review = get_review
-        @categories = []
-        @graph = current_user.user_reviews.
-        joins('INNER JOIN "review_questions" ON "review_questions"."id"' +
-              ' = "user_review_answers"."review_question_id"').
-        joins(:user_review_answers).
-        joins(:review).
-        where('reviews.open > ?', 2.years.ago).
-        group('reviews.id').
-        select('array_agg(user_review_answers.value) as values',
-               'array_agg(review_questions.text) as text',
-               'reviews.open as date').
-        map do |r|
-          r[:text].each do |text|
-            @categories << text unless @categories.include?(text)
-          end
-          @values = {}
-          r[:values].each_with_index do |value, index|
-            @values[r[:text][index]] = value
-          end
-          { values: @values, date: r[:date].financial_quarter }
-        end
-        @series = []
-
-        @graph.each do |question|
-          @values_array = []
-          @categories.each do |text|
-            @values_array << question[:values][text].to_int || 0
-          end
-          @series << { name: question[:date], data: @values_array }
-        end
-      else
-        render 'signup'
-      end
+      load_user_reviews
+      load_review
+      load_graph
     end
 
     def new
-      @review = get_review
-      if @review.nil?
-        flash[:alert] = 'No pending reviews!'
-        redirect_to reviews_path
-        return
-      end
-      @review_questions = ReviewQuestion.all
+      load_review
+      return redirect_to reviews_path if @review.nil?
+      load_questions
+      build_user_review
     end
 
     def create
-      @review = get_review
-
-      if @review.nil?
-        flash[:alert] = 'No pending reviews!'
-        redirect_to reviews_path
-        return
-      end
-
-      @ur = UserReview.create(review_id: @review.id,
-                              user_id: current_user.id)
-      params[:answer].each do |key, answer|
-        UserReviewAnswer.create(review_question_id: key,
-                                user_review_id: @ur.id,
-                                value: answer.to_i)
-      end
-
-      flash[:achievement] = Array.new if flash[:achievement].nil?
-
-      # Paperwork Hero Achievement
-      flash[:achievement] << current_user.add_achievement('paperwork hero').id
-
-      # Speedy Achievement
-      if UserReview.where(review_id: @review.id).count <= 20
-        flash[:achievement] << current_user.add_achievement('speedy').id
-      end
-
-      redirect_to reviews_path
+      load_review
+      build_user_review
+      return flash[:success] = 'Successfully submitted your review' if save_user_review
+      load_questions
+      flash.now[:error] = 'There was a problem submitting your review'
+      render action: :new
     end
 
-    def signup
-      current_user.pac = true
-      current_user.save!
-      redirect_to action: :index
+    protected
+
+    def load_user_reviews
+      @user_reviews ||= user_review_scope
     end
 
-    private
+    def load_graph
+      @graph ||= User::ReviewsDecorator.graph(current_user)
+    end
 
-    def get_review
-      @review = Review.
-                       where('open <= ? and due >= ?',
-                             Date.today,
-                             Date.today).
-                       first
-      unless @review.nil?
-        @review = nil unless current_user.user_reviews.
-                                          find_by_review_id(@review.id).
-                                          nil?
+    def load_review
+      @review ||=
+        Review.where('open <= ? and due >= ?', Date.today, Date.today).first
+      return if user_review_scope.find_by(review: @review).nil?
+      @review = nil
+    end
+
+    def load_questions
+      @questions ||= Review::Question.all
+    end
+
+    def build_user_review
+      @user_review ||= user_review_scope.build(review: @review)
+      @user_review.attributes = review_params
+    end
+
+    def save_user_review
+      redirect_to reviews_path if @user_review.save
+    end
+
+    def user_review_scope
+      current_user.user_reviews
+    end
+
+    def user_type
+      :reviewer
+    end
+
+    def review_params
+      return {} unless params[:user_review]
+      Params.permit(params)
+    end
+
+    class Params
+      def self.permit(params)
+        params.require(:user_review)
+          .permit(answers_attributes: [:review_question_id, :value])
       end
-
-      @review
     end
   end
 end

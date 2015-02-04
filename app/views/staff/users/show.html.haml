@@ -1,0 +1,60 @@
+.page-header
+  %a.back{href: users_path}
+    = fa_icon 'chevron-left'
+  %h1
+    %span.avatar
+      = gravatar_tag @user.email, size: 50
+    = @user.name
+    - title @user.name
+.disabled-form
+  .form-title
+    Personal Information
+  .row
+    .col-sm-6.form-group
+      .control-label First Name
+      .form-control= @user.first_name.titleize
+    .col-sm-6.form-group
+      .control-label Last Name
+      .form-control= @user.last_name.titleize
+  .row
+    .col-md-12.form-group
+      .control-label Email
+      .form-control
+        = mail_to @user.email
+  .row
+    .col-sm-4.form-group
+      .control-label Primary Phone
+      .form-control= "+#{@user.primary_phone}"
+    .col-sm-4.form-group
+      .control-label Home Phone
+      .form-control
+        - unless @user.home_phone.blank?
+          = "+#{@user.home_phone}"
+    .col-sm-4.form-group
+      .control-label Office Phone
+      .form-control
+        - unless @user.office_phone.blank?
+          = "+#{@user.office_phone}"
+  .row
+    .col-md-12.form-group
+      .control-label Address
+      .form-control= @user.address
+      %input{type: 'hidden', class:'gmaps-address'}
+  #gmaps-canvas
+  - content_for :javascript do
+    :javascript
+      $(function () {
+        setTimeout(function() {
+          window.completer = new GmapsCompleter({
+            inputField: '.gmaps-address',
+            debugOn: false
+          });
+          window.completer.autoCompleteInit({
+            country: "New Zealand"
+          });
+          completer.update = true;
+          completer.geocodeLookup('address', "#{@user.address}", true);
+        }, 500);
+      });
+  .form-title
+    Additional Information

@@ -1,20 +1,21 @@
 - title 'Home'
 .dashboard.row
-  - current_user.accounts.limit(3).all.each do |account|
-    %a{:href => account_path(account.id)}
-      .col-md-4.col-sm-6
-        .box.account.clearfix
-          .border
-          .title
-            = account.name
-            .text-muted= "#{account.code} Balance"
-          .stat
-            %div= fa_icon 'money'
-            = number_to_currency account.get_balance current_user
-          .go
-            = account.name
-            = fa_icon 'chevron-right'
-  - if current_user.pac?
+  - if current_user.has_role? :account_holder
+    - current_user.as(:account_holder).accounts.limit(3).all.each do |account|
+      %a{:href => account_path(account.id)}
+        .col-md-4.col-sm-6
+          .box.account.clearfix
+            .border
+            .title
+              = account.name
+              .text-muted= "#{account.code} Balance"
+            .stat
+              %div= fa_icon 'money'
+              = number_to_currency account.decorate.balance
+            .go
+              = account.name
+              = fa_icon 'chevron-right'
+  - if current_user.has_role? :reviewer
     %a{href: reviews_path}
       .col-md-4.col-sm-6
         .box.pac.clearfix
@@ -28,7 +29,21 @@
           .go
             People & Culture
             = fa_icon 'chevron-right'
-  - if current_user.stats?
+  - if current_user.has_role? :attendee
+    %a{href: events_path}
+      .col-md-4.col-sm-6
+        .box.clearfix
+          .border
+          .title
+            Events
+            .text-muted Upcoming Events
+          .stat
+            %div= fa_icon 'calendar'
+            = ::Event.where('finish_date > ?', Date.today).order(:start_date).count
+          .go
+            Events
+            = fa_icon 'chevron-right'
+  - if current_user.has_role? :statistician
     %a{href: gma_organizations_path}
       .col-md-4.col-sm-6
         .box.statistics.clearfix
@@ -38,25 +53,21 @@
             .text-muted Due Reports
           .stat
             %div= fa_icon 'bar-chart-o'
-            = current_user.gma_staff_reports.where(submitted: false).count
+            = current_user.as(:statistician).gma_staff_reports.where(submitted: false).count
           .go
             Statistics
             = fa_icon 'chevron-right'
-  - if current_user.dmpd?
-    %a{href: dmpd_contacts_path}
+  - unless current_user.has_role? :account_holder
+    %a{href: accounts_path}
       .col-md-4.col-sm-6
-        .box.dmpd.clearfix
+        .box.empty.clearfix
           .border
           .title
-            DMPD
-            .text-muted Contacts
+            Accounts
           .stat
-            %div= fa_icon 'users'
-            = current_user.contacts.count
-          .go
-            Contacts
-            = fa_icon 'chevron-right'
-  - unless current_user.pac?
+            %div= fa_icon 'plus'
+            Activate
+  - unless current_user.has_role? :reviewer
     %a{href: reviews_path}
       .col-md-4.col-sm-6
         .box.empty.clearfix
@@ -66,7 +77,7 @@
           .stat
             %div= fa_icon 'plus'
             Activate
-  - unless current_user.stats?
+  - unless current_user.has_role? :statistician
     %a{href: gma_organizations_path}
       .col-md-4.col-sm-6
         .box.empty.clearfix
@@ -76,13 +87,43 @@
           .stat
             %div= fa_icon 'plus'
             Activate
-  - unless current_user.dmpd?
-    %a{href: dmpd_root_path}
+  - unless current_user.has_role? :trainee
+    %a{href: dmpd_path}
       .col-md-4.col-sm-6
         .box.empty.clearfix
           .border
           .title
             DMPD
+          .stat
+            %div= fa_icon 'plus'
+            Activate
+  - unless current_user.has_role? :player
+    %a{href: players_path}
+      .col-md-4.col-sm-6
+        .box.empty.clearfix
+          .border
+          .title
+            Leaderboard
+          .stat
+            %div= fa_icon 'plus'
+            Activate
+  - unless current_user.has_role? :contact
+    %a{href: players_path}
+      .col-md-4.col-sm-6
+        .box.empty.clearfix
+          .border
+          .title
+            Directory
+          .stat
+            %div= fa_icon 'plus'
+            Activate
+  - unless current_user.has_role? :attendee
+    %a{href: events_path}
+      .col-md-4.col-sm-6
+        .box.empty.clearfix
+          .border
+          .title
+            Events
           .stat
             %div= fa_icon 'plus'
             Activate

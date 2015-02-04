@@ -1,5 +1,8 @@
-require 'spec_helper'
+require 'rails_helper'
 
 describe Roadblock do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it { is_expected.to have_db_column :title }
+  it { is_expected.to have_db_column :message }
+  it { is_expected.to validate_presence_of :title }
+  it { is_expected.to validate_presence_of :message }
 end

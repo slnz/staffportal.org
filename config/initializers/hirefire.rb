@@ -1,6 +1,5 @@
 
 HireFire::Resource.configure do |config|
-
   config.dyno(:csv_import) do
     HireFire::Macro::Resque.queue(:csv_import)
   end
@@ -12,5 +11,4 @@ HireFire::Resource.configure do |config|
   config.dyno(:statused) do
     HireFire::Macro::Resque.queue(:statused)
   end
-
 end

@@ -5,17 +5,15 @@
   %ul.nav.navbar-nav.navbar-right.hidden-xs
     %li.dropdown
       %a.dropdown-toggle{"data-toggle" => "dropdown", href: "#"}
-        %span.avatar
-          = gravatar_tag current_user.email, size: 40
         = current_user.first_name
         %b.caret
       %ul.dropdown-menu
-        %li{ class: ('active' if current_page? leaderboard_path) }
-          %a{:href => leaderboard_path} Leaderboard
+        %li{ class: ('active' if current_page? players_path) }
+          %a{:href => players_path} Leaderboard
         %li{ class: ('active' if current_page? documents_path) }
           %a{:href => documents_path} Document Centre
         %li
-          %a{:href => edit_user_path} My Profile
+          %a{:href => edit_user_path(current_user)} My Profile
         %li.divider
         - if current_user.admin == "admin"
           %li
@@ -30,6 +28,9 @@
             %a{:href => "/hr", "data-no-turbolink" => true} Admin
         %li
           %a.last{:href => "/auth/logout"} Sign Out
+    %li
+      %span.avatar
+        = gravatar_tag current_user.email, size: 40
 %nav.navbar.navbar-default.navbar-inverse.navbar-alternative{:role => "navigation"}
   .container-fluid
     / Brand and toggle get grouped for better mobile display
@@ -46,21 +47,22 @@
       %ul.nav.navbar-nav
         %li{ class: ('active' if current_page? authenticated_root_path) }
           %a{:href => authenticated_root_path} Home
-        %li.dropdown
-          %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
-            = fa_icon 'money'
-            Accounts
-            %span.caret
-          %ul.dropdown-menu{:role => "menu"}
-            - current_user.accounts.limit(3).all.each do |account|
-              %li{ class: ('active' if current_page? account_path(account.id)) }
-                %a{:href => account_path(account.id)}
-                  = account.name
-            %li.divider
-            %li
-              %a{:href => accounts_path} List All Accounts
+        -#
+          %li.dropdown
+            %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
+              = fa_icon 'money'
+              Accounts
+              %span.caret
+            %ul.dropdown-menu{:role => "menu"}
+              - current_user.accounts.limit(3).all.each do |account|
+                %li{ class: ('active' if current_page? account_path(account.id)) }
+                  %a{:href => account_path(account.id)}
+                    = account.name
+              %li.divider
+              %li
+                %a{:href => accounts_path} List All Accounts
         %li{ class: ('active' if request.path.match(/dmpd/)) }
-          %a{:href => dmpd_root_path}
+          %a{:href => dmpd_path}
             = fa_icon 'tasks'
             DMPD
         %li{ class: ('active' if current_page? reviews_path) }
@@ -77,11 +79,11 @@
             = current_user.first_name
             %span.caret
           %ul.dropdown-menu{:role => "menu"}
-            %li{ class: ('active' if current_page? leaderboard_path) }
-              %a{:href => leaderboard_path}
+            %li{ class: ('active' if current_page? players_path) }
+              %a{:href => players_path}
                 = fa_icon 'signal'
                 Leaderboard
             %li
-              %a{:href => edit_user_path} My Profile
+              %a{:href => edit_user_path(current_user)} My Profile
             %li
               %a{:href => auth_logout_path} Sign Out

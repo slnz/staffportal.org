@@ -1,0 +1,30 @@
+.page-header
+  %a.back{href: authenticated_root_path}
+    = fa_icon 'chevron-left'
+  = title 'Events'
+.row
+  .col-md-4
+    .panel.panel-default
+      .panel-body
+        %h1.text-muted= fa_icon 'search'
+        %h3 See Events
+        See upcoming events and details like who the speaker is, the venue and location of conferences, cost for you and your kids, the key dates and much more.
+  .col-md-4
+    .panel.panel-default
+      .panel-body
+        %h1.text-muted= fa_icon 'pencil'
+        %h3 Register and Participate
+        Use your profile to sign up for events easily. No more repeat forms to fill out, just enter the common details like medical &amp; dietary requirements once and you can one click sign up.
+  .col-md-4
+    .panel.panel-default
+      .panel-body
+        %h1.text-muted= fa_icon 'trophy'
+        %h3 Get Points
+        Like free prizes? By doing various tasks on the staff portal, including registering for events you can gain points in the Championship League.
+.row
+  .col-md-12.text-center
+    %h2
+      All Ready?
+      .text-muted
+        %small Well, what are you waiting for?
+    %a.btn.btn-primary.btn-lg{href: signup_events_path(activate: true)} Activate Events
