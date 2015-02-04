@@ -37,6 +37,7 @@ class Job
     end
 
     def cleanup_s3
+      return if @document.processed?
       @s3_bucket.objects[@document.paperclip_file_path]
         .copy_from(@url_data[:path])
       @s3_bucket.objects[@url_data[:path]].delete
