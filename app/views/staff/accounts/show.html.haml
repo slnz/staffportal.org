@@ -40,7 +40,7 @@
         - @balance = @account.balance - @surplus.values.sum
         - @totals[:income].each_with_index do |(key, value), index|
           - current_asset_value = 0
-          - unless index >= @totals[:current_asset].values.length
+          - unless @totals[:current_asset].nil? || index >= @totals[:current_asset].values.length
             - current_asset_value = @totals[:current_asset].values[index + 1..@totals[:current_asset].values.size].sum
           - @balance += @surplus[key]
           %td.text-right= link_to number_with_precision(@balance + current_asset_value, :precision => 0, :delimiter => ','), controller: "accounts", action: :transactions, id: params[:id], month: key
