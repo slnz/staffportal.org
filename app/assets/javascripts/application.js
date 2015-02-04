@@ -5,7 +5,6 @@
 //= require jquery-ui/autocomplete
 //= require s3_direct_upload
 //= require chosen-jquery
-//= require gmaps-auto-complete
 //= require nprogress
 //= require nprogress-turbolinks
 //= require highcharts

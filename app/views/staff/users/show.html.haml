@@ -39,22 +39,3 @@
     .col-md-12.form-group
       .control-label Address
       .form-control= @user.address
-      %input{type: 'hidden', class:'gmaps-address'}
-  #gmaps-canvas
-  - content_for :javascript do
-    :javascript
-      $(function () {
-        setTimeout(function() {
-          window.completer = new GmapsCompleter({
-            inputField: '.gmaps-address',
-            debugOn: false
-          });
-          window.completer.autoCompleteInit({
-            country: "New Zealand"
-          });
-          completer.update = true;
-          completer.geocodeLookup('address', "#{@user.address}", true);
-        }, 500);
-      });
-  .form-title
-    Additional Information

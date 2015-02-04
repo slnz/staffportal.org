@@ -35,23 +35,7 @@
             = f.input :home_phone
           .col-md-4
             = f.input :office_phone
-        = f.input :address, input_html: { class: 'gmaps-address' }
-        #gmaps-canvas
-        - content_for :javascript do
-          :javascript
-            $(function () {
-              setTimeout(function() {
-                window.completer = new GmapsCompleter({
-                  inputField: '.gmaps-address',
-                  debugOn: false
-                });
-                window.completer.autoCompleteInit({
-                  country: "New Zealand"
-                });
-                completer.update = true;
-                completer.geocodeLookup('address', "#{@user.address}", true);
-              }, 500);
-            });
+        = f.input :address
   .row
     .col-md-6
       .form-title Event Registration Details
