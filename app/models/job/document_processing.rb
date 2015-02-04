@@ -4,7 +4,7 @@ class Job
     @queue = :statused
 
     def perform
-      transfer_and_cleanup(options['document_id'])
+      self.class.transfer_and_cleanup(options['document_id'])
     end
 
     # Determines if file requires post-processing (image resizing, etc)
