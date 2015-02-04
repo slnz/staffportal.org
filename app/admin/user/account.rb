@@ -1,4 +1,4 @@
-ActiveAdmin.register User::Account, as: 'Permission' do
+ActiveAdmin.register User::Permission, as: 'Permission' do
   menu parent: 'Accounts'
   permit_params :user_id, :account_id, :by_id
   index do

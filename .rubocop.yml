@@ -1,10 +1,11 @@
+require: rubocop-rspec
+
 AllCops:
   Include:
     - Rakefile
     - config.ru
   Exclude:
     - db/**/*
-    - config/**/*
     - script/**/*
     - vendor/**/*
     - bin/**/*

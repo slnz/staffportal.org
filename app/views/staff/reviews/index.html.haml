@@ -2,7 +2,6 @@
   %a.back{href: authenticated_root_path}
     = fa_icon 'chevron-left'
   = title 'People and Culture'
-
 .row
   .col-md-12.clearfix
     .controller-actions.text-right
@@ -14,15 +13,17 @@
         %a.btn.btn-default.btn-disabled
           No Reviews Currently Due
 - if @graph[:categories].empty?
-  .panel.panel-default
-    .panel-body
-      .text-center
-        %h1.text-muted
-          = fa_icon 'university'
-        %h3 Reviews
-  .text-center.alert.alert-info
-    %h5 No Completed Reviews
-    Talk to your Director about completing a Review.
+  %br
+  .col-md-12
+    .panel.panel-default
+      .panel-body
+        .text-center
+          %h1.text-muted
+            = fa_icon 'university'
+          %h3 Reviews
+    .text-center.alert.alert-info
+      %h5 No Completed Reviews
+      Talk to your Director about completing a Review.
 - else
   %script{:text => "text/javascript"}
     var series = #{@graph[:series].to_json.html_safe};

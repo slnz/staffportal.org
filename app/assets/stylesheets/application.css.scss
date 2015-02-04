@@ -693,13 +693,67 @@ form.gma_staff_report {
 }
 
 @media (max-width: 1280px) {
-  .sidebar, .stream {
+  .stream {
+    display: none;
+  }
+  .content {
+    right: 0;
+  }
+}
+
+@media (max-width: 767px) {
+  .sidebar {
     display: none;
   }
   .content {
     left: 0;
-    right: 0;
     top: 90px;
+  }
+  #sign_in {
+    .hero {
+      padding-top: 50px;
+      height: auto;
+      position: absolute;
+      left: 0;
+      top: 125px;
+      bottom: 60px;
+      right: 0;
+      min-height: auto;
+    }
+    .header {
+      padding-top: 40px;
+      .col-sm-centered {
+        width: 260px;
+        margin: 0 auto;
+      }
+      .text-right {
+        text-align: center;
+      }
+      .btn {
+        display: none;
+      }
+    }
+    .footer {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+    }
+  }
+
+  #accounts, #records {
+    margin: -15px -15px 0 -15px;
+  }
+  .zopim {
+    display: none;
+  }
+  .content {
+    position: static;
+    padding: 15px;
+    .page-header {
+      margin: -15px;
+      margin-bottom: 15px;
+    }
   }
   nav.navbar-fixed-top {
     left: 0;
@@ -780,56 +834,6 @@ form.gma_staff_report {
       color: #a4acb7;
     }
   }
-}
-
-@media (max-width: 767px) {
-  #sign_in {
-    .hero {
-      padding-top: 50px;
-      height: auto;
-      position: absolute;
-      left: 0;
-      top: 125px;
-      bottom: 60px;
-      right: 0;
-      min-height: auto;
-    }
-    .header {
-      padding-top: 40px;
-      .col-sm-centered {
-        width: 260px;
-        margin: 0 auto;
-      }
-      .text-right {
-        text-align: center;
-      }
-      .btn {
-        display: none;
-      }
-    }
-    .footer {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-    }
-  }
-
-  #accounts, #records {
-    margin: -15px -15px 0 -15px;
-  }
-  .zopim {
-    display: none;
-  }
-  .content {
-    position: static;
-    padding: 15px;
-    .page-header {
-      margin: -15px;
-      margin-bottom: 15px;
-    }
-  }
-
   .navbar-alternative {
     top: 0;
     .container-fluid {

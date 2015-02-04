@@ -11,28 +11,17 @@ end
 
 module Staff
   class Application < Rails::Application
-    # Configure the default encoding used in templates for Ruby 1.9.
     config.encoding = 'utf-8'
-
-    # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password]
-
     config.autoload_paths += %W(#{config.root}/lib)
-
     config.assets.initialize_on_precompile = false
-
-    # Enable the asset pipeline
     config.assets.enabled = true
-
-    # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
-
     config.assets.paths << "#{Rails.root}/app/assets/fonts"
-
     config.logger = Logger.new(STDOUT)
-
     config.assets.initialize_on_precompile = false
-
     config.i18n.enforce_available_locales = false
+    config.autoload_paths << Rails.root.join('app/observers')
+    config.active_record.observers = :user_observer, :'User::DocumentObserver'
   end
 end

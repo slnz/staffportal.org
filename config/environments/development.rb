@@ -32,7 +32,6 @@ Staff::Application.configure do
   config.serve_static_assets = false
 
   config.eager_load = false
-
 end
 
 BetterErrors::Middleware.allow_ip! '0.0.0.0/0'

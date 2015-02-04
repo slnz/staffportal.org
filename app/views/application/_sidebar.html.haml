@@ -23,6 +23,10 @@
       %a{:href => gma_organizations_path}
         = fa_icon 'bar-chart-o'
         .text Statistics
+    %li{ class: ('active' if request.path.match(events_path)) }
+      %a{:href => events_path}
+        = fa_icon 'calendar'
+        .text Events
     %li{ class: ('active' if request.path.match(players_path)) }
       %a{:href => players_path}
         = fa_icon 'signal'

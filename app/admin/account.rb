@@ -2,7 +2,7 @@ ActiveAdmin.register Account, as: 'Responsibility Center' do
   menu parent: 'Accounts'
   permit_params :name, :code, :currency
 
-  action_item only: :index do
+  action_item :import, only: :index do
     link_to 'Import from CSV', action: 'upload_csv'
   end
 
@@ -16,7 +16,7 @@ ActiveAdmin.register Account, as: 'Responsibility Center' do
     redirect_to action: :index
   end
 
-  action_item only: :index do
+  action_item :recalculate, only: :index do
     link_to 'Recalculate Balances', action: 'balances'
   end
 
@@ -68,5 +68,4 @@ ActiveAdmin.register Account, as: 'Responsibility Center' do
     end
     actions
   end
-
 end

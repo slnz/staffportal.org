@@ -29,6 +29,20 @@
           .go
             People & Culture
             = fa_icon 'chevron-right'
+  - if current_user.has_role? :attendee
+    %a{href: events_path}
+      .col-md-4.col-sm-6
+        .box.clearfix
+          .border
+          .title
+            Events
+            .text-muted Upcoming Events
+          .stat
+            %div= fa_icon 'calendar'
+            = ::Event.where('finish_date > ?', Date.today).order(:start_date).count
+          .go
+            Events
+            = fa_icon 'chevron-right'
   - if current_user.has_role? :statistician
     %a{href: gma_organizations_path}
       .col-md-4.col-sm-6
@@ -43,22 +57,8 @@
           .go
             Statistics
             = fa_icon 'chevron-right'
-  - if current_user.has_role? :trainee
-    %a{href: dmpd_contacts_path}
-      .col-md-4.col-sm-6
-        .box.dmpd.clearfix
-          .border
-          .title
-            DMPD
-            .text-muted Contacts
-          .stat
-            %div= fa_icon 'users'
-            = current_user.as(:trainee).contacts.count
-          .go
-            Contacts
-            = fa_icon 'chevron-right'
   - unless current_user.has_role? :account_holder
-    %a{href: reviews_path}
+    %a{href: accounts_path}
       .col-md-4.col-sm-6
         .box.empty.clearfix
           .border
@@ -114,6 +114,16 @@
           .border
           .title
             Directory
+          .stat
+            %div= fa_icon 'plus'
+            Activate
+  - unless current_user.has_role? :attendee
+    %a{href: events_path}
+      .col-md-4.col-sm-6
+        .box.empty.clearfix
+          .border
+          .title
+            Events
           .stat
             %div= fa_icon 'plus'
             Activate

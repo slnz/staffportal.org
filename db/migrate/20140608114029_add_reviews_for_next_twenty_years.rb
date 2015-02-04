@@ -1,7 +1,7 @@
 class AddReviewsForNextTwentyYears < ActiveRecord::Migration
   def change
     @date = Date.today.next_financial_quarter
-    (1..80).each do |index|
+    (1..80).each do |_index|
       Review.create(open: @date,
                     due: @date + 15.days)
       @date = @date.next_financial_quarter

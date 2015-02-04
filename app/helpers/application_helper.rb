@@ -3,6 +3,7 @@ module ApplicationHelper
     content_for(:title, page_title.to_s)
     content_tag(:h1, page_title, options)
   end
+
   def flash_messages(_opts = {})
     return if flash.empty?
     flash.map do |msg_type, message|

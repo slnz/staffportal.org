@@ -4,18 +4,6 @@
   = title 'DMPD'
 .dashboard.row
   .col-sm-4
-    %a{href: dmpd_contacts_path}
-      .box.dmpd.clearfix{class: ("success" if current_user.contacts.count >= 30)}
-        .border
-        .title
-          Contacts
-        .stat
-          = fa_icon 'user'
-        .text Manage contacts in your primary DMPD location and reduce clashes between you and your staff team.
-        .go
-          Contacts
-          = fa_icon 'chevron-right'
-  .col-sm-4
     %a{href: dmpd_taskset_index_path}
       .box.dmpd.clearfix
         .border
@@ -23,11 +11,11 @@
           Tasksets
         .stat
           = fa_icon 'check-circle-o'
-        .text Complete all your Pre-DMPD activities here. These will help you prepare for effective DMPD.
+        .text Complete all your Pre-DMPD activities here.
         .go
           Tasksets
           = fa_icon 'chevron-right'
-  .col-sm-4
+  .col-sm-8
     %a{ href: 'http://dmpd.staffportal.org', target: '_blank' }
       .box.dmpd.clearfix
         .border

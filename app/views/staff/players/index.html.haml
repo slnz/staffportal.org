@@ -12,14 +12,14 @@
         %th Latest Badge
         %th XP
     %tbody
-      - @users.each_with_index do |leader, index|
-        %tr.expandable.record{class: ('closed' unless current_user == leader)}
+      - @players.each_with_index do |player, index|
+        %tr.expandable.record.closed
           %td= index + 1
-          %td= leader.name
-          %td
-            = image_tag "badge_#{leader.xp_level.name}.gif", style: "border-radius: 5px", width: 20
-            %span.muted= leader.xp_level.name.capitalize
-          %td
-            = image_tag "achievement_#{leader.achievements.first.name.tr(" ", "_")}.png", style: "border-radius: 5px; margin-right: 5px", class: "pull-left", width: 25
-            %span.muted= leader.achievements.first.name.titleize
-          %td= leader.XP
+          %td= player.name
+        /   %td
+        /     = image_tag "badge_#{leader.xp_level.name}.gif", style: "border-radius: 5px", width: 20
+        /     %span.muted= leader.xp_level.name.capitalize
+        /   %td
+        /     = image_tag "achievement_#{leader.achievements.first.name.tr(" ", "_")}.png", style: "border-radius: 5px; margin-right: 5px", class: "pull-left", width: 25
+        /     %span.muted= leader.achievements.first.name.titleize
+        /   %td= leader.XP

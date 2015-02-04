@@ -1,0 +1,91 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://thekey.me/cas/v1/tickets
+    body:
+      encoding: UTF-8
+      string: username=bill.bright%40cru.org&password=jesusislord
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 201
+      message: Created
+    headers:
+      Server:
+      - nginx/0.7.67
+      Date:
+      - Thu, 29 Jan 2015 04:38:55 GMT
+      Content-Type:
+      - text/html;charset=UTF-8
+      Connection:
+      - keep-alive
+      Accept-Ranges:
+      - bytes
+      Location:
+      - https://thekey.me/cas/v1/tickets/TGT-1488-sdfksf234jk2b34893gfbIJBGVY1mbdkjg87vUIGBVKUVdf234-cas3
+      Content-Length:
+      - '430'
+    body:
+      encoding: UTF-8
+      string: <!DOCTYPE HTML PUBLIC \"-//IETF//DTD HTML 2.0//EN\"><html><head><title>201
+        The request has been fulfilled and resulted in a new resource being created</title></head><body><h1>TGT
+        Created</h1><form action="https://thekey.me/cas/v1/tickets/TGT-1488-sdfksf234jk2b34893gfbIJBGVY1mbdkjg87vUIGBVKUVdf234-cas3"
+        method="POST">Service:<input type="text" name="service" value=""><br><input
+        type="submit" value="Submit"></form></body></html>
+    http_version:
+  recorded_at: Thu, 29 Jan 2015 04:44:31 GMT
+- request:
+    method: post
+    uri: https://thekey.me/cas/v1/tickets
+    body:
+      encoding: UTF-8
+      string: username=bill.bright%40cru.org&password=wrongpassword
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 400
+      message: Bad Request
+    headers:
+      Server:
+      - nginx/0.7.67
+      Date:
+      - Thu, 29 Jan 2015 04:46:00 GMT
+      Content-Type:
+      - text/html;charset=UTF-8
+      Connection:
+      - keep-alive
+      Accept-Ranges:
+      - bytes
+      Content-Length:
+      - '404'
+    body:
+      encoding: UTF-8
+      string: |
+        <html>
+        <head>
+           <title>Status page</title>
+        </head>
+        <body style="font-family: sans-serif;">
+        <p style="font-size: 1.2em;font-weight: bold;margin: 1em 0px;">Bad Request</p>
+        <p>1 errors, 0 successes</p>
+        <p>You can get technical details <a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.1">here</a>.<br>
+        Please continue your visit at our <a href="/">home page</a>.
+        </p>
+        </body>
+        </html>
+    http_version:
+  recorded_at: Thu, 29 Jan 2015 04:46:00 GMT
+recorded_with: VCR 2.9.3

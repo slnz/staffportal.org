@@ -2,7 +2,7 @@ ActiveAdmin.register Account::Category, as: 'Ledger Code' do
   menu parent: 'Accounts'
   permit_params :name, :code, :definition
 
-  action_item only: :index do
+  action_item :import, only: :index do
     link_to 'Import from CSV', action: 'upload_csv'
   end
   collection_action :upload_csv do

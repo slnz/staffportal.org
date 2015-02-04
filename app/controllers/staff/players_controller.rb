@@ -3,10 +3,25 @@ module Staff
     add_breadcrumb 'leaderboard', :players_path
 
     def index
-      @users = User.where('"XP" > 0').limit(10).order('"XP" desc').decorate
+      load_players
+      decorate_players
     end
 
     protected
+
+    def load_players
+      @players ||= player_scope.all
+    end
+
+    def decorate_players
+      @players = @players.try(:decorate)
+    end
+
+    def player_scope
+      User::AsPlayer.where('roles_mask & ? = ?',
+                 User.mask_for(:player),
+                 User.mask_for(:player))
+    end
 
     def user_type
       :player

@@ -1,0 +1,34 @@
+.page-header
+  %a.back{href: authenticated_root_path}
+    = fa_icon 'chevron-left'
+  = title 'Events'
+.dashboard.row
+  - if @events.empty?
+    .col-md-12
+      .panel.panel-default
+        .panel-body
+          .text-center
+            %h1.text-muted
+              = fa_icon 'calendar'
+            %h3 Events
+      .text-center.alert.alert-info
+        %h5 No Upcoming Events
+  - @events.each do |event|
+    .col-sm-4
+      %a{href: event_path(event)}
+        .box.clearfix
+          .border
+          .title
+            = event.name
+          %br
+          = image_tag event.logo.upload.expiring_url, class: 'img-responsive'
+          %br
+          .text= event.description
+          .go
+            - if event.registered?(current_user)
+              .pull-left
+                Registered
+            = event.start_date.strftime('%e %b')
+            \-
+            = event.finish_date.strftime('%e %b %Y')
+            = fa_icon 'chevron-right'

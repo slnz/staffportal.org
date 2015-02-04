@@ -1,0 +1,208 @@
+---
+http_interactions:
+- request:
+    method: head
+    uri: https://staff-portal--development.s3.amazonaws.com/uploads/test/filename.png
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Content-Type:
+      - ''
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby/1.61.0 ruby/2.1.5 x86_64-darwin14.0
+      Date:
+      - Tue, 03 Feb 2015 23:52:01 GMT
+      Authorization:
+      - AWS AKIAI2YB4SV3RSXG7HZQ:9HZBU0CjJuBrGGEzub7+kbnWwNY=
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 404
+      message: Not Found
+    headers:
+      X-Amz-Request-Id:
+      - 3AF3228C219920E6
+      X-Amz-Id-2:
+      - qOpdztOtLvJ8MhJ5/i1Smf857kdjAOkTn1B136fhfKA8Gx/B4vnLeO3p/ye/tooI
+      Content-Type:
+      - application/xml
+      Transfer-Encoding:
+      - chunked
+      Date:
+      - Tue, 03 Feb 2015 23:52:02 GMT
+      Server:
+      - AmazonS3
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Tue, 03 Feb 2015 23:52:02 GMT
+- request:
+    method: head
+    uri: https://staff-portal--development.s3.amazonaws.com/uploads/test/filename.png
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Content-Type:
+      - ''
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby/1.61.0 ruby/2.1.5 x86_64-darwin14.0
+      Date:
+      - Tue, 03 Feb 2015 23:52:05 GMT
+      Authorization:
+      - AWS AKIAI2YB4SV3RSXG7HZQ:B1rbvqevId9p+HbJEz8qq3sE6YQ=
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 404
+      message: Not Found
+    headers:
+      X-Amz-Request-Id:
+      - FEB79ACC01C1BFB4
+      X-Amz-Id-2:
+      - ErSlhM2TCffyToLaX4kM++MSoLXaUDcFWnFa+Vj9aJygP1gEotpd+rUTE0Kf6s34
+      Content-Type:
+      - application/xml
+      Transfer-Encoding:
+      - chunked
+      Date:
+      - Tue, 03 Feb 2015 23:52:06 GMT
+      Server:
+      - AmazonS3
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Tue, 03 Feb 2015 23:52:06 GMT
+- request:
+    method: head
+    uri: https://staff-portal--development.s3.amazonaws.com/uploads/test/filename.png
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Content-Type:
+      - ''
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby/1.61.0 ruby/2.1.5 x86_64-darwin14.0
+      Date:
+      - Tue, 03 Feb 2015 23:52:09 GMT
+      Authorization:
+      - AWS AKIAI2YB4SV3RSXG7HZQ:B63IwcYvUd5/EjR7m9Vc9xIG9WY=
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 404
+      message: Not Found
+    headers:
+      X-Amz-Request-Id:
+      - 71B2B3BB18178752
+      X-Amz-Id-2:
+      - Cmgn9VFXMY7jXHBeqPdZhq6Fv2IXf8y02h+FsBeqaeWkb9mbsvfVJmFmK3Xjfiy+
+      Content-Type:
+      - application/xml
+      Transfer-Encoding:
+      - chunked
+      Date:
+      - Tue, 03 Feb 2015 23:52:10 GMT
+      Server:
+      - AmazonS3
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Tue, 03 Feb 2015 23:52:11 GMT
+- request:
+    method: head
+    uri: https://staff-portal--development.s3.amazonaws.com/uploads/test/filename.png
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Content-Type:
+      - ''
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby/1.61.0 ruby/2.1.5 x86_64-darwin14.0
+      Date:
+      - Tue, 03 Feb 2015 23:52:14 GMT
+      Authorization:
+      - AWS AKIAI2YB4SV3RSXG7HZQ:whC9AR0D7xF8XLA+82TAlExPIZI=
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 404
+      message: Not Found
+    headers:
+      X-Amz-Request-Id:
+      - DF51BBEEA6318E73
+      X-Amz-Id-2:
+      - prZ8o1LSSixCSIxWq5FTgxEJUoo7QTkZP/gdagL1DCaOrqKPwdTbCygHseEPfP2/
+      Content-Type:
+      - application/xml
+      Transfer-Encoding:
+      - chunked
+      Date:
+      - Tue, 03 Feb 2015 23:52:14 GMT
+      Server:
+      - AmazonS3
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Tue, 03 Feb 2015 23:52:15 GMT
+- request:
+    method: head
+    uri: https://staff-portal--development.s3.amazonaws.com/uploads/test/filename.png
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Content-Type:
+      - ''
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby/1.61.0 ruby/2.1.5 x86_64-darwin14.0
+      Date:
+      - Tue, 03 Feb 2015 23:52:18 GMT
+      Authorization:
+      - AWS AKIAI2YB4SV3RSXG7HZQ:us646F+gc0fw8wdpWXFXq4UE48k=
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 404
+      message: Not Found
+    headers:
+      X-Amz-Request-Id:
+      - C1919B5921037E4C
+      X-Amz-Id-2:
+      - pwCS5HAQtcXWKBxaqcch7RX7fc44XJlGpOhN0QoudYP8eDs0ma5ShHUFrdOVZ9Dt
+      Content-Type:
+      - application/xml
+      Transfer-Encoding:
+      - chunked
+      Date:
+      - Tue, 03 Feb 2015 23:52:18 GMT
+      Server:
+      - AmazonS3
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Tue, 03 Feb 2015 23:52:19 GMT
+recorded_with: VCR 2.9.3

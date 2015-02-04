@@ -1,6 +1,6 @@
 class Job
   module Concerns
-    class GmaApi
+    module GmaApi
       extend ActiveSupport::Concern
 
       def publish(db_gma_report)

@@ -1,5 +1,4 @@
 ActiveAdmin.register User, namespace: :hr do
-
   controller do
     def resource
       @user ||= end_of_association_chain.where('bootcamp_coach_id IS NOT NULL' \

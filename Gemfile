@@ -1,7 +1,8 @@
 source 'https://rubygems.org'
-ruby '2.1.2'
+ruby '2.1.5'
 # Rails
 gem 'rails', '4.1.6'
+gem 'rails-observers'
 
 # Postgres
 gem 'pg'
@@ -48,7 +49,6 @@ gem 'high_voltage'
 
 # Model
 gem 'phony_rails'
-gem 'currency_select', github: 'tanordheim/currency_select'
 gem 'active_type'
 gem 'merit'
 
@@ -61,11 +61,11 @@ gem 'cocoon'
 # Administration
 gem 'activeadmin', github: 'gregbell/active_admin'
 
-gem 'sass-rails',   '>= 3.2'
-gem 'bootstrap-sass', '~> 3.1.1'
-gem 'uglifier', '>= 1.0.3'
+gem 'sass-rails'
+gem 'bootstrap-sass'
+gem 'uglifier'
 gem 'jquery-rails'
-gem 'jquery-ui-rails', '~> 5.0.0'
+gem 'jquery-ui-rails'
 gem 'gmaps-autocomplete-rails'
 gem 'turbolinks'
 gem 'jquery-turbolinks'
@@ -73,46 +73,51 @@ gem 'nprogress-rails'
 gem 'font-awesome-rails'
 
 group :test do
-  gem 'database_cleaner'
-  gem 'codeclimate-test-reporter', require: nil
-  gem 'shoulda-matchers', require: false
-  gem 'simplecov'
-  gem 'faker'
-  gem 'capybara'
   gem 'capybara-webkit'
+  gem 'database_cleaner'
+  gem 'formulaic'
   gem 'launchy'
+  gem 'shoulda-matchers', require: false
+  gem 'codeclimate-test-reporter', require: nil
+  gem 'simplecov'
+  gem 'timecop'
+  gem 'webmock'
   gem 'vcr'
+  gem 'faker'
 end
 
-group :test, :development do
-  gem 'rspec'
-  gem 'rspec-rails'
-  gem 'factory_girl_rails'
-  gem 'assert_difference'
+group :development, :test do
+  gem 'awesome_print'
   gem 'byebug'
+  gem 'dotenv-rails'
+  gem 'factory_girl_rails'
+  gem 'pry-rails'
+  gem 'rspec-rails'
+  gem 'assert_difference'
   gem 'pry'
   gem 'pry-byebug'
   gem 'pry-remote'
-  gem 'dotenv-rails'
   gem 'fuubar'
   gem 'rubocop'
+  gem 'rubocop-rspec'
 end
 
 group :development do
-  gem 'rails-footnotes', '>= 3.7.9'
+  gem 'spring'
+  gem 'spring-commands-rspec'
   gem 'quiet_assets'
   gem 'guard'
   gem 'guard-rspec', require: false
   gem 'guard-rubocop'
   gem 'guard-rails'
   gem 'guard-bundler'
-  gem 'guard-cucumber'
   gem 'guard-puma'
-  gem 'spring'
-  gem 'spring-commands-rspec'
+  gem 'guard-brakeman'
   gem 'rb-fsevent', require: false
   gem 'better_errors'
   gem 'binding_of_caller'
+  gem 'bullet'
+  gem 'rack-mini-profiler'
 end
 
 group :development, :production do

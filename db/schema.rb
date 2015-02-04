@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150113005507) do
+ActiveRecord::Schema.define(version: 20150116195823) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -237,6 +237,7 @@ ActiveRecord::Schema.define(version: 20150113005507) do
     t.decimal  "frequency"
     t.date     "gift_date"
     t.boolean  "thanks",        default: false
+    t.boolean  "confirmed",     default: false
   end
 
   create_table "dmpd_tasksets", force: true do |t|
@@ -262,6 +263,29 @@ ActiveRecord::Schema.define(version: 20150113005507) do
     t.date     "date_finished"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
+  end
+
+  create_table "events", force: true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.text     "additional_information"
+    t.text     "speaker_description"
+    t.integer  "logo_id"
+    t.integer  "programme_id"
+    t.integer  "venue_id"
+    t.integer  "speaker_id"
+    t.integer  "information_id"
+    t.date     "start_date"
+    t.date     "finish_date"
+    t.decimal  "adult_cost"
+    t.decimal  "teen_cost"
+    t.boolean  "teens_can_attend",         default: true
+    t.decimal  "child_cost"
+    t.boolean  "children_can_attend",      default: true
+    t.string   "address"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.text     "registration_information"
   end
 
   create_table "gma_measurements", force: true do |t|
@@ -308,6 +332,28 @@ ActiveRecord::Schema.define(version: 20150113005507) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "gma_update"
+  end
+
+  create_table "logs", force: true do |t|
+    t.date     "start"
+    t.date     "finish"
+    t.decimal  "calling_hours"
+    t.integer  "calls_made"
+    t.integer  "appointment_asks"
+    t.integer  "response_to_appointment_ask"
+    t.integer  "appointment_set"
+    t.integer  "contact_asks"
+    t.integer  "decisions"
+    t.integer  "yes_to_monthly"
+    t.decimal  "total_monthly_pledged"
+    t.decimal  "total_special_pledged"
+    t.decimal  "total_monthly_confirmed"
+    t.decimal  "total_special_confirmed"
+    t.integer  "used_contacts"
+    t.integer  "received_contacts"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "user_id"
   end
 
   create_table "merit_actions", force: true do |t|
@@ -444,6 +490,14 @@ ActiveRecord::Schema.define(version: 20150113005507) do
     t.text     "toileting_assistance"
     t.date     "date_of_birth"
     t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "user_registrations", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "event_id"
+    t.text     "comments"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

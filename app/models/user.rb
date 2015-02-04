@@ -1,31 +1,23 @@
 class User < ActiveRecord::Base
   has_merit
-
   include RoleModel
-  paginates_per 25
   devise :trackable, :cas_authenticatable
+  paginates_per 50
   validates :email, presence: true
   has_many :documents
-  roles :account_holder, :contact, :reviewer, :statistician, :trainee, :player
-  attr_encrypted :password
   belongs_to :ministry
+  roles :account_holder,
+        :contact,
+        :reviewer,
+        :statistician,
+        :trainee,
+        :player,
+        :attendee
+  attr_encrypted :password
 
   validates :encrypted_password,
             symmetric_encryption: true,
             unless: -> { encrypted_password.blank? }
-  validate :key_password
-
-  def key_password
-    return if password.blank?
-    response = HTTParty.post('https://thekey.me/cas/v1/tickets',
-                             body: { username: email,
-                                     password: password })
-    return if response.code == 201
-    errors.add(:password, 'Incorrect Password')
-  rescue OpenSSL::Cipher::CipherError
-    self.password = nil
-    save
-  end
 
   def cas_extra_attributes=(extra_attributes)
     extra_attributes.each do |name, value|

@@ -1,7 +1,6 @@
 require 'resque/server'
 
 Staff::Application.routes.draw do
-
   devise_for :users, ActiveAdmin::Devise.config
 
   authenticated :user do
@@ -14,6 +13,12 @@ Staff::Application.routes.draw do
 
     scope module: :staff do
       resources :documents
+      resources :events, only: [:index, :show] do
+        collection do
+          get 'signup'
+        end
+        resource :user_registrations
+      end
       root to: 'index#index', as: :authenticated_root
       get 'since-youve-been-gone' => 'index#roadblock'
       resources :players, only: [:index] do
@@ -30,7 +35,6 @@ Staff::Application.routes.draw do
       get 'dmpd', to: 'dmpd#index'
       get 'dmpd/signup' => 'dmpd#signup'
       namespace :dmpd do
-        resources :contacts
         resources :taskset
       end
       resources :reviews do
@@ -58,5 +62,4 @@ Staff::Application.routes.draw do
   get 'auth/key' => 'auth#key'
   root to: 'auth#index'
   get '*path' => redirect('/')
-
 end

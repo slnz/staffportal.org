@@ -1,0 +1,86 @@
+.page-header
+  %a.back{href: events_path}
+    = fa_icon 'chevron-left'
+  = title @event.name
+.row
+  .col-md-12.clearfix
+    .controller-actions.text-right
+      - if @event.registered?(current_user)
+        %a.btn.btn-primary{href: event_user_registrations_path(@event)}
+          = fa_icon 'search'
+          &nbsp;
+          View My Registration
+      -else
+        %a.btn.btn-primary{href: new_event_user_registrations_path(@event)}
+          = fa_icon 'bolt'
+          &nbsp;
+          Register for this Event
+%br
+.dashboard.row
+  .col-md-4
+    %a
+      .box.clearfix
+        .border
+        %br
+        = image_tag @event.logo.upload.expiring_url, class: 'img-responsive'
+        %br
+        .text= @event.description
+        .go
+          - if @event.registered?(current_user)
+            .pull-left
+              Registered
+          = @event.start_date.strftime('%e %b')
+          \-
+          = @event.finish_date.strftime('%e %b %Y')
+    .embed-responsive.embed-responsive-16by9
+      %iframe.embed-responsive-item{frameborder: 0, src: "https://www.google.com/maps/embed/v1/place?key=AIzaSyCW8lWJ3XTRDqfqjt8rOA4QM46vZuqWGCM&q=#{URI.encode @event.address}"}
+    %small.text-muted= @event.address
+    %br
+  .col-md-8
+    %div{role: 'tabpanel'}
+      %ul.nav.nav-tabs{role: 'tablist'}
+        %li.active{role: 'presentation'}
+          %a{'aria-controls' => 'home', 'data-toggle' => 'tab', href: '#about', role: 'tab'} About
+        - if @event.speaker || !@event.speaker_description.blank?
+          %li{role: 'presentation'}
+            %a{'aria-controls' => 'profile', 'data-toggle' => 'tab', href: '#speaker', role: 'tab'} Speaker
+        - if @event.programme
+          %li{role: 'presentation'}
+            %a{'aria-controls' => 'profile', 'data-toggle' => 'tab', href: '#programme', role: 'tab'} Programme
+        - if @event.venue
+          %li{role: 'presentation'}
+            %a{'aria-controls' => 'messages', 'data-toggle' => 'tab', href: '#venue', role: 'tab'} Venue
+        %li{role: 'presentation'}
+          %a{'aria-controls' => 'settings', 'data-toggle' => 'tab', href: '#pricing', role: 'tab'} Pricing
+      %br
+      .tab-content
+        #about.tab-pane.active{role: 'tabpanel'}
+          = simple_format @event.additional_information
+        - if @event.speaker || !@event.speaker_description.blank?
+          #speaker.tab-pane{role: 'tabpanel'}
+            .row
+              .col-md-4
+                - if @event.speaker
+                  = image_tag @event.speaker.upload.expiring_url, class: 'img-responsive'
+              .col-md-8
+                = simple_format @event.speaker_description
+        - if @event.programme
+          #programme.tab-pane{role: 'tabpanel'}
+            = image_tag @event.programme.upload.expiring_url, class: 'img-responsive'
+        - if @event.venue
+          #venue.tab-pane{role: 'tabpanel'}
+            = image_tag @event.venue.upload.expiring_url, class: 'img-responsive'
+        #pricing.tab-pane{role: 'tabpanel'}
+          %table.table.table-hover.table-attributes
+            %tbody
+              %tr
+                %th.text-right Adult
+                %td= number_to_currency @event.adult_cost
+              - if @event.teens_can_attend?
+                %tr
+                  %th.text-right Teen
+                  %td= number_to_currency @event.teen_cost
+              - if @event.children_can_attend?
+                %tr
+                  %th.text-right Child
+                  %td= number_to_currency @event.child_cost

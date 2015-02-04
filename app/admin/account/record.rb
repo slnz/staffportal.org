@@ -8,7 +8,7 @@ ActiveAdmin.register Account::Record, as: 'Transaction', sort_order: :date do
                 :reason,
                 :who,
                 :subtext
-  action_item only: :index do
+  action_item :import, only: :index do
     link_to 'Import from CSV', action: 'upload_csv'
   end
   collection_action :upload_csv do
@@ -54,5 +54,4 @@ ActiveAdmin.register Account::Record, as: 'Transaction', sort_order: :date do
     column('reference') { |record| record.subtext }
     column :who
   end
-
 end

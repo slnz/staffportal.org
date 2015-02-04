@@ -1,12 +1,10 @@
-# Read about factories at https://github.com/thoughtbot/factory_girl
-
 FactoryGirl.define do
-  factory :user_child, class: 'User::Child' do
+  factory :kid, class: 'User::Kid' do
     first_name 'MyString'
     last_name 'MyString'
     dietary_requirements 'MyText'
     medical_requirements 'MyText'
-    media_waiver false
+    media_waiver true
     comments 'MyText'
     swimming_capability 1
     outings false
