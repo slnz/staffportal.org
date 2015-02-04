@@ -15,15 +15,15 @@
         %li
           %a{:href => edit_user_path(current_user)} My Profile
         %li.divider
-        - if current_user.admin == "admin"
+        - if current_user.has_role? :admin
           %li
             %a{:href => "/resque", "data-no-turbolink" => true} Resque
           %li
             %a{:href => "/admin", "data-no-turbolink" => true} Admin
-        - if current_user.trainees.count > 0
+        - if current_user.has_role? :trainer
           %li
             %a{:href => "/coach", "data-no-turbolink" => true} DMPD Coaches
-        - if current_user.admin == "hr"
+        - if current_user.has_role? :hr
           %li
             %a{:href => "/hr", "data-no-turbolink" => true} Admin
         %li

@@ -12,7 +12,10 @@ class User < ActiveRecord::Base
         :statistician,
         :trainee,
         :player,
-        :attendee
+        :attendee,
+        :admin,
+        :trainer,
+        :hr
   attr_encrypted :password
 
   validates :encrypted_password,
