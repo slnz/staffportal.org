@@ -32,12 +32,12 @@ class Job
         return @document.upload =
           URI.parse(URI.escape(@document.direct_upload_url))
       end
-      @document.paperclip_file_path =
+      @document.upload.file_path =
         "documents/uploads/#{id}/original/#{@url_data[:filename]}"
     end
 
     def cleanup_s3
-      @s3_bucket.objects[@document.paperclip_file_path]
+      @s3_bucket.objects[@document.upload.path]
         .copy_from(@url_data[:path])
       @s3_bucket.objects[@url_data[:path]].delete
     end
