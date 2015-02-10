@@ -1,6 +1,6 @@
 ActiveAdmin.register Account::Category, as: 'Ledger Code' do
   menu parent: 'Accounts'
-  permit_params :name, :code, :definition
+  permit_params :name, :code, :state, :effect, :salary, :cumulative
 
   action_item :import, only: :index do
     link_to 'Import from CSV', action: 'upload_csv'
@@ -16,13 +16,24 @@ ActiveAdmin.register Account::Category, as: 'Ledger Code' do
 
   filter :code
   filter :name
-  filter :definition
 
   index do
     selectable_column
     column :code
     column :name
-    column :definition
+    column :state
     actions
+  end
+
+  form do |f|
+    f.inputs 'Details' do
+      f.input :code
+      f.input :name
+      f.input :state, as: :select, collection: Account::Category.states.keys
+      f.input :effect, as: :select, collection: Account::Category.effects.keys
+      f.input :salary
+      f.input :cumulative
+    end
+    f.actions
   end
 end

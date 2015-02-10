@@ -1,7 +1,7 @@
 class Account
   class Category < ActiveRecord::Base
     validates :code, presence: true, uniqueness: true
-    validates :definition, presence: true
+    validates :name, presence: true
     has_many :records
     has_many :goals
     enum state: [:income,

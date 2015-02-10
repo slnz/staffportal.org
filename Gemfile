@@ -49,6 +49,7 @@ gem 'high_voltage'
 
 # Model
 gem 'phony_rails'
+gem 'currency_select', github: 'tanordheim/currency_select'
 gem 'active_type'
 gem 'merit'
 
