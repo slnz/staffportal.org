@@ -141,9 +141,7 @@ ActiveAdmin.setup do |config|
   #
   # Set the CSV builder separator (default is ",")
   # config.csv_column_separator = ','
-  config.load_paths = [File.expand_path('app/admin', Rails.root),
-                       File.expand_path('app/coach', Rails.root),
-                       File.expand_path('app/hr', Rails.root)]
+  config.load_paths = [File.expand_path('app/admin', Rails.root)]
 
   config.show_comments_in_menu = false
   config.comments = false
@@ -153,17 +151,5 @@ ActiveAdmin.setup do |config|
       menu.add label: 'Resque', url: '/resque'
       admin.add_logout_button_to_menu menu
     end
-  end
-
-  config.namespace :coach do |coach|
-    coach.site_title = 'Bootcamp Coaches'
-    coach.authentication_method = :authenticate_coach_user!
-    coach.current_user_method = :current_coach_user
-  end
-
-  config.namespace :hr do |coach|
-    coach.site_title = 'Human Resources'
-    coach.authentication_method = :authenticate_hr_user!
-    coach.current_user_method = :current_hr_user
   end
 end

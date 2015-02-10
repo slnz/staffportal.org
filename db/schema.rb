@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150116195823) do
+ActiveRecord::Schema.define(version: 20150210073550) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -86,59 +86,6 @@ ActiveRecord::Schema.define(version: 20150116195823) do
   add_index "badges_sashes", ["badge_id"], name: "index_badges_sashes_on_badge_id", using: :btree
   add_index "badges_sashes", ["sash_id"], name: "index_badges_sashes_on_sash_id", using: :btree
 
-  create_table "call_sessions", force: true do |t|
-    t.integer  "user_id"
-    t.integer  "partner_id"
-    t.datetime "end_time"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "contact_appointments", force: true do |t|
-    t.datetime "time"
-    t.boolean  "support"
-    t.decimal  "amount"
-    t.integer  "contact_id"
-    t.boolean  "reccuring"
-    t.decimal  "frequency"
-    t.text     "notes"
-    t.string   "address"
-    t.date     "gift_date"
-    t.date     "gift_confirmed_date"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "result",              default: 0
-  end
-
-  create_table "contact_call_events", force: true do |t|
-    t.integer  "state",      default: 0
-    t.integer  "step",       default: 0
-    t.integer  "call_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "message"
-    t.integer  "transition"
-  end
-
-  create_table "contact_calls", force: true do |t|
-    t.integer  "state",      default: 0
-    t.integer  "step",       default: 0
-    t.integer  "contact_id"
-    t.datetime "end_time"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "reason"
-  end
-
-  create_table "contact_return_calls", force: true do |t|
-    t.integer  "contact_id"
-    t.datetime "time"
-    t.text     "notes"
-    t.integer  "state"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "delayed_jobs", force: true do |t|
     t.integer  "priority",   default: 0, null: false
     t.integer  "attempts",   default: 0, null: false
@@ -155,29 +102,6 @@ ActiveRecord::Schema.define(version: 20150116195823) do
 
   add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
 
-  create_table "dmpd_appointments", force: true do |t|
-    t.date     "date_of_appointment"
-    t.boolean  "support"
-    t.decimal  "amount"
-    t.date     "gift_date"
-    t.date     "gift_confirmed_date"
-    t.boolean  "asked_for_contacts"
-    t.integer  "number_of_contacts_received"
-    t.boolean  "thank_you_posted"
-    t.integer  "date_set_week_id"
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
-    t.integer  "user_id"
-    t.integer  "date_of_appointment_week_id"
-    t.integer  "gift_date_week_id"
-    t.integer  "gift_confirmed_date_week_id"
-    t.decimal  "frequency"
-    t.decimal  "monthly"
-    t.integer  "contact_id"
-    t.string   "address"
-    t.text     "notes"
-  end
-
   create_table "dmpd_assignments", force: true do |t|
     t.string   "name"
     t.string   "description"
@@ -187,27 +111,57 @@ ActiveRecord::Schema.define(version: 20150116195823) do
     t.datetime "updated_at"
   end
 
-  create_table "dmpd_contact_card_boxes", force: true do |t|
-    t.integer  "week_id"
-    t.integer  "contact_cards",             default: 0
-    t.integer  "not_back_until",            default: 0
-    t.integer  "office_phone_only",         default: 0
-    t.integer  "research",                  default: 0
-    t.integer  "call_back_for_appointment", default: 0
-    t.integer  "call_back_for_decision",    default: 0
-    t.integer  "call_back_for_contacts",    default: 0
-    t.integer  "appointment_set",           default: 0
-    t.integer  "called_no_appointment_set", default: 0
-    t.integer  "appointment_no_support",    default: 0
-    t.integer  "new_ministry_partner",      default: 0
-    t.integer  "call_back_in_a_year",       default: 0
-    t.integer  "would_have_met",            default: 0
-    t.integer  "on_list",                   default: 0
-    t.integer  "maintainance",              default: 0
-    t.integer  "maintainance_done",         default: 0
+  create_table "dmpd_call_sessions", force: true do |t|
     t.integer  "user_id"
-    t.datetime "created_at",                            null: false
-    t.datetime "updated_at",                            null: false
+    t.integer  "partner_id"
+    t.datetime "end_time"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "dmpd_contact_appointments", force: true do |t|
+    t.datetime "time"
+    t.boolean  "support"
+    t.decimal  "amount"
+    t.integer  "contact_id"
+    t.boolean  "reccuring"
+    t.decimal  "frequency"
+    t.text     "notes"
+    t.string   "address"
+    t.date     "gift_date"
+    t.date     "gift_confirmed_date"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "result",              default: 0
+  end
+
+  create_table "dmpd_contact_call_events", force: true do |t|
+    t.integer  "state",      default: 0
+    t.integer  "step",       default: 0
+    t.integer  "call_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "message"
+    t.integer  "transition"
+  end
+
+  create_table "dmpd_contact_calls", force: true do |t|
+    t.integer  "state",      default: 0
+    t.integer  "step",       default: 0
+    t.integer  "contact_id"
+    t.datetime "end_time"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "reason"
+  end
+
+  create_table "dmpd_contact_return_calls", force: true do |t|
+    t.integer  "contact_id"
+    t.datetime "time"
+    t.text     "notes"
+    t.integer  "state"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "dmpd_contacts", force: true do |t|
@@ -240,29 +194,33 @@ ActiveRecord::Schema.define(version: 20150116195823) do
     t.boolean  "confirmed",     default: false
   end
 
+  create_table "dmpd_logs", force: true do |t|
+    t.date     "start"
+    t.date     "finish"
+    t.decimal  "calling_hours"
+    t.integer  "calls_made"
+    t.integer  "appointment_asks"
+    t.integer  "response_to_appointment_ask"
+    t.integer  "appointment_set"
+    t.integer  "contact_asks"
+    t.integer  "decisions"
+    t.integer  "yes_to_monthly"
+    t.decimal  "total_monthly_pledged"
+    t.decimal  "total_special_pledged"
+    t.decimal  "total_monthly_confirmed"
+    t.decimal  "total_special_confirmed"
+    t.integer  "used_contacts"
+    t.integer  "received_contacts"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "user_id"
+  end
+
   create_table "dmpd_tasksets", force: true do |t|
     t.string   "name"
     t.integer  "due_week"
     t.datetime "created_at"
     t.datetime "updated_at"
-  end
-
-  create_table "dmpd_weekly_calls", force: true do |t|
-    t.integer  "number_of_calls_made"
-    t.integer  "appointments_asked_for"
-    t.integer  "contacts_asked_for"
-    t.integer  "user_id"
-    t.integer  "week_id"
-    t.datetime "created_at",                           null: false
-    t.datetime "updated_at",                           null: false
-    t.decimal  "hours_calling",          default: 0.0
-  end
-
-  create_table "dmpd_weeks", force: true do |t|
-    t.date     "date_start"
-    t.date     "date_finished"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
   end
 
   create_table "events", force: true do |t|
@@ -332,28 +290,6 @@ ActiveRecord::Schema.define(version: 20150116195823) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "gma_update"
-  end
-
-  create_table "logs", force: true do |t|
-    t.date     "start"
-    t.date     "finish"
-    t.decimal  "calling_hours"
-    t.integer  "calls_made"
-    t.integer  "appointment_asks"
-    t.integer  "response_to_appointment_ask"
-    t.integer  "appointment_set"
-    t.integer  "contact_asks"
-    t.integer  "decisions"
-    t.integer  "yes_to_monthly"
-    t.decimal  "total_monthly_pledged"
-    t.decimal  "total_special_pledged"
-    t.decimal  "total_monthly_confirmed"
-    t.decimal  "total_special_confirmed"
-    t.integer  "used_contacts"
-    t.integer  "received_contacts"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "user_id"
   end
 
   create_table "merit_actions", force: true do |t|
@@ -525,16 +461,12 @@ ActiveRecord::Schema.define(version: 20150116195823) do
 
   create_table "users", force: true do |t|
     t.string   "username"
-    t.string   "admin"
-    t.datetime "created_at",                           null: false
-    t.datetime "updated_at",                           null: false
-    t.string   "email",                default: "",    null: false
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
+    t.string   "email",                default: "", null: false
     t.string   "first_name"
     t.string   "last_name"
-    t.integer  "bootcamp_coach_id"
-    t.integer  "currency_id"
     t.decimal  "mpd_goal"
-    t.integer  "XP",                   default: 0
     t.integer  "sign_in_count",        default: 0
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
@@ -543,15 +475,11 @@ ActiveRecord::Schema.define(version: 20150116195823) do
     t.string   "encrypted_password"
     t.integer  "gma_id"
     t.string   "gma_update"
-    t.boolean  "dmpd",                 default: false
-    t.boolean  "stats",                default: false
-    t.boolean  "pac",                  default: false
     t.string   "primary_phone"
     t.string   "home_phone"
     t.string   "office_phone"
     t.string   "address"
     t.integer  "contacts_count",       default: 0
-    t.boolean  "ready"
     t.integer  "roles_mask",           default: 0
     t.string   "search"
     t.integer  "sash_id"

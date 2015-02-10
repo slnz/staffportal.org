@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   add_breadcrumb 'home', :authenticated_root_path
 
   def authenticate_admin_user!
-    current_user.has_role? :admin
+    fail CanCan::AccessDenied unless current_user.has_role? :admin
   end
 
   rescue_from CanCan::AccessDenied do |exception|

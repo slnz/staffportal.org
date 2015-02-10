@@ -3,8 +3,15 @@ require 'resque/server'
 Staff::Application.routes.draw do
   devise_for :users, ActiveAdmin::Devise.config
 
+  resque_constraint = lambda do |request|
+    request.env['warden'].authenticate? && request.env['warden'].user.admin?
+  end
+
+  constraints resque_constraint do
+    mount Resque::Server, at: '/resque'
+  end
+
   authenticated :user do
-    mount Resque::Server, at: 'resque'
     ActiveAdmin.routes(self)
 
     devise_scope :user do
