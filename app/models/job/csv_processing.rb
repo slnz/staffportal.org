@@ -2,6 +2,7 @@ class Job
   class CsvProcessing < Job
     include Resque::Plugins::Status
     @queue = :csv_import
+    @retry_limit = 1
 
     def perform
       target_model = options['model_name'].classify.constantize
