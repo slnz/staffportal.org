@@ -1,7 +1,7 @@
 require 'csv'
-class CsvDb
-  class << self
-    def convert_save(model_name, csv_data)
+class Job
+  class CsvDb
+    def self.convert_save(model_name, csv_data)
       rows = []
       CSV.parse(csv_data.read,
                 headers: true,
@@ -10,7 +10,7 @@ class CsvDb
       end
 
       rows.each do |row|
-        Resque.enqueue(CsvQueue, model_name, row)
+        Job::CsvProcessing.create(model_name: model_name, row: row)
       end
     end
   end

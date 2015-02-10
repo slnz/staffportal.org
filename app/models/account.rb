@@ -11,21 +11,12 @@ class Account < ActiveRecord::Base
     super code.gsub(/~/, '')
   end
 
-  def update_balance
-    balance = 0
-    Record.after_save.clear
-    return if records.nil?
+  def update_balance(balance = 0)
+    return unless records
     records.includes(:category).each do |record|
-      if record.category.income?
-        balance += record.amount
-      elsif record.category.expense? ||
-            record.category_id == 161 ||
-            record.category_id == 163
-        balance -= record.amount
-      end
-      next unless balance != record.balance
-      record.balance = balance
-      record.save
+      balance += record.amount if record.category.add?
+      balance -= record.amount if record.category.subtract?
+      record.update(balance: balance) if record.balance != balance
     end
   end
 end

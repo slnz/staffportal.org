@@ -11,7 +11,7 @@ ActiveAdmin.register Account, as: 'Responsibility Center' do
   end
 
   collection_action :import_csv, method: :post do
-    CsvDb.convert_save('account', params[:dump][:file])
+    Job::CsvDb.convert_save('account', params[:dump][:file])
     flash[:notice] = 'CSV importing in background!'
     redirect_to action: :index
   end
@@ -22,7 +22,7 @@ ActiveAdmin.register Account, as: 'Responsibility Center' do
 
   collection_action :balances do
     Account.all.each do |account|
-      Resque.enqueue(TransactionQueue, account.id)
+      Resque.enqueue(Job::TransactionQueue, account.id)
     end
 
     flash[:notice] = 'Balances updating in background!'
@@ -51,20 +51,8 @@ ActiveAdmin.register Account, as: 'Responsibility Center' do
       p.currency.upcase
     end
     column('Balance') do |p|
-      acct = p.records.order('date DESC, id desc').first unless p.records.nil?
-      if acct.nil?
-        number_to_currency 0
-      else
-        @vehicle_advance = p.records
-                           .joins(:category)
-                           .where('categories.code' => '1225')
-                           .sum(:amount)
-        @stock = p.records
-                 .joins(:category)
-                 .where('categories.code' => '1350')
-                 .sum(:amount)
-        number_to_currency(acct.balance - @stock - @vehicle_advance)
-      end
+      number_to_currency(
+        p.records.order('date desc, id desc').last.try(:balance) || 0)
     end
     actions
   end

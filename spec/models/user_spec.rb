@@ -15,7 +15,10 @@ describe User do
                                                :statistician,
                                                :trainee,
                                                :player,
-                                               :attendee])
+                                               :attendee,
+                                               :admin,
+                                               :trainer,
+                                               :hr])
   end
   it 'paginates per 50' do
     expect(described_class.default_per_page).to eq(50)

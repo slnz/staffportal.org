@@ -15,7 +15,7 @@ ActiveAdmin.register Account::Record, as: 'Transaction', sort_order: :date do
     render 'accounts/import_records'
   end
   collection_action :import_csv, method: :post do
-    CsvDb.convert_save('account::record', params[:dump][:file])
+    Job::CsvDb.convert_save('Account::Record', params[:dump][:file])
     flash[:notice] = 'CSV importing in background!'
     redirect_to action: :index
   end
