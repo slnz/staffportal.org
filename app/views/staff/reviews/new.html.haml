@@ -49,7 +49,7 @@
             %a.btn.btn-default.btn-sm.back
               = fa_icon 'chevron-left'
               Back
-            = f.submit class: 'btn btn-primary btn-sm'
+            = f.submit class: 'btn btn-primary btn-sm', value: 'Submit'
 %script{ type: 'text/javascript' }
   $("[data-slider]").bind("slider:ready slider:changed", function (event, data) {
   $(this).parent().nextAll("span").html(data.value.toFixed(0) + " / 10");

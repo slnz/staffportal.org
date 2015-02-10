@@ -55,7 +55,7 @@ module Staff
     end
 
     def accounts_scope
-      current_user.accounts
+      current_user.accounts.order(:code)
     end
 
     def user_type

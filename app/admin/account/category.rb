@@ -9,7 +9,7 @@ ActiveAdmin.register Account::Category, as: 'Ledger Code' do
     render 'accounts/import_types'
   end
   collection_action :import_csv, method: :post do
-    CsvDb.convert_save('category', params[:dump][:file])
+    CsvDb.convert_save('account::category', params[:dump][:file])
     flash[:notice] = 'CSV importing in background!'
     redirect_to action: :index
   end
