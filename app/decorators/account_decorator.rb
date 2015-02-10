@@ -1,9 +1,9 @@
 class AccountDecorator < ApplicationDecorator
-  delegate_all
-
-  def label
-    "#{code} - #{name}"
+  def name
+    "#{code} - #{object.name}"
   end
+
+  alias label name
 
   def balance
     records.last.nil? ? 0 : records.last.balance
