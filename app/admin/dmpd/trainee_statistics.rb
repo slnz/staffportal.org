@@ -14,7 +14,9 @@ ActiveAdmin.register User::AsTrainee, as: 'Trainee Statistics' do
   filter :last_name
 
   index do
-    column :name
+    column ('Name') do |user|
+      user.name
+    end
     column ('Goal') do |user|
       number_to_currency user.goal
     end
@@ -77,6 +79,22 @@ ActiveAdmin.register User::AsTrainee, as: 'Trainee Statistics' do
         column ('Contact Ratio') do |log|
           number_with_precision(
             log.contact_ratio, precision: 2)
+        end
+      end
+    end
+    columns do
+      column do
+        panel 'Monthly Pledged' do
+          @metric = user.object.logs.pluck(:start, :total_monthly_pledged)
+          render partial: 'metrics/column_chart',
+                 locals: { metric: @metric, max: user.goal }
+        end
+      end
+      column do
+        panel 'Monthly Confirmed' do
+          @metric = user.object.logs.pluck(:start, :total_monthly_confirmed)
+          render partial: 'metrics/column_chart',
+                 locals: { metric: @metric, max: user.goal }
         end
       end
     end

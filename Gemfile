@@ -61,6 +61,8 @@ gem 'cocoon'
 
 # Administration
 gem 'activeadmin', github: 'gregbell/active_admin'
+gem 'groupdate'
+gem 'chartkick'
 
 gem 'sass-rails'
 gem 'bootstrap-sass'
