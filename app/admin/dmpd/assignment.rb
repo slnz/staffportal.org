@@ -1,4 +1,4 @@
-ActiveAdmin.register Dmpd::Assignment do
+ActiveAdmin.register Dmpd::Assignment, as: 'Assignment' do
   menu parent: 'DMPD'
 
   permit_params :taskset_id, :name, :kind
