@@ -1,7 +1,7 @@
 module Dmpd
   class LogDecorator < ApplicationDecorator
     def contact_ratio
-      received_contacts.to_d / used_contacts.to_d
+      (received_contacts || 0).to_d / (used_contacts || 0).to_d
     end
 
     def range
