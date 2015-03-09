@@ -1,4 +1,5 @@
 class Review < ActiveRecord::Base
+  has_many :responses, class_name: 'User::Response'
   validates :open, presence: true
   validates :due, presence: true
   validates :open,

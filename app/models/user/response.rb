@@ -1,9 +1,8 @@
 class User
-  class Review < ActiveRecord::Base
-    self.table_name = 'user_reviews'
+  class Response < ActiveRecord::Base
     belongs_to :user
     belongs_to :review
-    has_many :answers, class_name: 'User::Review::Answer', foreign_key: :user_review_id
+    has_many :answers, dependent: :destroy
     accepts_nested_attributes_for :answers
     validates :user, presence: true
     validates :review, presence: true

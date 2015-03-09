@@ -1,7 +1,12 @@
 class User
   class AsReviewer < ActiveType::Record[User]
-    has_many :user_reviews, class_name: 'User::Review', foreign_key: :user_id
-    has_many :answers, through: :user_reviews
-    has_many :reviews, through: :user_reviews
+    scope :reviewers, lambda {
+      where('roles_mask & ? = ?',
+            User::AsReviewer.mask_for(:reviewer),
+            User::AsReviewer.mask_for(:reviewer))
+    }
+    has_many :responses, foreign_key: :user_id, dependent: :destroy
+    has_many :answers, through: :responses, class_name: 'User::Response::Answer'
+    has_many :reviews, through: :responses
   end
 end

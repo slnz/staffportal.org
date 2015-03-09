@@ -2,7 +2,7 @@ module Staff
   class ReviewsController < StaffController
     add_breadcrumb 'people and culture', :reviews_path
     def index
-      load_user_reviews
+      load_responses
       load_review
       load_graph
     end
@@ -11,13 +11,13 @@ module Staff
       load_review
       return redirect_to reviews_path if @review.nil?
       load_questions
-      build_user_review
+      build_response
     end
 
     def create
       load_review
-      build_user_review
-      return flash[:success] = 'Successfully submitted your review' if save_user_review
+      build_response
+      return flash[:success] = 'Successfully submitted your review' if save_response
       load_questions
       flash.now[:error] = 'There was a problem submitting your review'
       render action: :new
@@ -25,8 +25,8 @@ module Staff
 
     protected
 
-    def load_user_reviews
-      @user_reviews ||= user_review_scope
+    def load_responses
+      @responses ||= response_scope
     end
 
     def load_graph
@@ -36,7 +36,7 @@ module Staff
     def load_review
       @review ||=
         Review.where('open <= ? and due >= ?', Date.today, Date.today).first
-      return if user_review_scope.find_by(review: @review).nil?
+      return if response_scope.find_by(review: @review).nil?
       @review = nil
     end
 
@@ -44,32 +44,32 @@ module Staff
       @questions ||= Review::Question.all
     end
 
-    def build_user_review
-      @user_review ||= user_review_scope.build(review: @review)
-      @user_review.attributes = review_params
+    def build_response
+      @response ||= response_scope.build(review: @review)
+      @response.attributes = response_params
     end
 
-    def save_user_review
-      redirect_to reviews_path if @user_review.save
+    def save_response
+      redirect_to reviews_path if @response.save
     end
 
-    def user_review_scope
-      current_user.user_reviews
+    def response_scope
+      current_user.responses
     end
 
     def user_type
       :reviewer
     end
 
-    def review_params
-      return {} unless params[:user_review]
+    def response_params
+      return {} unless params[:user_response]
       Params.permit(params)
     end
 
     class Params
       def self.permit(params)
-        params.require(:user_review)
-          .permit(answers_attributes: [:review_question_id, :value])
+        params.require(:user_response)
+          .permit(answers_attributes: [:question_id, :value])
       end
     end
   end

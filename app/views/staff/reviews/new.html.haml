@@ -2,7 +2,7 @@
   %a.back{href: reviews_path}
     = fa_icon 'chevron-left'
   = title "My People and Culture Review"
-= semantic_form_for @user_review, url: reviews_path do |f|
+= semantic_form_for @response, url: reviews_path do |f|
   .row
     .col-md-6.col-md-offset-3
       .panel.panel-default
@@ -22,9 +22,9 @@
             %h5.panel-title= question.text
           .panel-body.text-center
             = f.inputs class: 'question' do
-              = f.semantic_fields_for 'answers_attributes[]', @user_review.answers.build do |a|
+              = f.semantic_fields_for 'answers_attributes[]', @response.answers.build(question: question) do |a|
                 = a.inputs do
-                  = a.input :review_question_id, as: :hidden, value: question.id
+                  = a.input :question_id, as: :hidden
                   = a.input :value, input_html: { data: { slider: "true", "slider-range" => "0, 10", "slider-snap" => "true" } }, label: false
                   %span.muted{style:"vertical-align: top"} 5
           .panel-footer.text-right
