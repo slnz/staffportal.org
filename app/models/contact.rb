@@ -58,8 +58,8 @@ class Contact < ActiveRecord::Base
 
   def update_search_field
     self.search =
-      "%%#{first_name}%%#{last_name}%%#{address}%%#{occupation}%%#{church}%%" +
-      "#{primary_phone}%%#{home_phone}%%#{office_phone}%%#{email}%%" +
+      "%%#{first_name}%%#{last_name}%%#{address}%%#{occupation}%%#{church}%%" \
+      "#{primary_phone}%%#{home_phone}%%#{office_phone}%%#{email}%%" \
       "#{children}%%#{status}"
   end
 end

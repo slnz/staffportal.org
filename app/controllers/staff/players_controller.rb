@@ -19,8 +19,8 @@ module Staff
 
     def player_scope
       User::AsPlayer.where('roles_mask & ? = ?',
-                 User.mask_for(:player),
-                 User.mask_for(:player))
+                           User.mask_for(:player),
+                           User.mask_for(:player))
     end
 
     def user_type

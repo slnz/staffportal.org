@@ -8,10 +8,11 @@ class Gma
 
     has_many :gma_measurements,
              class_name: 'Gma::Measurement',
-             foreign_key: :gma_staff_report_id
+             foreign_key: :gma_staff_report_id,
+             dependent: :destroy
     accepts_nested_attributes_for :gma_measurements
 
-    after_save :gma_update!
+    after_update :gma_update!
 
     def gma_update!
       update_column(

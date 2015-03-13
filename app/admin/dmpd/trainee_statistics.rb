@@ -106,7 +106,7 @@ ActiveAdmin.register User::AsTrainee, as: 'Trainee Statistics' do
           number_to_currency contact.amount
         end
         column('frequency') do |contact|
-          Dmpd::Contact.frequencies.select do |key, hash|
+          Dmpd::Contact.frequencies.select do |_key, hash|
             hash == contact.frequency
           end.keys[0]
         end

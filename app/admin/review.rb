@@ -6,10 +6,12 @@ ActiveAdmin.register Review do
     review = Review.find(params[:id])
     question_ids = Review::Question.pluck(:id)
     questions = Review::Question.pluck(:text)
-    csv = CSV.generate( encoding: 'Windows-1251' ) do |csv_data|
+    csv = CSV.generate(encoding: 'Windows-1251') do |csv_data|
       csv_data << ['name'] + questions
       review.responses.each do |response|
-        csv_data << [response.user.try(:decorate).try(:name)] + response.answers.where(question_id: question_ids).pluck(:value)
+        csv_data <<
+        [response.user.try(:decorate).try(:name)] +
+        response.answers.where(question_id: question_ids).pluck(:value)
       end
     end
     send_data csv.encode('Windows-1251'),

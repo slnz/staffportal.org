@@ -14,8 +14,7 @@ class User
     after_save :gma_update!
 
     def gma_update!
-      return if
-        encrypted_password.nil? || gma_update? || !encrypted_password_changed?
+      return if encrypted_password.nil? || gma_update?
       update_column(
         :gma_update, Job::GmaGetUserMeasurements.create(user_id: id)
       )

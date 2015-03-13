@@ -10,7 +10,7 @@
     .list-group#gma_organizations{ "data-mobile" => 'true' }
       - @gma_organizations.each do |gma_org|
         %a.list-group-item{href: gma_organization_gma_staff_reports_path(gma_org, mobile: true)}
-          - if GmaMembership.find_by(gma_organization_id: gma_org.id, user_id: current_user.id).director?
+          - if Gma::Membership.find_by(gma_organization_id: gma_org.id, user_id: current_user.id).director?
             .pull-right
               %span.label.label-default
                 = fa_icon 'gavel', text: 'Director'

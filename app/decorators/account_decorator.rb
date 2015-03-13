@@ -3,7 +3,7 @@ class AccountDecorator < ApplicationDecorator
     "#{code} - #{object.name}"
   end
 
-  alias label name
+  alias_method :label, :name
 
   def balance
     records.last.nil? ? 0 : records.last.balance
