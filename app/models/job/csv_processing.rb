@@ -15,13 +15,23 @@ class Job
         when 'amount'
           new_object.send "#{key}=", hash['amount'].gsub(/\, /, '').to_d
         when'account_id'
-          break unless hash.key?('responsibility_center_code')
-          new_object.account =
-            Account.find_by(code: hash['responsibility_center_code'])
+          if hash.key?('responsibility_center_code')
+            new_object.account =
+              Account.find_by(code: hash['responsibility_center_code'])
+          elsif hash.key?('gl_code')
+            codes = hash['gl_code'].split(/-/)
+            account = Account.where(code: codes[1].gsub(/~/, '')).first
+            new_object.account = account
+          end
         when 'category_id'
-          break unless hash.key?('ledger_code')
-          new_object.category =
-            Account::Category.find_by(code: hash['ledger_code'])
+          if hash.key?('ledger_code')
+            new_object.category =
+              Account::Category.find_by(code: hash['ledger_code'])
+          elsif hash.key?('gl_code')
+            codes = hash['gl_code'].split(/-/)
+            category = Account::Category.where(code: codes[0]).first
+            new_object.category = category
+          end
         when 'date'
           new_object.send "#{key}=", Date.strptime(hash['date'], '%d/%m/%y')
         else
