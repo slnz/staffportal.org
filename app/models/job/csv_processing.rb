@@ -33,7 +33,7 @@ class Job
             new_object.category = category
           end
         when 'date'
-          new_object.send "#{key}=", Date.strptime(hash['date'], '%d/%m/%y')
+          new_object.send "#{key}=", Date.strptime(hash['date'], '%d/%m/%Y')
         else
           new_object.send "#{key}=", hash[key] unless hash.key?(key)
         end
