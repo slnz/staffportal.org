@@ -145,7 +145,7 @@ class Job
         return unless gma_reports['success']
 
         gma_reports['data']['staffReports'] =
-          gma_reports['data']['staffReports'].last(26)
+          gma_reports['data']['staffReports'].try(:last, 26)
 
         gma_reports['data']['staffReports'].each_with_index do |gma_report, index|
           at(index,

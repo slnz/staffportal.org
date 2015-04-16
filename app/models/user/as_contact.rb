@@ -11,11 +11,15 @@ class User
                                   reject_if: :all_blank,
                                   allow_destroy: true
 
-    phony_normalize :primary_phone, default_country_code: 'NZ'
-    phony_normalize :home_phone, default_country_code: 'NZ'
-    phony_normalize :office_phone, default_country_code: 'NZ'
+    phony_normalize :primary_phone, default_country_code: ENV['country_code']
+    phony_normalize :home_phone, default_country_code: ENV['country_code']
+    phony_normalize :office_phone, default_country_code: ENV['country_code']
 
     before_save :update_search_field
+
+    def password=(password)
+      super(password) unless password.blank?
+    end
 
     def build_kid
       kids.build

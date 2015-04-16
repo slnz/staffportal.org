@@ -14,9 +14,9 @@ class Contact < ActiveRecord::Base
   validates :office_phone, phony_plausible: true
   validates :status, presence: true
 
-  phony_normalize :primary_phone, default_country_code: 'NZ'
-  phony_normalize :home_phone, default_country_code: 'NZ'
-  phony_normalize :office_phone, default_country_code: 'NZ'
+  phony_normalize :primary_phone, default_country_code: ENV['country_code']
+  phony_normalize :home_phone, default_country_code: ENV['country_code']
+  phony_normalize :office_phone, default_country_code: ENV['country_code']
 
   enum priority_code: [:A, :B, :C]
 
