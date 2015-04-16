@@ -13,28 +13,19 @@ class Job
         when 'id'
           # do nothing
         when 'amount'
-          value = hash['amount'].gsub(/\, /, '').to_d
-          new_object.send "#{key}=", value
+          new_object.send "#{key}=", hash['amount'].gsub(/\, /, '').to_d
         when'account_id'
-          if hash.key?('gl_code')
-            codes = hash['gl_code'].split(/-/)
-            account = Account.where(code: codes[1].gsub(/~/, '')).first
-            new_object.account = account
-          end
+          break unless hash.key?('responsibility_center_code')
+          new_object.account =
+            Account.find_by(code: hash['responsibility_center_code'])
         when 'category_id'
-          if hash.key?('gl_code')
-            codes = hash['gl_code'].split(/-/)
-            category = Account::Category.where(code: codes[0]).first
-            new_object.category = category
-          end
+          break unless hash.key?('ledger_code')
+          new_object.category =
+            Account::Category.find_by(code: hash['ledger_code'])
         when 'date'
-          value = Date.strptime(hash['date'], '%d/%m/%y')
-          new_object.send "#{key}=", value
+          new_object.send "#{key}=", Date.strptime(hash['date'], '%d/%m/%y')
         else
-          if hash.key?(key)
-            value = hash[key]
-            new_object.send "#{key}=", value
-          end
+          new_object.send "#{key}=", hash[key] unless hash.key?(key)
         end
       end
       new_object.save!
