@@ -32,7 +32,7 @@ class AccountDecorator < ApplicationDecorator
   def summary
     records.unscoped
       .from("(#{Account::Record.where(account_id: id).to_sql}) as r")
-      .group(:month)
+      .group('date_trunc(\'month\', date)')
       .where('r.date >= ?',
              last_updated - 11.months)
       .order('last(date)')
@@ -45,11 +45,11 @@ class AccountDecorator < ApplicationDecorator
   end
 
   def last_updated
-    records.last.nil? ? Time.now.end_of_month : records.last.month
+    records.last.nil? ? Time.now.end_of_month : records.last.date.end_of_month
   end
 
   def last_updated_string
-    last_updated.strftime('%b %Y')
+    last_updated.try(:strftime, '%b %Y')
   end
 
   private
@@ -61,10 +61,10 @@ class AccountDecorator < ApplicationDecorator
     records
       .unscoped
       .from("(#{inner_query}) as r")
-      .group(:category_id, :month)
+      .group(:category_id, 'date_trunc(\'month\', date)')
       .where('r.date >= ?', last_updated - 11.months)
       .order('r.category_id, last(date)')
-      .pluck('r.month', 'r.category_id', 'sum(CAST(amount AS integer))')
+      .pluck('date_trunc(\'month\', date)', 'r.category_id', 'sum(CAST(amount AS integer))')
   end
 
   def process_data_from_category(data, category)
