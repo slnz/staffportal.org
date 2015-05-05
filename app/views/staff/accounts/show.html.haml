@@ -29,7 +29,7 @@
         %td.text-left Surplus/Deficit
         - @surplus = {}
         - @totals[:income].each do |key, value|
-          - @surplus[key] = value - @totals[:expense][key]
+          - @surplus[key] = value - (@totals[:expense] ? @totals[:expense][key] : 0)
           %td.text-right= @surplus[key]
         %td
         %td
