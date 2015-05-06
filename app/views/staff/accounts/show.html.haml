@@ -28,9 +28,14 @@
       %tr
         %td.text-left Surplus/Deficit
         - @surplus = {}
-        - @totals[:income].each do |key, value|
-          - @surplus[key] = value - (@totals[:expense] ? @totals[:expense][key] : 0)
-          %td.text-right= @surplus[key]
+        - if @totals[:income]
+          - @totals[:income].each do |key, value|
+            - @surplus[key] = value - (@totals[:expense] ? @totals[:expense][key] : 0)
+            %td.text-right= @surplus[key]
+        - elsif @totals[:expense]
+          - @totals[:expense].each do |key, value|
+            - @surplus[key] = -value
+            %td.text-right= @surplus[key]
         %td
         %td
         %td
@@ -38,7 +43,7 @@
         %td.text-left
           %span.hidden-sm.hidden-xs BALANCE
         - @balance = @account.balance - @surplus.values.sum
-        - @totals[:income].each_with_index do |(key, value), index|
+        - ((@totals[:income] ? @totals[:income].keys : []) | (@totals[:expense] ? @totals[:expense].keys : [])).each_with_index do |key, index|
           - current_asset_value = 0
           - unless @totals[:current_asset].nil? || index >= @totals[:current_asset].values.length
             - current_asset_value = @totals[:current_asset].values[index + 1..@totals[:current_asset].values.size].sum
