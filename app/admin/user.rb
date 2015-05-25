@@ -20,7 +20,7 @@ ActiveAdmin.register User do
     column :first_name
     column :last_name
     column :email
-    column('Role') {|u| status_tag('Admin', 'orange') if u.admin? }
+    column('Role') { |u| status_tag('Admin', 'orange') if u.admin? }
     actions
   end
 
