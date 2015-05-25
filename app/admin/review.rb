@@ -4,14 +4,15 @@ ActiveAdmin.register Review do
 
   member_action :download, method: :get do
     review = Review.find(params[:id])
-    question_ids = Review::Question.pluck(:id)
-    questions = Review::Question.pluck(:text)
+    questions_array = Review::Question.order(:id).all
+    question_ids =  questions_array.map(&:id)
+    questions =  questions_array.map(&:text)
     csv = CSV.generate(encoding: 'Windows-1251') do |csv_data|
       csv_data << ['name'] + questions
       review.responses.each do |response|
         csv_data <<
         [response.user.try(:decorate).try(:name)] +
-        response.answers.where(question_id: question_ids).pluck(:value)
+        response.answers.order(:question_id).where(question_id: question_ids).pluck(:value)
       end
     end
     send_data csv.encode('Windows-1251'),

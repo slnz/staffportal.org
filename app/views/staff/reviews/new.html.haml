@@ -25,7 +25,7 @@
               = f.semantic_fields_for 'answers_attributes[]', @response.answers.build(question: question) do |a|
                 = a.inputs do
                   = a.input :question_id, as: :hidden
-                  = a.input :value, input_html: { data: { slider: "true", "slider-range" => "0, 10", "slider-snap" => "true" } }, label: false
+                  = a.input :value, input_html: { data: { slider: "true", "slider-range" => "1, 10", "slider-snap" => "true", "slider-step" => "1" } }, label: false
                   %span.muted{style:"vertical-align: top"} 5
           .panel-footer.text-right
             .btn-group
