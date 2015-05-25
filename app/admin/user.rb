@@ -1,12 +1,26 @@
 ActiveAdmin.register User do
   decorate_with UserDecorator
-  filter :email
+  config.sort_order = 'id_asc'
+
+  scope :admins
+  scope :account_holders
+  scope :contacts
+  scope :statisticians
+  scope :players
+  scope :attendees
+
+  filter :first_name
+  filter :last_name
   filter :created_at
   filter :updated_at
+
   index do
     selectable_column
-    column :name
+    column :id
+    column :first_name
+    column :last_name
     column :email
+    column('Role') {|u| status_tag('Admin', 'orange') if u.admin? }
     actions
   end
 

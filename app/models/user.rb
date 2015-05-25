@@ -1,4 +1,12 @@
 class User < ActiveRecord::Base
+  scope :admins, -> { where('roles_mask & ? > 0', User.mask_for(:admin)) }
+  scope :account_holders, -> { where('roles_mask & ? > 0', User.mask_for(:account_holder)) }
+  scope :contacts, -> { where('roles_mask & ? > 0', User.mask_for(:contact)) }
+  scope :reviewers, -> { where('roles_mask & ? > 0', User.mask_for(:reviewer)) }
+  scope :statisticians, -> { where('roles_mask & ? > 0', User.mask_for(:statistician)) }
+  scope :trainees, -> { where('roles_mask & ? > 0', User.mask_for(:trainee)) }
+  scope :players, -> { where('roles_mask & ? > 0', User.mask_for(:player)) }
+  scope :attendees, -> { where('roles_mask & ? > 0', User.mask_for(:attendee)) }
   has_merit
   include RoleModel
   devise :trackable, :cas_authenticatable
