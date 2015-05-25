@@ -1,5 +1,6 @@
 class StaffController < ApplicationController
   before_action :authenticate_user!
+  before_action :load_activity_stream
 
   rescue_from CanCan::AccessDenied do |_exception|
     redirect_to action: 'signup'
@@ -14,6 +15,10 @@ class StaffController < ApplicationController
   end
 
   protected
+
+  def load_activity_stream
+    @activity_stream = Merit::BadgesSash.last_granted
+  end
 
   def user_type
     :user

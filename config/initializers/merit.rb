@@ -21,13 +21,13 @@ end
 
 # Create application badges (uses https://github.com/norman/ambry)
 [{
-  name: :just_registered
-}, {
   name: :paperwork_hero,
-  custom_fields: { category: :reviews }
+  description: 'Completed a people and culture review',
+  custom_fields: { category: :reviews, points: 20 }
 }, {
   name: :speedy,
-  custom_fields: { category: :reviews }
+  description: 'One of the top 20 to complete a people and culture review',
+  custom_fields: { category: :reviews, points: 50 }
 }].each_with_index do |attrs, index|
   Merit::Badge.create! attrs.merge(id: index)
 end

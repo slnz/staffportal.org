@@ -8,14 +8,19 @@
       %tr
         %th Position
         %th Name
-        %th Current Rank
         %th Latest Badge
-        %th XP
+        %th Points
     %tbody
-      - @players.each_with_index do |player, index|
+      - @scores.each_with_index do |rank, index|
         %tr.expandable.record.closed
+          - player = User.find(rank['user_id']).decorate
           %td= index + 1
           %td= player.name
+          %td
+            - if player.badges.last
+              = player.badges.last.name.to_s.titleize
+              = image_tag "achievement_#{player.badges.last.name}.png", style: "border-radius: 5px; margin-right: 5px", class: "pull-left", width: 25
+          %td= rank['sum_points']
         /   %td
         /     = image_tag "badge_#{leader.xp_level.name}.gif", style: "border-radius: 5px", width: 20
         /     %span.muted= leader.xp_level.name.capitalize

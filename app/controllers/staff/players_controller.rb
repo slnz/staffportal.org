@@ -3,14 +3,17 @@ module Staff
     add_breadcrumb 'leaderboard', :players_path
 
     def index
-      load_players
-      decorate_players
+      load_scores
     end
 
     protected
 
     def load_players
-      @players ||= player_scope.all
+      @players ||= player_scope.order(:points).all
+    end
+
+    def load_scores
+      @scores ||= Merit::Score.top_scored
     end
 
     def decorate_players

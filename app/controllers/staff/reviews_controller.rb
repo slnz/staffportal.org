@@ -17,7 +17,15 @@ module Staff
     def create
       load_review
       build_response
-      return flash[:success] = 'Successfully submitted your review' if save_response
+      if save_response
+        current_user.add_badge(0)
+        current_user.add_points(20, category: 'reviews')
+        if User::Response.where(review: @response.review).count <= 20
+          current_user.add_badge(1)
+          current_user.add_points(50, category: 'reviews')
+        end
+        return flash[:success] = 'Successfully submitted your review'
+      end
       load_questions
       flash.now[:error] = 'There was a problem submitting your review'
       render action: :new
