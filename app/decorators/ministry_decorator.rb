@@ -1,0 +1,2 @@
+class MinistryDecorator < ApplicationDecorator
+end
