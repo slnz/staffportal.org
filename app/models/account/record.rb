@@ -20,5 +20,9 @@ class Account
       super
       self.month = self.date.beginning_of_month
     end
+
+    def balance
+      super || 0
+    end
   end
 end
