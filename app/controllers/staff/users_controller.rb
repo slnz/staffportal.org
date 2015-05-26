@@ -87,6 +87,9 @@ module Staff
                          :ministry_id,
                          :dietary_requirements,
                          :medical_requirements,
+                         :emergency_contact_phone,
+                         :emergency_contact_name,
+                         :emergency_contact_relationship,
                          kids_attributes: [
                            :id,
                            :first_name,

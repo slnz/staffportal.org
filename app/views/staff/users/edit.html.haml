@@ -42,6 +42,9 @@
       = f.inputs do
         = f.input :dietary_requirements, input_html: { rows: 10 }
         = f.input :medical_requirements, input_html: { rows: 10 }
+        = f.input :emergency_contact_name
+        = f.input :emergency_contact_relationship
+        = f.input :emergency_contact_phone
     .col-md-6
       .form-title Children
       #kids

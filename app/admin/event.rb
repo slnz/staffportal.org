@@ -15,6 +15,35 @@ ActiveAdmin.register Event do
     actions
   end
 
+  action_item :download, only: :show do
+    link_to 'Download Registrations', action: 'download'
+  end
+
+  member_action :download, method: :get do
+    event = Event.find(params[:id])
+    registrations = event.registrations
+    attendee_fields = %w(first_name last_name primary_phone email medical_requirements dietary_requirements
+                         emergency_contact_name emergency_contact_relationship emergency_contact_phone address)
+    registration_fields = %w(comments)
+    csv = CSV.generate(encoding: 'Windows-1251') do |csv_data|
+      csv_data << attendee_fields + registration_fields
+      registrations.each do |registration|
+        attendee = registration.user.try(:decorate)
+        csv_line = []
+        attendee_fields.each do |field|
+          csv_line += [attendee.send(field)]
+        end
+        registration_fields.each do |field|
+          csv_line += [registration.send(field)]
+        end
+        csv_data << csv_line
+      end
+    end
+    send_data csv.encode('Windows-1251'),
+              type: 'text/csv; charset=windows-1251; header=present',
+              disposition: "attachment; filename=#{event.name.parameterize.underscore}_attendees.csv"
+  end
+
   form do |f|
     f.inputs title: 'Event Core Details' do
       f.input :logo

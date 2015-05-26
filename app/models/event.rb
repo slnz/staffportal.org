@@ -1,6 +1,6 @@
 class Event < ActiveRecord::Base
   has_many :registrations, class_name: 'User::Registration'
-  has_many :users, through: :registrations
+  has_many :users, through: :registrations, class_name: 'User::AsAttendee'
 
   belongs_to :logo, class_name: 'User::Document'
   belongs_to :programme, class_name: 'User::Document'

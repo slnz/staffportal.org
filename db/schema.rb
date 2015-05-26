@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150309004720) do
+ActiveRecord::Schema.define(version: 20150526001259) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -461,13 +461,13 @@ ActiveRecord::Schema.define(version: 20150309004720) do
 
   create_table "users", force: true do |t|
     t.string   "username"
-    t.datetime "created_at",                        null: false
-    t.datetime "updated_at",                        null: false
-    t.string   "email",                default: "", null: false
+    t.datetime "created_at",                                  null: false
+    t.datetime "updated_at",                                  null: false
+    t.string   "email",                          default: "", null: false
     t.string   "first_name"
     t.string   "last_name"
     t.decimal  "mpd_goal"
-    t.integer  "sign_in_count",        default: 0
+    t.integer  "sign_in_count",                  default: 0
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
@@ -479,14 +479,17 @@ ActiveRecord::Schema.define(version: 20150309004720) do
     t.string   "home_phone"
     t.string   "office_phone"
     t.string   "address"
-    t.integer  "contacts_count",       default: 0
-    t.integer  "roles_mask",           default: 0
+    t.integer  "contacts_count",                 default: 0
+    t.integer  "roles_mask",                     default: 0
     t.string   "search"
     t.integer  "sash_id"
-    t.integer  "level",                default: 0
+    t.integer  "level",                          default: 0
     t.integer  "ministry_id"
     t.text     "dietary_requirements"
     t.text     "medical_requirements"
+    t.string   "emergency_contact_name"
+    t.string   "emergency_contact_phone"
+    t.string   "emergency_contact_relationship"
   end
 
   add_index "users", ["username"], name: "index_users_on_username", unique: true, using: :btree

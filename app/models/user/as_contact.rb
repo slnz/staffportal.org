@@ -5,6 +5,7 @@ class User
     validates :primary_phone, phony_plausible: true
     validates :home_phone, phony_plausible: true
     validates :office_phone, phony_plausible: true
+    validates :emergency_contact_phone, phony_plausible: true
     has_many :kids, foreign_key: :user_id
 
     accepts_nested_attributes_for :kids,
@@ -14,6 +15,7 @@ class User
     phony_normalize :primary_phone, default_country_code: ENV['country_code']
     phony_normalize :home_phone, default_country_code: ENV['country_code']
     phony_normalize :office_phone, default_country_code: ENV['country_code']
+    phony_normalize :emergency_contact_phone, default_country_code: ENV['country_code']
 
     before_save :update_search_field
 
