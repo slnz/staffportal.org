@@ -34,11 +34,11 @@ class User < ActiveRecord::Base
     extra_attributes.each do |name, value|
       case name.to_sym
       when :firstName
-        self.first_name = value
+        self.first_name ||= value
       when :lastName
-        self.last_name = value
+        self.last_name ||= value
       when :email
-        self.email = value
+        self.email ||= value
       end
     end
   end
