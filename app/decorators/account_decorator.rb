@@ -36,7 +36,7 @@ class AccountDecorator < ApplicationDecorator
       .where('r.date >= ?',
              last_updated - 11.months)
       .order('last(date)')
-      .pluck('last(CAST(balance AS integer))').compact
+      .pluck('last(CAST(balance AS integer))').map {|e| e ? e : 0}
     padding = []
     (1..12 - summary.size).each { |_index| padding += [0] }
     padding + summary
