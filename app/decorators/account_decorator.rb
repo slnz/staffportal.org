@@ -30,13 +30,16 @@ class AccountDecorator < ApplicationDecorator
   end
 
   def summary
-    records.unscoped
+    summary = records.unscoped
       .from("(#{Account::Record.where(account_id: id).to_sql}) as r")
       .group('date_trunc(\'month\', date)')
       .where('r.date >= ?',
              last_updated - 11.months)
       .order('last(date)')
-      .pluck('last(CAST(balance AS integer))').to_json
+      .pluck('last(CAST(balance AS integer))').compact
+    padding = []
+    (1..12 - summary.size).each { |_index| padding += [0] }
+    padding + summary
   end
 
   def list_category(category)
