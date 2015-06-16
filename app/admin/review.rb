@@ -8,10 +8,10 @@ ActiveAdmin.register Review do
     question_ids =  questions_array.map(&:id)
     questions =  questions_array.map(&:text)
     csv = CSV.generate(encoding: 'Windows-1251') do |csv_data|
-      csv_data << ['name'] + questions
+      csv_data << %w(date name) + questions
       review.responses.each do |response|
         csv_data <<
-        [response.user.try(:decorate).try(:name)] +
+        [response.created_at, response.user.try(:decorate).try(:name)] +
         response.answers.order(:question_id).where(question_id: question_ids).pluck(:value)
       end
     end
