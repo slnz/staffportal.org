@@ -29,7 +29,7 @@ gem 'httparty-cookies'
 # Controller
 gem 'inherited_resources'
 gem 'paperclip'
-gem 'aws-sdk'
+gem 'aws-sdk-v1'
 gem 's3_direct_upload'
 gem 'fiscali'
 gem 'kaminari'
