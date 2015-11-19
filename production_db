@@ -10,9 +10,9 @@
 # CAPTURE
 #
 cd ~/Backups/
-heroku pgbackups:capture --expire --app staff-portal
+heroku pg:backups capture --app staff-portal
 file_path="db_$(date +%Y_%m_%d-%H_%M_%S).dump"
-curl `heroku pgbackups:url --app staff-portal` > $file_path
+curl `heroku pg:backups public-url --app staff-portal | cat` > $file_path
 
 #
 # LOAD

@@ -41,7 +41,7 @@ ActiveAdmin.register User do
     attributes_table do
       row :first_name
       row :last_name
-      column :username
+      row :username
       row :email
     end
   end
