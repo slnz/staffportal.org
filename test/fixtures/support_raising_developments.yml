@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  number_of_calls_made: 1
+  appointments_asked_for: 1
+  appointments_setup: 1
+  contacts_asked_for: 1
+  user_id: 1
+  week_id: 1
+
+two:
+  number_of_calls_made: 1
+  appointments_asked_for: 1
+  appointments_setup: 1
+  contacts_asked_for: 1
+  user_id: 1
+  week_id: 1
