@@ -50,8 +50,73 @@ ActiveAdmin.register User::AsTrainee, as: 'Trainee Statistics' do
   end
 
   show do |user|
-    panel 'Trainee Statistics' do
-      table_for user.logs do
+    panel 'Trainee Cumulative Statistics' do
+      @hours_total = 0
+      @appointment_asks = 0
+      @appointment_set = 0
+      @decisions = 0
+      table_for user.object.logs.where('created_at > ?', 12.months.ago).decorate do
+        column :range
+        column('# Hrs Calling') do |log|
+          @hours_total += log.calling_hours
+          value = log.calling_hours
+          status_tag number_with_precision(@hours_total, precision: 0), :green if value > 2
+          status_tag number_with_precision(@hours_total, precision: 0) if value >= 1 && value <= 2
+          status_tag number_with_precision(@hours_total, precision: 0), :red if value < 1 && value > 0
+          status_tag number_with_precision(@hours_total, precision: 0), :orange if value == 0
+        end
+        column('# Asks for Appt') do |log|
+          @appointment_asks += log.appointment_asks
+          value = log.appointment_asks
+          status_tag @appointment_asks, :green if value >= 8
+          status_tag @appointment_asks if value < 8 && value > 5
+          status_tag @appointment_asks, :red if value <= 5 && value > 0
+          status_tag @appointment_asks, :orange if value == 0
+        end
+        column('% Gave Appt') do |log|
+          @appointment_set += log.appointment_set
+          if @appointment_asks.nonzero?
+            value = (@appointment_set.to_d / @appointment_asks.to_d) * 100
+            status_tag number_to_percentage(value, precision: 0), :green if value >= 70
+            status_tag number_to_percentage(value, precision: 0) if value < 70 && value > 30
+            status_tag number_to_percentage(value, precision: 0), :red if value <= 30 && value > 0
+            status_tag number_to_percentage(value, precision: 0), :orange if value == 0
+          else
+            status_tag '0%', :orange
+          end
+        end
+        column('% Yes to Monthly') do |log|
+          @decisions += log.decisions
+          if @decisions.nonzero?
+            value = (log.yes_to_monthly.to_d / @decisions.to_d) * 100
+            status_tag number_to_percentage(value, precision: 0), :orange if value > 100
+            status_tag number_to_percentage(value, precision: 0), :green if value >= 70 && value <= 100
+            status_tag number_to_percentage(value, precision: 0) if value < 70 && value > 30
+            status_tag number_to_percentage(value, precision: 0), :red if value <= 30 && value > 0
+          else
+            status_tag '0%', :orange
+          end
+        end
+        column('Avg Monthly') do |log|
+          if (log.total_monthly_pledged / log.yes_to_monthly).nan?
+            status_tag '$0.00', :orange
+          else
+            value = log.total_monthly_pledged / log.yes_to_monthly
+            status_tag number_to_currency(value), :green if value >= 70
+            status_tag number_to_currency(value) if value < 70 && value > 30
+            status_tag number_to_currency(value), :red if value <= 30
+          end
+        end
+        column('Contact Ratio') do |log|
+          value = log.contact_ratio.nan? ? 0 : log.contact_ratio
+          status_tag number_with_precision(value, precision: 2), :orange if value == 0
+          status_tag number_with_precision(value, precision: 2), :green if value >= 1
+          status_tag number_with_precision(value, precision: 2), :red if value < 1 && value > 0
+        end
+      end
+    end
+    panel 'Trainee Financial Statistics' do
+      table_for user.object.logs.where('created_at > ?', 12.months.ago).decorate do
         column :range
         column('Goal') do |_log|
           number_to_currency user.goal
@@ -76,32 +141,26 @@ ActiveAdmin.register User::AsTrainee, as: 'Trainee Statistics' do
         column('Special Confirmed') do |log|
           number_to_currency log.total_special_confirmed
         end
-        column('Contact Ratio') do |log|
-          number_with_precision(
-            log.contact_ratio, precision: 2)
-        end
       end
     end
     columns do
       column do
         panel 'Monthly Pledged' do
-          @metric = user.object.logs.pluck(:start, :total_monthly_pledged)
+          @metric = user.object.logs.where('created_at > ?', 12.months.ago).pluck(:start, :total_monthly_pledged)
           render partial: 'metrics/column_chart',
                  locals: { metric: @metric, max: user.goal }
         end
       end
       column do
         panel 'Monthly Confirmed' do
-          @metric = user.object.logs.pluck(:start, :total_monthly_confirmed)
+          @metric = user.object.logs.where('created_at > ?', 12.months.ago).pluck(:start, :total_monthly_confirmed)
           render partial: 'metrics/column_chart',
                  locals: { metric: @metric, max: user.goal }
         end
       end
     end
     panel 'Ministry Partners' do
-      table_for user.object.contacts.where('frequency > 0').order('gift_date asc') do
-        column :first_name
-        column :last_name
+      table_for user.object.contacts.where('frequency > 0 AND created_at > ?', 12.months.ago).order('gift_date asc') do
         column('amount') do |contact|
           number_to_currency contact.amount
         end

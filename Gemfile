@@ -1,5 +1,4 @@
 source 'https://rubygems.org'
-ruby '2.1.5'
 # Rails
 gem 'rails', '4.1.6'
 gem 'rails-observers'
@@ -133,4 +132,3 @@ group :production do
   gem 'airbrake'
   gem 'newrelic_rpm'
 end
-
