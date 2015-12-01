@@ -3,7 +3,7 @@
     = fa_icon 'chevron-left'
   - title "#{@account.code} #{@account.name} (History)"
   %h1
-    = "#{@account.code} #{@account.name}"
+    = @account.label
     %span.hidden-xs (History)
 #records.transactions
   %table
@@ -27,7 +27,7 @@
       - @transactions.each do |p|
         - @last = p if @last.nil?
         - unless @last.date == p.date
-          - unless params.has_key?("type")
+          - unless params.has_key?('category')
             %tr.balance
               %td= @last.date.strftime('%d %b  <span class="hidden-sm hidden-xs">%Y</span>').html_safe
               %td
@@ -58,9 +58,13 @@
                 %dt Payee:
                 %dd= "#{p.who} &nbsp;".html_safe
                 %dt Description:
-                %dd= p.reason
+                %dd
+                  = p.reason
+                  &nbsp;
                 %dt Reference:
-                %dd= p.subtext
+                %dd
+                  = p.subtext
+                  &nbsp;
       - if @last.nil? or @transactions.nil?
         %tr.bottom
           %td= Time.now.strftime('%d %b <span class="hidden-sm hidden-xs">%Y</span>').html_safe

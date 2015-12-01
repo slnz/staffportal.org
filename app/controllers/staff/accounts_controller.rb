@@ -33,14 +33,12 @@ module Staff
 
     def load_transactions
       query = @account.records
-      unless params[:month].nil?
-        query =
-          query.where(month:
-            Date.strptime(params[:month], '%b %y').beginning_of_month)
+      if params[:month]
+        date = Date.strptime(params[:month], '%b %y').beginning_of_month
+        query = query.where('date >= ? and date <= ?', date, date.end_of_month)
       end
       query = query.where(category_id: params[:category]) if params[:category]
-      @transactions =
-        query.order('date DESC, id DESC').includes(:category).page params[:page]
+      @transactions = query.order('date DESC, id DESC').includes(:category).page params[:page]
       @money_in = 0
       @money_out = 0
       @transactions.each do |t|
