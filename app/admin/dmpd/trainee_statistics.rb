@@ -54,7 +54,10 @@ ActiveAdmin.register User::AsTrainee, as: 'Trainee Statistics' do
       @hours_total = 0
       @appointment_asks = 0
       @appointment_set = 0
+      @appointment_set_total = 0
       @decisions = 0
+      @decisions_total = 0
+      @yes_to_monthly_total = 0
       table_for user.object.logs.where('created_at > ?', 12.months.ago).decorate do
         column :range
         column('# Hrs Calling') do |log|
@@ -73,6 +76,10 @@ ActiveAdmin.register User::AsTrainee, as: 'Trainee Statistics' do
           status_tag @appointment_asks, :red if value <= 5 && value > 0
           status_tag @appointment_asks, :orange if value == 0
         end
+        column('# Gave Appt') do |log|
+          @appointment_set_total += log.appointment_set
+          status_tag @appointment_set_total
+        end
         column('% Gave Appt') do |log|
           @appointment_set += log.appointment_set
           if @appointment_asks.nonzero?
@@ -85,6 +92,13 @@ ActiveAdmin.register User::AsTrainee, as: 'Trainee Statistics' do
             status_tag '0%', :orange
           end
         end
+        column('# Dec.') do |log|
+          @decisions_total += log.decisions
+          status_tag @decisions_total
+        end
+        column('# Yes to Monthly.') do |log|
+          status_tag log.yes_to_monthly
+        end
         column('% Yes to Monthly') do |log|
           @decisions += log.decisions
           if @decisions.nonzero?
@@ -96,6 +110,9 @@ ActiveAdmin.register User::AsTrainee, as: 'Trainee Statistics' do
           else
             status_tag '0%', :orange
           end
+        end
+        column('Total Monthly') do |log|
+          status_tag number_to_currency(log.total_monthly_pledged)
         end
         column('Avg Monthly') do |log|
           if (log.total_monthly_pledged / log.yes_to_monthly).nan?
