@@ -57,7 +57,7 @@ ActiveAdmin.register User::AsTrainee, as: 'Trainee Statistics' do
       @appointment_set_total = 0
       @decisions = 0
       @decisions_total = 0
-      @yes_to_monthly_total = nil
+      @yes_to_monthly_total = 0
       table_for user.object.logs.where('created_at > ?', 12.months.ago).decorate do
         column :range
         column('# Hrs Calling') do |log|
@@ -99,7 +99,7 @@ ActiveAdmin.register User::AsTrainee, as: 'Trainee Statistics' do
           status_tag "#{log.decisions} / #{@decisions_total}"
         end
         column('# Yes to Monthly.') do |log|
-          @yes_to_monthly_total = log.yes_to_monthly - (@yes_to_monthly_total || 0)
+          @yes_to_monthly_total = log.yes_to_monthly - @yes_to_monthly_total
           status_tag "@yes_to_monthly_total / #{log.yes_to_monthly}"
           @yes_to_monthly_total = log.yes_to_monthly
         end
