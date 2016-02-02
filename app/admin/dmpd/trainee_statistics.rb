@@ -63,7 +63,7 @@ ActiveAdmin.register User::AsTrainee, as: 'Trainee Statistics' do
         column('# Hrs Calling') do |log|
           @hours_total += log.calling_hours
           value = log.calling_hours
-          text = "#{log.calling_hours} / #{number_with_precision(@hours_total, precision: 0)}"
+          text = "#{number_with_precision(log.calling_hours, precision: 0)} / #{number_with_precision(@hours_total, precision: 0)}"
           status_tag text, :green if value > 2
           status_tag text if value >= 1 && value <= 2
           status_tag text, :red if value < 1 && value > 0
@@ -100,7 +100,7 @@ ActiveAdmin.register User::AsTrainee, as: 'Trainee Statistics' do
         end
         column('# Yes to Monthly.') do |log|
           @yes_to_monthly_total = log.yes_to_monthly - @yes_to_monthly_total
-          status_tag "@yes_to_monthly_total / #{log.yes_to_monthly}"
+          status_tag "#{@yes_to_monthly_total} / #{log.yes_to_monthly}"
           @yes_to_monthly_total = log.yes_to_monthly
         end
         column('% Yes to Monthly') do |log|
