@@ -57,28 +57,30 @@ ActiveAdmin.register User::AsTrainee, as: 'Trainee Statistics' do
       @appointment_set_total = 0
       @decisions = 0
       @decisions_total = 0
-      @yes_to_monthly_total = 0
+      @yes_to_monthly_total = nil
       table_for user.object.logs.where('created_at > ?', 12.months.ago).decorate do
         column :range
         column('# Hrs Calling') do |log|
           @hours_total += log.calling_hours
           value = log.calling_hours
-          status_tag number_with_precision(@hours_total, precision: 0), :green if value > 2
-          status_tag number_with_precision(@hours_total, precision: 0) if value >= 1 && value <= 2
-          status_tag number_with_precision(@hours_total, precision: 0), :red if value < 1 && value > 0
-          status_tag number_with_precision(@hours_total, precision: 0), :orange if value == 0
+          text = "#{log.calling_hours} / #{number_with_precision(@hours_total, precision: 0)}"
+          status_tag text, :green if value > 2
+          status_tag text if value >= 1 && value <= 2
+          status_tag text, :red if value < 1 && value > 0
+          status_tag text, :orange if value == 0
         end
         column('# Asks for Appt') do |log|
           @appointment_asks += log.appointment_asks
           value = log.appointment_asks
-          status_tag @appointment_asks, :green if value >= 8
-          status_tag @appointment_asks if value < 8 && value > 5
-          status_tag @appointment_asks, :red if value <= 5 && value > 0
-          status_tag @appointment_asks, :orange if value == 0
+          text = "#{log.appointment_asks} / #{@appointment_asks}"
+          status_tag text, :green if value >= 8
+          status_tag text if value < 8 && value > 5
+          status_tag text, :red if value <= 5 && value > 0
+          status_tag text, :orange if value == 0
         end
         column('# Gave Appt') do |log|
           @appointment_set_total += log.appointment_set
-          status_tag @appointment_set_total
+          status_tag "#{log.appointment_set} / #{@appointment_set_total}"
         end
         column('% Gave Appt') do |log|
           @appointment_set += log.appointment_set
@@ -94,10 +96,12 @@ ActiveAdmin.register User::AsTrainee, as: 'Trainee Statistics' do
         end
         column('# Dec.') do |log|
           @decisions_total += log.decisions
-          status_tag @decisions_total
+          status_tag "#{log.decisions} / #{@decisions_total}"
         end
         column('# Yes to Monthly.') do |log|
-          status_tag log.yes_to_monthly
+          @yes_to_monthly_total = log.yes_to_monthly - (@yes_to_monthly_total || 0)
+          status_tag "@yes_to_monthly_total / #{log.yes_to_monthly}"
+          @yes_to_monthly_total = log.yes_to_monthly
         end
         column('% Yes to Monthly') do |log|
           @decisions += log.decisions
