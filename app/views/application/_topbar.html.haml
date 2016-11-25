@@ -61,28 +61,28 @@
               %li.divider
               %li
                 %a{:href => accounts_path} List All Accounts
-        %li{ class: ('active' if request.path.match(/dmpd/)) }
-          %a{:href => dmpd_path}
-            = fa_icon 'tasks'
-            DMPD
-        %li{ class: ('active' if current_page? reviews_path) }
-          %a{:href => reviews_path}
-            = fa_icon 'university'
-            Reviews
-        %li{ class: ('active' if current_page? gma_organizations_path) }
-          %a{:href => gma_organizations_path}
-            = fa_icon 'bar-chart-o'
-            Statistics
+        -# %li{ class: ('active' if request.path.match(/dmpd/)) }
+        -#   %a{:href => dmpd_path}
+        -#     = fa_icon 'tasks'
+        -#     DMPD
+        -# %li{ class: ('active' if current_page? reviews_path) }
+        -#   %a{:href => reviews_path}
+        -#     = fa_icon 'university'
+        -#     Reviews
+        -# %li{ class: ('active' if current_page? gma_organizations_path) }
+        -#   %a{:href => gma_organizations_path}
+        -#     = fa_icon 'bar-chart-o'
+        -#     Statistics
         %li.dropdown.visible-xs
           %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
             = fa_icon 'user'
             = current_user.first_name
             %span.caret
           %ul.dropdown-menu{:role => "menu"}
-            %li{ class: ('active' if current_page? players_path) }
-              %a{:href => players_path}
-                = fa_icon 'signal'
-                Leaderboard
+            -# %li{ class: ('active' if current_page? players_path) }
+            -#   %a{:href => players_path}
+            -#     = fa_icon 'signal'
+            -#     Leaderboard
             %li
               %a{:href => edit_user_path(current_user)} My Profile
             %li

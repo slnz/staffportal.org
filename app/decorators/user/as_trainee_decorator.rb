@@ -2,7 +2,7 @@ class User
   class AsTraineeDecorator < UserDecorator
     decorates_association :logs
     def goal
-      3889
+      object.goal || 4000
     end
   end
 end

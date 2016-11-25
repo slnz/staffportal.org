@@ -7,34 +7,34 @@
       %a{:href => authenticated_root_path}
         = fa_icon 'home'
         .text Home
-    %li{ class: ('active' if request.path.match(accounts_path)) }
-      %a{:href => accounts_path}
-        = fa_icon 'money'
+    -# %li{ class: ('active' if request.path.match(accounts_path)) }
+    -#   %a{:href => accounts_path}
+    -#     = fa_icon 'money'
         .text Accounts
     %li{ class: ('active' if request.path.match(dmpd_path)) }
-      %a{:href => dmpd_path}
+      %a{:href => dmpd_signup_path(activate: true)}
         = fa_icon 'tasks'
         .text DMPD
-    %li{ class: ('active' if request.path.match(reviews_path)) }
-      %a{:href => reviews_path}
-        = fa_icon 'university'
-        .text People & Culture
-    %li{ class: ('active' if request.path.match(gma_organizations_path)) }
-      %a{:href => gma_organizations_path}
-        = fa_icon 'bar-chart-o'
-        .text Statistics
+    -# %li{ class: ('active' if request.path.match(reviews_path)) }
+    -#   %a{:href => reviews_path}
+    -#     = fa_icon 'university'
+    -#     .text People & Culture
+    -# %li{ class: ('active' if request.path.match(gma_organizations_path)) }
+    -#   %a{:href => gma_organizations_path}
+    -#     = fa_icon 'bar-chart-o'
+    -#     .text Statistics
     %li{ class: ('active' if request.path.match(events_path)) }
       %a{:href => events_path}
         = fa_icon 'calendar'
         .text Events
-    %li{ class: ('active' if request.path.match(players_path)) }
-      %a{:href => players_path}
-        = fa_icon 'signal'
-        .text Leaderboard
-    %li{ class: ('active' if request.path.match(documents_path)) }
-      %a{:href => documents_path}
-        = fa_icon 'file-o'
-        .text Document Centre
+    -# %li{ class: ('active' if request.path.match(players_path)) }
+    -#   %a{:href => players_path}
+    -#     = fa_icon 'signal'
+    -#     .text Leaderboard
+    -# %li{ class: ('active' if request.path.match(documents_path)) }
+    -#   %a{:href => documents_path}
+    -#     = fa_icon 'file-o'
+    -#     .text Document Centre
   %ul.nav.nav-pills.nav-stacked.bottom
     %li{ class: ('active' if request.path.match(users_path)) }
       %a{href: users_path }

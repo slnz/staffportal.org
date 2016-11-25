@@ -12,7 +12,7 @@ module Dmpd
     validates :user, presence: true
     validates :first_name, presence: true
     validates :last_name, presence: true
-    validates :primary_phone, presence: true, uniqueness: true
+    validates :primary_phone, presence: true
     validates :priority_code, presence: true
     validates :status, presence: true
     validates :primary_phone, phony_plausible: true

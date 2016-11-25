@@ -48,7 +48,7 @@ gem 'high_voltage'
 
 # Model
 gem 'phony_rails'
-gem 'currency_select', github: 'tanordheim/currency_select'
+gem 'currency_select', git: 'https://github.com/tanordheim/currency_select.git'
 gem 'active_type'
 gem 'merit'
 
@@ -59,7 +59,7 @@ gem 'chosen-rails'
 gem 'cocoon'
 
 # Administration
-gem 'activeadmin', github: 'gregbell/active_admin'
+gem 'activeadmin', git: 'https://github.com/gregbell/active_admin.git'
 gem 'groupdate'
 gem 'chartkick'
 

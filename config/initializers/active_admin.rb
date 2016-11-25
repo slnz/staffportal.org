@@ -143,7 +143,6 @@ ActiveAdmin.setup do |config|
   # config.csv_column_separator = ','
   config.load_paths = [File.expand_path('app/admin', Rails.root)]
 
-  config.show_comments_in_menu = false
   config.comments = false
 
   config.namespace :admin do |admin|

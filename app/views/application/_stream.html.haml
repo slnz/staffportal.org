@@ -1,19 +1,19 @@
-.stream.hidden-sm.hidden-xs
-  .title Activity Stream
-  - if @activity_stream.blank?
-    .item
-      .row.text-center.text-muted
-        %br
-        No activity today.
-        %br
-        %br
-  - else
-    - @activity_stream.each do |badge|
-      - if badge[:user] && badge[:badge]
-        .item
-          .row
-            .col-xs-12
-              = image_tag "achievement_#{badge[:badge].name}.png", style: "border-radius: 5px; margin-bottom: 5px", width: 25
-          .row
-            .col-xs-12
-              = "<strong>#{badge[:user].decorate.name}</strong> earned the <strong>#{badge[:badge].name.to_s.titleize}</strong> badge for #{pluralize badge[:badge].custom_fields[:points], 'points'}".html_safe
+-# .stream.hidden-sm.hidden-xs
+-#   .title Activity Stream
+-#   - if @activity_stream.blank?
+-#     .item
+-#       .row.text-center.text-muted
+-#         %br
+-#         No activity today.
+-#         %br
+-#         %br
+-#   - else
+-#     - @activity_stream.each do |badge|
+-#       - if badge[:user] && badge[:badge]
+-#         .item
+-#           .row
+-#             .col-xs-12
+-#               = image_tag "achievement_#{badge[:badge].name}.png", style: "border-radius: 5px; margin-bottom: 5px", width: 25
+-#           .row
+-#             .col-xs-12
+-#               = "<strong>#{badge[:user].decorate.name}</strong> earned the <strong>#{badge[:badge].name.to_s.titleize}</strong> badge for #{pluralize badge[:badge].custom_fields[:points], 'points'}".html_safe

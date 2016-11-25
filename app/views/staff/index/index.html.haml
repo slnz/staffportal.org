@@ -1,129 +1,158 @@
 - title 'Home'
-.dashboard.row
-  - if current_user.has_role? :account_holder
-    - current_user.as(:account_holder).accounts.limit(3).all.each do |account|
-      %a{:href => account_path(account.id)}
-        .col-md-4.col-sm-6
-          .box.account.clearfix
-            .border
-            .title
-              = account.name
-              .text-muted= "#{account.code} Balance"
-            .stat
-              %div= fa_icon 'money'
-              = number_to_currency account.decorate.balance
-            .go
-              = account.name
-              = fa_icon 'chevron-right'
-  - if current_user.has_role? :reviewer
-    %a{href: reviews_path}
-      .col-md-4.col-sm-6
-        .box.pac.clearfix
-          .border
-          .title
-            People & Culture
-            .text-muted Due Reviews
-          .stat
-            %div= fa_icon 'university'
-            0
-          .go
-            People & Culture
-            = fa_icon 'chevron-right'
-  - if current_user.has_role? :attendee
-    %a{href: events_path}
-      .col-md-4.col-sm-6
-        .box.clearfix
-          .border
-          .title
-            Events
-            .text-muted Upcoming Events
-          .stat
-            %div= fa_icon 'calendar'
-            = ::Event.where('finish_date > ?', Date.today).order(:start_date).count
-          .go
-            Events
-            = fa_icon 'chevron-right'
-  - if current_user.has_role? :statistician
-    %a{href: gma_organizations_path}
-      .col-md-4.col-sm-6
-        .box.statistics.clearfix
-          .border
-          .title
-            Statistics
-            .text-muted Due Reports
-          .stat
-            %div= fa_icon 'bar-chart-o'
-            = current_user.as(:statistician).gma_staff_reports.where(submitted: false).count
-          .go
-            Statistics
-            = fa_icon 'chevron-right'
-  - unless current_user.has_role? :account_holder
-    %a{href: accounts_path}
-      .col-md-4.col-sm-6
-        .box.empty.clearfix
-          .border
-          .title
-            Accounts
-          .stat
-            %div= fa_icon 'plus'
-            Activate
-  - unless current_user.has_role? :reviewer
-    %a{href: reviews_path}
-      .col-md-4.col-sm-6
-        .box.empty.clearfix
-          .border
-          .title
-            People & Culture
-          .stat
-            %div= fa_icon 'plus'
-            Activate
-  - unless current_user.has_role? :statistician
-    %a{href: gma_organizations_path}
-      .col-md-4.col-sm-6
-        .box.empty.clearfix
-          .border
-          .title
-            Statistics
-          .stat
-            %div= fa_icon 'plus'
-            Activate
-  - unless current_user.has_role? :trainee
-    %a{href: dmpd_path}
-      .col-md-4.col-sm-6
-        .box.empty.clearfix
-          .border
-          .title
-            DMPD
-          .stat
-            %div= fa_icon 'plus'
-            Activate
-  - unless current_user.has_role? :player
-    %a{href: players_path}
-      .col-md-4.col-sm-6
-        .box.empty.clearfix
-          .border
-          .title
-            Leaderboard
-          .stat
-            %div= fa_icon 'plus'
-            Activate
-  - unless current_user.has_role? :contact
-    %a{href: users_path}
-      .col-md-4.col-sm-6
-        .box.empty.clearfix
-          .border
-          .title
-            Directory
-          .stat
-            %div= fa_icon 'plus'
-            Activate
-  - unless current_user.has_role? :attendee
-    %a{href: events_path}
-      .col-md-4.col-sm-6
-        .box.empty.clearfix
-          .border
-          .title
-            Events
-          .stat
-            %div= fa_icon 'plus'
-            Activate
+.dashboard
+  .row
+    .col-md-6.text-center
+      %h3 Tandem Ministries new Staff Portal
+      %a.btn.btn-primary.btn-lg.btn-block{href: 'https://nz.staffportal.org'} nz.staffportal.org
+    .col-md-6.text-center
+      %h3 Pacific Islands new Staff Portal
+      %a.btn.btn-primary.btn-lg.btn-block{href: 'https://pir.staffportal.org'} pir.staffportal.org
+  .row
+    .col-md-12
+      %h1
+        The new Staff Portal is here!
+      %h2
+        It’s the easier, faster, smarter way of doing your online admin.
+      %p
+        We’ve changed the way you do your online ministry admin for the better. So you can now do more of your admin no matter where you are or which device you use – smartphone, tablet or computer.
+        The new Staff Portal It has a fresh layout and friendly design that works in the same way across all your devices. Plus we’ve added loads more functionality so you can do more in one place.
+      .row
+        .col-md-6
+          %h4 Things working on the new Staff Portal
+          %ul
+            %li Accounts
+            %li People & Culture Reviews (are now "Reviews")
+            %li Document Centre (is now "Resources")
+            %li DMPD
+        .col-md-6
+          %h4 Things only on the original Staff Portal
+          %ul
+            %li Event Registration
+            %li Directory
+  -# - if current_user.has_role? :account_holder
+  -#   - current_user.as(:account_holder).accounts.limit(3).all.each do |account|
+  -#     %a{:href => account_path(account.id)}
+  -#       .col-md-4.col-sm-6
+  -#         .box.account.clearfix
+  -#           .border
+  -#           .title
+  -#             = account.name
+  -#             .text-muted= "#{account.code} Balance"
+  -#           .stat
+  -#             %div= fa_icon 'money'
+  -#             = number_to_currency account.decorate.balance
+  -#           .go
+  -#             = account.name
+  -#             = fa_icon 'chevron-right'
+  -# - if current_user.has_role? :reviewer
+  -#   %a{href: reviews_path}
+  -#     .col-md-4.col-sm-6
+  -#       .box.pac.clearfix
+  -#         .border
+  -#         .title
+  -#           People & Culture
+  -#           .text-muted Due Reviews
+  -#         .stat
+  -#           %div= fa_icon 'university'
+  -#           0
+  -#         .go
+  -#           People & Culture
+  -#           = fa_icon 'chevron-right'
+  -# - if current_user.has_role? :attendee
+  -#   %a{href: events_path}
+  -#     .col-md-4.col-sm-6
+  -#       .box.clearfix
+  -#         .border
+  -#         .title
+  -#           Events
+  -#           .text-muted Upcoming Events
+  -#         .stat
+  -#           %div= fa_icon 'calendar'
+  -#           = ::Event.where('finish_date > ?', Date.today).order(:start_date).count
+  -#         .go
+  -#           Events
+  -#           = fa_icon 'chevron-right'
+  -# - if current_user.has_role? :statistician
+  -#   %a{href: gma_organizations_path}
+  -#     .col-md-4.col-sm-6
+  -#       .box.statistics.clearfix
+  -#         .border
+  -#         .title
+  -#           Statistics
+  -#           .text-muted Due Reports
+  -#         .stat
+  -#           %div= fa_icon 'bar-chart-o'
+  -#           = current_user.as(:statistician).gma_staff_reports.where(submitted: false).count
+  -#         .go
+  -#           Statistics
+  -#           = fa_icon 'chevron-right'
+  -# - unless current_user.has_role? :account_holder
+  -#   %a{href: accounts_path}
+  -#     .col-md-4.col-sm-6
+  -#       .box.empty.clearfix
+  -#         .border
+  -#         .title
+  -#           Accounts
+  -#         .stat
+  -#           %div= fa_icon 'plus'
+  -#           Activate
+  -# - unless current_user.has_role? :reviewer
+  -#   %a{href: reviews_path}
+  -#     .col-md-4.col-sm-6
+  -#       .box.empty.clearfix
+  -#         .border
+  -#         .title
+  -#           People & Culture
+  -#         .stat
+  -#           %div= fa_icon 'plus'
+  -#           Activate
+  -# - unless current_user.has_role? :statistician
+  -#   %a{href: gma_organizations_path}
+  -#     .col-md-4.col-sm-6
+  -#       .box.empty.clearfix
+  -#         .border
+  -#         .title
+  -#           Statistics
+  -#         .stat
+  -#           %div= fa_icon 'plus'
+  -#           Activate
+  -# - unless current_user.has_role? :trainee
+  -#   %a{href: dmpd_path}
+  -#     .col-md-4.col-sm-6
+  -#       .box.empty.clearfix
+  -#         .border
+  -#         .title
+  -#           DMPD
+  -#         .stat
+  -#           %div= fa_icon 'plus'
+  -#           Activate
+  -# - unless current_user.has_role? :player
+  -#   %a{href: players_path}
+  -#     .col-md-4.col-sm-6
+  -#       .box.empty.clearfix
+  -#         .border
+  -#         .title
+  -#           Leaderboard
+  -#         .stat
+  -#           %div= fa_icon 'plus'
+  -#           Activate
+  -# - unless current_user.has_role? :contact
+  -#   %a{href: users_path}
+  -#     .col-md-4.col-sm-6
+  -#       .box.empty.clearfix
+  -#         .border
+  -#         .title
+  -#           Directory
+  -#         .stat
+  -#           %div= fa_icon 'plus'
+  -#           Activate
+  -# - unless current_user.has_role? :attendee
+  -#   %a{href: events_path}
+  -#     .col-md-4.col-sm-6
+  -#       .box.empty.clearfix
+  -#         .border
+  -#         .title
+  -#           Events
+  -#         .stat
+  -#           %div= fa_icon 'plus'
+  -#           Activate
