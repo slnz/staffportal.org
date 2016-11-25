@@ -1,0 +1,66 @@
+.card{
+  &.promo {
+    margin-top: 0;
+    padding: 60px 0;
+    background-image: image-url('main_image_bg.png');
+    background-color:#020733;
+    background-size: cover;
+    background-position: 50% 0;
+    .promo-content {
+      background-image: radial-gradient(50% 50%,rgba(1,6,51,.8) 50%,rgba(1,6,51,0) 100%);
+      width: 100%;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      border: 0;
+      height: 320px;
+      text-align: center;
+      color: #fff;
+      .promo-close {
+        position: absolute;
+        top: 5px;
+        right: 20px;
+        font-size: 30px;
+        a:link, a:visited {
+          color: #fff;
+          color: rgba(255, 255, 255, 0.2);
+        }
+      }
+      .promo-title {
+        line-height: 1.2;
+        letter-spacing: 0;
+        font-weight: 700;
+        font-style: normal;
+        padding: 0 50px;
+        font-size: 44px;
+      }
+      .promo-subtitle {
+        max-width: 600px;
+        margin: 10px auto;
+        padding: 0 50px;
+        font-size: 24px;
+        letter-spacing: 0;
+        font-weight: 300;
+        font-style: normal;
+      }
+      .promo-text {
+        padding: 0 50px;
+        color: rgba(255,255,255,.65);
+        font-size: 18px;
+        letter-spacing: 0;
+        font-weight: 300;
+        font-style: normal;
+      }
+    }
+  }
+  &.promo-small {
+    padding: 0;
+    .promo-content {
+      padding: 40px 0;
+      background-image: radial-gradient(50% 50%,rgba(1,6,51,.8) 50%,rgba(1,6,51,0.2) 100%);
+      height: auto;
+      .promo-title {
+        margin-top: 0;
+      }
+    }
+  }
+}
