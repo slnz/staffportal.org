@@ -13,14 +13,31 @@
             = fa_icon 'sign-in'
             &nbsp;
             Sign in with The Key
-  .hero
-    .container
-      %h1 Spend less time administrating.
-      %h4 And more time on the mission field.
-      %a.btn.btn-primary.btn-lg{href: "/auth/key", "data-no-turbolink" => true}
-        = fa_icon 'sign-in'
-        &nbsp;
-        Sign in with The Key
+  .container
+    %br
+    .card.promo
+      .promo-content
+        %h1.promo-title Spend less time administrating.
+        %h2.promo-subtitle
+          Staff Portal is designed to take care of your ministry admin needs, giving you more time to
+          %br/
+          = succeed "." do
+            %strong focus on reaching your world
+        .promo-text The new Staff Portal is here.
+    .row
+      .col-md-6.text-center
+        %h3 Tandem Ministries new Staff Portal
+        %a.btn.btn-primary.btn-lg.btn-block{href: 'https://nz.staffportal.org'} nz.staffportal.org
+      .col-md-6.text-center
+        %h3 Pacific Islands new Staff Portal
+        %a.btn.btn-primary.btn-lg.btn-block{href: 'https://pir.staffportal.org'} pir.staffportal.org
+    .row
+      .col-md-12
+        %br
+        %p.text-center
+          We’ve changed the way you do your online ministry admin for the better. So you can now do more of your admin no matter where you are or which device you use.
+          The new Staff Portal has a fresh layout and friendly design that works the same way across all your devices. Plus we’ve added loads more functionality so you can do more in one place.
+%hr
   .footer
     .container
       Powered by
